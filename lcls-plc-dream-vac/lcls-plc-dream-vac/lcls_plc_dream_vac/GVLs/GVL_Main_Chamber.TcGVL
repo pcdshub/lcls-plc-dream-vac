@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <GVL Name="GVL_Main_Chamber" Id="{c20cea82-c8af-4ed8-b93c-47972a2f58aa}">
+    <Declaration><![CDATA[//{attribute 'qualified_only'}
+VAR_GLOBAL
+	
+////CATCHER 1 
+{attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[EL1004_01_16]^Channel 2^Input;
+							 .i_xFaultNC		:=	TIIB[EL1004_01_16]^Channel 1^Input;
+							 .q_RunDO			:=	TIIB[EL2794_01_15]^Channel 1^Output;	
+							 .q_xReset			:=	TIIB[EL2794_01_15]^Channel 2^Output			 
+'}
+{attribute 'pytmc' := '
+		pv: DREAM:CAT1:PTM:01
+		io: io
+'}
+DREAM_CAT1_PTM_01 : FB_PTM_Pfeiffer;
+
+(*
+{attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[EL1004_01_16]^Channel 2^Input;
+							 .i_xFaultNC		:=	TIIB[EL1004_01_16]^Channel 1^Input;
+							 .q_RunDO			:=	TIIB[EL2794_01_15]^Channel 1^Output;	
+							 .q_xReset			:=	TIIB[EL2794_01_15]^Channel 2^Output			 
+'}
+{attribute 'pytmc' := '
+		pv: DREAM:DP2:GHC:01
+		io: io
+'}
+DREAM_DP2_GHC_01 : FB_;
+*)
+
+/////CATCHER 2 
+{attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[EL1004_01_16]^Channel 2^Input;
+							 .i_xFaultNC		:=	TIIB[EL1004_01_16]^Channel 1^Input;
+							 .q_RunDO			:=	TIIB[EL2794_01_15]^Channel 1^Output;	
+							 .q_xReset			:=	TIIB[EL2794_01_15]^Channel 2^Output			 
+'}
+{attribute 'pytmc' := '
+		pv: DREAM:CAT2:PTM:01
+		io: io
+'}
+DREAM_CAT2_PTM_01 : FB_PTM_Pfeiffer;
+
+/////MAIN CHAMBER 
+/// TURBO PUMPS 
+
+
+
+
+
+
+
+/// HOT CATHODE GUAGE 
+
+
+
+
+
+///GPI 
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

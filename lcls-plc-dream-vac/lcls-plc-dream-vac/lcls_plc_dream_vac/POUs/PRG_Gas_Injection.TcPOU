@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="PRG_Gas_Injection" Id="{ab0df52c-f49d-4ded-980d-add7df5a12c7}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_Gas_Injection
+VAR
+	
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// GAS INJECTION DEVICES
+// GUAGES 
+(* Pirani MKS 275 Gauges *)
+DREAM_NC_GPI_01(PG=>);
+DREAM_DP1_GPI_01(PG=>);
+
+//Cold Cathode Guages
+DREAM_NC_GCC_01(PG:= DREAM_NC_GPI_01.PG, IG=>, bEP:=FALSE);
+DREAM_DP1_GCC_01(PG:= DREAM_DP1_GPI_01.PG, IG=>, bEP:=FALSE);
+
+//Valves
+DREAM_DP1_VRC_01(i_xExtILK_OK := TRUE, i_xOverrideMode := xSystemOverrideMode, iq_stValve => );	
+DREAM_DP1_VRC_02(i_xExtILK_OK := TRUE, i_xOverrideMode := xSystemOverrideMode, iq_stValve => );	
+
+//Turbo Interlocks
+DREAM_NC_PTM_01(i_xExtIlkOK:= FALSE);
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
