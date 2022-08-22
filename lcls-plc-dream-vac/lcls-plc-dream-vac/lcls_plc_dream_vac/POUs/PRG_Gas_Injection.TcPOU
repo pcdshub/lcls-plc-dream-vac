@@ -23,7 +23,7 @@ DREAM_DP1_VRC_01(i_xExtILK_OK := TRUE, i_xOverrideMode := xSystemOverrideMode, i
 DREAM_DP1_VRC_02(i_xExtILK_OK := TRUE, i_xOverrideMode := xSystemOverrideMode, iq_stValve => );	
 
 //Turbo Interlocks
-DREAM_NC_PTM_01(i_xExtIlkOK:= FALSE);
+DREAM_NC_PTM_01(i_xExtIlkOK:= DREAM_NC_GPI_01.PG.xPRESS_OK AND DREAM_NC_GPI_01.PG.rPRESS < 10E-1 );
 ]]></ST>
     </Implementation>
   </POU>
