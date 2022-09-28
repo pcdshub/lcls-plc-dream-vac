@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="POU_COM" Id="{d70bdf27-8797-4bac-87aa-9f251af83b06}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM POU_COM
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Instantiate COM 
+
+(*
+	//LI3K4_IP1_OUT_PTM_01-TM1K4_PTM_01-IM5K4_PPM_PTM_01
+	//K4S6_01_E5 (EL6021)
+(*Instanitate Serial port com function *) 
+K4S6_01_E5_fbSerialLineControl(
+	Mode:= SERIALLINEMODE_EL6_22B,
+	pComIn:= ADR(K4S6_01_E5_stComIn),
+	pComOut:=ADR(K4S6_01_E5_stComOut),
+	SizeComIn:= SIZEOF(K4S6_01_E5_stComIn),
+	TxBuffer:= K4S6_01_E5_SerialTXBuffer,
+	RxBuffer:= K4S6_01_E5_SerialRXBuffer,
+	Error=> ,
+	ErrorID=> );
+	
+*)
+	]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

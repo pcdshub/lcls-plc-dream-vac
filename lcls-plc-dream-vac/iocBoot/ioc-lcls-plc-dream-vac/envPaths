@@ -1,0 +1,2 @@
+epicsEnvSet("IOC_TOP", "/c/Users/divyak/Documents/Github_Files/lcls-plc-dream-vac/lcls-plc-dream-vac/iocBoot/ioc-lcls-plc-dream-vac")
+epicsEnvSet("IOC_DATA", "C:\Users\divyak/iocData")

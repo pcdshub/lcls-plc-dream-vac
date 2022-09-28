@@ -20,7 +20,7 @@
 			</Format>
 		</DataType>
 	</DataTypes>
-	<Project ProjectGUID="{9A0FDA55-5824-43CD-8305-17D144358B08}" Target64Bit="true" ShowHideConfigurations="#x306">
+	<Project ProjectGUID="{9A0FDA55-5824-43CD-8305-17D144358B08}" TargetNetId="172.21.132.159.1.1" ShowHideConfigurations="#x306">
 		<System>
 			<Licenses>
 				<Target>
@@ -72,13 +72,6 @@
 							<Name>GVL_Gas_Injection.DREAM_NC_GCC_01.i_xHV_ON</Name>
 							<Comment>
 								<![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]>
-							</Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Gas_Injection.DREAM_NC_GCC_01.i_xDisc_Active</Name>
-							<Comment>
-								<![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]>
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
@@ -149,23 +142,16 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Gas_Injection.DREAM_DP1_GCC_01.i_iPRESS_R</Name>
+							<Name>GVL_Gas_Injection.DREAM_DP1_GHC_01.i_iPRESS_R</Name>
 							<Comment>
 								<![CDATA[ Controls and I/Os]]>
 							</Comment>
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Gas_Injection.DREAM_DP1_GCC_01.i_xHV_ON</Name>
+							<Name>GVL_Gas_Injection.DREAM_DP1_GHC_01.i_xHV_ON</Name>
 							<Comment>
-								<![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]>
-							</Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Gas_Injection.DREAM_DP1_GCC_01.i_xDisc_Active</Name>
-							<Comment>
-								<![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]>
+								<![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1084) ^Input]]>
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
@@ -213,6 +199,20 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>GVL_Gas_Injection.DREAM_DP2_GHC_01.i_iPRESS_R</Name>
+							<Comment>
+								<![CDATA[ Controls and I/Os]]>
+							</Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Gas_Injection.DREAM_DP2_GHC_01.i_xHV_ON</Name>
+							<Comment>
+								<![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1084) ^Input]]>
+							</Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>GVL_Gas_Injection.DREAM_DP3_PTM_01.i_xAtSpd</Name>
 							<Comment>
 								<![CDATA[ Normaml operation when true]]>
@@ -223,6 +223,20 @@
 							<Name>GVL_Gas_Injection.DREAM_DP3_PTM_01.i_xFaultNC</Name>
 							<Comment>
 								<![CDATA[ Error Active when no Error is present]]>
+							</Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Gas_Injection.DREAM_DP3_GHC_01.i_iPRESS_R</Name>
+							<Comment>
+								<![CDATA[ Controls and I/Os]]>
+							</Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Gas_Injection.DREAM_DP3_GHC_01.i_xHV_ON</Name>
+							<Comment>
+								<![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1084) ^Input]]>
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
@@ -347,7 +361,7 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_Gas_Injection.DREAM_DP1_GCC_01.q_xHV_DIS</Name>
+							<Name>GVL_Gas_Injection.DREAM_DP1_GHC_01.q_xHV_DIS</Name>
 							<Comment>
 								<![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EP2624) ^Output]]>
 							</Comment>
@@ -369,9 +383,23 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>GVL_Gas_Injection.DREAM_DP2_GHC_01.q_xHV_DIS</Name>
+							<Comment>
+								<![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EP2624) ^Output]]>
+							</Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>GVL_Gas_Injection.DREAM_DP3_PTM_01.q_RunDO</Name>
 							<Comment>
 								<![CDATA[ Start/Stop]]>
+							</Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Gas_Injection.DREAM_DP3_GHC_01.q_xHV_DIS</Name>
+							<Comment>
+								<![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EP2624) ^Output]]>
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
@@ -445,5 +473,84 @@
 				</Instance>
 			</Project>
 		</Plc>
+		<Io>
+			<Device File="Device 1 (EtherCAT).xti" Id="1"/>
+		</Io>
 	</Project>
+	<Mappings>
+		<MappingInfo Identifier="{00000000-2001-0850-0020-500810000403}" Id="#x02030010"/>
+		<OwnerA Name="TIPC^lcls_plc_dream_vac^lcls_plc_dream_vac Instance">
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_E0_EK1200^R20_DRL_03_E17_EK1122^K4S8_DRL_03_EK1100^K4S8_DRL_03_E10_EL1004">
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_DP1_VRC_01.i_xClsLS" VarB="Channel 4^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_DP1_VRC_01.i_xOpnLS" VarB="Channel 3^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_DP1_VRC_02.i_xClsLS" VarB="Channel 2^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_DP1_VRC_02.i_xOpnLS" VarB="Channel 1^Input" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_E0_EK1200^R20_DRL_03_E17_EK1122^K4S8_DRL_03_EK1100^K4S8_DRL_03_E11_EL2004">
+				<Link VarA="PlcTask Outputs^GVL_Gas_Injection.DREAM_DP1_VRC_01.q_xOPN_DO" VarB="Channel 2^Output" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_E0_EK1200^R20_DRL_03_E17_EK1122^K4S8_DRL_03_EK1100^K4S8_DRL_03_E13_EL1004">
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_NC_PTM_01.i_xAtSpd" VarB="Channel 1^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_NC_PTM_01.i_xFaultNC" VarB="Channel 3^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_NC_PTM_01.i_xRemote" VarB="Channel 2^Input" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_E0_EK1200^R20_DRL_03_E17_EK1122^K4S8_DRL_03_EK1100^K4S8_DRL_03_E14_EL2004">
+				<Link VarA="PlcTask Outputs^GVL_Gas_Injection.DREAM_NC_PTM_01.q_PumpingStation" VarB="Channel 3^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_Gas_Injection.DREAM_NC_PTM_01.q_RunDO" VarB="Channel 1^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_Gas_Injection.DREAM_NC_PTM_01.q_xRemote" VarB="Channel 2^Output" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_E0_EK1200^R20_DRL_03_E17_EK1122^K4S8_DRL_03_EK1100^K4S8_DRL_03_E16_EL1004">
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_NC_PTM_02.i_xAtSpd" VarB="Channel 1^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_NC_PTM_02.i_xFaultNC" VarB="Channel 3^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_NC_PTM_02.i_xRemote" VarB="Channel 2^Input" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_E0_EK1200^R20_DRL_03_E17_EK1122^K4S8_DRL_03_EK1100^K4S8_DRL_03_E17_EL2004">
+				<Link VarA="PlcTask Outputs^GVL_Gas_Injection.DREAM_NC_PTM_02.q_PumpingStation" VarB="Channel 3^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_Gas_Injection.DREAM_NC_PTM_02.q_RunDO" VarB="Channel 1^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_Gas_Injection.DREAM_NC_PTM_02.q_xRemote" VarB="Channel 2^Output" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_E0_EK1200^R20_DRL_03_E17_EK1122^K4S8_DRL_03_EK1100^K4S8_DRL_03_E19_EL1004">
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_DP1_PTM_01.i_xAtSpd" VarB="Channel 1^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_DP1_PTM_01.i_xFaultNC" VarB="Channel 3^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_DP1_PTM_01.i_xRemote" VarB="Channel 2^Input" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_E0_EK1200^R20_DRL_03_E17_EK1122^K4S8_DRL_03_EK1100^K4S8_DRL_03_E1_EL2624">
+				<Link VarA="PlcTask Outputs^GVL_Gas_Injection.DREAM_DP1_GHC_01.q_xHV_DIS" VarB="Channel 2^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_Gas_Injection.DREAM_DP2_GHC_01.q_xHV_DIS" VarB="Channel 3^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_Gas_Injection.DREAM_DP3_GHC_01.q_xHV_DIS" VarB="Channel 4^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_Gas_Injection.DREAM_NC_GCC_01.q_xHV_DIS" VarB="Channel 1^Output" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_E0_EK1200^R20_DRL_03_E17_EK1122^K4S8_DRL_03_EK1100^K4S8_DRL_03_E20_EL2004">
+				<Link VarA="PlcTask Outputs^GVL_Gas_Injection.DREAM_DP1_PTM_01.q_PumpingStation" VarB="Channel 3^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_Gas_Injection.DREAM_DP1_PTM_01.q_RunDO" VarB="Channel 1^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_Gas_Injection.DREAM_DP1_PTM_01.q_xRemote" VarB="Channel 2^Output" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_E0_EK1200^R20_DRL_03_E17_EK1122^K4S8_DRL_03_EK1100^K4S8_DRL_03_E4_EL1084">
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_DP1_GHC_01.i_xHV_ON" VarB="Channel 4^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_DP2_GHC_01.i_xHV_ON" VarB="Channel 1^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_DP3_GHC_01.i_xHV_ON" VarB="Channel 2^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_NC_GCC_01.i_xHV_ON" VarB="Channel 3^Input" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_E0_EK1200^R20_DRL_03_E17_EK1122^K4S8_DRL_03_EK1100^K4S8_DRL_03_E5_EL3174-0002">
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_DP1_GHC_01.i_iPRESS_R" VarB="AI Standard Channel 2^Value" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_DP2_GHC_01.i_iPRESS_R" VarB="AI Standard Channel 3^Value" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_DP3_GHC_01.i_iPRESS_R" VarB="AI Standard Channel 4^Value" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_NC_GCC_01.i_iPRESS_R" VarB="AI Standard Channel 1^Value" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_E0_EK1200^R20_DRL_03_E17_EK1122^K4S8_DRL_03_EK1100^K4S8_DRL_03_E6_EL3174-0002">
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_DP1_GPI_01.i_iPRESS_R" VarB="AI Standard Channel 2^Value" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_NC_GPI_01.i_iPRESS_R" VarB="AI Standard Channel 1^Value" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_E0_EK1200^R20_DRL_03_E4_EL1004">
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_DP2_PTM_01.i_xAtSpd" VarB="Channel 2^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_DP2_PTM_01.i_xFaultNC" VarB="Channel 1^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_DP3_PTM_01.i_xAtSpd" VarB="Channel 4^Input" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_DP3_PTM_01.i_xFaultNC" VarB="Channel 3^Input" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_E0_EK1200^R20_DRL_03_E7_EL2794">
+				<Link VarA="PlcTask Outputs^GVL_Gas_Injection.DREAM_DP2_PTM_01.q_RunDO" VarB="Channel 1^Output" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_Gas_Injection.DREAM_DP3_PTM_01.q_RunDO" VarB="Channel 3^Output" AutoLink="true"/>
+			</OwnerB>
+		</OwnerA>
+	</Mappings>
 </TcSmProject>

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <GVL Name="GVL_Serial_Com" Id="{69b69a31-af12-4a34-9757-bac2abe556d0}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+(*	
+//NC-PTM
+K4S8_DRL_03_E12_EL6021_SerialRXBuffer : ComBuffer;
+*)
+
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>
