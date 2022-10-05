@@ -19,8 +19,62 @@
 				<Parameter>[5]</Parameter>
 			</Format>
 		</DataType>
+		<DataType>
+			<Name GUID="{BCA7A0D3-9528-42F7-846E-B019C7AB91A7}" Namespace="Tc2_SerialCom" AutoDeleteType="true">EL6inData22B</Name>
+			<Comment>
+				<![CDATA[ This data type is corresponding to the
+   EL-6xxx data structure used in the
+   TwinCAT SystemManager
+   (EL-6xxx version using 22 data bytes) 
+]]>
+			</Comment>
+			<BitSize>192</BitSize>
+			<SubItem>
+				<Name>Status</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
+				<BitSize>16</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>D</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<ArrayInfo>
+					<LBound>0</LBound>
+					<Elements>22</Elements>
+				</ArrayInfo>
+				<BitSize>176</BitSize>
+				<BitOffs>16</BitOffs>
+			</SubItem>
+		</DataType>
+		<DataType>
+			<Name GUID="{7D21E0F4-A1C3-411B-B1A0-9A7A3FA7E9F8}" Namespace="Tc2_SerialCom" AutoDeleteType="true">EL6outData22B</Name>
+			<Comment>
+				<![CDATA[ This data type is corresponding to the
+   EL-6xxx data structure used in the
+   TwinCAT SystemManager
+   (EL-6xxx version using 22 data bytes) 
+]]>
+			</Comment>
+			<BitSize>192</BitSize>
+			<SubItem>
+				<Name>Ctrl</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
+				<BitSize>16</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>D</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<ArrayInfo>
+					<LBound>0</LBound>
+					<Elements>22</Elements>
+				</ArrayInfo>
+				<BitSize>176</BitSize>
+				<BitOffs>16</BitOffs>
+			</SubItem>
+		</DataType>
 	</DataTypes>
-	<Project ProjectGUID="{9A0FDA55-5824-43CD-8305-17D144358B08}" TargetNetId="172.21.132.159.1.1" ShowHideConfigurations="#x306">
+	<Project ProjectGUID="{9A0FDA55-5824-43CD-8305-17D144358B08}" TargetNetId="172.21.132.159.1.1" Target64Bit="true" RelativeTargetNetId="true" RelativeIpAddresses="true" ShowHideConfigurations="#x306">
 		<System>
 			<Licenses>
 				<Target>
@@ -28,8 +82,11 @@
 				</Target>
 			</Licenses>
 			<Tasks>
-				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
+				<Task Id="3" Priority="1" CycleTime="100000" AmsPort="350" AdtTasks="true">
 					<Name>PlcTask</Name>
+				</Task>
+				<Task Id="4" Priority="2" CycleTime="110000" AmsPort="351" DisableFpExceptions="true" AdtTasks="true">
+					<Name>Serial_COM</Name>
 				</Task>
 			</Tasks>
 		</System>
@@ -40,20 +97,6 @@
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
-						<Var>
-							<Name>LCLS_Vacuum.Global_Variables.g_stSystem.I_EcatMaster1</Name>
-							<Comment>
-								<![CDATA[ AMS Net ID used for FB_EcatDiag, among others ]]>
-							</Comment>
-							<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
-						</Var>
-						<Var>
-							<Name>LCLS_Vacuum.LCLS_General.DefaultGlobals.stSys.I_EcatMaster1</Name>
-							<Comment>
-								<![CDATA[ AMS Net ID used for FB_EcatDiag, among others ]]>
-							</Comment>
-							<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
-						</Var>
 						<Var>
 							<Name>GVL_Gas_Injection.DREAM_NC_GPI_01.i_iPRESS_R</Name>
 							<Comment>
@@ -240,50 +283,6 @@
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
-						<Var>
-							<Name>GVL_Main_Chamber.DREAM_CAT1_PTM_01.i_xAtSpd</Name>
-							<Comment>
-								<![CDATA[ Normaml operation when true]]>
-							</Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main_Chamber.DREAM_CAT1_PTM_01.i_xFaultNC</Name>
-							<Comment>
-								<![CDATA[ Error]]>
-							</Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main_Chamber.DREAM_CAT1_PTM_01.i_xWarn</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main_Chamber.DREAM_CAT1_PTM_01.i_xRemote</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main_Chamber.DREAM_CAT2_PTM_01.i_xAtSpd</Name>
-							<Comment>
-								<![CDATA[ Normaml operation when true]]>
-							</Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main_Chamber.DREAM_CAT2_PTM_01.i_xFaultNC</Name>
-							<Comment>
-								<![CDATA[ Error]]>
-							</Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main_Chamber.DREAM_CAT2_PTM_01.i_xWarn</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Main_Chamber.DREAM_CAT2_PTM_01.i_xRemote</Name>
-							<Type>BOOL</Type>
-						</Var>
 					</Vars>
 					<Vars VarGrpType="2">
 						<Name>PlcTask Outputs</Name>
@@ -403,6 +402,81 @@
 							</Comment>
 							<Type>BOOL</Type>
 						</Var>
+					</Vars>
+					<Vars VarGrpType="1">
+						<Name>Serial_COM_Task Inputs</Name>
+						<Var>
+							<Name>LCLS_Vacuum.Global_Variables.g_stSystem.I_EcatMaster1</Name>
+							<Comment>
+								<![CDATA[ AMS Net ID used for FB_EcatDiag, among others ]]>
+							</Comment>
+							<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
+						</Var>
+						<Var>
+							<Name>LCLS_Vacuum.LCLS_General.DefaultGlobals.stSys.I_EcatMaster1</Name>
+							<Comment>
+								<![CDATA[ AMS Net ID used for FB_EcatDiag, among others ]]>
+							</Comment>
+							<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main_Chamber.DREAM_CAT1_PTM_01.i_xAtSpd</Name>
+							<Comment>
+								<![CDATA[ Normaml operation when true]]>
+							</Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main_Chamber.DREAM_CAT1_PTM_01.i_xFaultNC</Name>
+							<Comment>
+								<![CDATA[ Error]]>
+							</Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main_Chamber.DREAM_CAT1_PTM_01.i_xWarn</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main_Chamber.DREAM_CAT1_PTM_01.i_xRemote</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main_Chamber.DREAM_CAT2_PTM_01.i_xAtSpd</Name>
+							<Comment>
+								<![CDATA[ Normaml operation when true]]>
+							</Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main_Chamber.DREAM_CAT2_PTM_01.i_xFaultNC</Name>
+							<Comment>
+								<![CDATA[ Error]]>
+							</Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main_Chamber.DREAM_CAT2_PTM_01.i_xWarn</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Main_Chamber.DREAM_CAT2_PTM_01.i_xRemote</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Serial_Com.K4S8_DRL_03_E12_stComIn</Name>
+							<Comment>
+								<![CDATA[SERIAL IO //]]>
+							</Comment>
+							<Type GUID="{BCA7A0D3-9528-42F7-846E-B019C7AB91A7}" Namespace="Tc2_SerialCom">EL6inData22B</Type>
+						</Var>
+						<Var>
+							<Name>GVL_Serial_Com.K4S8_DRL_03_E09_stComIn</Name>
+							<Type GUID="{BCA7A0D3-9528-42F7-846E-B019C7AB91A7}" Namespace="Tc2_SerialCom">EL6inData22B</Type>
+						</Var>
+					</Vars>
+					<Vars VarGrpType="2">
+						<Name>Serial_COM_Task Outputs</Name>
 						<Var>
 							<Name>GVL_Main_Chamber.DREAM_CAT1_PTM_01.q_RunDO</Name>
 							<Comment>
@@ -447,9 +521,13 @@
 							<Name>GVL_Main_Chamber.DREAM_CAT2_PTM_01.q_xReset</Name>
 							<Type>BOOL</Type>
 						</Var>
+						<Var>
+							<Name>GVL_Serial_Com.K4S8_DRL_03_E12_stComOut</Name>
+							<Type GUID="{7D21E0F4-A1C3-411B-B1A0-9A7A3FA7E9F8}" Namespace="Tc2_SerialCom">EL6outData22B</Type>
+						</Var>
 					</Vars>
 					<Vars VarGrpType="8">
-						<Name>PlcTask Retains</Name>
+						<Name>Serial_COM_Task Retains</Name>
 						<Var>
 							<Name>PMPS_GVL.SuccessfulPreemption</Name>
 							<Comment>
@@ -468,7 +546,8 @@
 						</Var>
 					</Vars>
 					<TaskPouOids>
-						<TaskPouOid Prio="20" OTCID="#x08502001"/>
+						<TaskPouOid Prio="2" OTCID="#x08502002"/>
+						<TaskPouOid Prio="1" OTCID="#x08502001"/>
 					</TaskPouOids>
 				</Instance>
 			</Project>

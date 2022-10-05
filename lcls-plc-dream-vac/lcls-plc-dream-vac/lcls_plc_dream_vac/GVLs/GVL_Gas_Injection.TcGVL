@@ -60,6 +60,10 @@ DREAM_NC_PTM_01 : FB_PTM_Pfeiffer;
 '}
 DREAM_NC_PTM_02 : FB_PTM_Pfeiffer;
 
+//NC PTM 01 Serial Communication 
+NC_PTM_01_COM : FB_PFEIFFER_COM;
+st_Pfeiffer_NC_PTM_01_CTRL			: ARRAY[1..20] OF ST_PfeifferControl;
+st_Pfeiffer_NC_PTM_01_RBK		    : ARRAY[1..20] OF ST_PfeifferStatus;
 
 ///// DP1 (DIFFERENTIAL PRESSURE STAGE 1)
 ///TURBO PUMP
