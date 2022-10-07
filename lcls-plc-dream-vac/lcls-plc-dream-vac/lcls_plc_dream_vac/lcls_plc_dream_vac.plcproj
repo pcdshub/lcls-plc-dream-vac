@@ -22,13 +22,26 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
+    <Compile Include="GVLs\GVL_Serial_Com.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POU_COM.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POU_Interlock.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\PRG_Gas_Injection.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Serial_COM_Task.TcTTO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -46,6 +59,10 @@
     <PlaceholderReference Include="LCLSVacuumSerialDriverLib">
       <DefaultResolution>LCLSVacuumSerialDriverLib, * (SLAC - LCLS)</DefaultResolution>
       <Namespace>LCLS_Vacuum_Serial</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_SerialCom">
+      <DefaultResolution>Tc2_SerialCom, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_SerialCom</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
@@ -65,7 +82,7 @@
       <Resolution>LCLS General, 2.6.0 (SLAC)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="LCLS Vacuum">
-      <Resolution>LCLS Vacuum, 2.1.0 (SLAC - LCLS)</Resolution>
+      <Resolution>LCLS Vacuum, 2.2.0 (SLAC - LCLS)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="LCLSVacuumSerialDriverLib">
       <Resolution>LCLSVacuumSerialDriverLib, 1.2.2 (SLAC - LCLS)</Resolution>
