@@ -17,6 +17,12 @@ x_rough_down : BOOL;
 	io: io
 '}
 xSystemOverrideMode	: BOOL := FALSE; (* Global system override for the DREAM Vacuum System*)
+
+{attribute 'pytmc' := '
+	pv: PLC:DREAM:VAC:STARTALLTURBO
+	io: io
+'}
+xStartTurbo : BOOL := FALSE; (* Global system All Turbo ON for the DREAM Vacuum System*)
 	
 ////// NOZZLE CHAMBER DEVICES
 /// GUAGES 
