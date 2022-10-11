@@ -13,7 +13,8 @@ VAR
 	x_DP2_Turb_01_ON_ilk : BOOL;
 	x_DP3_Turb_01_ON_ilk : BOOL;
 	TurboStart_TOF : TOF; 
-	TurboStart_TON :TON;
+	//TurboStart_TON :TON;
+	TurboRun_T0F : TOF;
 	//xStartTurbo: BOOL;
 	x_start_pressureOK :BOOL; 
 	x_AllTurboON: BOOL;
@@ -23,6 +24,10 @@ VAR
 
 	x_run_pressureOK_DP: BOOL;
 	x_start_PressureOK_DP: BOOL;
+	xExtIlkOK_DP: BOOL;
+	//i_xExtIlkOK: BOOL;
+	x_pressureOK_NC: BOOL;
+	xExtIlkOK_NC: BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -56,9 +61,11 @@ x_run_pressureOK := DREAM_NC_GCC_01.IG.xPRESS_OK AND DREAM_NC_GCC_01.IG.rPRESS <
 x_start_pressureOK := DREAM_NC_GPI_01.PG.rPRESS <1E-1;
 
 IF x_rough_down THEN 	
-	x_pressureOK := x_start_pressureOK ;
+	x_pressureOK_NC := x_start_pressureOK ;
+	xExtIlkOK_NC:= x_pressureOK_NC AND (x_AllTurboON OR TurboStart_TOF.Q);
 ELSE
-		x_pressureOK := x_run_pressureOK;
+		x_pressureOK_NC := x_run_pressureOK;
+		xExtIlkOK_NC:= x_pressureOK_NC AND (x_AllTurboON OR TurboRun_T0F.Q);
 END_IF
 
 ////DIFFERENTIAL PRESSURE INTERLOCK 
@@ -68,8 +75,10 @@ x_start_PressureOK_DP := DREAM_DP1_GPI_01.PG.rPRESS <1E-1;
 
 IF x_rough_down THEN
 	x_pressureOK_DP := x_start_PressureOK_DP;
+	xExtIlkOK_DP:= x_pressureOK_DP AND (x_AllTurboON OR TurboStart_TOF.Q);
 ELSE
 	x_pressureOK_DP := x_run_pressureOK_DP; 
+	xExtIlkOK_DP:= x_pressureOK_DP AND (x_AllTurboON OR TurboRun_T0F.Q );
 END_IF
 
 /// ROUGHING LOGIC 
@@ -84,6 +93,9 @@ END_IF
 // Timer logic
 
 TurboStart_TOF( IN := xStartTurbo, PT := T#300s);
+
+TurboRun_T0F( IN := xStartTurbo, PT := T#30s);
+
 
 IF xStartTurbo THEN	
 DREAM_NC_PTM_01.M_Run(TRUE);
@@ -135,11 +147,11 @@ x_DP3_Turb_01_ON_ilk := (NOT (DREAM_NC_PTM_01.iq_stPTM.eState = pumpFAULT) and N
 
 *)					   
 //Turbo Interlocks
-DREAM_NC_PTM_01(i_xExtIlkOK:= x_pressureOK AND (x_AllTurboON OR TurboStart_TOF.Q), iq_stPTM => );
-DREAM_NC_PTM_02(i_xExtIlkOK:= x_pressureOK AND(x_AllTurboON OR TurboStart_TOF.Q), iq_stPTM => );
-DREAM_DP1_PTM_01(i_xExtIlkOK:= x_pressureOK_DP AND(x_AllTurboON OR TurboStart_TOF.Q), iq_stPTM => );
-DREAM_DP2_PTM_01(i_xExtIlkOK:= x_pressureOK_DP AND (x_AllTurboON OR TurboStart_TOF.Q), iq_stPTM => );
-DREAM_DP3_PTM_01(i_xExtIlkOK:= x_pressureOK_DP AND (x_AllTurboON OR TurboStart_TOF.Q), iq_stPTM => );
+DREAM_NC_PTM_01(i_xExtIlkOK:= xExtIlkOK_NC, iq_stPTM => );
+DREAM_NC_PTM_02(i_xExtIlkOK:= xExtIlkOK_NC, iq_stPTM => );
+DREAM_DP1_PTM_01(i_xExtIlkOK:= xExtIlkOK_DP, iq_stPTM => );
+DREAM_DP2_PTM_01(i_xExtIlkOK:= xExtIlkOK_DP, iq_stPTM => );
+DREAM_DP3_PTM_01(i_xExtIlkOK:= xExtIlkOK_DP, iq_stPTM => );
 
 xStartTurbo := FALSE; 
 
