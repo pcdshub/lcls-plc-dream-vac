@@ -1,0 +1,30 @@
+lcls-plc-dream-vac
+------------------
+
+.. toctree::
+    :maxdepth: 2
+    :caption: lcls-plc-dream-vac
+
+    lcls-plc-dream-vac_pragmas
+    lcls-plc-dream-vac_nc
+    lcls-plc-dream-vac_ethercat
+    lcls-plc-dream-vac_boxes
+    lcls-plc-dream-vac_links
+
+
+.. toctree::
+    :maxdepth: 2
+    :caption: lcls_plc_dream_vac
+
+    lcls-plc-dream-vac_lcls_plc_dream_vac_summary
+    lcls-plc-dream-vac_lcls_plc_dream_vac_epics
+    lcls-plc-dream-vac_lcls_plc_dream_vac_source
+
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

@@ -1,0 +1,2840 @@
+
+
+DUTs
+----
+
+
+E_Op
+^^^^
+
+::
+
+    TYPE E_Op :
+    (
+        INIT := 0,  //Initialize system
+        //IDLE := 1,  //State Machine IDLE, no operation
+        STANDBY := 1, //Monitoring IF full system under vacuum
+        PUMP_ALL := 2, //Full system pump down
+        PUMP_NC := 3, //Only Nozzle chamber pump down
+        AT_VACUUM := 4, //Monitor Vacuum status
+        VENT_ALL := 5, //Vent full system
+        VENT_NC := 6, //Vent nozzle chamber only
+        VENT_MC_CAT := 7, //Vent Main Chamber + cather
+        VENT_CAT := 8 //Vent cather only
+    );
+    END_TYPE
+
+
+Related:
+    * `E_Op`_
+
+
+E_OpStep
+^^^^^^^^
+
+::
+
+    TYPE E_OpStep :
+    (
+        IDLE := 0,
+        START := 1,
+
+        (* Vent MC and CAT System steps *)
+        VMCAS_CLOSE_ISOLATION_VALVES,
+        VMCAS_STOP_TURBO_PUMPS,
+        VMCAS_CLOSE_ROUGH_VALVES,
+        VMCAS_STOP_GAUGES,
+        VMCAS_WAIT_FOR_TURBO_PUMPS_SPIN_DOWN,
+        VMCAS_VENTING,
+        VMCAS_FINISH
+        (* Add new states for other procedures *)
+    );
+    END_TYPE
+
+
+
+
+GVLs
+----
+
+
+GVL_Automation
+^^^^^^^^^^^^^^
+
+::
+
+    VAR_GLOBAL
+        // Execute flags for vacuum system operations
+        {attribute 'pytmc' := '
+            pv: PLC:DREAM:OPERATION
+            io: io
+        '}
+        iq_eOperation : E_Op;
+
+        {attribute 'pytmc' := '
+            pv: PLC:DREAM:OPERATION:CANCEL
+            io: io
+        '}
+        i_bCancel : BOOL;
+
+        {attribute 'pytmc' := '
+            pv: PLC:DREAM:OPERATION:RESET_ERROR
+            io: io
+        '}
+        i_bResetError : BOOL;
+
+        {attribute 'pytmc' := '
+            pv: PLC:DREAM:OPERATION:BUSY
+            io: i
+            field: ZNAM NOT_BUSY
+            field: ONAM BUSY
+        '}
+        q_bBusy : BOOL;
+
+        {attribute 'pytmc' := '
+            pv: PLC:DREAM:OPERATION:ERROR
+            io: i
+            field: ZNAM OK
+            field: ONAM ERROR
+            field: ZSV NO_ALARM
+            field: OSV MAJOR
+        '}
+        q_bError : BOOL;
+
+        {attribute 'pytmc' := '
+            pv: PLC:DREAM:OPERATION:MESSAGE
+            io: i
+        '}
+        q_sMessage : STRING(EPICS_STRING_SIZE);
+    END_VAR
+
+
+Related:
+    * `E_Op`_
+
+
+GVL_Constants
+^^^^^^^^^^^^^
+
+::
+
+    VAR_GLOBAL CONSTANT
+        EPICS_STRING_SIZE : INT := 40;
+
+        ATM_PRESS : REAL := 760.0; // Atmospheric pressure in Torr
+        ATM_PRESS_INTERLOCK_SP : INT := 800; // Interlock pressure SP for valves
+        ATM_PRESS_ERR_RNG : INT := 10; // Error range that is still considered atmospheric pressure // update while testing these values
+
+        PTM_INTERLOCK_SP : REAL := 1E-2; // Turbo pumps interlock backing pressure SP
+        VALVE_INTERLOCK_SP : REAL := 5E-3; // Roughing valve interlock pressure SP
+
+        AT_VAC_SP : REAL := 1E-6; // Setpoint for at vacuum condition // update based on James and Jing input
+
+        VALVE_TIMEOUT : TIME := T#10S; // How long system tries to open or close valve before failing
+        TURBOS_NOT_RUNNING_TIMEOUT : TIME := T#10M; // How long to try turbo pumping before failing
+        TURBOS_SPINDOWN_TIMEOUT : TIME := T#60M; // How long for turbos to spin down
+
+        //Vent Valves
+        VENTING_CYCLE : TIME := T#2M; // Increase open position every 2 min
+        VFV_POSITION_STEP : INT := 1; // Position increase step
+        ROUGH2_VFV_02_INITIAL_POSITION : INT := 50; // Initial postion in % for ROUGH2_VFV_02 valve
+        ROUGH2_VFV_03_INITIAL_POSITION : INT := 40; // Initial postion in % for ROUGH2_VFV_03 valve
+    END_VAR
+
+
+
+
+GVL_FWM
+^^^^^^^
+
+::
+
+    //{attribute 'qualified_only'}
+    VAR_GLOBAL
+        (*
+        {attribute 'pytmc' := 'pv: DREAM:COIL'}
+        {attribute 'TcLinkTo' := '.iRaw := TIIB[K4S8_DRL_03_E21_EL3052]^AI Standard Channel 1^Value'}
+        fbDreamCoilFlowMeter : FB_FDQ_FlowMeter;
+        *)
+
+        {attribute 'TcLinkTo' := '.iRaw	:=	TIIB[K4S8_DRL_03_E21_EL3052]^AI Standard Channel 1^Value'}
+        fbCoilFlowMeter : FB_AnalogInput := (iTermBits:=15, fTermMax:=60, fTermMin:=0);
+
+        {attribute 'pytmc' := '
+            pv: DREAM:COIL:FWM:VAL
+            io: i
+            field: EGU "lpm"
+        '}
+        fCoilCoolantFlowMeterRBV : LREAL;
+
+        //Coil PS Current Monitoring
+        {attribute 'TcLinkTo' := '.iRaw	:=	TIIB[K4S8_DRL_04_E16_EL3174-0002]^AI Standard Channel 4^Value'}
+        fbCoilCurrentMonitoring : FB_AnalogInput := (iTermBits:=15, fTermMax:=310, fTermMin:=0);
+
+        {attribute 'pytmc' := '
+            pv: DREAM:COIL:CURRENT:VAL
+            io: i
+            field: EGU "A"
+            field: PREC "2"
+        '}
+        fCoilCurrentRBV : LREAL;
+    END_VAR
+
+
+
+
+GVL_PLC_Interface
+^^^^^^^^^^^^^^^^^
+
+::
+
+    //{attribute 'qualified_only'}
+    VAR_GLOBAL
+        (*ETHERCAT BRRIDGE COM STATUS*)
+        //0: Other side is in OP state, >0: Error
+        {attribute 'TcLinkTo' := 'TIIB[R20_DRL_03_E14_EL6695]^SYNC Inputs^TxPDO state'}
+        bEcatBridge_TxPDO_state AT %I* :BOOL;
+
+        //0: External device connectd, 1: External device not connected
+        {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^SYNC Inputs^External device not connected'}
+        bEcatBridge_External_device_not_connected AT %I* : BOOL;
+
+        //0 = Data valid, 1 = Data invalid
+        {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^WcState^WcStateIn'}
+        bEcatBridge_WcState AT %I* : BOOL;
+
+        (*Inputs from TMO Beamline*)
+        {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Inputs^HUTCH_PLC_NAME'}
+        sHUTCH_PLC_NAME AT %I* : STRING(8);
+
+        {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Inputs^TMO_MR5K4_VWC_CLOSED_LS'}
+        bTMO_MR5K4_VWC_CLOSED_LS AT %I* : BOOL;
+
+        {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Inputs^TMO_TM2K4_VWC_CLOSED_LS'}
+        bTMO_TM2K4_VWC_CLOSED_LS AT %I* : BOOL;
+
+        {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Inputs^TMO_MR5K4_VWC_OPEN_LS'}
+        bTMO_MR5K4_VWC_OPEN_LS AT %I* : BOOL;
+
+        {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Inputs^TMO_TM2K4_VWC_OPEN_LS'}
+        bTMO_TM2K4_VWC_OPEN_LS AT %I* : BOOL;
+
+        (*Outputs to TMO Beamline PLC*)
+        {attribute 'TcLinkTo' :=   'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^ENDSTATION_PLC_NAME'}
+        sENDSTATION_PLC_NAME AT %Q* : STRING(8):= 'DREAM';
+
+        {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_HV_SAFETY_ENABLE'}
+        bDREAM_HV_SAFETY_ENABLE AT %Q* : BOOL;
+
+        {attribute 'TcLInkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_TURBOS_ALL_AtSpd'}
+        {attribute 'pytmc' := '
+            pv: PLC:DREAM:VAC:TURBOS_ALL_ATSPD
+            io: i
+        '}
+        bDREAM_TURBOS_ALL_AtSpd AT %Q* : BOOL;
+
+        {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_MAIN_xAT_VAC'}
+        bDREAM_MAIN_xAT_VAC AT %Q* : BOOL;
+
+        {attribute 'TcLInkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_MAIN_xPRESS_OK'}
+        bDREAM_MAIN_xPRESS_OK AT %Q* : BOOL;
+
+        {attribute 'TcLINKTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_MAIN_rPRESS'}
+        fDREAM_MAIN_rPRESS AT %Q* : REAL;
+
+        {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^CLOSE_TMO_MR5K4_VWC'}
+        bCLOSE_TMO_MR5K4_VWC AT %Q* : BOOL;
+
+        {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^CLOSE_TMO_TM2K4_VWC'}
+        bCLOSE_TMO_TM2K4_VWC AT %Q* : BOOL;
+
+        (*ISEG HV Crate Safety Loop*)
+        {attribute 'TcLInkTo' :=  'TIIB[K4S8_DRL_04_E14_EL2624]^Channel 4^Output'}
+        {attribute 'pytmc' := '
+            pv: TMO:PLC:DREAM:VAC:HV_SAFETY_ENABLE
+            io:i
+        '}
+        bHVSafteyLoopEnable AT %Q* : BOOL := FALSE; (*When Enables the High voltage Saftey loop is closed and HV can start.*)
+
+        (*Interlock output to control COIL PS*)
+        {attribute 'TcLInkTo' :=  'TIIB[K4S8_DRL_04_E14_EL2624]^Channel 3^Output'}
+        {attribute 'pytmc' := '
+            pv: PLC:DREAM:COIL_PS:ILK
+            io: i
+        '}
+        bCoilPS_ILK AT %Q* : BOOL := FALSE;
+
+        //Ethercat interface with DREAM motion PLC
+
+         (*ETHERCAT BRRIDGE COM STATUS*)
+        //0: Other side is in OP state, >0: Error
+        {attribute 'TcLinkTo' := 'TIIB[R20_DRL_03_E15_EL1122]^SYNC Inputs^TxPDO state'}
+        bMotEcatBridge_TxPDO_state AT %I* :BOOL;
+
+        //0: External device connectd, 1: External device not connected
+        {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^SYNC Inputs^External device not connected'}
+        bMotEcatBridge_External_device_not_connected AT %I* : BOOL;
+
+        //0 = Data valid, 1 = Data invalid
+        {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E15_EL1122]^WcState^WcStateIn'}
+        bMotEcatBridge_WcState AT %I* : BOOL;
+
+        (*Inputs from DREAM Motion*)
+        //{attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Inputs^HUTCH_PLC_NAME'}
+        //sMOT_PLC_NAME AT %I* : STRING(8);
+
+        {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E15_EL1122]^IO Outputs^xDREAM_GNZ_Y_OUT'}
+        xDREAM_GNZ_Y_OUT AT %I* : BOOL;
+
+        {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E15_EL1122]IO Outputs^xDREAM_GNZ_Y_Ext_OUT'}
+        xDREAM_GNZ_Y_Ext_OUT AT %I* : BOOL;
+
+        (*Outputs to DREAM Motion*)
+        {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E15_EL1122]^IO Inputs^bDREAM_VRC_DP1_OPENED_LS'}
+        bDREAM_VRC_DP1_OPENED_LS AT %Q* : BOOL;
+
+    END_VAR
+
+
+
+
+GVL_Serial_Com
+^^^^^^^^^^^^^^
+
+::
+
+    //{attribute 'qualified_only'}
+    VAR_GLOBAL
+        //COMM FUNCTION
+        SerialRXBuffer_DREAM_NC_PTM_01     : ComBuffer;
+        SerialTXBuffer_DREAM_NC_PTM_01     : ComBuffer;
+        SerialRXBuffer_DREAM_NC_PTM_02     : ComBuffer;
+        SerialTXBuffer_DREAM_NC_PTM_02     : ComBuffer;
+        SerialRXBuffer_DREAM_DP1_PTM_01    : ComBuffer;
+        SerialTXBuffer_DREAM_DP1_PTM_01    : ComBuffer;
+        SerialRXBuffer_DREAM_DP2_PTM_01    : ComBuffer;
+        SerialTXBuffer_DREAM_DP2_PTM_01    : ComBuffer;
+        SerialRXBuffer_DREAM_DP3_PTM_01    : ComBuffer;
+        SerialTXBuffer_DREAM_DP3_PTM_01    : ComBuffer;
+        SerialRXBuffer_DREAM_MC_PTM_01     : ComBuffer;
+        SerialTXBuffer_DREAM_MC_PTM_01     : ComBuffer;
+        SerialRXBuffer_DREAM_MC_PTM_02     : ComBuffer;
+        SerialTXBuffer_DREAM_MC_PTM_02     : ComBuffer;
+        SerialRXBuffer_DREAM_CAT1_PTM_01   : ComBuffer;
+        SerialTXBuffer_DREAM_CAT1_PTM_01   : ComBuffer;
+        SerialRXBuffer_DREAM_CAT2_PTM_01   : ComBuffer;
+        SerialTXBuffer_DREAM_CAT2_PTM_01   : ComBuffer;
+        SerialRXBuffer_DREAM_ROUGH2_PTM_01 : ComBuffer;
+        SerialTXBuffer_DREAM_ROUGH2_PTM_01 : ComBuffer;
+        SerialRXBuffer_DREAM_ROUGH2_PTM_02 : ComBuffer;
+        SerialTXBuffer_DREAM_ROUGH2_PTM_02 : ComBuffer;
+
+        //Serial Terminal
+        fbSerialLineControl_DREAM_NC_PTM_01     : SerialLineControl;
+        fbSerialLineControl_DREAM_NC_PTM_02     : SerialLineControl;
+        fbSerialLineControl_DREAM_DP1_PTM_01    : SerialLineControl;
+        fbSerialLineControl_DREAM_DP2_PTM_01    : SerialLineControl;
+        fbSerialLineControl_DREAM_DP3_PTM_01    : SerialLineControl;
+        fbSerialLineControl_DREAM_MC_PTM_01     : SerialLineControl;
+        fbSerialLineControl_DREAM_MC_PTM_02     : SerialLineControl;
+        fbSerialLineControl_DREAM_CAT1_PTM_01   : SerialLineControl;
+        fbSerialLineControl_DREAM_CAT2_PTM_01   : SerialLineControl;
+        fbSerialLineControl_DREAM_ROUGH2_PTM_01 : SerialLineControl;
+        fbSerialLineControl_DREAM_ROUGH2_PTM_02 : SerialLineControl;
+
+        //SERIAL IO
+        {attribute	'TcLinkTo'	:=	'.Status:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Status;
+                                     .D[0]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 0;
+                                     .D[1]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 1;
+                                     .D[2]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 2;
+                                     .D[3]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 3;
+                                     .D[4]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 4;
+                                     .D[5]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 5;
+                                     .D[6]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 6;
+                                     .D[7]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 7;
+                                     .D[8]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 8;
+                                     .D[9]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 9;
+                                     .D[10]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 10;
+                                     .D[11]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 11;
+                                     .D[12]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 12;
+                                     .D[13]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 13;
+                                     .D[14]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 14;
+                                     .D[15]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 15;
+                                     .D[16]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 16;
+                                     .D[17]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 17;
+                                     .D[18]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 18;
+                                     .D[19]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 19;
+                                     .D[20]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 20;
+                                     .D[21]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 21
+        '}
+        stComIn_DREAM_NC_PTM_01 AT %I* : EL6inData22B;
+
+        {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Ctrl;
+                                     .D[0]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 0;
+                                     .D[1]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 1;
+                                     .D[2]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 2;
+                                     .D[3]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 3;
+                                     .D[4]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 4;
+                                     .D[5]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 5;
+                                     .D[6]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 6;
+                                     .D[7]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 7;
+                                     .D[8]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 8;
+                                     .D[9]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 9;
+                                     .D[10]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 10;
+                                     .D[11]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 11;
+                                     .D[12]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 12;
+                                     .D[13]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 13;
+                                     .D[14]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 14;
+                                     .D[15]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 15;
+                                     .D[16]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 16;
+                                     .D[17]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 17;
+                                     .D[18]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 18;
+                                     .D[19]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 19;
+                                     .D[20]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 20;
+                                     .D[21]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 21
+        '}
+        stComOut_DREAM_NC_PTM_01 AT %Q* : EL6outData22B;
+
+        {attribute	'TcLinkTo'	:=	'.Status:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Status;
+                                     .D[0]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 0;
+                                     .D[1]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 1;
+                                     .D[2]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 2;
+                                     .D[3]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 3;
+                                     .D[4]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 4;
+                                     .D[5]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 5;
+                                     .D[6]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 6;
+                                     .D[7]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 7;
+                                     .D[8]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 8;
+                                     .D[9]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 9;
+                                     .D[10]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 10;
+                                     .D[11]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 11;
+                                     .D[12]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 12;
+                                     .D[13]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 13;
+                                     .D[14]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 14;
+                                     .D[15]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 15;
+                                     .D[16]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 16;
+                                     .D[17]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 17;
+                                     .D[18]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 18;
+                                     .D[19]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 19;
+                                     .D[20]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 20;
+                                     .D[21]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 21
+        '}
+        stComIn_DREAM_NC_PTM_02 AT %I* : EL6inData22B;
+
+        {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Ctrl;
+                                     .D[0]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 0;
+                                     .D[1]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 1;
+                                     .D[2]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 2;
+                                     .D[3]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 3;
+                                     .D[4]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 4;
+                                     .D[5]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 5;
+                                     .D[6]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 6;
+                                     .D[7]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 7;
+                                     .D[8]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 8;
+                                     .D[9]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 9;
+                                     .D[10]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 10;
+                                     .D[11]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 11;
+                                     .D[12]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 12;
+                                     .D[13]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 13;
+                                     .D[14]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 14;
+                                     .D[15]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 15;
+                                     .D[16]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 16;
+                                     .D[17]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 17;
+                                     .D[18]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 18;
+                                     .D[19]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 19;
+                                     .D[20]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 20;
+                                     .D[21]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 21
+        '}
+        stComOut_DREAM_NC_PTM_02 AT %Q* : EL6outData22B;
+
+        {attribute	'TcLinkTo'	:=	'.Status:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Status;
+                                     .D[0]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 0;
+                                     .D[1]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 1;
+                                     .D[2]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 2;
+                                     .D[3]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 3;
+                                     .D[4]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 4;
+                                     .D[5]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 5;
+                                     .D[6]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 6;
+                                     .D[7]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 7;
+                                     .D[8]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 8;
+                                     .D[9]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 9;
+                                     .D[10]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 10;
+                                     .D[11]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 11;
+                                     .D[12]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 12;
+                                     .D[13]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 13;
+                                     .D[14]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 14;
+                                     .D[15]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 15;
+                                     .D[16]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 16;
+                                     .D[17]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 17;
+                                     .D[18]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 18;
+                                     .D[19]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 19;
+                                     .D[20]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 20;
+                                     .D[21]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 21
+        '}
+        stComIn_DREAM_DP1_PTM_01 AT %I* : EL6inData22B;
+
+        {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Ctrl;
+                                     .D[0]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 0;
+                                     .D[1]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 1;
+                                     .D[2]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 2;
+                                     .D[3]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 3;
+                                     .D[4]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 4;
+                                     .D[5]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 5;
+                                     .D[6]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 6;
+                                     .D[7]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 7;
+                                     .D[8]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 8;
+                                     .D[9]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 9;
+                                     .D[10]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 10;
+                                     .D[11]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 11;
+                                     .D[12]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 12;
+                                     .D[13]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 13;
+                                     .D[14]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 14;
+                                     .D[15]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 15;
+                                     .D[16]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 16;
+                                     .D[17]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 17;
+                                     .D[18]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 18;
+                                     .D[19]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 19;
+                                     .D[20]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 20;
+                                     .D[21]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 21
+        '}
+        stComOut_DREAM_DP1_PTM_01 AT %Q* : EL6outData22B;
+
+        {attribute	'TcLinkTo'	:=	'.Status:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Status;
+                                     .D[0]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 0;
+                                     .D[1]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 1;
+                                     .D[2]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 2;
+                                     .D[3]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 3;
+                                     .D[4]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 4;
+                                     .D[5]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 5;
+                                     .D[6]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 6;
+                                     .D[7]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 7;
+                                     .D[8]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 8;
+                                     .D[9]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 9;
+                                     .D[10]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 10;
+                                     .D[11]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 11;
+                                     .D[12]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 12;
+                                     .D[13]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 13;
+                                     .D[14]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 14;
+                                     .D[15]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 15;
+                                     .D[16]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 16;
+                                     .D[17]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 17;
+                                     .D[18]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 18;
+                                     .D[19]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 19;
+                                     .D[20]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 20;
+                                     .D[21]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 21
+        '}
+        stComIn_DREAM_DP2_PTM_01 AT %I* : EL6inData22B;
+
+        {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Ctrl;
+                                     .D[0]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 0;
+                                     .D[1]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 1;
+                                     .D[2]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 2;
+                                     .D[3]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 3;
+                                     .D[4]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 4;
+                                     .D[5]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 5;
+                                     .D[6]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 6;
+                                     .D[7]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 7;
+                                     .D[8]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 8;
+                                     .D[9]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 9;
+                                     .D[10]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 10;
+                                     .D[11]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 11;
+                                     .D[12]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 12;
+                                     .D[13]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 13;
+                                     .D[14]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 14;
+                                     .D[15]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 15;
+                                     .D[16]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 16;
+                                     .D[17]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 17;
+                                     .D[18]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 18;
+                                     .D[19]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 19;
+                                     .D[20]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 20;
+                                     .D[21]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 21
+        '}
+        stComOut_DREAM_DP2_PTM_01 AT %Q* : EL6outData22B;
+
+        {attribute	'TcLinkTo'	:=	'.Status:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Status;
+                                     .D[0]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 0;
+                                     .D[1]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 1;
+                                     .D[2]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 2;
+                                     .D[3]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 3;
+                                     .D[4]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 4;
+                                     .D[5]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 5;
+                                     .D[6]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 6;
+                                     .D[7]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 7;
+                                     .D[8]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 8;
+                                     .D[9]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 9;
+                                     .D[10]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 10;
+                                     .D[11]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 11;
+                                     .D[12]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 12;
+                                     .D[13]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 13;
+                                     .D[14]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 14;
+                                     .D[15]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 15;
+                                     .D[16]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 16;
+                                     .D[17]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 17;
+                                     .D[18]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 18;
+                                     .D[19]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 19;
+                                     .D[20]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 20;
+                                     .D[21]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 21
+        '}
+        stComIn_DREAM_DP3_PTM_01 AT %I* : EL6inData22B;
+
+        {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Ctrl;
+                                     .D[0]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 0;
+                                     .D[1]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 1;
+                                     .D[2]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 2;
+                                     .D[3]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 3;
+                                     .D[4]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 4;
+                                     .D[5]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 5;
+                                     .D[6]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 6;
+                                     .D[7]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 7;
+                                     .D[8]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 8;
+                                     .D[9]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 9;
+                                     .D[10]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 10;
+                                     .D[11]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 11;
+                                     .D[12]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 12;
+                                     .D[13]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 13;
+                                     .D[14]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 14;
+                                     .D[15]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 15;
+                                     .D[16]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 16;
+                                     .D[17]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 17;
+                                     .D[18]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 18;
+                                     .D[19]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 19;
+                                     .D[20]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 20;
+                                     .D[21]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 21
+        '}
+        stComOut_DREAM_DP3_PTM_01 AT %Q* : EL6outData22B;
+
+        {attribute	'TcLinkTo'	:=	'.Status:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Status;
+                                     .D[0]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 0;
+                                     .D[1]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 1;
+                                     .D[2]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 2;
+                                     .D[3]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 3;
+                                     .D[4]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 4;
+                                     .D[5]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 5;
+                                     .D[6]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 6;
+                                     .D[7]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 7;
+                                     .D[8]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 8;
+                                     .D[9]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 9;
+                                     .D[10]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 10;
+                                     .D[11]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 11;
+                                     .D[12]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 12;
+                                     .D[13]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 13;
+                                     .D[14]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 14;
+                                     .D[15]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 15;
+                                     .D[16]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 16;
+                                     .D[17]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 17;
+                                     .D[18]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 18;
+                                     .D[19]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 19;
+                                     .D[20]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 20;
+                                     .D[21]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 21
+        '}
+        stComIn_DREAM_MC_PTM_01 AT %I* : EL6inData22B;
+
+        {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Ctrl;
+                                     .D[0]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 0;
+                                     .D[1]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 1;
+                                     .D[2]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 2;
+                                     .D[3]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 3;
+                                     .D[4]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 4;
+                                     .D[5]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 5;
+                                     .D[6]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 6;
+                                     .D[7]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 7;
+                                     .D[8]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 8;
+                                     .D[9]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 9;
+                                     .D[10]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 10;
+                                     .D[11]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 11;
+                                     .D[12]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 12;
+                                     .D[13]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 13;
+                                     .D[14]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 14;
+                                     .D[15]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 15;
+                                     .D[16]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 16;
+                                     .D[17]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 17;
+                                     .D[18]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 18;
+                                     .D[19]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 19;
+                                     .D[20]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 20;
+                                     .D[21]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 21
+        '}
+        stComOut_DREAM_MC_PTM_01 AT %Q* : EL6outData22B;
+
+        {attribute	'TcLinkTo'	:=	'.Status:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Status;
+                                     .D[0]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 0;
+                                     .D[1]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 1;
+                                     .D[2]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 2;
+                                     .D[3]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 3;
+                                     .D[4]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 4;
+                                     .D[5]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 5;
+                                     .D[6]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 6;
+                                     .D[7]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 7;
+                                     .D[8]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 8;
+                                     .D[9]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 9;
+                                     .D[10]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 10;
+                                     .D[11]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 11;
+                                     .D[12]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 12;
+                                     .D[13]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 13;
+                                     .D[14]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 14;
+                                     .D[15]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 15;
+                                     .D[16]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 16;
+                                     .D[17]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 17;
+                                     .D[18]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 18;
+                                     .D[19]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 19;
+                                     .D[20]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 20;
+                                     .D[21]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 21
+        '}
+        stComIn_DREAM_MC_PTM_02 AT %I* : EL6inData22B;
+
+        {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Ctrl;
+                                     .D[0]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 0;
+                                     .D[1]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 1;
+                                     .D[2]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 2;
+                                     .D[3]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 3;
+                                     .D[4]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 4;
+                                     .D[5]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 5;
+                                     .D[6]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 6;
+                                     .D[7]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 7;
+                                     .D[8]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 8;
+                                     .D[9]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 9;
+                                     .D[10]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 10;
+                                     .D[11]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 11;
+                                     .D[12]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 12;
+                                     .D[13]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 13;
+                                     .D[14]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 14;
+                                     .D[15]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 15;
+                                     .D[16]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 16;
+                                     .D[17]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 17;
+                                     .D[18]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 18;
+                                     .D[19]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 19;
+                                     .D[20]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 20;
+                                     .D[21]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 21
+        '}
+        stComOut_DREAM_MC_PTM_02 AT %Q* : EL6outData22B;
+
+        {attribute	'TcLinkTo'	:=	'.Status:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Status;
+                                     .D[0]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 0;
+                                     .D[1]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 1;
+                                     .D[2]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 2;
+                                     .D[3]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 3;
+                                     .D[4]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 4;
+                                     .D[5]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 5;
+                                     .D[6]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 6;
+                                     .D[7]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 7;
+                                     .D[8]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 8;
+                                     .D[9]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 9;
+                                     .D[10]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 10;
+                                     .D[11]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 11;
+                                     .D[12]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 12;
+                                     .D[13]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 13;
+                                     .D[14]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 14;
+                                     .D[15]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 15;
+                                     .D[16]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 16;
+                                     .D[17]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 17;
+                                     .D[18]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 18;
+                                     .D[19]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 19;
+                                     .D[20]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 20;
+                                     .D[21]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 21
+        '}
+        stComIn_DREAM_CAT1_PTM_01 AT %I* : EL6inData22B;
+
+        {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Ctrl;
+                                     .D[0]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 0;
+                                     .D[1]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 1;
+                                     .D[2]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 2;
+                                     .D[3]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 3;
+                                     .D[4]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 4;
+                                     .D[5]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 5;
+                                     .D[6]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 6;
+                                     .D[7]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 7;
+                                     .D[8]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 8;
+                                     .D[9]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 9;
+                                     .D[10]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 10;
+                                     .D[11]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 11;
+                                     .D[12]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 12;
+                                     .D[13]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 13;
+                                     .D[14]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 14;
+                                     .D[15]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 15;
+                                     .D[16]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 16;
+                                     .D[17]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 17;
+                                     .D[18]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 18;
+                                     .D[19]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 19;
+                                     .D[20]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 20;
+                                     .D[21]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 21
+        '}
+        stComOut_DREAM_CAT1_PTM_01 AT %Q* : EL6outData22B;
+
+        {attribute	'TcLinkTo'	:=	'.Status:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Status;
+                                     .D[0]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 0;
+                                     .D[1]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 1;
+                                     .D[2]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 2;
+                                     .D[3]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 3;
+                                     .D[4]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 4;
+                                     .D[5]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 5;
+                                     .D[6]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 6;
+                                     .D[7]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 7;
+                                     .D[8]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 8;
+                                     .D[9]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 9;
+                                     .D[10]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 10;
+                                     .D[11]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 11;
+                                     .D[12]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 12;
+                                     .D[13]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 13;
+                                     .D[14]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 14;
+                                     .D[15]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 15;
+                                     .D[16]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 16;
+                                     .D[17]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 17;
+                                     .D[18]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 18;
+                                     .D[19]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 19;
+                                     .D[20]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 20;
+                                     .D[21]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 21
+        '}
+        stComIn_DREAM_CAT2_PTM_01 AT %I* : EL6inData22B;
+
+        {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Ctrl;
+                                     .D[0]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 0;
+                                     .D[1]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 1;
+                                     .D[2]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 2;
+                                     .D[3]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 3;
+                                     .D[4]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 4;
+                                     .D[5]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 5;
+                                     .D[6]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 6;
+                                     .D[7]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 7;
+                                     .D[8]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 8;
+                                     .D[9]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 9;
+                                     .D[10]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 10;
+                                     .D[11]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 11;
+                                     .D[12]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 12;
+                                     .D[13]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 13;
+                                     .D[14]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 14;
+                                     .D[15]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 15;
+                                     .D[16]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 16;
+                                     .D[17]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 17;
+                                     .D[18]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 18;
+                                     .D[19]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 19;
+                                     .D[20]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 20;
+                                     .D[21]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 21
+        '}
+        stComOut_DREAM_CAT2_PTM_01 AT %Q* : EL6outData22B;
+
+        {attribute	'TcLinkTo'	:=	'.Status:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Status;
+                                     .D[0]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 0;
+                                     .D[1]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 1;
+                                     .D[2]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 2;
+                                     .D[3]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 3;
+                                     .D[4]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 4;
+                                     .D[5]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 5;
+                                     .D[6]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 6;
+                                     .D[7]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 7;
+                                     .D[8]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 8;
+                                     .D[9]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 9;
+                                     .D[10]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 10;
+                                     .D[11]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 11;
+                                     .D[12]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 12;
+                                     .D[13]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 13;
+                                     .D[14]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 14;
+                                     .D[15]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 15;
+                                     .D[16]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 16;
+                                     .D[17]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 17;
+                                     .D[18]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 18;
+                                     .D[19]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 19;
+                                     .D[20]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 20;
+                                     .D[21]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 21
+        '}
+        stComIn_DREAM_ROUGH2_PTM_01 AT %I* : EL6inData22B;
+
+        {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Ctrl;
+                                     .D[0]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 0;
+                                     .D[1]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 1;
+                                     .D[2]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 2;
+                                     .D[3]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 3;
+                                     .D[4]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 4;
+                                     .D[5]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 5;
+                                     .D[6]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 6;
+                                     .D[7]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 7;
+                                     .D[8]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 8;
+                                     .D[9]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 9;
+                                     .D[10]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 10;
+                                     .D[11]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 11;
+                                     .D[12]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 12;
+                                     .D[13]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 13;
+                                     .D[14]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 14;
+                                     .D[15]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 15;
+                                     .D[16]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 16;
+                                     .D[17]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 17;
+                                     .D[18]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 18;
+                                     .D[19]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 19;
+                                     .D[20]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 20;
+                                     .D[21]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 21
+        '}
+        stComOut_DREAM_ROUGH2_PTM_01 AT %Q* : EL6outData22B;
+
+        {attribute	'TcLinkTo'	:=	'.Status:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Status;
+                                     .D[0]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 0;
+                                     .D[1]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 1;
+                                     .D[2]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 2;
+                                     .D[3]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 3;
+                                     .D[4]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 4;
+                                     .D[5]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 5;
+                                     .D[6]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 6;
+                                     .D[7]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 7;
+                                     .D[8]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 8;
+                                     .D[9]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 9;
+                                     .D[10]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 10;
+                                     .D[11]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 11;
+                                     .D[12]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 12;
+                                     .D[13]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 13;
+                                     .D[14]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 14;
+                                     .D[15]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 15;
+                                     .D[16]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 16;
+                                     .D[17]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 17;
+                                     .D[18]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 18;
+                                     .D[19]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 19;
+                                     .D[20]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 20;
+                                     .D[21]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Inputs^Data In 21
+        '}
+        stComIn_DREAM_ROUGH2_PTM_02 AT %I* : EL6inData22B;
+
+        {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Ctrl;
+                                     .D[0]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 0;
+                                     .D[1]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 1;
+                                     .D[2]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 2;
+                                     .D[3]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 3;
+                                     .D[4]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 4;
+                                     .D[5]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 5;
+                                     .D[6]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 6;
+                                     .D[7]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 7;
+                                     .D[8]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 8;
+                                     .D[9]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 9;
+                                     .D[10]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 10;
+                                     .D[11]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 11;
+                                     .D[12]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 12;
+                                     .D[13]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 13;
+                                     .D[14]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 14;
+                                     .D[15]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 15;
+                                     .D[16]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 16;
+                                     .D[17]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 17;
+                                     .D[18]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 18;
+                                     .D[19]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 19;
+                                     .D[20]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 20;
+                                     .D[21]:=TIIB[K4S8_DRL_04_E17_EL6001]^COM Outputs^Data Out 21
+        '}
+        stComOut_DREAM_ROUGH2_PTM_02 AT %Q* : EL6outData22B;
+    END_VAR
+
+
+
+
+GVL_TC
+^^^^^^
+
+::
+
+    VAR_GLOBAL
+        {attribute 'TcLinkTo' := 	'.iRaw 			:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 1^Value;
+                                     .bError  		:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 1^Error;
+                                     .bUnderrange 	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 1^Underrange;
+                                     .bOverrange  	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 1^Overrange
+        '}
+        {attribute 'pytmc' := ' pv: DREAM:STC:01'}
+        TC_01 : FB_TempSensor;
+
+        {attribute 'TcLinkTo' := 	'.iRaw 			:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 2^Value;
+                                     .bError  		:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 2^Status^Error;
+                                     .bUnderrange 	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 2^Status^Underrange;
+                                     .bOverrange  	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 2^Status^Overrange
+        '}
+        {attribute 'pytmc' := ' pv: DREAM:STC:02'}
+        TC_02 : FB_TempSensor;
+
+        {attribute 'TcLinkTo' := 	'.iRaw 			:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 3^Value;
+                                     .bError  		:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 3^Status^Error;
+                                     .bUnderrange 	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 3^Status^Underrange;
+                                     .bOverrange  	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 3^Status^Overrange
+        '}
+        {attribute 'pytmc' := ' pv: DREAM:STC:03'}
+        TC_03 : FB_TempSensor;
+
+        {attribute 'TcLinkTo' := 	'.iRaw 			:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 4^Value;
+                                     .bError  		:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 4^Status^Error;
+                                     .bUnderrange 	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 4^Status^Underrange;
+                                     .bOverrange  	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 4^Status^Overrange
+        '}
+        {attribute 'pytmc' := ' pv: DREAM:STC:04'}
+        TC_04 : FB_TempSensor;
+
+        {attribute 'TcLinkTo' := 	'.iRaw 			:=	TIIB[K4S8_DRL_03_E23_EL3314]^TC Inputs Channel 1^Value;
+                                     .bError  		:=	TIIB[K4S8_DRL_03_E23_EL3314]^TC Inputs Channel 1^Error;
+                                     .bUnderrange 	:=	TIIB[K4S8_DRL_03_E23_EL3314]^TC Inputs Channel 1^Underrange;
+                                     .bOverrange  	:=	TIIB[K4S8_DRL_03_E23_EL3314]^TC Inputs Channel 1^Overrange
+        '}
+        {attribute 'pytmc' := ' pv: DREAM:STC:05'}
+        TC_05 : FB_TempSensor;
+
+        {attribute 'TcLinkTo' := 	'.iRaw 			:=	TIIB[K4S8_DRL_03_E23_EL3314]^TC Inputs Channel 2^Value;
+                                     .bError  		:=	TIIB[K4S8_DRL_03_E23_EL3314]^TC Inputs Channel 2^Status^Error;
+                                     .bUnderrange 	:=	TIIB[K4S8_DRL_03_E23_EL3314]^TC Inputs Channel 2^Status^Underrange;
+                                     .bOverrange  	:=	TIIB[K4S8_DRL_03_E23_EL3314]^TC Inputs Channel 2^Status^Overrange
+        '}
+        {attribute 'pytmc' := ' pv: DREAM:STC:06'}
+        TC_06 : FB_TempSensor;
+
+        {attribute 'TcLinkTo' := 	'.iRaw 			:=	TIIB[K4S8_DRL_03_E23_EL3314]^TC Inputs Channel 3^Value;
+                                     .bError  		:=	TIIB[K4S8_DRL_03_E23_EL3314]^TC Inputs Channel 3^Status^Error;
+                                     .bUnderrange 	:=	TIIB[K4S8_DRL_03_E23_EL3314]^TC Inputs Channel 3^Status^Underrange;
+                                     .bOverrange  	:=	TIIB[K4S8_DRL_03_E23_EL3314]^TC Inputs Channel 3^Status^Overrange
+        '}
+        {attribute 'pytmc' := ' pv: DREAM:STC:07'}
+        TC_07 : FB_TempSensor;
+
+        {attribute 'TcLinkTo' := 	'.iRaw 			:=	TIIB[K4S8_DRL_03_E23_EL3314]^TC Inputs Channel 4^Value;
+                                     .bError  		:=	TIIB[K4S8_DRL_03_E23_EL3314]^TC Inputs Channel 4^Status^Error;
+                                     .bUnderrange 	:=	TIIB[K4S8_DRL_03_E23_EL3314]^TC Inputs Channel 4^Status^Underrange;
+                                     .bOverrange  	:=	TIIB[K4S8_DRL_03_E23_EL3314]^TC Inputs Channel 4^Status^Overrange
+        '}
+        {attribute 'pytmc' := ' pv: DREAM:STC:08'}
+        TC_08 : FB_TempSensor;
+    END_VAR
+
+
+
+
+GVL_VAC_GAUGES
+^^^^^^^^^^^^^^
+
+::
+
+    //{attribute 'qualified_only'}
+    VAR_GLOBAL
+        (*Nozzle Chamber GPI*)
+        {attribute 'pytmc' :=' pv: DREAM:NC:GPI:01'}
+        {attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[K4S8_DRL_03_E6_EL3174-0002]^AI Standard Channel 1^Value'}
+        DREAM_NC_GPI_01 : FB_CVM201;
+
+        {attribute 'TcLinkTo' := 	'.i_iPRESS_R		:=	TIIB[K4S8_DRL_03_E5_EL3174-0002]^AI Standard Channel 1^Value;
+                                     .i_xHV_ON			:=	TIIB[K4S8_DRL_03_E4_EL1084]^Channel 3^Input;
+                                     .q_xHV_DIS			:=	TIIB[K4S8_DRL_03_E1_EL2624]^Channel 1^Output
+        '}
+
+        (*Nozzle Chamber GCC*)
+        {attribute 'pytmc' :=' pv: DREAM:NC:GCC:01'}
+        DREAM_NC_GCC_01: FB_CCM501;
+
+        (*DP1 GHC*)
+        {attribute 'TcLinkTo' := 	'.i_iPRESS_R		:=	TIIB[K4S8_DRL_03_E5_EL3174-0002]^AI Standard Channel 2^Value;
+                                     .i_xHV_ON			:=	TIIB[K4S8_DRL_03_E4_EL1084]^Channel 4^Input;
+                                     .q_xHV_DIS			:=	TIIB[K4S8_DRL_03_E1_EL2624]^Channel 2^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:DP1:GHC:01'}
+        DREAM_DP1_GHC_01 : FB_IMG401;
+
+        (*DP1 GPI*)
+        {attribute 'pytmc' :=' pv: DREAM:DP1:GPI:01'}
+        {attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[K4S8_DRL_03_E6_EL3174-0002]^AI Standard Channel 2^Value'}
+        DREAM_DP1_GPI_01 : FB_CVM201;
+
+        (*DP2 GHC*)
+        {attribute 'TcLinkTo' := 	'.i_iPRESS_R		:=	TIIB[K4S8_DRL_03_E5_EL3174-0002]^AI Standard Channel 3^Value;
+                                     .i_xHV_ON			:=	TIIB[K4S8_DRL_03_E4_EL1084]^Channel 1^Input;
+                                     .q_xHV_DIS			:=	TIIB[K4S8_DRL_03_E1_EL2624]^Channel 3^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:DP2:GHC:01'}
+        DREAM_DP2_GHC_01 : FB_IMG401;
+
+        (*DP3 GHC*)
+        {attribute 'TcLinkTo' := 	'.i_iPRESS_R		:=	TIIB[K4S8_DRL_03_E5_EL3174-0002]^AI Standard Channel 4^Value;
+                                     .i_xHV_ON			:=	TIIB[K4S8_DRL_03_E4_EL1084]^Channel 2^Input;
+                                     .q_xHV_DIS			:=	TIIB[K4S8_DRL_03_E1_EL2624]^Channel 4^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:DP3:GHC:01'}
+        DREAM_DP3_GHC_01 : FB_IMG401;
+
+        (*MC HOT CATHODE GUAGE*)
+        {attribute 'TcLinkTo' := 	'.i_iPRESS_R_CH1	:=	TIIB[R03_DRL_01_E3_EL3174-0002]^AI Standard Channel 1^Value;
+                                     .i_iPRESS_R_CH2	:=	TIIB[R03_DRL_01_E3_EL3174-0002]^AI Standard Channel 2^Value;
+                                     .i_xHV_ON			:=	TIIB[R03_DRL_01_E1_EL1004]^Channel 1^Input;
+                                     .i_xCH2_SEL		:=	TIIB[R03_DRL_01_E1_EL1004]^Channel 2^Input;
+                                     .i_xERR_CH1		:=	TIIB[R03_DRL_01_E1_EL1004]^Channel 3^Input;
+                                     .i_xERR_CH2		:=	TIIB[R03_DRL_01_E1_EL1004]^Channel 4^Input;
+                                     .q_xHV_DIS_CH1		:=	TIIB[R03_DRL_01_E2_EL2624]^Channel 1^Output;
+                                     .q_xHV_DIS_CH2		:=	TIIB[R03_DRL_01_E2_EL2624]^Channel 2^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:MC:GHC'}
+        DREAM_MC_GHC : FB_IE514;
+
+        //main chamber global gauge structure - updated based on hot cahtode is selected or use pirani if both hot cathode gauges are off
+        {attribute 'pytmc' :=' pv: DREAM:MC:GAUGE:01'}
+        stDREAM_MC_GAUGE : ST_VG;
+
+        //main chamber GHC gauge structure - updated based on which channel selected in the leybold hot cathode gauge
+        {attribute 'pytmc' :=' pv: DREAM:MC:GHC:GAUGE:01'}
+        stDREAM_MC_GHC_GAUGE : ST_VG;
+
+        //CAT1 chamber global gauge structure - updated based on  hot cahtode is selected or use pirani if both hot cathode gauges are off
+        {attribute 'pytmc' :=' pv: DREAM:CAT1:GAUGE:01'}
+        stDREAM_CAT1_GAUGE : ST_VG;
+
+        (*MC GPI*)
+        {attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[K4S8_DRL_04_E16_EL3174-0002]^AI Standard Channel 1^Value'}
+        {attribute 'pytmc' := 'pv: DREAM:MC:GPI:01'}
+        DREAM_MC_GPI_01 : FB_MKS275;
+
+        (*CATCHER 1*)
+        {attribute 'TcLinkTo' := 	'    .i_iPRESS_R		:=	TIIB[K4S8_DRL_04_E16_EL3174-0002]^AI Standard Channel 2^Value;
+                                         .i_xHV_ON			:=	TIIB[K4S8_DRL_04_E15_EL1084]^Channel 1^Input;
+                                         .q_xHV_DIS			:=	TIIB[K4S8_DRL_04_E14_EL2624]^Channel 1^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:CAT1:GHC:01'}
+        DREAM_CAT1_GHC_01 : FB_IMG401;
+
+        (*CATCHER 2*)
+        {attribute 'TcLinkTo' := 	'    .i_iPRESS_R		:=	TIIB[K4S8_DRL_04_E16_EL3174-0002]^AI Standard Channel 3^Value;
+                                         .i_xHV_ON			:=	TIIB[K4S8_DRL_04_E15_EL1084]^Channel 2^Input;
+                                         .q_xHV_DIS			:=	TIIB[K4S8_DRL_04_E14_EL2624]^Channel 2^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:CAT2:GHC:01'}
+        DREAM_CAT2_GHC_01 : FB_IMG401;
+
+        (*ROUGHING PIRANIs*)
+        //Micro piranis 925
+        {attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[WALL_E_PPL_01_EP1_EP4374-0002]^AI Inputs Channel 1^Value'}
+        {attribute 'pytmc' := 'pv: DREAM:ROUGH1:GPI:01'}
+        DREAM_ROUGH1_GPI_01 : FB_9XX;
+
+        {attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[K4S8_DRL_04_EP1_EP4374-0002]^AI Inputs Channel 1^Value'}
+        {attribute 'pytmc' := 'pv: DREAM:ROUGH1:GPI:02'}
+        DREAM_ROUGH1_GPI_02 : FB_9XX;
+
+        {attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[WALL_E_PPL_01_EP1_EP4374-0002]^AI Inputs Channel 2^Value'}
+        {attribute 'pytmc' := 'pv: DREAM:ROUGH2:GPI:01'}
+        DREAM_ROUGH2_GPI_01 : FB_9XX;
+
+        {attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[K4S8_DRL_04_EP1_EP4374-0002]^AI Inputs Channel 2^Value'}
+        {attribute 'pytmc' := 'pv: DREAM:ROUGH2:GPI:02'}
+        DREAM_ROUGH2_GPI_02 : FB_9XX;
+
+        {attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[K4S8_DRL_04_EP2_EP4374-0002]^AI Inputs Channel 1^Value'}
+        {attribute 'pytmc' := 'pv: DREAM:ROUGH2:GPI:03'}
+        DREAM_ROUGH2_GPI_03 : FB_9XX;
+
+    END_VAR
+
+
+
+
+GVL_VAC_PUMPS
+^^^^^^^^^^^^^
+
+::
+
+    //{attribute 'qualified_only'}
+    VAR_GLOBAL
+        (*NOZZLE CHAMBER*)
+        {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_03_E13_EL1004]^Channel 1^Input;
+                                     .i_xFaultNC		:=	TIIB[K4S8_DRL_03_E13_EL1004]^Channel 3^Input;
+                                     .i_xRemote         :=  TIIB[K4S8_DRL_03_E13_EL1004]^Channel 2^Input;
+                                     .q_RunDO			:=	TIIB[K4S8_DRL_03_E14_EL2004]^Channel 1^Output;
+                                     .q_PumpingStation  :=	TIIB[K4S8_DRL_03_E14_EL2004]^Channel 3^Output;
+                                     .q_xRemote	        :=	TIIB[K4S8_DRL_03_E14_EL2004]^Channel 2^Output
+         '}
+         {attribute 'pytmc' :=' pv: DREAM:NC:PTM:01'}
+         DREAM_NC_PTM_01 : FB_PTM_Pfeiffer;
+
+         {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_03_E16_EL1004]^Channel 1^Input;
+                                     .i_xFaultNC		:=	TIIB[K4S8_DRL_03_E16_EL1004]^Channel 3^Input;
+                                     .i_xRemote         :=  TIIB[K4S8_DRL_03_E16_EL1004]^Channel 2^Input;
+                                     .q_RunDO			:=	TIIB[K4S8_DRL_03_E17_EL2004]^Channel 1^Output;
+                                     .q_PumpingStation  :=	TIIB[K4S8_DRL_03_E17_EL2004]^Channel 3^Output;
+                                     .q_xRemote	        :=	TIIB[K4S8_DRL_03_E17_EL2004]^Channel 2^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:NC:PTM:02'}
+        DREAM_NC_PTM_02 : FB_PTM_Pfeiffer;
+
+        (*DP1*)
+        {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_03_E19_EL1004]^Channel 1^Input;
+                                     .i_xFaultNC		:=	TIIB[K4S8_DRL_03_E19_EL1004]^Channel 3^Input;
+                                     .i_xRemote         :=  TIIB[K4S8_DRL_03_E19_EL1004]^Channel 2^Input;
+                                     .q_RunDO			:=	TIIB[K4S8_DRL_03_E20_EL2004]^Channel 1^Output;
+                                     .q_PumpingStation  :=	TIIB[K4S8_DRL_03_E20_EL2004]^Channel 3^Output;
+                                     .q_xRemote	        :=	TIIB[K4S8_DRL_03_E20_EL2004]^Channel 2^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:DP1:PTM:01'}
+        DREAM_DP1_PTM_01 : FB_PTM_Pfeiffer;
+
+        (*DP2*)
+        {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[R20_DRL_03_E4_EL1004]^Channel 2^Input;
+                                     .i_xFaultNC		:=	TIIB[R20_DRL_03_E4_EL1004]^Channel 1^Input;
+                                     .q_RunDO			:=	TIIB[R20_DRL_03_E7_EL2794]^Channel 1^Output
+         '}
+        {attribute 'pytmc' :=' pv: DREAM:DP2:PTM:01'}
+        DREAM_DP2_PTM_01 : FB_PTM_TurboDrive;
+
+        (*DP3*)
+        {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[R20_DRL_03_E4_EL1004]^Channel 4^Input;
+                                     .i_xFaultNC		:=	TIIB[R20_DRL_03_E4_EL1004]^Channel 3^Input;
+                                     .q_RunDO			:=	TIIB[R20_DRL_03_E7_EL2794]^Channel 3^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:DP3:PTM:01'}
+        DREAM_DP3_PTM_01 : FB_PTM_TurboDrive;
+
+
+        (*MAIN CHAMBER*)
+        {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[R20_DRL_03_E5_EL1004]^Channel 2^Input;
+                                     .i_xFaultNC		:=	TIIB[R20_DRL_03_E5_EL1004]^Channel 1^Input;
+                                     .q_RunDO			:=	TIIB[R20_DRL_03_E7_EL2794]^Channel 2^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:MC:PTM:01'}
+        DREAM_MC_PTM_01 : FB_PTM_TurboDrive;
+
+        {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[R20_DRL_03_E5_EL1004]^Channel 4^Input;
+                                     .i_xFaultNC		:=	TIIB[R20_DRL_03_E5_EL1004]^Channel 3^Input;
+                                     .q_RunDO			:=	TIIB[R20_DRL_03_E7_EL2794]^Channel 4^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:MC:PTM:02'}
+        DREAM_MC_PTM_02 : FB_PTM_TurboDrive;
+
+        (*BOOSTER TURBO PUMPS ROUGHING*)
+        {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_04_E3_EL1004]^Channel 2^Input;
+                                     .i_xFaultNC		:=	TIIB[K4S8_DRL_04_E3_EL1004]^Channel 1^Input;
+                                     .q_RunDO			:=	TIIB[K4S8_DRL_04_E5_EL2794]^Channel 1^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:ROUGH2:PTM:01'}
+        DREAM_ROUGH2_PTM_01 : FB_PTM_TurboDrive;
+
+        {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_04_E4_EL1004]^Channel 4^Input;
+                                     .i_xFaultNC		:=	TIIB[K4S8_DRL_04_E4_EL1004]^Channel 3^Input;
+                                     .q_RunDO			:=	TIIB[K4S8_DRL_04_E5_EL2794]^Channel 4^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:ROUGH2:PTM:02'}
+        DREAM_ROUGH2_PTM_02 : FB_PTM_TurboDrive;
+
+        (*CATCHER 1*)
+        {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_04_E3_EL1004]^Channel 4^Input;
+                                     .i_xFaultNC		:=	TIIB[K4S8_DRL_04_E3_EL1004]^Channel 3^Input;
+                                     .q_RunDO			:=	TIIB[K4S8_DRL_04_E5_EL2794]^Channel 2^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:CAT1:PTM:01'}
+        DREAM_CAT1_PTM_01 : FB_PTM_TurboDrive;
+
+        (*CATCHER 2*)
+        {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_04_E4_EL1004]^Channel 2^Input;
+                                     .i_xFaultNC		:=	TIIB[K4S8_DRL_04_E4_EL1004]^Channel 1^Input;
+                                     .q_RunDO			:=	TIIB[K4S8_DRL_04_E5_EL2794]^Channel 3^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:CAT2:PTM:01'}
+        DREAM_CAT2_PTM_01 : FB_PTM_TurboDrive;
+
+        //Turbo Pumps Running evaluation bit
+        bMCPumpsRunning : BOOL;
+        bCATPumpsRunning : BOOL;
+
+
+        (*Serial Interface*)
+        (*Pfeiffer TC400 serial*)
+        stPfeiffer_CTRL_DREAM_NC_PTM_01  : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferControl;
+        stPfeiffer_RBK_DREAM_NC_PTM_01   : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferStatus;
+        fbPfeifferCom_DREAM_NC_PTM_01    : FB_PFEIFFER_COM;
+
+        stPfeiffer_CTRL_DREAM_NC_PTM_02  : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferControl;
+        stPfeiffer_RBK_DREAM_NC_PTM_02   : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferStatus;
+        fbPfeifferCom_DREAM_NC_PTM_02    : FB_PFEIFFER_COM;
+
+        stPfeiffer_CTRL_DREAM_DP1_PTM_01 : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferControl;
+        stPfeiffer_RBK_DREAM_DP1_PTM_01	 : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferStatus;
+        fbPfeifferCom_DREAM_DP1_PTM_01   : FB_PFEIFFER_COM;
+
+        (*Leybold TD20 serial*)
+        stTD20_RBK_DREAM_DP2_PTM_01      : ST_TD20Status;
+        fbTD20Com_DREAM_DP2_PTM_01       : FB_OERLIKON_TD20_COM;
+
+        stTD20_RBK_DREAM_DP3_PTM_01      : ST_TD20Status;
+        fbTD20Com_DREAM_DP3_PTM_01       : FB_OERLIKON_TD20_COM;
+
+        stTD20_RBK_DREAM_MC_PTM_01       : ST_TD20Status;
+        fbTD20Com_DREAM_MC_PTM_01        : FB_OERLIKON_TD20_COM;
+
+        stTD20_RBK_DREAM_MC_PTM_02       : ST_TD20Status;
+        fbTD20Com_DREAM_MC_PTM_02        : FB_OERLIKON_TD20_COM;
+
+        (*Leybold TD400 serial*)
+        stTD400_RBK_DREAM_CAT1_PTM_01    : ST_TD400Status;
+        stTD400_CTRL_DREAM_CAT1_PTM_01   : ST_TD400Control;
+        fbTD400Com_DREAM_CAT1_PTM_01     : FB_OERLIKON_TD400_COM;
+        fbTD400SerialIO_DREAM_CAT1_PTM_01: FB_OERLIKON_TD400_TO_PTM;
+
+        stTD400_RBK_DREAM_CAT2_PTM_01    : ST_TD400Status;
+        stTD400_CTRL_DREAM_CAT2_PTM_01   : ST_TD400Control;
+        fbTD400Com_DREAM_CAT2_PTM_01     : FB_OERLIKON_TD400_COM;
+        fbTD400SerialIO_DREAM_CAT2_PTM_01: FB_OERLIKON_TD400_TO_PTM;
+
+        stTD400_RBK_DREAM_ROUGH2_PTM_01  : ST_TD400Status;
+        stTD400_CTRL_DREAM_ROUGH2_PTM_01 : ST_TD400Control;
+        fbTD400Com_DREAM_ROUGH2_PTM_01   : FB_OERLIKON_TD400_COM;
+        fbTD400SerialIO_DREAM_ROUGH2_PTM_01: FB_OERLIKON_TD400_TO_PTM;
+
+        stTD400_RBK_DREAM_ROUGH2_PTM_02  : ST_TD400Status;
+        stTD400_CTRL_DREAM_ROUGH2_PTM_02 : ST_TD400Control;
+        fbTD400Com_DREAM_ROUGH2_PTM_02   : FB_OERLIKON_TD400_COM;
+        fbTD400SerialIO_DREAM_ROUGH2_PTM_02: FB_OERLIKON_TD400_TO_PTM;
+
+    END_VAR
+
+
+Related:
+    * `MAIN`_
+
+
+GVL_VAC_VALVES
+^^^^^^^^^^^^^^
+
+::
+
+    //{attribute 'qualified_only'}
+    VAR_GLOBAL
+        (*DP1 ISOLATION VALVE*)
+        {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_03_E10_EL1004]^Channel 1^Input;
+                                     .i_xClsLS	:=	TIIB[K4S8_DRL_03_E10_EL1004]^Channel 2^Input;
+                                     .q_xOPN_DO	:=	TIIB[K4S8_DRL_03_E11_EL2004]^Channel 2^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:DP1:VRC:01'}
+        DREAM_DP1_VRC_01: FB_VGC;
+
+        {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_03_E10_EL1004]^Channel 3^Input;
+                                     .i_xClsLS	:=	TIIB[K4S8_DRL_03_E10_EL1004]^Channel 4^Input;
+                                     .q_xCLS_DO	:=	TIIB[K4S8_DRL_03_E11_EL2004]^Channel 1^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:DP1:VRC:02'}
+        DREAM_DP1_VRC_02: FB_VRC_NO;
+
+        (*Test dual-acting valve, no interlock implemented, contact Tong*)
+        {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_04_E1_EL1004]^Channel 3^Input;
+                                     .i_xClsLS	:=	TIIB[K4S8_DRL_04_E1_EL1004]^Channel 4^Input;
+                                     .q_xOPN_DO	:=	TIIB[K4S8_DRL_04_E2_EL2004]^Channel 3^Output;
+                                     .q_xCLS_DO	:=	TIIB[K4S8_DRL_04_E2_EL2004]^Channel 4^Output
+
+
+
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:DP1:VRC:20'}
+        DREAM_DP1_VRC_20: FB_VRC_DA;
+
+        (*CATCHER 1 ISOLATION VALVE*)
+        {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_04_E1_EL1004]^Channel 1^Input;
+                                     .i_xClsLS	:=	TIIB[K4S8_DRL_04_E1_EL1004]^Channel 2^Input;
+                                     .q_xOPN_DO	:=	TIIB[K4S8_DRL_04_E2_EL2004]^Channel 1^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:CAT1:VRC:01'}
+        DREAM_CAT1_VRC_01: FB_VGC;
+
+        (*ANGLE VALVES ROUGHING*)
+        //Pneumatic valves
+        {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_04_E9_EL1004]^Channel 1^Input;
+                                     .i_xClsLS	:=	TIIB[K4S8_DRL_04_E9_EL1004]^Channel 2^Input;
+                                     .q_xOPN_DO	:=	TIIB[K4S8_DRL_04_E11_EL2004]^Channel 1^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:ROUGH1:VRC:01'}
+        DREAM_ROUGH1_VRC_01: FB_VGC;
+
+        {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_04_E9_EL1004]^Channel 3^Input;
+                                     .i_xClsLS	:=	TIIB[K4S8_DRL_04_E9_EL1004]^Channel 4^Input;
+                                     .q_xOPN_DO	:=	TIIB[K4S8_DRL_04_E11_EL2004]^Channel 2^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:ROUGH2:VRC:01'}
+        DREAM_ROUGH2_VRC_01: FB_VGC;
+
+        {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_04_E10_EL1004]^Channel 1^Input;
+                                     .i_xClsLS	:=	TIIB[K4S8_DRL_04_E10_EL1004]^Channel 2^Input;
+                                     .q_xOPN_DO	:=	TIIB[K4S8_DRL_04_E11_EL2004]^Channel 3^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:ROUGH2:VRC:02'}
+        DREAM_ROUGH2_VRC_02: FB_VGC;
+
+        {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_04_E10_EL1004]^Channel 3^Input;
+                                     .i_xClsLS	:=	TIIB[K4S8_DRL_04_E10_EL1004]^Channel 4^Input;
+                                     .q_xOPN_DO	:=	TIIB[K4S8_DRL_04_E11_EL2004]^Channel 4^Output
+        '}
+
+        //valve added tempfor testing only
+       {attribute 'pytmc' :=' pv: DREAM:ROUGH1:VRC:20'}
+        DREAM_ROUGH1_VRC_20: FB_VRC;
+
+        //Manifold roughing valve
+        {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[WALL_E_PPL_01_EP2_EP2338-0002]^Channel 1^Input;
+                                     .i_xClsLS	:=	TIIB[WALL_E_PPL_01_EP2_EP2338-0002]^Channel 2^Input;
+                                     .q_xOPN_DO	:=	TIIB[WALL_E_PPL_01_EP2_EP2338-0002]^Channel 11^Output
+        '}
+        {attribute 'pytmc' :=' pv: DREAM:ROUGH1:VRC:10'}
+        DREAM_ROUGH1_VRC_10: FB_VRC;
+
+        (*VENT VALVES ROUGHING*)
+        //FLow Control valves MKS248
+        {attribute 'TcLinkTo' := 	'.q_iRawPosition	:=	TIIB[WALL_E_PPL_01_EP1_EP4374-0002]^AO Outputs Channel 3^Analog output'}
+        {attribute 'pytmc' := 'pv: DREAM:ROUGH1:VFV:01'}
+        DREAM_ROUGH1_VFV_01 : FB_MKS248;
+
+        {attribute 'TcLinkTo' := 	'.q_iRawPosition	:=	TIIB[K4S8_DRL_04_EP1_EP4374-0002]^AO Outputs Channel 3^Analog output'}
+        {attribute 'pytmc' := 'pv: DREAM:ROUGH1:VFV:02'}
+        DREAM_ROUGH1_VFV_02 : FB_MKS248;
+
+        {attribute 'TcLinkTo' := 	'.q_iRawPosition	:=	TIIB[WALL_E_PPL_01_EP1_EP4374-0002]^AO Outputs Channel 4^Analog output'}
+        {attribute 'pytmc' := 'pv: DREAM:ROUGH2:VFV:01'}
+        DREAM_ROUGH2_VFV_01 : FB_MKS248;
+
+        {attribute 'TcLinkTo' := 	'.q_iRawPosition	:=	TIIB[K4S8_DRL_04_EP1_EP4374-0002]^AO Outputs Channel 4^Analog output'}
+        {attribute 'pytmc' := 'pv: DREAM:ROUGH2:VFV:02'}
+        DREAM_ROUGH2_VFV_02 : FB_MKS248;
+
+        {attribute 'TcLinkTo' := 	'.q_iRawPosition	:=	TIIB[K4S8_DRL_04_EP2_EP4374-0002]^AO Outputs Channel 3^Analog output'}
+        {attribute 'pytmc' := 'pv: DREAM:ROUGH2:VFV:03'}
+        DREAM_ROUGH2_VFV_03 : FB_MKS248;
+
+    END_VAR
+
+
+
+
+GVL_Variables
+^^^^^^^^^^^^^
+
+::
+
+    //{attribute 'qualified_only'}
+    VAR_GLOBAL
+        {attribute 'pytmc' := '
+            pv: PLC:DREAM:VAC:OVRDON
+            io: io
+        '}
+        bSystemOverrideMode	: BOOL := FALSE; (* Global system override for the DREAM Vacuum System*)
+
+        {attribute 'pytmc' := '
+            pv: PLC:DREAM:ON_BEAMLINE
+            io: i
+        '}
+        bOnBeamline	: BOOL := FALSE;
+
+        //HV Interlock Pressure setpoint default is 1e-5 Torr, when switched to MC pirani gauge this value will change to 5e-04 Torr.
+        {attribute 'pytmc' := '
+            pv: PLC:DREAM:HV_MAX_PRESS_SP
+            io: io
+        '}
+        fHighVoltageMaxPressure : REAL := 1e-05; (*inital High voltage Minimum Enable Pressure*)
+
+         {attribute 'pytmc' := '
+        pv: HV:GPI:SP;
+        io:io;
+        field: HOPR 1000
+        field: LOPR 0
+        field: PREC 2
+        field: EGU "TORR"
+        autosave_pass1: VAL DESC
+        '}
+        rHV_GPI_SP: REAL := 0.0005; (*inital high voltage setpoint *)
+
+    END_VAR
+
+
+
+
+POUs
+----
+
+
+F_AllPumpsRunning
+^^^^^^^^^^^^^^^^^
+
+::
+
+    FUNCTION F_AllPumpsRunning : BOOL
+    VAR_INPUT
+    END_VAR
+    VAR
+    END_VAR
+    // Pump running state verifys that iq_stPtm.i_xAtSpd AND iq_stPtm.q_RunDO are TRUE
+    F_AllPumpsRunning := //DREAM_NC_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                         //DREAM_NC_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                         DREAM_DP1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                         DREAM_DP2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                         DREAM_DP3_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                         DREAM_MC_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                         DREAM_MC_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                         DREAM_CAT1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                         DREAM_CAT2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                         DREAM_ROUGH2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                         DREAM_ROUGH2_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING;
+
+    END_FUNCTION
+
+
+
+
+F_IsValidStateTransition
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+    FUNCTION F_IsValidStateTransition : BOOL
+    VAR_INPUT
+        eCurrentState : E_Op;
+        eNextState : E_Op;
+    END_VAR
+    VAR
+    END_VAR
+    CASE eCurrentState OF
+
+    E_Op.INIT:
+        F_IsValidStateTransition := (eNextState = E_Op.STANDBY);
+
+    E_Op.STANDBY:
+        F_IsValidStateTransition := (eNextState = E_Op.STANDBY) OR
+                                    //(eNextState = E_Op.PUMP_ALL) OR
+                                    //(eNextState = E_Op.PUMP_NC) OR
+                                    (eNextState = E_Op.VENT_MC_CAT); // OR
+                                    //(eNextState = E_Op.VENT_ALL) OR
+                                    //(eNextState = E_Op.VENT_NC) OR
+                                    //(eNextState = E_Op.VENT_CAT);
+                                    //uncomment after procedures implemented
+    E_Op.PUMP_ALL:
+        F_IsValidStateTransition := (eNextState = E_Op.STANDBY);
+
+    E_Op.PUMP_NC:
+        F_IsValidStateTransition := (eNextState = E_Op.STANDBY);
+
+    E_Op.AT_VACUUM:
+        F_IsValidStateTransition := (eNextState = E_Op.VENT_MC_CAT); //OR
+                                    //(eNextState = E_Op.VENT_ALL) OR
+                                    //(eNextState = E_Op.VENT_NC) OR
+                                    //(eNextState = E_Op.VENT_CAT);
+                                    //uncomment after procedures implemented
+
+    E_Op.VENT_ALL:
+        F_IsValidStateTransition := (eNextState = E_Op.STANDBY);
+
+    E_Op.VENT_NC:
+        F_IsValidStateTransition := (eNextState = E_Op.STANDBY);
+
+    E_Op.VENT_MC_CAT:
+        F_IsValidStateTransition := (eNextState = E_Op.STANDBY);
+
+    E_Op.VENT_CAT:
+        F_IsValidStateTransition := (eNextState = E_Op.STANDBY);
+
+    ELSE
+        F_IsValidStateTransition := FALSE;
+    END_CASE;
+
+    END_FUNCTION
+
+
+Related:
+    * `E_Op`_
+
+
+F_PressAtVacSP
+^^^^^^^^^^^^^^
+
+::
+
+    FUNCTION F_PressAtVacSP : BOOL
+    VAR_INPUT
+    END_VAR
+    VAR
+    END_VAR
+    F_PressAtVacSP := //DREAM_NC_GCC_01.IG.rPRESS < ATVAC_INTERLOCK_SP AND DREAM_NC_GCC_01.IG.xPRESS_OK AND
+                      //DREAM_DP1_GHC_01.IG.rPRESS < ATVAC_INTERLOCK_SP AND DREAM_DP1_GHC_01.IG.xPRESS_OK AND
+                      //DREAM_DP2_GHC_01.IG.rPRESS < ATVAC_INTERLOCK_SP AND DREAM_DP2_GHC_01.IG.xPRESS_OK AND
+                      //DREAM_DP3_GHC_01.IG.rPRESS < ATVAC_INTERLOCK_SP AND DREAM_DP3_GHC_01.IG.xPRESS_OK AND
+                      //DREAM_CAT1_GHC_01.IG.rPRESS < ATVAC_INTERLOCK_SP AND DREAM_CAT1_GHC_01.IG.xPRESS_OK AND
+                      //DREAM_CAT2_GHC_01.IG.rPRESS < ATVAC_INTERLOCK_SP AND DREAM_CAT2_GHC_01.IG.xPRESS_OK AND
+                      GVL_VAC_GAUGES.stDREAM_MC_GAUGE.rPRESS < AT_VAC_SP AND GVL_VAC_GAUGES.stDREAM_MC_GAUGE.xPRESS_OK;
+                      //GVL_VAC_GAUGES.stDREAM_MC_GHC.xAT_VAC;
+                      //we could also be checking ST_VG.xAT_VAC flag and make this value changeable?
+
+    END_FUNCTION
+
+
+Related:
+    * `GVL_VAC_GAUGES`_
+
+
+F_TurboIlkLogic
+^^^^^^^^^^^^^^^
+
+::
+
+    FUNCTION F_TurboIlkLogic : BOOL
+    VAR_INPUT
+        i_stTurbo : ST_PTM; //Turbo Pump
+        //i_stISG : ST_VG; //Gauge measuring inlet Pressure e.g Pirani
+        i_stBackingGauge : ST_VG; //Gauge measuring backing pressure
+        i_stRoughValve : ST_VGC; //Roughing Valve on the turbo pump backing line
+    END_VAR
+    VAR
+    END_VAR
+    F_TurboIlkLogic := i_stBackingGauge.rPRESS < i_stTurbo.rBackingPressureSP AND i_stBackingGauge.xPRESS_OK AND
+                       i_stRoughValve.i_xOpnLS;
+
+    END_FUNCTION
+
+
+
+
+FB_AtVacuum
+^^^^^^^^^^^
+
+::
+
+    FUNCTION_BLOCK FB_AtVacuum EXTENDS FB_Operation
+    VAR_INPUT
+    END_VAR
+    VAR_OUTPUT
+    END_VAR
+    VAR
+    END_VAR
+    SUPER^(iq_sMessageBuffer := iq_sMessageBuffer);
+
+    CASE eStep OF
+    E_OpStep.IDLE: // Do nothing
+
+    E_OpStep.START: // Start monitoring main chamber vacuum
+        IF NOT (F_AllPumpsRunning() AND F_PressAtVacSP()) THEN // add case if already vented to just cancel operation
+            M_RunTimeoutTimer(TURBOS_NOT_RUNNING_TIMEOUT);
+            M_SetMessage('Vacuum lost, 10 min timer started');
+            IF M_TimeoutExpired() THEN
+                M_FatalError('Vacuum not restored, venting started');
+            END_IF
+        ELSE
+            M_ResetTimeoutTimer(); //reset timer if pump restarted or gauge restarted and vaccum ok
+            M_SetMessage('MC Vacuum OK');
+        END_IF
+
+    ELSE
+        M_FatalError('Operation is in invalid state');
+    END_CASE
+
+    END_FUNCTION_BLOCK
+
+
+Related:
+    * `E_OpStep`_
+    * `FB_Operation`_
+    * `F_AllPumpsRunning`_
+    * `F_PressAtVacSP`_
+
+
+FB_Operation
+^^^^^^^^^^^^
+
+::
+
+    FUNCTION_BLOCK FB_Operation
+    VAR_INPUT
+        i_bExecute : BOOL; // Flag that indicates the operation should be ran
+        i_bCancel : BOOL; // Cancel operation input signal
+    END_VAR
+    VAR_IN_OUT
+        iq_sMessageBuffer : STRING(EPICS_STRING_SIZE); // Human readable description of the current step
+    END_VAR
+    VAR_OUTPUT
+        q_bError : BOOL; // Whether a fatal error was encountered
+        q_bBusy : BOOL; // Whether the current operation is executing
+    END_VAR
+    VAR
+        bCancel : BOOL; // Saved cancel operation signal
+        bDeferCancel : BOOL; // Setting to True prevents operation from being immediatly cancelled with i_bCancel. Resets to FALSE after operation finishes
+        eStep : E_OpStep := E_OpStep.IDLE; // The current operation step
+        fbTimeoutTimer : TON; // Timer used for tracking operation timeouts
+    END_VAR
+    IF eStep = E_OpStep.IDLE AND i_bExecute = TRUE THEN
+        // Start operation
+        eStep := E_OpStep.START;
+        q_bBusy := TRUE;
+        M_ResetError();
+    END_IF
+
+    (* Save the input i_bCancel signal since cancelling can take multiple cycles *)
+    IF i_bCancel THEN
+        bCancel := TRUE;
+    END_IF
+
+    (* Allow operation to be cancelled from an input signal.
+     The cancel input signal can be deferred by the operation if the
+     operation is not at a good point to finish cancelling. *)
+    IF eStep <> E_OpStep.IDLE AND NOT bDeferCancel AND bCancel THEN
+        M_Cancel();
+    END_IF
+
+    IF M_TimeoutExpired() THEN // If a timeout has expired, trigger a fatal error
+        M_FatalError('Timeout expired');
+    END_IF
+
+    END_FUNCTION_BLOCK
+
+    METHOD PROTECTED M_Cancel
+    VAR_INPUT
+    END_VAR
+    M_ResetTimeoutTimer();
+    M_SetMessage('Operation canceled');
+    eStep := E_OpStep.IDLE;
+    q_bBusy := FALSE;
+    bCancel := FALSE;
+    M_DeferCancel(FALSE);
+    END_METHOD
+
+    // Defer cancel signals until a later time
+    METHOD PROTECTED M_DeferCancel
+    VAR_INPUT
+        i_bDefer : BOOL;
+    END_VAR
+    bDeferCancel := i_bDefer;
+    END_METHOD
+
+    METHOD PROTECTED M_FatalError
+    VAR_INPUT
+        i_ErrorMessage : STRING;
+    END_VAR
+    M_ResetTimeoutTimer();
+    M_SetMessage(i_ErrorMessage);
+    eStep := E_OpStep.IDLE;
+    q_bError := TRUE;
+    q_bBusy := FALSE;
+    bCancel := FALSE;
+    M_DeferCancel(FALSE);
+    END_METHOD
+
+    METHOD PROTECTED M_Finish
+    VAR_INPUT
+    END_VAR
+    M_ResetTimeoutTimer();
+    M_SetMessage('Operation finished');
+    eStep := E_OpStep.IDLE;
+    q_bBusy := FALSE;
+    bCancel := FALSE;
+    M_DeferCancel(FALSE);
+    END_METHOD
+
+    METHOD PROTECTED M_ResetError
+    VAR_INPUT
+    END_VAR
+    q_bError := FALSE;
+    END_METHOD
+
+    METHOD PROTECTED M_ResetTimeoutTimer
+    VAR_INPUT
+    END_VAR
+    fbTimeoutTimer(IN := FALSE);
+    END_METHOD
+
+    METHOD PROTECTED M_RunTimeoutTimer
+    VAR_INPUT
+        i_tTime : TIME; // How long the timer should run before signalling a timeout
+    END_VAR
+    fbTimeoutTimer(IN := TRUE, PT := i_tTime);
+    END_METHOD
+
+    METHOD PROTECTED M_SetMessage
+    VAR_INPUT
+        i_sMessage : STRING(EPICS_STRING_SIZE);
+    END_VAR
+    iq_sMessageBuffer := i_sMessage;
+    END_METHOD
+
+    METHOD PROTECTED M_TimeoutExpired : BOOL
+    VAR_INPUT
+    END_VAR
+    fbTimeoutTimer(); // Advance timer
+    M_TimeoutExpired := fbTimeoutTimer.Q;
+    END_METHOD
+
+
+Related:
+    * `E_OpStep`_
+
+
+FB_VentMcCat
+^^^^^^^^^^^^
+
+::
+
+    FUNCTION_BLOCK FB_VentMcCat EXTENDS FB_Operation
+    VAR_INPUT
+    END_VAR
+    VAR_OUTPUT
+    END_VAR
+    VAR
+        fRough2VFV2Position : REAL;
+        fRough2VFV3Position : REAL;
+    END_VAR
+    VAR CONSTANT
+        VFV_MAX_POSITION : INT := 100;
+    END_VAR
+    SUPER^(iq_sMessageBuffer := iq_sMessageBuffer);
+
+    // Think which steps should not be permitted to cancel, figure out during testing
+    CASE eStep OF
+    E_OpStep.IDLE: // Do nothing
+
+    E_OpStep.START: // Close beamline window valves //Defer cancel if this procedure should not be cancelled from user!
+        // Close window beamline valves
+        GVL_PLC_Interface.bCLOSE_TMO_MR5K4_VWC := TRUE;
+        GVL_PLC_Interface.bCLOSE_TMO_TM2K4_VWC := TRUE;
+        M_SetMessage('Closing TMO window valves');
+        M_RunTimeoutTimer(VALVE_TIMEOUT);
+
+        IF (GVL_PLC_Interface.bTMO_MR5K4_VWC_CLOSED_LS AND GVL_PLC_Interface.bTMO_TM2K4_VWC_CLOSED_LS) THEN
+            M_SetMessage('Window valves closed');
+            M_ResetTimeoutTimer();
+            eStep := E_OpStep.VMCAS_CLOSE_ISOLATION_VALVES;
+        ELSIF M_TimeoutExpired() THEN
+            M_SetMessage('Closing window valve - timeout');
+            M_ResetTimeoutTimer();
+            eStep := E_OpStep.VMCAS_CLOSE_ISOLATION_VALVES;
+        END_IF
+
+    E_OpStep.VMCAS_CLOSE_ISOLATION_VALVES: // Close isolation valves (DP1:VRC:01, CAT1:VRC:01), Bypas valve DP1:VRC:01 shall open
+        DREAM_DP1_VRC_01.M_Set_OPN_SW(FALSE);
+        DREAM_CAT1_VRC_01.M_Set_OPN_SW(FALSE);
+        M_SetMessage('Close Isolation valves');
+        M_RunTimeoutTimer(VALVE_TIMEOUT);
+
+        IF DREAM_DP1_VRC_01.iq_stValve.i_xClsLS AND DREAM_CAT1_VRC_01.iq_stValve.i_xClsLS AND DREAM_DP1_VRC_02.iq_stValve.i_xOpnLS THEN
+            M_SetMessage('Isolation valves closed, bypass open');
+            M_ResetTimeoutTimer();
+            eStep := E_OpStep.VMCAS_STOP_TURBO_PUMPS;
+        ELSIF M_TimeoutExpired() THEN
+            M_FatalError('Moving isolation,bypass valves-timeout'); // Raise the error, don't move forward with stopping pumps etc.
+        END_IF
+
+    E_OpStep.VMCAS_STOP_TURBO_PUMPS: // Stop MC and CAT Turbo pumps
+        DREAM_DP1_PTM_01.M_Run(FALSE);
+        DREAM_DP2_PTM_01.M_Run(FALSE);
+        DREAM_DP3_PTM_01.M_Run(FALSE);
+        DREAM_MC_PTM_01.M_Run(FALSE);
+        DREAM_MC_PTM_02.M_Run(FALSE);
+        DREAM_CAT1_PTM_01.M_Run(FALSE);
+        DREAM_CAT2_PTM_01.M_Run(FALSE);
+        DREAM_ROUGH2_PTM_01.M_Run(FALSE);
+        DREAM_ROUGH2_PTM_02.M_Run(FALSE);
+
+        M_SetMessage('Stopping MC and CAT turbos');
+        eStep := E_OpStep.VMCAS_CLOSE_ROUGH_VALVES;
+
+    E_OpStep.VMCAS_CLOSE_ROUGH_VALVES: // Close roughing valves
+        DREAM_ROUGH2_VRC_01.M_Set_OPN_SW(FALSE);
+        DREAM_ROUGH2_VRC_02.M_Set_OPN_SW(FALSE);
+        M_SetMessage('Close Roughing valves');
+        M_RunTimeoutTimer(VALVE_TIMEOUT);
+
+        IF DREAM_ROUGH2_VRC_01.iq_stValve.i_xClsLS AND DREAM_ROUGH2_VRC_02.iq_stValve.i_xClsLS THEN
+            M_SetMessage('Roughing valves closed');
+            M_ResetTimeoutTimer();
+            eStep := E_OpStep.VMCAS_STOP_GAUGES;
+        ELSIF M_TimeoutExpired() THEN
+            M_FatalError('Moving roughing valves-timeout'); // Raise the error, don't move forward with stopping gauges etc.
+        END_IF
+
+    E_OpStep.VMCAS_STOP_GAUGES: // Turn off gauges // I'm thinking to move this state to before closing rough valves becasue in previos state if error is raised gauges will remain ON while pumps already stopped
+        DREAM_DP1_GHC_01.M_HVE(FALSE);
+        DREAM_DP2_GHC_01.M_HVE(FALSE);
+        DREAM_DP3_GHC_01.M_HVE(FALSE);
+        DREAM_MC_GHC.M_HVECh1(FALSE);
+        DREAM_MC_GHC.M_HVECh2(FALSE);
+        DREAM_CAT1_GHC_01.M_HVE(FALSE);
+        DREAM_CAT2_GHC_01.M_HVE(FALSE);
+
+        M_SetMessage('Turning OFF MC and CAT Gauges');
+        eStep := E_OpStep.VMCAS_WAIT_FOR_TURBO_PUMPS_SPIN_DOWN;
+
+    E_OpStep.VMCAS_WAIT_FOR_TURBO_PUMPS_SPIN_DOWN: // Turbos need to spin down to below 100 Hz before start venting procedure
+        M_RunTimeoutTimer(TURBOS_SPINDOWN_TIMEOUT); // Timeout is 60 min for now. With testing verify that 30 min is long enough to spin down or increase if needed.
+        M_SetMessage('Waiting for pumps to spindown');
+
+        //How should we verify if serial communication work?
+        IF DREAM_DP1_PTM_01.iq_stPTM.i_diCurSpd < 100 AND NOT fbSerialLineControl_DREAM_DP1_PTM_01.Error
+            AND DREAM_DP2_PTM_01.iq_stPTM.i_diCurSpd < 100 AND NOT fbSerialLineControl_DREAM_DP2_PTM_01.Error
+            AND DREAM_DP3_PTM_01.iq_stPTM.i_diCurSpd < 100 AND NOT fbSerialLineControl_DREAM_DP3_PTM_01.Error
+            AND DREAM_MC_PTM_01.iq_stPTM.i_diCurSpd < 100 AND NOT fbSerialLineControl_DREAM_MC_PTM_01.Error
+            AND DREAM_MC_PTM_02.iq_stPTM.i_diCurSpd < 100 AND NOT fbSerialLineControl_DREAM_MC_PTM_02.Error
+            AND DREAM_CAT1_PTM_01.iq_stPTM.i_diCurSpd < 100 AND NOT fbSerialLineControl_DREAM_CAT1_PTM_01.Error
+            AND DREAM_CAT2_PTM_01.iq_stPTM.i_diCurSpd < 100 AND NOT fbSerialLineControl_DREAM_CAT2_PTM_01.Error
+            AND DREAM_ROUGH2_PTM_01.iq_stPTM.i_diCurSpd < 100 AND NOT fbSerialLineControl_DREAM_ROUGH2_PTM_01.Error
+            AND DREAM_ROUGH2_PTM_02.iq_stPTM.i_diCurSpd < 100 AND NOT fbSerialLineControl_DREAM_ROUGH2_PTM_02.Error
+        THEN
+            M_SetMessage('Pumps below 100 Hz, start venting');
+            M_ResetTimeoutTimer();
+            eStep := E_OpStep.VMCAS_VENTING;
+        ELSIF M_TimeoutExpired()
+            AND NOT DREAM_DP1_PTM_01.iq_stPTM.i_xAtSpd
+            AND NOT DREAM_DP2_PTM_01.iq_stPTM.i_xAtSpd
+            AND NOT DREAM_DP3_PTM_01.iq_stPTM.i_xAtSpd
+            AND NOT DREAM_MC_PTM_01.iq_stPTM.i_xAtSpd
+            AND NOT DREAM_MC_PTM_02.iq_stPTM.i_xAtSpd
+            AND NOT DREAM_CAT1_PTM_01.iq_stPTM.i_xAtSpd
+            AND NOT DREAM_CAT2_PTM_01.iq_stPTM.i_xAtSpd
+            AND NOT DREAM_ROUGH2_PTM_01.iq_stPTM.i_xAtSpd
+            AND NOT DREAM_ROUGH2_PTM_02.iq_stPTM.i_xAtSpd
+        THEN (*if serial communication doesn't work and not at speed*)
+            M_SetMessage('Pumps spindown-timeout, start venting');
+            M_ResetTimeoutTimer();
+            eStep := E_OpStep.VMCAS_VENTING;
+        ELSE
+            M_FatalError('Turbo pumps failed to spin down'); //should I add that state machine goes to error if the pumps didn't start spinning down?
+        END_IF
+
+        // Reset vent valve postions
+        fRough2VFV2Position := GVL_Constants.ROUGH2_VFV_02_INITIAL_POSITION;
+        fRough2VFV3Position := GVL_Constants.ROUGH2_VFV_03_INITIAL_POSITION;
+
+    E_OpStep.VMCAS_VENTING: // Venting, increase opening by X% every 2 miniutes, until at atmosphere
+        DREAM_ROUGH2_VFV_02.M_SetControlMode(E_VCN.ManualControl); // set manual mode for VFV valve
+        DREAM_ROUGH2_VFV_03.M_SetControlMode(E_VCN.ManualControl); // set manual mode for VFV valve
+        // Verify ATM_PRESS_ERR_RNG value with testing
+        IF NOT (ABS(ATM_PRESS - DREAM_DP1_GPI_01.PG.rPRESS) <= ATM_PRESS_ERR_RNG)
+            AND NOT (ABS(ATM_PRESS - DREAM_MC_GPI_01.PG.rPRESS) <= ATM_PRESS_ERR_RNG)
+            AND NOT (ABS(ATM_PRESS - DREAM_ROUGH2_GPI_02.PG.rPRESS) <= ATM_PRESS_ERR_RNG)
+            AND NOT (ABS(ATM_PRESS - DREAM_ROUGH2_GPI_03.PG.rPRESS) <= ATM_PRESS_ERR_RNG)
+        THEN
+            M_RunTimeoutTimer(VENTING_CYCLE);
+            M_SetMessage('Venting Started');
+            // Add check if serial communication is ok. If not ok we should only stick to change open position by 1% until venting completed?
+            // I think we should add range here for the speed 1-5 Hz? I think sometimes speed doesn't go all the way to 0 Hz, verify with testing
+            IF M_TimeoutExpired() THEN
+                M_ResetTimeoutTimer(); // Reset timer for next 2 min venting cycle
+                IF (NOT (DREAM_DP1_PTM_01.iq_stPTM.i_diCurSpd < 1) OR fbSerialLineControl_DREAM_DP1_PTM_01.Error)
+                    AND (NOT (DREAM_DP2_PTM_01.iq_stPTM.i_diCurSpd < 1) OR fbSerialLineControl_DREAM_DP2_PTM_01.Error)
+                    AND (NOT (DREAM_DP3_PTM_01.iq_stPTM.i_diCurSpd < 1) OR fbSerialLineControl_DREAM_DP3_PTM_01.Error)
+                    AND (NOT (DREAM_MC_PTM_01.iq_stPTM.i_diCurSpd < 1) OR fbSerialLineControl_DREAM_MC_PTM_01.Error)
+                    AND (NOT (DREAM_MC_PTM_02.iq_stPTM.i_diCurSpd < 1) OR fbSerialLineControl_DREAM_MC_PTM_01.Error)
+                    AND (NOT (DREAM_CAT1_PTM_01.iq_stPTM.i_diCurSpd < 1) OR fbSerialLineControl_DREAM_CAT1_PTM_01.Error)
+                    AND (NOT (DREAM_CAT2_PTM_01.iq_stPTM.i_diCurSpd < 1) OR fbSerialLineControl_DREAM_CAT2_PTM_01.Error)
+                    AND (NOT (DREAM_ROUGH2_PTM_01.iq_stPTM.i_diCurSpd < 1) OR fbSerialLineControl_DREAM_ROUGH2_PTM_01.Error)
+                    AND (NOT (DREAM_ROUGH2_PTM_02.iq_stPTM.i_diCurSpd < 1) OR fbSerialLineControl_DREAM_ROUGH2_PTM_02.Error)
+                THEN
+                    IF fRough2VFV2Position < VFV_MAX_POSITION THEN
+                        fRough2VFV2Position := fRough2VFV2Position + VFV_POSITION_STEP; // every 2 min increase open positon for 1% while pumps above 1 HZ
+                    ELSE
+                        fRough2VFV2Position := VFV_MAX_POSITION;
+                    END_IF
+
+                    IF fRough2VFV3Position < VFV_MAX_POSITION THEN
+                        fRough2VFV3Position := fRough2VFV3Position + VFV_POSITION_STEP; // every 2 min increase open positon for 1% while pumps above 1 HZ
+                    ELSE
+                        fRough2VFV3Position := VFV_MAX_POSITION;
+                    END_IF
+                ELSE
+                    fRough2VFV2Position := VFV_MAX_POSITION; // open venting valve to max postion when pump speed reached below 1Hz
+                    fRough2VFV3Position := VFV_MAX_POSITION; // open venting valve to max postion when pump speed reached below 1Hz
+                END_IF
+            END_IF
+        ELSE
+            M_SetMessage('Venting completed');
+            M_ResetTimeoutTimer();
+            eStep := E_OpStep.VMCAS_FINISH;
+        END_IF
+
+        DREAM_ROUGH2_VFV_02.M_SetReqPosition(fRough2VFV2Position); // set venting valve position
+        DREAM_ROUGH2_VFV_03.M_SetReqPosition(fRough2VFV3Position); // set venting valve position
+
+    E_OpStep.VMCAS_FINISH: // Finish procedure, close venting valves, reset set points for all valves, pumps etc.
+        DREAM_ROUGH2_VFV_02.M_SetControlMode(E_VCN.CloseValve);
+        DREAM_ROUGH2_VFV_03.M_SetControlMode(E_VCN.CloseValve);
+        // Reset vent valve postions
+        fRough2VFV2Position := 0;
+        fRough2VFV3Position := 0;
+
+        // Set the at vacuum interlocks so user can't just start opening the valves
+        DREAM_ROUGH2_VRC_01.M_SetAtVacSP(VALVE_INTERLOCK_SP);
+        DREAM_ROUGH2_VRC_02.M_SetAtVacSP(VALVE_INTERLOCK_SP);
+
+        // Set the at vacuum interlocks so user can't just start turning on pumps
+        DREAM_DP1_PTM_01.M_SetBackingSP(PTM_INTERLOCK_SP);
+        DREAM_DP2_PTM_01.M_SetBackingSP(PTM_INTERLOCK_SP);
+        DREAM_DP3_PTM_01.M_SetBackingSP(PTM_INTERLOCK_SP);
+        DREAM_MC_PTM_01.M_SetBackingSP(PTM_INTERLOCK_SP);
+        DREAM_MC_PTM_02.M_SetBackingSP(PTM_INTERLOCK_SP);
+        DREAM_CAT1_PTM_01.M_SetBackingSP(PTM_INTERLOCK_SP);
+        DREAM_CAT2_PTM_01.M_SetBackingSP(PTM_INTERLOCK_SP);
+        DREAM_ROUGH2_PTM_01.M_SetBackingSP(PTM_INTERLOCK_SP);
+        DREAM_ROUGH2_PTM_02.M_SetBackingSP(PTM_INTERLOCK_SP);
+
+        // Remove command to close beamline window valves
+        GVL_PLC_Interface.bCLOSE_TMO_MR5K4_VWC := FALSE;
+        GVL_PLC_Interface.bCLOSE_TMO_TM2K4_VWC := FALSE;
+
+        M_Finish();
+
+    ELSE
+        M_FatalError('Operation is in invalid state');
+    END_CASE
+
+    END_FUNCTION_BLOCK
+
+
+Related:
+    * `E_OpStep`_
+    * `FB_Operation`_
+    * `GVL_Constants`_
+    * `GVL_PLC_Interface`_
+
+
+MAIN
+^^^^
+
+::
+
+    PROGRAM MAIN
+    VAR
+        fbLogHandler : FB_LogHandler;
+    END_VAR
+    fbLogHandler();
+
+    PRG_ECAT_CHECK();
+
+    PRG_GAUGES();
+
+    PRG_VALVES();
+
+    PRG_TURBO_PUMPS();
+
+    PRG_HV_ILK();
+
+    PRG_COIL_PS_ILK();
+
+    PRG_TC();
+
+    END_PROGRAM
+
+
+Related:
+    * `PRG_COIL_PS_ILK`_
+    * `PRG_ECAT_CHECK`_
+    * `PRG_GAUGES`_
+    * `PRG_HV_ILK`_
+    * `PRG_TC`_
+    * `PRG_TURBO_PUMPS`_
+    * `PRG_VALVES`_
+
+
+PRG_AUTOMATION
+^^^^^^^^^^^^^^
+
+::
+
+    PROGRAM PRG_AUTOMATION
+    VAR
+        eCurrOp : E_Op; // Currently running operation
+        fbVentMcCat : FB_VentMcCat;
+        fbAtVacuum : FB_AtVacuum;
+    END_VAR
+    (* Run operations, but don't start any new operations if another operation is still running or error is present *)
+    // Reset error
+    IF GVL_Automation.i_bResetError THEN
+        GVL_Automation.q_bError := FALSE;
+        GVL_Automation.i_bResetError := FALSE;
+    END_IF
+
+    // Only start new operations if the system is NOT busy with another operation and transtion to new state is valid and no error present
+    IF NOT GVL_Automation.q_bBusy AND NOT GVL_Automation.q_bError THEN
+        IF F_IsValidStateTransition(eCurrOp, GVL_Automation.iq_eOperation) THEN
+            eCurrOp := GVL_Automation.iq_eOperation;
+        ELSE
+            GVL_Automation.q_sMessage := 'Invalid state transition';
+            //GVL_Automation.q_bError := TRUE;
+        END_IF
+    END_IF
+
+    // Execute selected operation
+    CASE eCurrOp OF
+    E_Op.INIT: // State Machine INIT // do nothing for now, can be used in the future if needed
+        eCurrOp := E_Op.STANDBY;
+        GVL_Automation.q_sMessage := 'Initialization completed';
+
+    E_Op.STANDBY: // Monitoring IF full system under vacuum
+        GVL_Automation.q_bBusy := FALSE;
+        (*IF F_AllPumpsRunning() AND F_PressAtVacSP() AND NOT GVL_Automation.q_bError THEN // clear the error before start monitoring again
+            eCurrOp := E_Op.AT_VACUUM;
+            GVL_Automation.q_bBusy := TRUE; // Extend for one cycle so the state doesn't get overrired
+            GVL_Automation.q_sMessage := 'MC At Vacuum';
+        END_IF*)
+
+    E_Op.PUMP_ALL: // Full system pump down
+        GVL_Automation.q_bBusy := FALSE; //do nothing for now, will be implemented later. When pumping down procedure ends go to xxxxxx state
+
+    E_Op.PUMP_NC: // Only Nozzle chamber pump down
+        GVL_Automation.q_bBusy := FALSE; // do nothing for now, will be implemented later. When pumping down procedure of NC only ends go back to Standby state
+
+    E_Op.AT_VACUUM: // Monitor if system is At Vacuum (pumps running and pressure below SP), if vaccum event occurs vent full system
+        fbAtVacuum(
+            i_bExecute := TRUE,
+            i_bCancel := GVL_Automation.i_bCancel,
+            iq_sMessageBuffer := GVL_Automation.q_sMessage,
+            q_bBusy => GVL_Automation.q_bBusy,
+            q_bError => GVL_Automation.q_bError
+        );
+        IF GVL_Automation.q_bError THEN // Vent MC and CAT IF Vacuum fault on main chamber detected
+            eCurrOp := E_Op.VENT_MC_CAT;
+            GVL_Automation.q_bBusy := TRUE; // Extend for one cycle so the eCurrOp doesn't get overried
+        END_IF
+
+    E_Op.VENT_ALL: // Vent full system
+        GVL_Automation.q_bBusy := FALSE; // do nothing for now, will be implemented later
+
+    E_Op.VENT_NC: // Vent nozzle chamber only
+        GVL_Automation.q_bBusy := FALSE; // do nothing for now, will be implemented later
+
+    E_Op.VENT_MC_CAT: // Vent Main Chamber + Catcher
+        (*fbVentMcCat(
+            i_bExecute := TRUE,
+            i_bCancel := GVL_Automation.i_bCancel,
+            iq_sMessageBuffer := GVL_Automation.q_sMessage,
+            q_bBusy => GVL_Automation.q_bBusy,
+            q_bError => GVL_Automation.q_bError
+        );*)
+        GVL_Automation.q_bBusy := FALSE; //temporary before enabling code above
+
+    E_Op.VENT_CAT: // Vent catcher only
+        GVL_Automation.q_bBusy := FALSE; // do nothing for now, will be implemented later
+
+    ELSE // Selected unimplemented operation
+        GVL_Automation.q_sMessage := 'Unimplemented operation';
+        GVL_Automation.q_bBusy := FALSE;
+        GVL_Automation.q_bError := TRUE;
+    END_CASE
+
+    // If all operation have finished then go back to standby
+    IF NOT GVL_Automation.q_bBusy THEN
+        eCurrOp := E_Op.STANDBY;
+    END_IF
+
+    // Set output operation to whatever is ACTAULLY currently running
+    GVL_Automation.iq_eOperation := eCurrOp;
+    GVL_Automation.i_bCancel := FALSE; // Reset cancel flag
+
+    END_PROGRAM
+
+
+Related:
+    * `E_Op`_
+    * `FB_AtVacuum`_
+    * `FB_VentMcCat`_
+    * `F_AllPumpsRunning`_
+    * `F_IsValidStateTransition`_
+    * `F_PressAtVacSP`_
+    * `GVL_Automation`_
+
+
+PRG_COIL_PS_ILK
+^^^^^^^^^^^^^^^
+
+::
+
+    PROGRAM PRG_COIL_PS_ILK
+    VAR
+    END_VAR
+    (*Interlock logic for Coil PS based on reading from Flow meter*)
+    fbCoilFlowMeter();
+    fCoilCoolantFlowMeterRBV := fbCoilFlowMeter.fReal;
+
+    //evaluate flow meter readback to Interlock interlock Coil PS
+    bCoilPS_ILK := fbCoilFlowMeter.fReal > 3.0; //If flow meter reading is above XX is ok to turn ON output of the Coil PS. Units are lpm
+
+    //fbDreamCoilFlowMeter();
+    //bCoilPS_ILK := fbDreamCoilFlowMeter.fbFlowMeter.fReal > 3; //If flow meter reading is above XX is ok to turn ON output of the Coil PS. Units are lpm
+
+    (*DREAM Coil PS Current Monitoring*)
+    fbCoilCurrentMonitoring();
+    fCoilCurrentRBV := fbCoilCurrentMonitoring.fReal;
+
+    END_PROGRAM
+
+
+
+
+PRG_COM
+^^^^^^^
+
+::
+
+    PROGRAM PRG_COM
+    VAR
+
+    END_VAR
+    (*Instanitate Serial port com function *)
+    fbSerialLineControl_DREAM_NC_PTM_01(
+        Mode:= SERIALLINEMODE_EL6_22B,
+        pComIn:= ADR(stComIn_DREAM_NC_PTM_01),
+        pComOut:= ADR(stComOut_DREAM_NC_PTM_01),
+        SizeComIn:= UINT_TO_INT(SIZEOF(stComIn_DREAM_NC_PTM_01)),
+        TxBuffer:= SerialTXBuffer_DREAM_NC_PTM_01,
+        RxBuffer:= SerialRXBuffer_DREAM_NC_PTM_01,
+        Error=> ,
+        ErrorID=> );
+
+    fbSerialLineControl_DREAM_NC_PTM_02(
+        Mode:= SERIALLINEMODE_EL6_22B,
+        pComIn:= ADR(stComIn_DREAM_NC_PTM_02),
+        pComOut:= ADR(stComOut_DREAM_NC_PTM_02),
+        SizeComIn:= UINT_TO_INT(SIZEOF(stComIn_DREAM_NC_PTM_02)),
+        TxBuffer:= SerialTXBuffer_DREAM_NC_PTM_02,
+        RxBuffer:= SerialRXBuffer_DREAM_NC_PTM_02,
+        Error=> ,
+        ErrorID=> );
+
+    fbSerialLineControl_DREAM_DP1_PTM_01(
+        Mode:= SERIALLINEMODE_EL6_22B,
+        pComIn:= ADR(stComIn_DREAM_DP1_PTM_01),
+        pComOut:= ADR(stComOut_DREAM_DP1_PTM_01),
+        SizeComIn:= UINT_TO_INT(SIZEOF(stComIn_DREAM_DP1_PTM_01)),
+        TxBuffer:= SerialTXBuffer_DREAM_DP1_PTM_01,
+        RxBuffer:= SerialRXBuffer_DREAM_DP1_PTM_01,
+        Error=> ,
+        ErrorID=> );
+
+    fbSerialLineControl_DREAM_DP2_PTM_01(
+        Mode:= SERIALLINEMODE_EL6_22B,
+        pComIn:= ADR(stComIn_DREAM_DP2_PTM_01),
+        pComOut:= ADR(stComOut_DREAM_DP2_PTM_01),
+        SizeComIn:= UINT_TO_INT(SIZEOF(stComIn_DREAM_DP2_PTM_01)),
+        TxBuffer:= SerialTXBuffer_DREAM_DP2_PTM_01,
+        RxBuffer:= SerialRXBuffer_DREAM_DP2_PTM_01,
+        Error=> ,
+        ErrorID=> );
+
+    fbSerialLineControl_DREAM_DP3_PTM_01(
+        Mode:= SERIALLINEMODE_EL6_22B,
+        pComIn:= ADR(stComIn_DREAM_DP3_PTM_01),
+        pComOut:= ADR(stComOut_DREAM_DP3_PTM_01),
+        SizeComIn:= UINT_TO_INT(SIZEOF(stComIn_DREAM_DP3_PTM_01)),
+        TxBuffer:= SerialTXBuffer_DREAM_DP3_PTM_01,
+        RxBuffer:= SerialRXBuffer_DREAM_DP3_PTM_01,
+        Error=> ,
+        ErrorID=> );
+
+    fbSerialLineControl_DREAM_MC_PTM_01(
+        Mode:= SERIALLINEMODE_EL6_22B,
+        pComIn:= ADR(stComIn_DREAM_MC_PTM_01),
+        pComOut:= ADR(stComOut_DREAM_MC_PTM_01),
+        SizeComIn:= UINT_TO_INT(SIZEOF(stComIn_DREAM_MC_PTM_01)),
+        TxBuffer:= SerialTXBuffer_DREAM_MC_PTM_01,
+        RxBuffer:= SerialRXBuffer_DREAM_MC_PTM_01,
+        Error=> ,
+        ErrorID=> );
+
+    fbSerialLineControl_DREAM_MC_PTM_02(
+        Mode:= SERIALLINEMODE_EL6_22B,
+        pComIn:= ADR(stComIn_DREAM_MC_PTM_02),
+        pComOut:= ADR(stComOut_DREAM_MC_PTM_02),
+        SizeComIn:= UINT_TO_INT(SIZEOF(stComIn_DREAM_MC_PTM_02)),
+        TxBuffer:= SerialTXBuffer_DREAM_MC_PTM_02,
+        RxBuffer:= SerialRXBuffer_DREAM_MC_PTM_02,
+        Error=> ,
+        ErrorID=> );
+
+    fbSerialLineControl_DREAM_CAT1_PTM_01(
+        Mode:= SERIALLINEMODE_EL6_22B,
+        pComIn:= ADR(stComIn_DREAM_CAT1_PTM_01),
+        pComOut:= ADR(stComOut_DREAM_CAT1_PTM_01),
+        SizeComIn:= UINT_TO_INT(SIZEOF(stComIn_DREAM_CAT1_PTM_01)),
+        TxBuffer:= SerialTXBuffer_DREAM_CAT1_PTM_01,
+        RxBuffer:= SerialRXBuffer_DREAM_CAT1_PTM_01,
+        Error=> ,
+        ErrorID=> );
+
+    fbSerialLineControl_DREAM_CAT2_PTM_01(
+        Mode:= SERIALLINEMODE_EL6_22B,
+        pComIn:= ADR(stComIn_DREAM_CAT2_PTM_01),
+        pComOut:= ADR(stComOut_DREAM_CAT2_PTM_01),
+        SizeComIn:= UINT_TO_INT(SIZEOF(stComIn_DREAM_CAT2_PTM_01)),
+        TxBuffer:= SerialTXBuffer_DREAM_CAT2_PTM_01,
+        RxBuffer:= SerialRXBuffer_DREAM_CAT2_PTM_01,
+        Error=> ,
+        ErrorID=> );
+
+    fbSerialLineControl_DREAM_ROUGH2_PTM_01(
+        Mode:= SERIALLINEMODE_EL6_22B,
+        pComIn:= ADR(stComIn_DREAM_ROUGH2_PTM_01),
+        pComOut:= ADR(stComOut_DREAM_ROUGH2_PTM_01),
+        SizeComIn:= UINT_TO_INT(SIZEOF(stComIn_DREAM_ROUGH2_PTM_01)),
+        TxBuffer:= SerialTXBuffer_DREAM_ROUGH2_PTM_01,
+        RxBuffer:= SerialRXBuffer_DREAM_ROUGH2_PTM_01,
+        Error=> ,
+        ErrorID=> );
+
+    fbSerialLineControl_DREAM_ROUGH2_PTM_02(
+        Mode:= SERIALLINEMODE_EL6_22B,
+        pComIn:= ADR(stComIn_DREAM_ROUGH2_PTM_02),
+        pComOut:= ADR(stComOut_DREAM_ROUGH2_PTM_02),
+        SizeComIn:= UINT_TO_INT(SIZEOF(stComIn_DREAM_ROUGH2_PTM_02)),
+        TxBuffer:= SerialTXBuffer_DREAM_ROUGH2_PTM_02,
+        RxBuffer:= SerialRXBuffer_DREAM_ROUGH2_PTM_02,
+        Error=> ,
+        ErrorID=> );
+
+    END_PROGRAM
+
+
+
+
+PRG_ECAT_CHECK
+^^^^^^^^^^^^^^
+
+::
+
+    PROGRAM PRG_ECAT_CHECK
+    VAR
+        //EtherCAT bridge error
+        bEcatBridge_COM_ERROR : BOOL;
+
+        //Ethercat bridge error for DREAM Motion
+        bMotEcatBridge_COM_ERROR : BOOL;
+    END_VAR
+    (*EtherCAT Bridge Status*)
+    //bEcatBridge_COM_ERROR = TRUE means that there is an EtherCAT Bridge Communication Error.
+    bEcatBridge_COM_ERROR := (bEcatBridge_TxPDO_state OR bEcatBridge_External_device_not_connected OR bEcatBridge_WcState);
+
+    bOnBeamline := (bEcatBridge_COM_ERROR = FALSE) AND (sHUTCH_PLC_NAME = 'TMO');
+
+    bMotEcatBridge_COM_ERROR := (bMotEcatBridge_TxPDO_state OR bMotEcatBridge_External_device_not_connected OR bMotEcatBridge_WcState);
+
+    END_PROGRAM
+
+
+
+
+PRG_GAUGES
+^^^^^^^^^^
+
+::
+
+    PROGRAM PRG_GAUGES
+    VAR
+
+    END_VAR
+    (**Gas Injection Gauges**)
+    //Pirani MKS 275 Gauges
+    DREAM_NC_GPI_01.M_SetBits(30518);
+    DREAM_NC_GPI_01(PG=>);
+    DREAM_DP1_GPI_01.M_SetBits(30518);
+    DREAM_DP1_GPI_01(PG=>);
+
+    //Cold Cathode Guages
+    DREAM_NC_GCC_01.M_SetBits(30518);
+    DREAM_NC_GCC_01(PG:= DREAM_NC_GPI_01.PG);
+
+    //Hot Cathode Guages
+    DREAM_DP1_GHC_01.M_SetBits(30518);
+    DREAM_DP1_GHC_01(PG:= DREAM_DP1_GPI_01.PG, IG=>);
+    DREAM_DP2_GHC_01.M_SetBits(30518);
+    DREAM_DP2_GHC_01(PG:= DREAM_DP1_GPI_01.PG, IG=>);
+    DREAM_DP3_GHC_01.M_SetBits(30518);
+    DREAM_DP3_GHC_01(PG:= DREAM_DP1_GPI_01.PG, IG=>);
+
+    (**Main Chmamber Gauges**)
+    //Pirani Gauges
+    DREAM_MC_GPI_01.M_SetBits(30518);
+    DREAM_MC_GPI_01();
+
+    //Hot Cathode gauge IE514
+    DREAM_MC_GHC.M_SetBits(30518);
+    //Using DP3:GHC to interlock main chamber gauge because protetion setpoint for the gauge has to be set to 1e-6 - 1E-5
+    //Changing back to interlock MC HC gauge with MC pirani gauge, becasue when coil is ON it can turn OFF DP3 gauge which then affect interlocks for the beamline valves and catcher valve
+    DREAM_MC_GHC(PG:= DREAM_MC_GPI_01.PG); //This fb reads statuses and control two gauges DREAM:MC:GHC:01 and DREAM:MC:GHC:02
+
+    //Update stDREAM_MC_GHC_GAUGE structure based on CH selected by controller and data to TMO Beamline Vacuum PLC
+    IF DREAM_MC_GHC.M_IsCh1Selected() THEN
+        stDREAM_MC_GHC_GAUGE := DREAM_MC_GHC.IG_CH1;
+
+        GVL_PLC_Interface.bDREAM_MAIN_xAT_VAC := DREAM_MC_GHC.IG_CH1.xAT_VAC;
+        GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK := DREAM_MC_GHC.IG_CH1.xPRESS_OK;
+        GVL_PLC_Interface.fDREAM_MAIN_rPRESS := DREAM_MC_GHC.IG_CH1.rPRESS;
+
+    ELSIF DREAM_MC_GHC.M_IsCh2Selected() THEN
+        stDREAM_MC_GHC_GAUGE := DREAM_MC_GHC.IG_CH2;
+
+        GVL_PLC_Interface.bDREAM_MAIN_xAT_VAC := DREAM_MC_GHC.IG_CH2.xAT_VAC;
+        GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK := DREAM_MC_GHC.IG_CH2.xPRESS_OK;
+        GVL_PLC_Interface.fDREAM_MAIN_rPRESS := DREAM_MC_GHC.IG_CH2.rPRESS;
+    END_IF
+
+    //Switch to Pirani gauge, when High vacuum gauge is not available, check pumps running when using Pirani
+    IF NOT stDREAM_MC_GHC_GAUGE.xPRESS_OK THEN
+    //This interlock pseudo MC gauge is also assigned in the PRG_Valves, it is redanduncy and make sure change the PRG_Valves as well if change here
+        stDREAM_MC_GAUGE := DREAM_MC_GPI_01.PG;
+        GVL_PLC_Interface.bDREAM_MAIN_xAT_VAC := DREAM_MC_GPI_01.PG.xAT_VAC;
+        GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK := DREAM_MC_GPI_01.PG.xPRESS_OK AND bMCPumpsRunning;
+        GVL_PLC_Interface.fDREAM_MAIN_rPRESS := DREAM_MC_GPI_01.PG.rPRESS;
+    ElSE
+    //This interlock pseudo MC gauge is also assigned in the PRG_Valves, it is redanduncy and make sure change the PRG_Valves as well if change here
+        stDREAM_MC_GAUGE := stDREAM_MC_GHC_GAUGE;
+        GVL_PLC_Interface.bDREAM_MAIN_xAT_VAC := stDREAM_MC_GHC_GAUGE.xAT_VAC;
+        GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK := stDREAM_MC_GHC_GAUGE.xPRESS_OK;
+        GVL_PLC_Interface.fDREAM_MAIN_rPRESS := stDREAM_MC_GHC_GAUGE.rPRESS;
+    END_IF
+
+
+
+    (**Catcher Gauges**)
+    //Hot Cathode Guages
+    DREAM_CAT1_GHC_01.M_SetBits(30518);
+    DREAM_CAT1_GHC_01(PG:= DREAM_ROUGH2_GPI_03.PG);
+    DREAM_CAT2_GHC_01.M_SetBits(30518);
+    DREAM_CAT2_GHC_01(PG:= DREAM_ROUGH2_GPI_03.PG);
+
+    (**Roughing Section Gauges**)
+    DREAM_ROUGH1_GPI_01.M_SetBits(32767);
+    DREAM_ROUGH1_GPI_01();
+    DREAM_ROUGH1_GPI_02.M_SetBits(32767);
+    DREAM_ROUGH1_GPI_02();
+
+    DREAM_ROUGH2_GPI_01.M_SetBits(32767);
+    DREAM_ROUGH2_GPI_01();
+    DREAM_ROUGH2_GPI_02.M_SetBits(32767);
+    DREAM_ROUGH2_GPI_02();
+    DREAM_ROUGH2_GPI_03.M_SetBits(32767);
+    DREAM_ROUGH2_GPI_03();
+
+    END_PROGRAM
+
+
+Related:
+    * `GVL_PLC_Interface`_
+
+
+PRG_HV_ILK
+^^^^^^^^^^
+
+::
+
+    PROGRAM PRG_HV_ILK
+    VAR
+
+    END_VAR
+    (*High Voltage Saftey Loop*)
+    IF GVL_VAC_GAUGES.stDREAM_MC_GHC_GAUGE.xPRESS_OK THEN
+      //  fHighVoltageMaxPressure := 1e-05;
+        GVL_PLC_Interface.bHVSafteyLoopEnable := GVL_VAC_GAUGES.stDREAM_MC_GHC_GAUGE.rPRESS <= fHighVoltageMaxPressure;
+    ELSIF DREAM_MC_GPI_01.PG.xPRESS_OK AND bMCPumpsRunning THEN
+     //   fHighVoltageMaxPressure := 5e-04;
+        GVL_PLC_Interface.bHVSafteyLoopEnable := DREAM_MC_GPI_01.PG.rPRESS <= rHV_GPI_SP;
+    ELSE
+        GVL_PLC_Interface.bHVSafteyLoopEnable := FALSE;
+    END_IF
+
+    END_PROGRAM
+
+
+Related:
+    * `GVL_PLC_Interface`_
+    * `GVL_VAC_GAUGES`_
+
+
+PRG_TC
+^^^^^^
+
+::
+
+    PROGRAM PRG_TC
+    VAR
+    END_VAR
+    //Measure Thercmocouples
+    TC_01();
+    TC_02();
+    TC_03();
+    TC_04();
+    TC_05();
+    TC_06();
+    TC_07();
+    TC_08();
+
+    END_PROGRAM
+
+
+
+
+PRG_TURBO_PUMPS
+^^^^^^^^^^^^^^^
+
+::
+
+    PROGRAM PRG_TURBO_PUMPS
+    VAR
+        bAllTurboPumpRunning : BOOL;
+        tAllTurboPumpDelayTime : TIME := T#30s;
+        tAllTurboPumpTOF : TOF;
+
+        bMainTurboPumpRunning : BOOL;
+        tMainTurboPumpDelayTime : TIME := T#15m;
+        tMainTurboPumpTOF : TOF;
+        ftPumpsFailed : F_TRIG;
+    END_VAR
+    (**Gas Injection Turbo pumps**)
+    DREAM_NC_PTM_01(i_xExtIlkOK := DREAM_ROUGH1_GPI_02.PG.rPRESS < DREAM_NC_PTM_01.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH1_GPI_02.PG.xPRESS_OK AND
+                                   DREAM_ROUGH1_VRC_01.iq_stValve.i_xOpnLS);
+
+    DREAM_NC_PTM_02(i_xExtIlkOK := DREAM_ROUGH1_GPI_02.PG.rPRESS < DREAM_NC_PTM_02.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH1_GPI_02.PG.xPRESS_OK AND
+                                   DREAM_ROUGH1_VRC_01.iq_stValve.i_xOpnLS);
+
+    (**Differential pumping stations Turbo pumps**)
+    DREAM_DP1_PTM_01(i_xExtIlkOK := DREAM_ROUGH2_GPI_02.PG.rPRESS < DREAM_DP1_PTM_01.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK AND
+                                    DREAM_ROUGH2_VRC_01.iq_stValve.i_xOpnLS);
+
+    DREAM_DP2_PTM_01(i_xExtIlkOK := DREAM_ROUGH2_GPI_02.PG.rPRESS < DREAM_DP2_PTM_01.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK AND
+                                    DREAM_ROUGH2_VRC_01.iq_stValve.i_xOpnLS);
+
+    DREAM_DP3_PTM_01(i_xExtIlkOK := DREAM_ROUGH2_GPI_02.PG.rPRESS < DREAM_DP3_PTM_01.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK AND
+                                    DREAM_ROUGH2_VRC_01.iq_stValve.i_xOpnLS);
+
+    (**Main Chamber Turbo pumps**)
+    DREAM_MC_PTM_01(i_xExtIlkOK := DREAM_ROUGH2_GPI_02.PG.rPRESS < DREAM_MC_PTM_01.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK AND
+                                   DREAM_ROUGH2_VRC_01.iq_stValve.i_xOpnLS);
+
+    DREAM_MC_PTM_02(i_xExtIlkOK := DREAM_ROUGH2_GPI_02.PG.rPRESS < DREAM_MC_PTM_02.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK AND
+                                   DREAM_ROUGH2_VRC_01.iq_stValve.i_xOpnLS);
+
+    (**Catcher Turbo pumps**)
+    //Special interlock due to manual valve between turbo pump and ROUGH2_GPI2
+    DREAM_CAT1_PTM_01(i_xExtIlkOK := DREAM_ROUGH2_GPI_02.PG.rPRESS < DREAM_CAT1_PTM_01.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK AND
+                                     DREAM_ROUGH2_GPI_03.PG.rPRESS < DREAM_CAT1_PTM_01.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH2_GPI_03.PG.xPRESS_OK AND
+                                     DREAM_ROUGH2_VRC_01.i_xOpnLS);
+
+
+    DREAM_CAT2_PTM_01(i_xExtIlkOK := DREAM_ROUGH2_GPI_03.PG.rPRESS < DREAM_CAT2_PTM_01.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH2_GPI_03.PG.xPRESS_OK AND
+                                     DREAM_ROUGH2_VRC_02.iq_stValve.i_xOpnLS);
+
+    (**ROUGHING SECTION TURBO BOOSTER PUMPS**)
+    DREAM_ROUGH2_PTM_01(i_xExtIlkOK := DREAM_ROUGH2_GPI_02.PG.rPRESS < DREAM_ROUGH2_PTM_01.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK AND
+                                       DREAM_ROUGH2_VRC_01.iq_stValve.i_xOpnLS);
+
+    DREAM_ROUGH2_PTM_02(i_xExtIlkOK := DREAM_ROUGH2_GPI_02.PG.rPRESS < DREAM_ROUGH2_PTM_02.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK AND
+                                       DREAM_ROUGH2_VRC_01.iq_stValve.i_xOpnLS);
+
+
+    bAllTurboPumpRunning := DREAM_NC_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                            DREAM_NC_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                            DREAM_DP1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                            DREAM_DP2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                            DREAM_DP3_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                            DREAM_MC_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                            DREAM_MC_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                            DREAM_CAT1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                            DREAM_CAT2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                            DREAM_ROUGH2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                            DREAM_ROUGH2_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING;
+
+    tAllTurboPumpTOF(IN := bAllTurboPumpRunning, PT := tAllTurboPumpDelayTime);
+    bDREAM_TURBOS_ALL_AtSpd := tAllTurboPumpTOF.Q;
+
+    bMCPumpsRunning := DREAM_DP1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                       DREAM_DP2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                       DREAM_DP3_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                       DREAM_MC_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                       DREAM_MC_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                       DREAM_ROUGH2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                       DREAM_ROUGH2_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING;
+
+    bCATPumpsRunning := DREAM_CAT1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                        DREAM_CAT2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING;
+
+    (*********SERIAL COMMUNICATION**********)
+
+    (*Pfeiffer pumps at Gas Injection*)
+    //DREAM_NC_PTM_01
+    (*Assign adresses to the pfeiffer controllers connected to this serial terminal*)
+    stPfeiffer_CTRL_DREAM_NC_PTM_01[1].iSerialAddress:= 1;
+    stPfeiffer_CTRL_DREAM_NC_PTM_01[1].xEnableComm:= TRUE;
+    (*Instanitate the Function block for serial communication with Pfeiffer*)
+    fbPfeifferCom_DREAM_NC_PTM_01(astPfeifferControl:= stPfeiffer_CTRL_DREAM_NC_PTM_01,
+                                  astPfeifferStatus:= stPfeiffer_RBK_DREAM_NC_PTM_01,
+                                  SerialRXBuffer:= SerialRXBuffer_DREAM_NC_PTM_01,
+                                  SerialTXBuffer:= SerialTXBuffer_DREAM_NC_PTM_01);
+    (*Copy Status Pv's into the PTM structure*)
+    DREAM_NC_PTM_01.M_Serial_IO(st_Pfeiffer_RBK:= stPfeiffer_RBK_DREAM_NC_PTM_01[1],
+                                st_Pfeiffer_CTRL:= stPfeiffer_CTRL_DREAM_NC_PTM_01[1]);
+
+    //DREAM_NC_PTM_02
+    stPfeiffer_CTRL_DREAM_NC_PTM_02[1].iSerialAddress:= 1;
+    stPfeiffer_CTRL_DREAM_NC_PTM_02[1].xEnableComm:= TRUE;
+    fbPfeifferCom_DREAM_NC_PTM_02(astPfeifferControl:= stPfeiffer_CTRL_DREAM_NC_PTM_02,
+                                  astPfeifferStatus:= stPfeiffer_RBK_DREAM_NC_PTM_02,
+                                  SerialRXBuffer:= SerialRXBuffer_DREAM_NC_PTM_02,
+                                  SerialTXBuffer:= SerialTXBuffer_DREAM_NC_PTM_02);
+
+    DREAM_NC_PTM_02.M_Serial_IO(st_Pfeiffer_RBK:= stPfeiffer_RBK_DREAM_NC_PTM_02[1],
+                                st_Pfeiffer_CTRL:= stPfeiffer_CTRL_DREAM_NC_PTM_02[1]);
+
+    //DREAM_DP1_PTM_01
+    stPfeiffer_CTRL_DREAM_DP1_PTM_01[1].iSerialAddress:= 1;
+    stPfeiffer_CTRL_DREAM_DP1_PTM_01[1].xEnableComm:= TRUE;
+    fbPfeifferCom_DREAM_DP1_PTM_01(astPfeifferControl:= stPfeiffer_CTRL_DREAM_DP1_PTM_01,
+                                   astPfeifferStatus:= stPfeiffer_RBK_DREAM_DP1_PTM_01,
+                                   SerialRXBuffer:= SerialRXBuffer_DREAM_DP1_PTM_01,
+                                   SerialTXBuffer:= SerialTXBuffer_DREAM_DP1_PTM_01);
+
+    DREAM_DP1_PTM_01.M_Serial_IO(st_Pfeiffer_RBK:= stPfeiffer_RBK_DREAM_DP1_PTM_01[1],
+                                 st_Pfeiffer_CTRL:= stPfeiffer_CTRL_DREAM_DP1_PTM_01[1]);
+
+
+    (*Leybold pumps at Gas Injection*)
+    //DREAM_DP2_PTM_01
+    (*Instanitate the Function block for serial communication with TD20 controller*)
+    fbTD20Com_DREAM_DP2_PTM_01(SerialRXBuffer:= SerialRXBuffer_DREAM_DP2_PTM_01,
+                               SerialTXBuffer:= SerialTXBuffer_DREAM_DP2_PTM_01,
+                               astTD20Status=> stTD20_RBK_DREAM_DP2_PTM_01);
+    (*Copy Status Pv's into the PTM structure*)
+    DREAM_DP2_PTM_01.M_Serial_IO(i_st_TD20_RBK:= stTD20_RBK_DREAM_DP2_PTM_01);
+
+    //DREAM_DP3_PTM_01
+    fbTD20Com_DREAM_DP3_PTM_01(SerialRXBuffer:= SerialRXBuffer_DREAM_DP3_PTM_01,
+                               SerialTXBuffer:= SerialTXBuffer_DREAM_DP3_PTM_01,
+                               astTD20Status=> stTD20_RBK_DREAM_DP3_PTM_01);
+
+    DREAM_DP3_PTM_01.M_Serial_IO(i_st_TD20_RBK:= stTD20_RBK_DREAM_DP3_PTM_01);
+
+    (*Leybold pumps at Main Chamber*)
+    //DREAM_MC_PTM_01
+    fbTD20Com_DREAM_MC_PTM_01(SerialRXBuffer:= SerialRXBuffer_DREAM_MC_PTM_01,
+                               SerialTXBuffer:= SerialTXBuffer_DREAM_MC_PTM_01,
+                               astTD20Status=> stTD20_RBK_DREAM_MC_PTM_01);
+
+    DREAM_MC_PTM_01.M_Serial_IO(stTD20_RBK_DREAM_MC_PTM_01);
+
+    //DREAM_MC_PTM_02
+    fbTD20Com_DREAM_MC_PTM_02(SerialRXBuffer:= SerialRXBuffer_DREAM_MC_PTM_02,
+                               SerialTXBuffer:= SerialTXBuffer_DREAM_MC_PTM_02,
+                               astTD20Status=> stTD20_RBK_DREAM_MC_PTM_02);
+
+    DREAM_MC_PTM_02.M_Serial_IO(stTD20_RBK_DREAM_MC_PTM_02);
+
+    (*Leybold pumps at Catcher*)
+    //DREAM_CAT1_PTM_01 (TD400)
+    fbTD400SerialIO_DREAM_CAT1_PTM_01(iq_stPTM := DREAM_CAT1_PTM_01.iq_stPtm,
+                                      iq_stTD400Control := stTD400_CTRL_DREAM_CAT1_PTM_01,
+                                      iq_stTD400Status := stTD400_RBK_DREAM_CAT1_PTM_01);
+
+    fbTD400Com_DREAM_CAT1_PTM_01(SerialRXBuffer := SerialRXBuffer_DREAM_CAT1_PTM_01,
+                                 SerialTXBuffer := SerialTXBuffer_DREAM_CAT1_PTM_01,
+                                 stTD400Control := stTD400_CTRL_DREAM_CAT1_PTM_01,
+                                 stTD400Status => stTD400_RBK_DREAM_CAT1_PTM_01);
+
+    //DREAM_CAT1_PTM_01.M_Serial_IO(stTD400_RBK_DREAM_CAT1_PTM_01);
+
+    //DREAM_CAT2_PTM_01 (TD400)
+    fbTD400SerialIO_DREAM_CAT2_PTM_01(iq_stPTM := DREAM_CAT2_PTM_01.iq_stPtm,
+                                      iq_stTD400Control := stTD400_CTRL_DREAM_CAT2_PTM_01,
+                                      iq_stTD400Status := stTD400_RBK_DREAM_CAT2_PTM_01);
+
+    fbTD400Com_DREAM_CAT2_PTM_01(SerialRXBuffer := SerialRXBuffer_DREAM_CAT2_PTM_01,
+                                 SerialTXBuffer := SerialTXBuffer_DREAM_CAT2_PTM_01,
+                                 stTD400Control := stTD400_CTRL_DREAM_CAT2_PTM_01,
+                                 stTD400Status => stTD400_RBK_DREAM_CAT2_PTM_01);
+
+    //DREAM_CAT2_PTM_01.M_Serial_IO(stTD400_RBK_DREAM_CAT2_PTM_01);
+
+    (*Leybold pump-roughing section-booster pump*)
+    //DREAM_ROUGH2_PTM_01 (TD400)
+    fbTD400SerialIO_DREAM_ROUGH2_PTM_01(iq_stPTM := DREAM_ROUGH2_PTM_01.iq_stPtm,
+                                        iq_stTD400Control := stTD400_CTRL_DREAM_ROUGH2_PTM_01,
+                                        iq_stTD400Status := stTD400_RBK_DREAM_ROUGH2_PTM_01);
+
+    fbTD400Com_DREAM_ROUGH2_PTM_01(SerialRXBuffer := SerialRXBuffer_DREAM_ROUGH2_PTM_01,
+                                   SerialTXBuffer := SerialTXBuffer_DREAM_ROUGH2_PTM_01,
+                                   stTD400Control := stTD400_CTRL_DREAM_ROUGH2_PTM_01,
+                                   stTD400Status => stTD400_RBK_DREAM_ROUGH2_PTM_01);
+
+    //DREAM_ROUGH2_PTM_01.M_Serial_IO(stTD400_RBK_DREAM_ROUGH2_PTM_01);
+
+    //DREAM_ROUGH2_PTM_01 (TD400)
+    fbTD400SerialIO_DREAM_ROUGH2_PTM_02(iq_stPTM := DREAM_ROUGH2_PTM_02.iq_stPtm,
+                                        iq_stTD400Control := stTD400_CTRL_DREAM_ROUGH2_PTM_02,
+                                        iq_stTD400Status := stTD400_RBK_DREAM_ROUGH2_PTM_02);
+
+    fbTD400Com_DREAM_ROUGH2_PTM_02(SerialRXBuffer := SerialRXBuffer_DREAM_ROUGH2_PTM_02,
+                                   SerialTXBuffer := SerialTXBuffer_DREAM_ROUGH2_PTM_02,
+                                   stTD400Control := stTD400_CTRL_DREAM_ROUGH2_PTM_02,
+                                   stTD400Status => stTD400_RBK_DREAM_ROUGH2_PTM_02);
+
+    //DREAM_ROUGH2_PTM_02.M_Serial_IO(stTD400_RBK_DREAM_ROUGH2_PTM_02);
+
+    END_PROGRAM
+
+
+
+
+PRG_VALVES
+^^^^^^^^^^
+
+::
+
+    PROGRAM PRG_VALVES
+    VAR
+        //Rough lines VRC external interlocks
+        bROUGH1_VRC_01_ILK : BOOL;
+        bROUGH2_VRC_01_ILK : BOOL;
+        bROUGH2_VRC_02_ILK : BOOL;
+        bROUGH1_VRC_01_Override : BOOL;
+        bROUGH2_VRC_01_Override : BOOL;
+        bROUGH2_VRC_02_Override : BOOL;
+        bCAT1_VRC_01_ExtILK : BOOL;
+        bDP1_VRC_01_ILK : BOOL;
+        bDP1_VRC_02_ILK : BOOL;
+        bCAT1_VRC_01_ExtILK_US:BOOL;
+        bCAT1_VRC_01_ExtILK_DS:BOOL;
+        bCAT1_DisableDiffIlk : BOOL;
+
+        //dummy FF output to use in VGC_2S function
+        dummy_FFFO : FB_HardwareFFOutput;
+        dummy_fbArbiter1 : FB_Arbiter(1);
+    END_VAR
+    (**Gas Injection Valves**)
+    DREAM_DP1_VRC_01(i_stUSG := DREAM_NC_GPI_01.PG,
+                     i_stDSG := DREAM_DP1_GPI_01.PG,
+                     i_xDis_DPIlk := FALSE,
+                     i_xEPS_OK := TRUE,
+                     i_xPMPS_OK := TRUE,
+                     i_xReset := FALSE,
+                     i_xExt_OK := TRUE,
+                     i_xOverrideMode := bSystemOverrideMode,
+                     io_fbFFHWO := dummy_FFFO,
+                     fbArbiter := dummy_fbArbiter1,
+                     i_sDevName := 'DREAM-DP1-VRC-01');
+
+    //DP1_VRC_02 Interlock evaluation NOTE: Normally OPEN Valve!!
+    bDP1_VRC_02_ILK := DREAM_DP1_VRC_01.iq_stValve.i_xOpnLS; //Interlock changed for this valve to only gets interlocked by DREAM_DP1_VRC_01 valve
+
+    DREAM_DP1_VRC_02(i_xExtILK_OK := bDP1_VRC_02_ILK, i_xOverrideMode := bSystemOverrideMode); //Normally open valve
+
+    (**Catcher valve**)
+
+    //CAT1_VRC_01 Interlock evaluation
+    //Select US interlock gauge and adding pump running interlock when use Pirani
+    IF NOT stDREAM_MC_GHC_GAUGE.xPRESS_OK THEN
+        bCAT1_VRC_01_ExtILK_US := bMCPumpsRunning;
+    //This interlock pseudo gauge is also assigned in the PRG_Gauge, it is redanduncy and make sure change the PRG_Gauge as well if change here
+        stDREAM_MC_GAUGE := DREAM_MC_GPI_01.PG;
+        stDREAM_MC_GAUGE.sPath := 'DREAM_MC_GPI_01';
+    ELSE
+        bCAT1_VRC_01_ExtILK_US := True;
+    //This interlock pseudo MC gauge is also assigned in the PRG_Gauge, it is redanduncy and make sure change the PRG_Gauge as well if change here
+        stDREAM_MC_GAUGE := stDREAM_MC_GHC_GAUGE;
+        stDREAM_MC_GAUGE.sPath := 'DREAM_MC_GHC_GAUGE';
+    END_IF
+
+    //Select DS interlock gauge
+    IF NOT DREAM_CAT1_GHC_01.IG.xPRESS_OK THEN
+        stDREAM_CAT1_GAUGE := DREAM_ROUGH2_GPI_03.PG;
+        stDREAM_CAT1_GAUGE.sPath := 'DREAM_ROUGH2_GPI_03';
+    ELSE
+          stDREAM_CAT1_GAUGE := DREAM_CAT1_GHC_01.IG;
+        stDREAM_CAT1_GAUGE.sPath := 'DREAM_CAT1_GHC_01';
+    END_IF
+
+    bCAT1_VRC_01_ExtILK := bCAT1_VRC_01_ExtILK_US AND bCATPumpsRunning;
+
+    //DREAM_CAT1_VRC_01(i_xExtILK_OK := bCAT1_VRC_01_ILK, i_xOverrideMode := bSystemOverrideMode);
+    DREAM_CAT1_VRC_01(i_stUSG := stDREAM_MC_GAUGE,
+                      i_stDSG := stDREAM_CAT1_GAUGE,
+                      i_xDis_DPIlk := FALSE,
+                      i_xEPS_OK := TRUE,
+                      i_xPMPS_OK := TRUE,
+                      i_xReset := FALSE,
+                      i_xExt_OK := bCAT1_VRC_01_ExtILK,
+                      i_xOverrideMode := bSystemOverrideMode,
+                      io_fbFFHWO := dummy_FFFO,
+                      fbArbiter := dummy_fbArbiter1,
+                      i_sDevName := 'DREAM-CAT1-VRC-01');
+
+    (**Roughing Valves**)
+    //Interlock evaluation
+    bROUGH1_VRC_01_ILK := //DREAM_ROUGH1_GPI_01.PG.rPRESS < 5E-3 AND DREAM_ROUGH1_GPI_01.PG.xPRESS_OK AND
+                          DREAM_ROUGH1_VFV_01.iq_stVFN.rReqPosition = 0.0 AND
+                          DREAM_ROUGH1_VFV_02.iq_stVFN.rReqPosition = 0.0 AND
+                          DREAM_ROUGH1_VRC_10.iq_stValve.i_xClsLS; //Interlocked with manifold roughing valve as well
+
+    bROUGH2_VRC_01_ILK := //DREAM_ROUGH2_GPI_01.PG.rPRESS < 5E-3 AND DREAM_ROUGH2_GPI_01.PG.xPRESS_OK AND
+                          DREAM_ROUGH2_VFV_01.iq_stVFN.rReqPosition = 0.0 AND
+                          DREAM_ROUGH2_VFV_02.iq_stVFN.rReqPosition = 0.0;
+
+    bROUGH2_VRC_02_ILK := //DREAM_ROUGH2_GPI_01.PG.rPRESS < 5E-3 AND DREAM_ROUGH2_GPI_01.PG.xPRESS_OK AND
+                          DREAM_ROUGH2_VFV_01.iq_stVFN.rReqPosition = 0.0 AND
+                          DREAM_ROUGH2_VFV_03.iq_stVFN.rReqPosition = 0.0;
+
+    bROUGH1_VRC_01_Override := bSystemOverrideMode AND
+                               DREAM_ROUGH1_VFV_01.iq_stVFN.rReqPosition = 0.0 AND
+                               DREAM_ROUGH1_VFV_02.iq_stVFN.rReqPosition = 0.0;
+
+    bROUGH2_VRC_01_Override := bSystemOverrideMode AND
+                               DREAM_ROUGH2_VFV_01.iq_stVFN.rReqPosition = 0.0 AND
+                               DREAM_ROUGH2_VFV_02.iq_stVFN.rReqPosition = 0.0;
+
+    bROUGH2_VRC_02_Override := bSystemOverrideMode AND
+                               DREAM_ROUGH2_VFV_01.iq_stVFN.rReqPosition = 0.0 AND
+                               DREAM_ROUGH2_VFV_03.iq_stVFN.rReqPosition = 0.0;
+
+    DREAM_ROUGH1_VRC_01(i_stUSG := DREAM_ROUGH1_GPI_01.PG,
+                        i_stDSG := DREAM_ROUGH1_GPI_02.PG,
+                        i_xDis_DPIlk := FALSE,
+                        i_xEPS_OK := TRUE,
+                        i_xPMPS_OK := TRUE,
+                        i_xReset := FALSE,
+                        i_xExt_OK := bROUGH1_VRC_01_ILK,
+                        i_xOverrideMode := bROUGH1_VRC_01_Override,
+                        io_fbFFHWO := dummy_FFFO,
+                        fbArbiter := dummy_fbArbiter1,
+                        i_sDevName := 'DREAM-ROUGH1-VRC-01');
+
+    DREAM_ROUGH2_VRC_01(i_stUSG := DREAM_ROUGH2_GPI_01.PG,
+                        i_stDSG := DREAM_ROUGH2_GPI_02.PG,
+                        i_xDis_DPIlk := FALSE,
+                        i_xEPS_OK := TRUE,
+                        i_xPMPS_OK := TRUE,
+                        i_xReset := FALSE,
+                        i_xExt_OK := bROUGH2_VRC_01_ILK,
+                        i_xOverrideMode := bROUGH2_VRC_01_Override,
+                        io_fbFFHWO := dummy_FFFO,
+                        fbArbiter := dummy_fbArbiter1,
+                        i_sDevName := 'DREAM-ROUGH2-VRC-01');
+
+    DREAM_ROUGH2_VRC_02(i_stUSG := DREAM_ROUGH2_GPI_01.PG,
+                        i_stDSG := DREAM_ROUGH2_GPI_03.PG,
+                        i_xDis_DPIlk := FALSE,
+                        i_xEPS_OK := TRUE,
+                        i_xPMPS_OK := TRUE,
+                        i_xReset := FALSE,
+                        i_xExt_OK := bROUGH2_VRC_02_ILK,
+                        i_xOverrideMode := bROUGH2_VRC_02_Override,
+                        io_fbFFHWO := dummy_FFFO,
+                        fbArbiter := dummy_fbArbiter1,
+                        i_sDevName := 'DREAM-ROUGH2-VRC-02');
+
+    //Test valve
+    DREAM_ROUGH1_VRC_20(i_xExtILK_OK := True, i_xOverrideMode := bSystemOverrideMode);
+
+    //Manifold roughing valve
+    DREAM_ROUGH1_VRC_10(i_xExtILK_OK := DREAM_ROUGH1_VRC_01.iq_stValve.i_xClsLS, i_xOverrideMode := bSystemOverrideMode);
+
+    //Flow control valves
+    DREAM_ROUGH1_VFV_01(i_xExtIlkOK := DREAM_ROUGH1_VRC_01.iq_stValve.i_xClsLS);
+
+    DREAM_ROUGH1_VFV_02(i_xExtIlkOK := DREAM_ROUGH1_VRC_01.iq_stValve.i_xClsLS AND DREAM_DP1_VRC_01.iq_stValve.i_xClsLS AND
+                                       NOT DREAM_NC_PTM_01.iq_stPTM.i_xAtSpd AND
+                                       NOT DREAM_NC_PTM_02.iq_stPTM.i_xAtSpd);
+
+    DREAM_ROUGH2_VFV_01(i_xExtIlkOK := DREAM_ROUGH2_VRC_01.iq_stValve.i_xClsLS AND DREAM_ROUGH2_VRC_02.iq_stValve.i_xClsLS);
+
+    DREAM_ROUGH2_VFV_02(i_xExtIlkOK := DREAM_ROUGH2_VRC_01.iq_stValve.i_xClsLS AND
+                                       NOT DREAM_DP1_PTM_01.iq_stPTM.i_xAtSpd AND
+                                       NOT DREAM_DP2_PTM_01.iq_stPTM.i_xAtSpd AND
+                                       NOT DREAM_DP3_PTM_01.iq_stPTM.i_xAtSpd AND
+                                       NOT DREAM_MC_PTM_01.iq_stPTM.i_xAtSpd AND
+                                       NOT DREAM_MC_PTM_02.iq_stPTM.i_xAtSpd AND
+                                       NOT DREAM_ROUGH2_PTM_01.iq_stPTM.i_xAtSpd AND
+                                       NOT DREAM_ROUGH2_PTM_02.iq_stPTM.i_xAtSpd AND
+                                       NOT DREAM_CAT1_PTM_01.iq_stPTM.i_xAtSpd);
+
+    DREAM_ROUGH2_VFV_03(i_xExtIlkOK := DREAM_ROUGH2_VRC_02.iq_stValve.i_xClsLS AND DREAM_CAT1_VRC_01.iq_stValve.i_xClsLS AND
+                                       NOT DREAM_CAT2_PTM_01.iq_stPtm.i_xAtSpd);
+
+    //dual vale for test-08-15-25
+    DREAM_DP1_VRC_20(i_OPN_OK := TRUE,
+                     i_CLS_OK := TRUE,
+                     ibCntrlHold := FALSE,
+                     i_xOverrideMode :=  bSystemOverrideMode,
+                     iq_stValve =>);
+
+    END_PROGRAM
+
+
+
