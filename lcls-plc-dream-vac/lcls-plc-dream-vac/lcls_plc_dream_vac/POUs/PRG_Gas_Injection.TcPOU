@@ -4,26 +4,167 @@
     <Declaration><![CDATA[PROGRAM PRG_Gas_Injection
 VAR
 	
+	x_run_pressureOK: BOOL;
+	x_NC_Turb_01_ON_ilk: BOOL;
+	x_NC_Turb_02_ON_ilk: BOOL;	
+	x_NC_Turb_02_ON_il: BOOL;
+	x_pressureOK_DP: BOOL;
+	x_DP1_Turb_01_ON_ilk: BOOL;
+	x_DP2_Turb_01_ON_ilk : BOOL;
+	x_DP3_Turb_01_ON_ilk : BOOL;
+	TurboStart_TOF : TOF; 
+	//TurboStart_TON :TON;
+	TurboRun_T0F : TOF;
+	//xStartTurbo: BOOL;
+	x_start_pressureOK :BOOL; 
+	x_AllTurboON: BOOL;
+	x_pressureOK: BOOL;
 	
+	//x_rough_down :BOOL; 
+
+	x_run_pressureOK_DP: BOOL;
+	x_start_PressureOK_DP: BOOL;
+	xExtIlkOK_DP: BOOL;
+	//i_xExtIlkOK: BOOL;
+	x_pressureOK_NC: BOOL;
+	xExtIlkOK_NC: BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[// GAS INJECTION DEVICES
 // GUAGES 
 (* Pirani MKS 275 Gauges *)
+DREAM_NC_GPI_01.M_SetBits(30518);
 DREAM_NC_GPI_01(PG=>);
+DREAM_DP1_GPI_01.M_SetBits(30518);
 DREAM_DP1_GPI_01(PG=>);
 
 //Cold Cathode Guages
-DREAM_NC_GCC_01(PG:= DREAM_NC_GPI_01.PG, IG=>, bEP:=FALSE);
-DREAM_DP1_GCC_01(PG:= DREAM_DP1_GPI_01.PG, IG=>, bEP:=FALSE);
+DREAM_NC_GCC_01.M_SetBits(30518);
+DREAM_NC_GCC_01(PG:= DREAM_NC_GPI_01.PG);
+//Hot Cathode Guages
+DREAM_DP1_GHC_01.M_SetBits(30518);
+DREAM_DP1_GHC_01(PG:= DREAM_DP1_GPI_01.PG, IG=>);
+DREAM_DP2_GHC_01.M_SetBits(30518);
+DREAM_DP2_GHC_01(PG:= DREAM_DP1_GPI_01.PG, IG=>);
+DREAM_DP3_GHC_01.M_SetBits(30518);
+DREAM_DP3_GHC_01(PG:= DREAM_DP1_GPI_01.PG, IG=>);
 
 //Valves
 DREAM_DP1_VRC_01(i_xExtILK_OK := TRUE, i_xOverrideMode := xSystemOverrideMode, iq_stValve => );	
 DREAM_DP1_VRC_02(i_xExtILK_OK := TRUE, i_xOverrideMode := xSystemOverrideMode, iq_stValve => );	
 
+// INTERLOCK CONDITIONS FOR TESTING ----- REMOVE BEFORE INSTALLATION 
+
+////NC CHAMBER INTERLOCK 
+x_run_pressureOK := DREAM_NC_GCC_01.IG.xPRESS_OK AND DREAM_NC_GCC_01.IG.rPRESS < 1E-5;
+x_start_pressureOK := DREAM_NC_GPI_01.PG.rPRESS <1E-1;
+
+IF x_rough_down THEN 	
+	x_pressureOK_NC := x_start_pressureOK ;
+	xExtIlkOK_NC:= x_pressureOK_NC AND (x_AllTurboON OR TurboStart_TOF.Q);
+ELSE
+		x_pressureOK_NC := x_run_pressureOK;
+		xExtIlkOK_NC:= x_pressureOK_NC AND (x_AllTurboON OR TurboRun_T0F.Q);
+END_IF
+
+////DIFFERENTIAL PRESSURE INTERLOCK 
+
+x_run_pressureOK_DP := DREAM_DP1_GHC_01.IG.xPRESS_OK AND DREAM_DP1_GHC_01.IG.rPRESS < 1E-5;
+x_start_PressureOK_DP := DREAM_DP1_GPI_01.PG.rPRESS <1E-1;
+
+IF x_rough_down THEN
+	x_pressureOK_DP := x_start_PressureOK_DP;
+	xExtIlkOK_DP:= x_pressureOK_DP AND (x_AllTurboON OR TurboStart_TOF.Q);
+ELSE
+	x_pressureOK_DP := x_run_pressureOK_DP; 
+	xExtIlkOK_DP:= x_pressureOK_DP AND (x_AllTurboON OR TurboRun_T0F.Q );
+END_IF
+
+/// ROUGHING LOGIC 
+IF x_run_pressureOK AND x_run_pressureOK_DP THEN 
+	x_rough_down := FALSE;
+END_IF
+
+
+
+
+
+// Timer logic
+
+TurboStart_TOF( IN := xStartTurbo, PT := T#300s);
+
+TurboRun_T0F( IN := xStartTurbo, PT := T#30s);
+
+
+IF xStartTurbo THEN	
+DREAM_NC_PTM_01.M_Run(TRUE);
+DREAM_NC_PTM_02.M_Run(TRUE);
+DREAM_DP1_PTM_01.M_Run(TRUE);
+DREAM_DP2_PTM_01.M_Run(TRUE);
+DREAM_DP3_PTM_01.M_Run(TRUE);
+
+END_IF
+
+x_AllTurboON :=  ( NOT (DREAM_NC_PTM_01.iq_stPTM.eState = pumpFAULT) and  (NOT(DREAM_NC_PTM_01.iq_stPTM.eState = pumpSTOPPED)) and
+				   NOT (DREAM_NC_PTM_02.iq_stPTM.eState = pumpFAULT) and (NOT(DREAM_NC_PTM_02.iq_stPTM.eState = pumpSTOPPED)) and
+                   NOT (DREAM_DP1_PTM_01.iq_stPTM.eState = pumpFAULT) and (NOT(DREAM_DP1_PTM_01.iq_stPTM.eState = pumpSTOPPED)) AND 
+				   NOT (DREAM_DP2_PTM_01.iq_stPTM.eState = pumpFAULT) and (NOT(DREAM_DP2_PTM_01.iq_stPTM.eState = pumpSTOPPED)) AND
+				   NOT (DREAM_DP3_PTM_01.iq_stPTM.eState = pumpFAULT) and (NOT(DREAM_DP3_PTM_01.iq_stPTM.eState = pumpSTOPPED)) );
+
+				   
+
+(*
+x_NC_Turb_01_ON_ilk := ( NOT (DREAM_NC_PTM_02.iq_stPTM.eState = pumpFAULT) and NOT (DREAM_NC_PTM_02.iq_stPTM.eState = pumpSTOPPED) and
+                       NOT (DREAM_DP1_PTM_01.iq_stPTM.eState = pumpFAULT) and NOT (DREAM_DP1_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND 
+					   NOT (DREAM_DP2_PTM_01.iq_stPTM.eState = pumpFAULT) and NOT (DREAM_DP2_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
+					   NOT (DREAM_DP3_PTM_01.iq_stPTM.eState = pumpFAULT) and NOT (DREAM_DP3_PTM_01.iq_stPTM.eState = pumpSTOPPED) );
+					   
+					   
+x_NC_Turb_02_ON_ilk := (NOT (DREAM_NC_PTM_01.iq_stPTM.eState = pumpFAULT) and NOT (DREAM_NC_PTM_01.iq_stPTM.eState = pumpSTOPPED) and
+					   NOT (DREAM_DP1_PTM_01.iq_stPTM.eState = pumpFAULT) and NOT (DREAM_DP1_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND 
+					   NOT (DREAM_DP2_PTM_01.iq_stPTM.eState = pumpFAULT) and NOT (DREAM_DP2_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
+					   NOT (DREAM_DP3_PTM_01.iq_stPTM.eState = pumpFAULT) and NOT (DREAM_DP3_PTM_01.iq_stPTM.eState = pumpSTOPPED) );
+*)
+
+
+
+(*
+x_DP1_Turb_01_ON_ilk := (NOT (DREAM_NC_PTM_01.iq_stPTM.eState = pumpFAULT) and NOT (DREAM_NC_PTM_01.iq_stPTM.eState = pumpSTOPPED) and	
+						NOT (DREAM_NC_PTM_02.iq_stPTM.eState = pumpFAULT) and NOT (DREAM_NC_PTM_02.iq_stPTM.eState = pumpSTOPPED) and				   
+                        NOT (DREAM_DP2_PTM_01.iq_stPTM.eState = pumpFAULT) and NOT (DREAM_DP2_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
+					    NOT (DREAM_DP3_PTM_01.iq_stPTM.eState = pumpFAULT) and NOT (DREAM_DP3_PTM_01.iq_stPTM.eState = pumpSTOPPED) );
+
+x_DP2_Turb_01_ON_ilk := (NOT (DREAM_NC_PTM_01.iq_stPTM.eState = pumpFAULT) and NOT (DREAM_NC_PTM_01.iq_stPTM.eState = pumpSTOPPED) and	
+						NOT (DREAM_NC_PTM_02.iq_stPTM.eState = pumpFAULT) and NOT (DREAM_NC_PTM_02.iq_stPTM.eState = pumpSTOPPED) and	
+						NOT (DREAM_DP1_PTM_01.iq_stPTM.eState = pumpFAULT) and NOT (DREAM_DP1_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND 
+						NOT (DREAM_DP3_PTM_01.iq_stPTM.eState = pumpFAULT) and NOT (DREAM_DP3_PTM_01.iq_stPTM.eState = pumpSTOPPED) );
+						
+x_DP3_Turb_01_ON_ilk := (NOT (DREAM_NC_PTM_01.iq_stPTM.eState = pumpFAULT) and NOT (DREAM_NC_PTM_01.iq_stPTM.eState = pumpSTOPPED) and	
+						NOT (DREAM_NC_PTM_02.iq_stPTM.eState = pumpFAULT) and NOT (DREAM_NC_PTM_02.iq_stPTM.eState = pumpSTOPPED) and	
+						NOT (DREAM_DP1_PTM_01.iq_stPTM.eState = pumpFAULT) and NOT (DREAM_DP1_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND 						
+                        NOT (DREAM_DP2_PTM_01.iq_stPTM.eState = pumpFAULT) and NOT (DREAM_DP2_PTM_01.iq_stPTM.eState = pumpSTOPPED));
+
+*)					   
 //Turbo Interlocks
-DREAM_NC_PTM_01(i_xExtIlkOK:= DREAM_NC_GPI_01.PG.xPRESS_OK AND DREAM_NC_GPI_01.PG.rPRESS < 10E-1 );
+DREAM_NC_PTM_01(i_xExtIlkOK:= xExtIlkOK_NC, iq_stPTM => );
+DREAM_NC_PTM_02(i_xExtIlkOK:= xExtIlkOK_NC, iq_stPTM => );
+DREAM_DP1_PTM_01(i_xExtIlkOK:= xExtIlkOK_DP, iq_stPTM => );
+DREAM_DP2_PTM_01(i_xExtIlkOK:= xExtIlkOK_DP, iq_stPTM => );
+DREAM_DP3_PTM_01(i_xExtIlkOK:= xExtIlkOK_DP, iq_stPTM => );
+
+xStartTurbo := FALSE; 
+
+
+/// INSTANTIATE COM 
+
+NC_PTM_01_COM(astPfeifferControl := st_Pfeiffer_NC_PTM_01_CTRL,
+			   astPfeifferStatus := st_Pfeiffer_NC_PTM_01_RBK,
+				SerialRXBuffer:= K4S8_DRL_03_E12_EL6021_SerialRXBuffer,
+				SerialTXBuffer:= K4S8_DRL_03_E12_EL6021_SerialTXBuffer);
+
+
+
 ]]></ST>
     </Implementation>
   </POU>

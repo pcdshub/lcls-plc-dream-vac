@@ -4,34 +4,47 @@
     <Declaration><![CDATA[//{attribute 'qualified_only'}
 VAR_GLOBAL
 
+//INTERLOCK VARIABLE FOR TEST /// DELETE
 {attribute 'pytmc' := '
-	pv: PLC:QRIXS:VAC:OVRDON
+	pv: PLC:DREAM:VAC:STARTROUGH
+	io: io
+'}
+x_rough_down : BOOL; 
+
+////
+{attribute 'pytmc' := '
+	pv: PLC:DREAM:VAC:OVRDON
 	io: io
 '}
 xSystemOverrideMode	: BOOL := FALSE; (* Global system override for the DREAM Vacuum System*)
+
+{attribute 'pytmc' := '
+	pv: PLC:DREAM:VAC:STARTALLTURBO
+	io: io
+'}
+xStartTurbo : BOOL := FALSE; (* Global system All Turbo ON for the DREAM Vacuum System*)
 	
 ////// NOZZLE CHAMBER DEVICES
 /// GUAGES 
 {attribute 'pytmc' := ' pv: DREAM:NC:GPI:01 '}
-{attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[EL3174-0002_01_06]^AI Standard Channel 1^Value'}
-DREAM_NC_GPI_01 : FB_MKS275;
+{attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[K4S8_DRL_03_E6_EL3174-0002]^AI Standard Channel 1^Value'}
+DREAM_NC_GPI_01 : FB_CVM201;
 
-{attribute 'TcLinkTo' := 	'    .i_iPRESS_R		:=	TIIB[EL3174-0002_01_05]^AI Standard Channel 1^Value;
-								 .i_xHV_ON			:=	TIIB[EL1124_01_08]^Channel 1^Input;
-								 .i_xDisc_Active	:=	TIIB[EL1124_01_08]^Channel 2^Input;
-								 .q_xHV_DIS			:=	TIIB[EL2624_01_03]^Channel 3^Output
+{attribute 'TcLinkTo' := 	'    .i_iPRESS_R		:=	TIIB[K4S8_DRL_03_E5_EL3174-0002]^AI Standard Channel 1^Value;
+								 .i_xHV_ON			:=	TIIB[K4S8_DRL_03_E4_EL1084]^Channel 3^Input;
+								 .q_xHV_DIS			:=	TIIB[K4S8_DRL_03_E1_EL2624]^Channel 1^Output
 	'}	
 {attribute 'pytmc' := '
 		pv: DREAM:NC:GCC:01 '}
-DREAM_NC_GCC_01: FB_MKS500;
+DREAM_NC_GCC_01: FB_CCM501;
 
 ///TURBO PUMPS
-{attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[EL1004_01_13]^Channel 1^Input;
-							 .i_xFaultNC		:=	TIIB[EL1004_01_13]^Channel 3^Input;
-							 .i_xRemote         :=  TIIB[EL1004_01_13]^Channel 2^Input;
-							 .q_RunDO			:=	TIIB[EL2004_01_14]^Channel 1^Output;
-							 .q_PumpingStation  :=	TIIB[EL2004_01_14]^Channel 3^Output;   
-							 .q_xRemote	        :=	TIIB[EL2004_01_14]^Channel 2^Output			 
+{attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_03_E13_EL1004]^Channel 1^Input;
+							 .i_xFaultNC		:=	TIIB[K4S8_DRL_03_E13_EL1004]^Channel 3^Input;
+							 .i_xRemote         :=  TIIB[K4S8_DRL_03_E13_EL1004]^Channel 2^Input;
+							 .q_RunDO			:=	TIIB[K4S8_DRL_03_E14_EL2004]^Channel 1^Output;
+							 .q_PumpingStation  :=	TIIB[K4S8_DRL_03_E14_EL2004]^Channel 3^Output;   
+							 .q_xRemote	        :=	TIIB[K4S8_DRL_03_E14_EL2004]^Channel 2^Output			 
 '}
 {attribute 'pytmc' := '
 		pv: DREAM:NC:PTM:01
@@ -39,12 +52,13 @@ DREAM_NC_GCC_01: FB_MKS500;
 '}
 DREAM_NC_PTM_01 : FB_PTM_Pfeiffer;
 
-{attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[EL1004_01_16]^Channel 1^Input;
-							 .i_xFaultNC		:=	TIIB[EL1004_01_16]^Channel 3^Input;
-							 .i_xRemote         :=  TIIB[EL1004_01_16]^Channel 2^Input;
-							 .q_RunDO			:=	TIIB[EL2004_01_17]^Channel 1^Output;
-							 .q_PumpingStation  :=	TIIB[EL2004_01_17]^Channel 3^Output;   
-							 .q_xRemote	        :=	TIIB[EL2004_01_17]^Channel 2^Output			 
+
+{attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_03_E16_EL1004]^Channel 1^Input;
+							 .i_xFaultNC		:=	TIIB[K4S8_DRL_03_E16_EL1004]^Channel 3^Input;
+							 .i_xRemote         :=  TIIB[K4S8_DRL_03_E16_EL1004]^Channel 2^Input;
+							 .q_RunDO			:=	TIIB[K4S8_DRL_03_E17_EL2004]^Channel 1^Output;
+							 .q_PumpingStation  :=	TIIB[K4S8_DRL_03_E17_EL2004]^Channel 3^Output;   
+							 .q_xRemote	        :=	TIIB[K4S8_DRL_03_E17_EL2004]^Channel 2^Output			 
 '}
 {attribute 'pytmc' := '
 		pv: DREAM:NC:PTM:02
@@ -52,14 +66,19 @@ DREAM_NC_PTM_01 : FB_PTM_Pfeiffer;
 '}
 DREAM_NC_PTM_02 : FB_PTM_Pfeiffer;
 
-///// DP1 
+//NC PTM 01 Serial Communication 
+NC_PTM_01_COM : FB_PFEIFFER_COM;
+st_Pfeiffer_NC_PTM_01_CTRL			: ARRAY[1..20] OF ST_PfeifferControl;
+st_Pfeiffer_NC_PTM_01_RBK		    : ARRAY[1..20] OF ST_PfeifferStatus;
+
+///// DP1 (DIFFERENTIAL PRESSURE STAGE 1)
 ///TURBO PUMP
-{attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[EL1004_01_19]^Channel 1^Input;
-							 .i_xFaultNC		:=	TIIB[EL1004_01_19]^Channel 3^Input;
-							 .i_xRemote         :=  TIIB[EL1004_01_19]^Channel 2^Input;
-							 .q_RunDO			:=	TIIB[EL2004_01_20]^Channel 1^Output;
-							 .q_PumpingStation  :=	TIIB[EL2004_01_20]^Channel 3^Output;   
-							 .q_xRemote	        :=	TIIB[EL2004_01_20]^Channel 2^Output								 
+{attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_03_E19_EL1004]^Channel 1^Input;
+							 .i_xFaultNC		:=	TIIB[K4S8_DRL_03_E19_EL1004]^Channel 3^Input;
+							 .i_xRemote         :=  TIIB[K4S8_DRL_03_E19_EL1004]^Channel 2^Input;
+							 .q_RunDO			:=	TIIB[K4S8_DRL_03_E20_EL2004]^Channel 1^Output;
+							 .q_PumpingStation  :=	TIIB[K4S8_DRL_03_E20_EL2004]^Channel 3^Output;   
+							 .q_xRemote	        :=	TIIB[K4S8_DRL_03_E20_EL2004]^Channel 2^Output								 
 '}
 {attribute 'pytmc' := '
 		pv: DREAM:DP1:PTM:01
@@ -67,24 +86,26 @@ DREAM_NC_PTM_02 : FB_PTM_Pfeiffer;
 '}
 DREAM_DP1_PTM_01 : FB_PTM_Pfeiffer;
 
+
 //// GUAGES 
-{attribute 'TcLinkTo' := 	'    .i_iPRESS_R		:=	TIIB[EL3174-0002_01_05]^AI Standard Channel 2^Value;
-								 .i_xHV_ON			:=	TIIB[EL1124_01_08]^Channel 3^Input;
-								 .i_xDisc_Active	:=	TIIB[EL1124_01_08]^Channel 4^Input;
-								 .q_xHV_DIS			:=	TIIB[EL2624_01_033]^Channel 2^Output
-	'}	
+{attribute 'TcLinkTo' := 	'    .i_iPRESS_R		:=	TIIB[K4S8_DRL_03_E5_EL3174-0002]^AI Standard Channel 2^Value;
+								 .i_xHV_ON			:=	TIIB[K4S8_DRL_03_E4_EL1084]^Channel 4^Input;
+								 .q_xHV_DIS			:=	TIIB[K4S8_DRL_03_E1_EL2624]^Channel 2^Output
+	'}			 
 {attribute 'pytmc' := '
-		pv: DREAM:DP1:GCC:01 '}
-DREAM_DP1_GCC_01: FB_MKS500;
+		pv: DREAM:DP1:GHC:01
+		io: io
+'}
+DREAM_DP1_GHC_01 : FB_IMG401;
 
 {attribute 'pytmc' := ' pv: DREAM:DP1:GPI:01 '}
-{attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[EL3174-0002_01_06]^AI Standard Channel 2^Value'}
-DREAM_DP1_GPI_01 : FB_MKS275;
+{attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[K4S8_DRL_03_E6_EL3174-0002]^AI Standard Channel 2^Value'}
+DREAM_DP1_GPI_01 : FB_CVM201;
 
 //// VALVES 
-{attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[EL1004_01_10]^Channel 3^Input;
-							 .i_xClsLS	:=	TIIB[EL1004_01_10]^Channel 4^Input;
-							 .q_xOPN_DO	:=	TIIB[EL2004_01_11]^Channel 2^Output
+{attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_03_E10_EL1004]^Channel 3^Input;
+							 .i_xClsLS	:=	TIIB[K4S8_DRL_03_E10_EL1004]^Channel 4^Input;
+							 .q_xOPN_DO	:=	TIIB[K4S8_DRL_03_E11_EL2004]^Channel 2^Output
 	'}
 {attribute 'pytmc' := '
 		pv: DREAM:DP1:VRC:01
@@ -92,9 +113,9 @@ DREAM_DP1_GPI_01 : FB_MKS275;
 	'}
 DREAM_DP1_VRC_01: FB_VRC;
 
-{attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[EL1004_01_10]^Channel 1^Input;
-							 .i_xClsLS	:=	TIIB[EL1004_01_10]^Channel 2^Input;
-							 .q_xOPN_DO	:=	TIIB[EL2004_01_11]^Channel 1^Output
+{attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_03_E10_EL1004]^Channel 1^Input;
+							 .i_xClsLS	:=	TIIB[K4S8_DRL_03_E10_EL1004]^Channel 2^Input;
+							 .q_xOPN_DO	:=	TIIB[K4S8_DRL_03_E11_EL2004]^Channel 1^Output
 	'}
 {attribute 'pytmc' := '
 		pv: DREAM:DP1:VRC:02
@@ -102,11 +123,11 @@ DREAM_DP1_VRC_01: FB_VRC;
 	'}
 DREAM_DP1_VRC_02: FB_VRC_NO;
 
-////// DP2
+////// DP2 ( DIFFERENTIAL PRESSURE STAGE 2)
 //TURBO PUMP 
-{attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[EL1004_00_05]^Channel 2^Input;
-							 .i_xFaultNC		:=	TIIB[EL1004_00_05]^Channel 1^Input;
-							 .q_RunDO			:=	TIIB[EL2794_00_08]^Channel 1^Output							 			 
+{attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[R20_DRL_03_E4_EL1004]^Channel 2^Input;
+							 .i_xFaultNC		:=	TIIB[R20_DRL_03_E4_EL1004]^Channel 1^Input;
+							 .q_RunDO			:=	TIIB[R20_DRL_03_E7_EL2794]^Channel 1^Output;	
 '}
 {attribute 'pytmc' := '
 		pv: DREAM:DP2:PTM:01
@@ -114,30 +135,40 @@ DREAM_DP1_VRC_02: FB_VRC_NO;
 '}
 DREAM_DP2_PTM_01 : FB_PTM_TurboDrive;
 
-(*
-{attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[EL1004_01_16]^Channel 2^Input;
-							 .i_xFaultNC		:=	TIIB[EL1004_01_16]^Channel 1^Input;
-							 .q_RunDO			:=	TIIB[EL2794_01_15]^Channel 1^Output;	
-							 .q_xReset			:=	TIIB[EL2794_01_15]^Channel 2^Output			 
-'}
+
+{attribute 'TcLinkTo' := 	'    .i_iPRESS_R		:=	TIIB[K4S8_DRL_03_E5_EL3174-0002]^AI Standard Channel 3^Value;
+								 .i_xHV_ON			:=	TIIB[K4S8_DRL_03_E4_EL1084]^Channel 1^Input;
+								 .q_xHV_DIS			:=	TIIB[K4S8_DRL_03_E1_EL2624]^Channel 3^Output
+	'}			 
 {attribute 'pytmc' := '
 		pv: DREAM:DP2:GHC:01
 		io: io
 '}
-DREAM_DP2_GHC_01 : FB_;
-*)
+DREAM_DP2_GHC_01 : FB_IMG401;
+
 
 ////DP3 
 ///TURBO DRIVE
-{attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[EL1004_00_05]^Channel 3^Input;
-							 .i_xFaultNC		:=	TIIB[EL1004_00_05]^Channel 4^Input;
-							 .q_RunDO			:=	TIIB[EL2794_00_08]^Channel 3^Output							 			 
+{attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[R20_DRL_03_E4_EL1004]^Channel 4^Input;
+							 .i_xFaultNC		:=	TIIB[R20_DRL_03_E4_EL1004]^Channel 3^Input;
+							 .q_RunDO			:=	TIIB[R20_DRL_03_E7_EL2794]^Channel 3^Output							 			 
 '}
 {attribute 'pytmc' := '
 		pv: DREAM:DP3:PTM:01
 		io: io
 '}
 DREAM_DP3_PTM_01 : FB_PTM_TurboDrive;
+
+
+{attribute 'TcLinkTo' := 	'    .i_iPRESS_R		:=	TIIB[K4S8_DRL_03_E5_EL3174-0002]^AI Standard Channel 4^Value;
+								 .i_xHV_ON			:=	TIIB[K4S8_DRL_03_E4_EL1084]^Channel 2^Input;
+								 .q_xHV_DIS			:=	TIIB[K4S8_DRL_03_E1_EL2624]^Channel 4^Output
+	'}			 
+{attribute 'pytmc' := '
+		pv: DREAM:DP3:GHC:01
+		io: io
+'}
+DREAM_DP3_GHC_01 : FB_IMG401;
 
 
 END_VAR]]></Declaration>
