@@ -26,19 +26,29 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
+    <Compile Include="GVLs\GVL_Variables.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\POU_COM.TcPOU">
+    <Compile Include="POUs\PRG_COM.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\POU_Interlock.TcPOU">
+    <Compile Include="POUs\PRG_Interlock.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\PRG_Gas_Injection.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PRG_Main_Chamber.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\TempUHVGauge\FB_IE514.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Serial_COM_Task.TcTTO">
@@ -48,6 +58,7 @@
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="POUs\TempUHVGauge" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -59,6 +70,10 @@
     <PlaceholderReference Include="LCLSVacuumSerialDriverLib">
       <DefaultResolution>LCLSVacuumSerialDriverLib, * (SLAC - LCLS)</DefaultResolution>
       <Namespace>LCLS_Vacuum_Serial</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="PMPS">
+      <DefaultResolution>PMPS, * (SLAC - LCLS)</DefaultResolution>
+      <Namespace>PMPS</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_SerialCom">
       <DefaultResolution>Tc2_SerialCom, * (Beckhoff Automation GmbH)</DefaultResolution>
@@ -88,7 +103,7 @@
       <Resolution>LCLSVacuumSerialDriverLib, 1.2.2 (SLAC - LCLS)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="PMPS">
-      <Resolution>PMPS, 2.2.3 (SLAC - LCLS)</Resolution>
+      <Resolution>PMPS, 3.0.14 (SLAC - LCLS)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="SysDir">
       <Resolution>SysDir, 3.5.12.0 (System)</Resolution>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
-  <POU Name="POU_Interlock" Id="{a30357a6-8d74-4b6d-bda7-5c5ec5f69b13}" SpecialFunc="None">
-    <Declaration><![CDATA[PROGRAM POU_Interlock
+  <POU Name="PRG_Interlock" Id="{a30357a6-8d74-4b6d-bda7-5c5ec5f69b13}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_Interlock
 VAR
 END_VAR
 ]]></Declaration>

@@ -14,7 +14,7 @@ VAR
 	x_DP3_Turb_01_ON_ilk : BOOL;
 	TurboStart_TOF : TOF; 
 	//TurboStart_TON :TON;
-	TurboRun_T0F : TOF;
+	TurboRun_TOF : TOF;
 	//xStartTurbo: BOOL;
 	x_start_pressureOK :BOOL; 
 	x_AllTurboON: BOOL;
@@ -33,7 +33,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[// GAS INJECTION DEVICES
 // GUAGES 
-(* Pirani MKS 275 Gauges *)
+(* Pirani CVM201 Gauges *)
 DREAM_NC_GPI_01.M_SetBits(30518);
 DREAM_NC_GPI_01(PG=>);
 DREAM_DP1_GPI_01.M_SetBits(30518);
@@ -65,7 +65,7 @@ IF x_rough_down THEN
 	xExtIlkOK_NC:= x_pressureOK_NC AND (x_AllTurboON OR TurboStart_TOF.Q);
 ELSE
 		x_pressureOK_NC := x_run_pressureOK;
-		xExtIlkOK_NC:= x_pressureOK_NC AND (x_AllTurboON OR TurboRun_T0F.Q);
+		xExtIlkOK_NC:= x_pressureOK_NC AND (x_AllTurboON OR TurboRun_TOF.Q);
 END_IF
 
 ////DIFFERENTIAL PRESSURE INTERLOCK 
@@ -78,7 +78,7 @@ IF x_rough_down THEN
 	xExtIlkOK_DP:= x_pressureOK_DP AND (x_AllTurboON OR TurboStart_TOF.Q);
 ELSE
 	x_pressureOK_DP := x_run_pressureOK_DP; 
-	xExtIlkOK_DP:= x_pressureOK_DP AND (x_AllTurboON OR TurboRun_T0F.Q );
+	xExtIlkOK_DP:= x_pressureOK_DP AND (x_AllTurboON OR TurboRun_TOF.Q );
 END_IF
 
 /// ROUGHING LOGIC 
@@ -94,7 +94,7 @@ END_IF
 
 TurboStart_TOF( IN := xStartTurbo, PT := T#300s);
 
-TurboRun_T0F( IN := xStartTurbo, PT := T#30s);
+TurboRun_TOF( IN := xStartTurbo, PT := T#30s);
 
 
 IF xStartTurbo THEN	
@@ -155,17 +155,61 @@ DREAM_DP3_PTM_01(i_xExtIlkOK:= xExtIlkOK_DP, iq_stPTM => );
 
 xStartTurbo := FALSE; 
 
+(******************************************************************************************************)
+(*Serial Communication*)
+(******************************************************************************************************)
+//Pfeiffer pumps
+//DREAM_NC_PTM_01
+(*Assign adresses to the pfeiffer controllers connected to this serial terminal*)
+stPfeiffer_CTRL_DREAM_NC_PTM_01[1].iSerialAddress:= 1;
+stPfeiffer_CTRL_DREAM_NC_PTM_01[1].xEnableComm:= TRUE;
+(*Instanitate the Function block for serial communication with Pfeiffer*)	
+fbPfeifferCom_DREAM_NC_PTM_01(astPfeifferControl:= stPfeiffer_CTRL_DREAM_NC_PTM_01,
+			   				  astPfeifferStatus:= stPfeiffer_RBK_DREAM_NC_PTM_01,
+							  SerialRXBuffer:= SerialRXBuffer_DREAM_NC_PTM_01,
+							  SerialTXBuffer:= SerialTXBuffer_DREAM_NC_PTM_01);
+(*Copy Status Pv's into the PTM structure*)
+DREAM_NC_PTM_01.M_Serial_IO(st_Pfeiffer_RBK:= stPfeiffer_RBK_DREAM_NC_PTM_01[1],
+							st_Pfeiffer_CTRL:= stPfeiffer_CTRL_DREAM_NC_PTM_01[1]);
 
-/// INSTANTIATE COM 
+//DREAM_NC_PTM_02
+stPfeiffer_CTRL_DREAM_NC_PTM_02[1].iSerialAddress:= 1;
+stPfeiffer_CTRL_DREAM_NC_PTM_02[1].xEnableComm:= TRUE;	
+fbPfeifferCom_DREAM_NC_PTM_02(astPfeifferControl:= stPfeiffer_CTRL_DREAM_NC_PTM_02,
+			   				  astPfeifferStatus:= stPfeiffer_RBK_DREAM_NC_PTM_02,
+							  SerialRXBuffer:= SerialRXBuffer_DREAM_NC_PTM_02,
+							  SerialTXBuffer:= SerialTXBuffer_DREAM_NC_PTM_02);
 
-NC_PTM_01_COM(astPfeifferControl := st_Pfeiffer_NC_PTM_01_CTRL,
-			   astPfeifferStatus := st_Pfeiffer_NC_PTM_01_RBK,
-				SerialRXBuffer:= K4S8_DRL_03_E12_EL6021_SerialRXBuffer,
-				SerialTXBuffer:= K4S8_DRL_03_E12_EL6021_SerialTXBuffer);
+DREAM_NC_PTM_02.M_Serial_IO(st_Pfeiffer_RBK:= stPfeiffer_RBK_DREAM_NC_PTM_02[1],
+							st_Pfeiffer_CTRL:= stPfeiffer_CTRL_DREAM_NC_PTM_02[1]);
+
+//DREAM_DP1_PTM_01
+stPfeiffer_CTRL_DREAM_DP1_PTM_01[1].iSerialAddress:= 1;
+stPfeiffer_CTRL_DREAM_DP1_PTM_01[1].xEnableComm:= TRUE;	
+fbPfeifferCom_DREAM_DP1_PTM_01(astPfeifferControl:= stPfeiffer_CTRL_DREAM_DP1_PTM_01,
+			   				   astPfeifferStatus:= stPfeiffer_RBK_DREAM_DP1_PTM_01,
+							   SerialRXBuffer:= SerialRXBuffer_DREAM_DP1_PTM_01,
+							   SerialTXBuffer:= SerialTXBuffer_DREAM_DP1_PTM_01);
+
+DREAM_DP1_PTM_01.M_Serial_IO(st_Pfeiffer_RBK:= stPfeiffer_RBK_DREAM_DP1_PTM_01[1],
+							 st_Pfeiffer_CTRL:= stPfeiffer_CTRL_DREAM_DP1_PTM_01[1]);
 
 
+//Leybold pumps
+//DREAM_DP2_PTM_01
+(*Instanitate the Function block for serial communication with TD20 controller*)
+fbTD20Com_DREAM_DP2_PTM_01(SerialRXBuffer:= SerialRXBuffer_DREAM_DP2_PTM_01, 
+						   SerialTXBuffer:= SerialTXBuffer_DREAM_DP2_PTM_01, 
+						   astTD20Status=> stTD20_RBK_DREAM_DP2_PTM_01);
+(*Copy Status Pv's into the PTM structure*)
+DREAM_DP2_PTM_01.M_Serial_IO(i_st_TD20_RBK:= stTD20_RBK_DREAM_DP2_PTM_01);
 
-]]></ST>
+//DREAM_DP3_PTM_01
+fbTD20Com_DREAM_DP3_PTM_01(SerialRXBuffer:= SerialRXBuffer_DREAM_DP3_PTM_01, 
+						   SerialTXBuffer:= SerialTXBuffer_DREAM_DP3_PTM_01, 
+						   astTD20Status=> stTD20_RBK_DREAM_DP3_PTM_01);
+
+DREAM_DP3_PTM_01.M_Serial_IO(i_st_TD20_RBK:= stTD20_RBK_DREAM_DP3_PTM_01);]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

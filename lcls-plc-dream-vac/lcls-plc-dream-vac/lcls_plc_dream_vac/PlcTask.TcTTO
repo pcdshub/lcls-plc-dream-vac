@@ -3,7 +3,7 @@
   <Task Name="PlcTask" Id="{6c4fb8b9-3c54-4a12-859a-be6c9aee743b}">
     <!--CycleTime in micro seconds.-->
     <CycleTime>10000</CycleTime>
-    <Priority>1</Priority>
+    <Priority>20</Priority>
     <PouCall>
       <Name>MAIN</Name>
     </PouCall>

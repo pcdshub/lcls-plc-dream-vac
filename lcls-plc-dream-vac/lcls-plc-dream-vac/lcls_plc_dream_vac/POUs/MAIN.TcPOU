@@ -8,9 +8,9 @@ END_VAR
     <Implementation>
       <ST><![CDATA[
 PRG_Gas_Injection();
+PRG_Main_Chamber();
 
-
-
+PRG_Interlock();
 ]]></ST>
     </Implementation>
   </POU>
