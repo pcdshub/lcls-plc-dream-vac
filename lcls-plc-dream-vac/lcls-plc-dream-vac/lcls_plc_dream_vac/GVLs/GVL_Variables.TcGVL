@@ -2,26 +2,27 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
   <GVL Name="GVL_Variables" Id="{8866da92-a486-4cdf-b603-8d905eb71294}">
     <Declaration><![CDATA[VAR_GLOBAL
-//INTERLOCK VARIABLE FOR TEST /// DELETE
-{attribute 'pytmc' := '
-	pv: PLC:DREAM:VAC:STARTROUGH
-	io: io
-'}
-x_rough_down : BOOL; 
+	//INTERLOCK VARIABLE FOR TEST /// DELETE
+	{attribute 'pytmc' := '
+		pv: PLC:DREAM:VAC:STARTROUGH
+		io: io
+	'}
+	x_rough_down : BOOL; 
+	
+	////
+	{attribute 'pytmc' := '
+		pv: PLC:DREAM:VAC:OVRDON
+		io: io
+	'}
+	xSystemOverrideMode	: BOOL := FALSE; (* Global system override for the DREAM Vacuum System*)
+	
+	{attribute 'pytmc' := '
+		pv: PLC:DREAM:VAC:STARTALLTURBO
+		io: io
+	'}
+	xStartTurbo : BOOL := FALSE; (* Global system All Turbo ON for the DREAM Vacuum System*)
 
-////
-{attribute 'pytmc' := '
-	pv: PLC:DREAM:VAC:OVRDON
-	io: io
-'}
-xSystemOverrideMode	: BOOL := FALSE; (* Global system override for the DREAM Vacuum System*)
-
-{attribute 'pytmc' := '
-	pv: PLC:DREAM:VAC:STARTALLTURBO
-	io: io
-'}
-xStartTurbo : BOOL := FALSE; (* Global system All Turbo ON for the DREAM Vacuum System*)
-
+	rHighVoltageMinPressure	: REAL := 1e-05; (*Hard coded High voltage Minimum Enable Pressure*)
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

@@ -3,6 +3,7 @@
   <POU Name="MAIN" Id="{988e650b-c8df-4306-b78b-02e7bdbdcf56}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
+	fbLogHandler : FB_LogHandler;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -11,7 +12,8 @@ PRG_Gas_Injection();
 PRG_Main_Chamber();
 
 PRG_Interlock();
-]]></ST>
+
+fbLogHandler();]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

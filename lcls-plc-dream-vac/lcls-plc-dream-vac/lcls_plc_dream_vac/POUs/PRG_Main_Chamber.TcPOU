@@ -9,6 +9,10 @@ VAR
 	rRough2Vfv1ReqPos : REAL;
 	rRough2Vfv2ReqPos : REAL;
 	rRough2Vfv3ReqPos : REAL;
+	
+	//Rough lines VRC external interlocks
+	ROUGH1_VRC_OK : BOOL;
+	ROUGH2_VRC_OK : BOOL;
 
 END_VAR
 ]]></Declaration>
@@ -31,7 +35,7 @@ DREAM_MC_GHC.M_SetBits(30518);
 DREAM_MC_GHC(PG:= DREAM_MC_GPI_01.PG); //This fb reads statuses and control two gauges DREAM:MC:GHC:01 and DREAM:MC:GHC:02
 
 (*VALVES*)
-//DREAM_CAT1_VRC_01(i_xExt_OK := TRUE, i_xOverrideMode := xSystemOverrideMode); //my notes, delete VGC:03
+//DREAM_CAT1_VRC_01(i_xExt_OK := TRUE, i_xOverrideMode := xSystemOverrideMode); //my notes, VGC:03
 
 (*PUMPS*)
 DREAM_MC_PTM_01();
@@ -59,10 +63,13 @@ DREAM_ROUGH2_GPI_03();
 
 (*VALVES*)
 //VRC valves
-//Will probably have to use different function with differential pressure etc. Check vacuum logic document
-DREAM_ROUGH1_VRC_01(i_xExtILK_OK := TRUE, i_xOverrideMode := xSystemOverrideMode); //my notes, delete VRC:01
-DREAM_ROUGH2_VRC_01(i_xExtILK_OK := TRUE, i_xOverrideMode := xSystemOverrideMode); //my notes, delete VRC:02
-DREAM_ROUGH2_VRC_02(i_xExtILK_OK := TRUE, i_xOverrideMode := xSystemOverrideMode); //my notes, delete VRC:03
+//Interlock evaluation
+ROUGH1_VRC_OK := (DREAM_ROUGH1_GPI_01.PG.rPRESS < 5E-3) AND DREAM_ROUGH1_GPI_01.PG.xPRESS_OK;
+ROUGH2_VRC_OK := (DREAM_ROUGH2_GPI_01.PG.rPRESS < 5E-3) AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK;
+
+DREAM_ROUGH1_VRC_01(i_xExtILK_OK := ROUGH1_VRC_OK, i_xOverrideMode := xSystemOverrideMode);
+DREAM_ROUGH2_VRC_01(i_xExtILK_OK := ROUGH2_VRC_OK, i_xOverrideMode := xSystemOverrideMode);
+DREAM_ROUGH2_VRC_02(i_xExtILK_OK := ROUGH2_VRC_OK, i_xOverrideMode := xSystemOverrideMode);
 
 //Flow control valves
 DREAM_ROUGH1_VFV_01(i_xExtIlkOK := TRUE, i_rReqPos := rRough1Vfv1ReqPos);
