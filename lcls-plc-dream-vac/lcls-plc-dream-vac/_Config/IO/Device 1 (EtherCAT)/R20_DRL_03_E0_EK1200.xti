@@ -43,17 +43,11 @@
 		<Box File="R20_DRL_03_E12_EL6001.xti" Id="15">
 			<EtherCAT PortABoxInfo="#x01000033"/>
 		</Box>
-		<Box File="R20_DRL_03_E13_EL3174-0002.xti" Id="52">
+		<Box File="R20_DRL_03_E14_EL9505.xti" Id="53">
 			<EtherCAT PortABoxInfo="#x0100000f"/>
 		</Box>
-		<Box File="R20_DRL_03_E14_EL9505.xti" Id="53">
-			<EtherCAT PortABoxInfo="#x01000034"/>
-		</Box>
-		<Box File="R20_DRL_03_E15_EL2124.xti" Id="54">
-			<EtherCAT PortABoxInfo="#x01000035"/>
-		</Box>
 		<Box File="R20_DRL_03_E16_EL6695.xti" Id="55">
-			<EtherCAT PortABoxInfo="#x01000036"/>
+			<EtherCAT PortABoxInfo="#x01000035"/>
 		</Box>
 		<Box File="R20_DRL_03_E17_EK1122.xti" Id="56">
 			<EtherCAT PortABoxInfo="#x01000037"/>

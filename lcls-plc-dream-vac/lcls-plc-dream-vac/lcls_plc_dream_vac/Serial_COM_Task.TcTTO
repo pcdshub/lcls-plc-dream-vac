@@ -3,7 +3,7 @@
   <Task Name="Serial_COM_Task" Id="{14e6f0a7-64cf-4bda-9590-f8bae28a1dc5}">
     <!--CycleTime in micro seconds.-->
     <CycleTime>11000</CycleTime>
-    <Priority>2</Priority>
+    <Priority>25</Priority>
     <PouCall>
       <Name>POU_COM</Name>
     </PouCall>

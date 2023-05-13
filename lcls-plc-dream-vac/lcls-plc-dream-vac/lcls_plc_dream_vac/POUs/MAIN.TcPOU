@@ -1,17 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
-  <POU Name="MAIN" Id="{988e650b-c8df-4306-b78b-02e7bdbdcf56}" SpecialFunc="None">
+  <POU Name="MAIN" Id="{b200ddcd-23e4-4c61-ab81-185e81d5d8ad}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
+	x:int;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
-PRG_Gas_Injection();
-
-
-
-]]></ST>
+      <ST><![CDATA[x:=x+1;
+PRG_Gas_Injection();]]></ST>
     </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>
