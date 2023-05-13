@@ -24,5 +24,9 @@ K4S8_DRL_03_E12_fbSerialLineControl(
 	
 ]]></ST>
     </Implementation>
+    <LineIds Name="POU_COM">
+      <LineId Id="3" Count="14" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>

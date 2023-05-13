@@ -167,5 +167,9 @@ NC_PTM_01_COM(astPfeifferControl := st_Pfeiffer_NC_PTM_01_CTRL,
 
 ]]></ST>
     </Implementation>
+    <LineIds Name="PRG_Gas_Injection">
+      <LineId Id="3" Count="133" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>

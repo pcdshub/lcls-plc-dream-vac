@@ -74,18 +74,21 @@
 			</SubItem>
 		</DataType>
 	</DataTypes>
-	<Project ProjectGUID="{9A0FDA55-5824-43CD-8305-17D144358B08}" TargetNetId="172.21.132.159.1.1" Target64Bit="true" RelativeTargetNetId="true" RelativeIpAddresses="true" ShowHideConfigurations="#x306">
+	<Project ProjectGUID="{9A0FDA55-5824-43CD-8305-17D144358B08}" TargetNetId="172.21.132.159.1.1" RelativeTargetNetId="true" RelativeIpAddresses="true" ShowHideConfigurations="#x306">
 		<System>
+			<Settings>
+				<IoIdleTask CycleTime="100000"/>
+			</Settings>
 			<Licenses>
 				<Target>
 					<ManualSelect>{3EBB9639-5FF3-42B6-8847-35C70DC013C8}</ManualSelect>
 				</Target>
 			</Licenses>
 			<Tasks>
-				<Task Id="3" Priority="1" CycleTime="100000" AmsPort="350" AdtTasks="true">
+				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
 					<Name>PlcTask</Name>
 				</Task>
-				<Task Id="4" Priority="2" CycleTime="110000" AmsPort="351" DisableFpExceptions="true" AdtTasks="true">
+				<Task Id="4" Priority="25" CycleTime="110000" AmsPort="351" DisableFpExceptions="true" AdtTasks="true">
 					<Name>Serial_COM</Name>
 				</Task>
 			</Tasks>
@@ -546,8 +549,8 @@
 						</Var>
 					</Vars>
 					<TaskPouOids>
-						<TaskPouOid Prio="2" OTCID="#x08502002"/>
-						<TaskPouOid Prio="1" OTCID="#x08502001"/>
+						<TaskPouOid Prio="25" OTCID="#x08502002"/>
+						<TaskPouOid Prio="20" OTCID="#x08502001"/>
 					</TaskPouOids>
 				</Instance>
 			</Project>
