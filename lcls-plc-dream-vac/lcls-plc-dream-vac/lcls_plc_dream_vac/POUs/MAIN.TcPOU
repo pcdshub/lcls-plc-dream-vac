@@ -1,18 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
-  <POU Name="MAIN" Id="{b200ddcd-23e4-4c61-ab81-185e81d5d8ad}" SpecialFunc="None">
+  <POU Name="MAIN" Id="{b66c7c96-5039-4af5-8cda-935a9b086c6f}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	x:int;
+	//fbLogHandler : FB_LogHandler;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[x:=x+1;
-PRG_Gas_Injection();]]></ST>
+      <ST><![CDATA[
+PRG_Gas_Injection();
+
+//fbLogHandler();]]></ST>
     </Implementation>
-    <LineIds Name="MAIN">
-      <LineId Id="2" Count="0" />
-      <LineId Id="7" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>
