@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="PRG_Gas_Injection" Id="{80d67225-6449-42c8-a5ae-7da7ab3c675c}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_Gas_Injection
 VAR
@@ -44,7 +44,7 @@ DREAM_NC_GCC_01.M_SetBits(30518);
 DREAM_NC_GCC_01(PG:= DREAM_NC_GPI_01.PG);
 //Hot Cathode Guages
 DREAM_DP1_GHC_01.M_SetBits(30518);
-DREAM_DP1_GHC_01(PG:= DREAM_NC_GPI_01.PG, IG=>);
+DREAM_DP1_GHC_01(PG:= DREAM_NC_GPI_01.PG, IG=>, bEP := TRUE);
 DREAM_DP2_GHC_01.M_SetBits(30518);
 DREAM_DP2_GHC_01(PG:= DREAM_NC_GPI_01.PG, IG=>);
 DREAM_DP3_GHC_01.M_SetBits(30518);
@@ -70,7 +70,7 @@ END_IF
 
 ////DIFFERENTIAL PRESSURE INTERLOCK 
 
-x_run_pressureOK_DP := DREAM_DP1_GHC_01.IG.xPRESS_OK AND DREAM_DP1_GHC_01.IG.rPRESS < 1E-4;
+x_run_pressureOK_DP := DREAM_DP2_GHC_01.IG.xPRESS_OK AND DREAM_DP2_GHC_01.IG.rPRESS < 1E-4;
 x_start_PressureOK_DP := DREAM_DP1_GPI_01.PG.rPRESS <5E-1;
 
 IF x_rough_down THEN

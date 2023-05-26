@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <GVL Name="GVL_Gas_Injection" Id="{fbaa2a9a-77d8-494c-8f06-f4317f50968e}">
     <Declaration><![CDATA[//{attribute 'qualified_only'}
 VAR_GLOBAL
@@ -77,7 +77,8 @@ DREAM_DP1_PTM_01 : FB_PTM_Pfeiffer;
 								 .q_xHV_DIS			:=	TIIB[K4S8_DRL_03_E1_EL2624]^Channel 2^Output
 '}			 
 {attribute 'pytmc' :=' pv: DREAM:DP1:GHC:01'}
-DREAM_DP1_GHC_01 : FB_IMG401;
+DREAM_DP1_GHC_01 : FB_MKS500;
+//DREAM_DP1_GHC_01 : FB_IMG401;
 
 {attribute 'pytmc' :=' pv: DREAM:DP1:GPI:01'}
 {attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[K4S8_DRL_03_E6_EL3174-0002]^AI Standard Channel 2^Value'}
@@ -134,16 +135,16 @@ DREAM_DP3_PTM_01 : FB_PTM_TurboDrive;
 DREAM_DP3_GHC_01 : FB_IMG401;
 
 (*Pfeiffer serial*)
-stPfeiffer_CTRL_DREAM_NC_PTM_01     : ARRAY[1..20] OF ST_PfeifferControl;
-stPfeiffer_RBK_DREAM_NC_PTM_01      : ARRAY[1..20] OF ST_PfeifferStatus;
+stPfeiffer_CTRL_DREAM_NC_PTM_01     : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferControl;
+stPfeiffer_RBK_DREAM_NC_PTM_01      : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferStatus;
 fbPfeifferCom_DREAM_NC_PTM_01       : FB_PFEIFFER_COM;
 
-stPfeiffer_CTRL_DREAM_NC_PTM_02     : ARRAY[1..20] OF ST_PfeifferControl;
-stPfeiffer_RBK_DREAM_NC_PTM_02      : ARRAY[1..20] OF ST_PfeifferStatus;
+stPfeiffer_CTRL_DREAM_NC_PTM_02     : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferControl;
+stPfeiffer_RBK_DREAM_NC_PTM_02      : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferStatus;
 fbPfeifferCom_DREAM_NC_PTM_02       : FB_PFEIFFER_COM;
 
-stPfeiffer_CTRL_DREAM_DP1_PTM_01    : ARRAY[1..20] OF ST_PfeifferControl;
-stPfeiffer_RBK_DREAM_DP1_PTM_01	    : ARRAY[1..20] OF ST_PfeifferStatus;
+stPfeiffer_CTRL_DREAM_DP1_PTM_01    : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferControl;
+stPfeiffer_RBK_DREAM_DP1_PTM_01	    : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferStatus;
 fbPfeifferCom_DREAM_DP1_PTM_01      : FB_PFEIFFER_COM;
 
 (*Leybold TD20 serial*)
