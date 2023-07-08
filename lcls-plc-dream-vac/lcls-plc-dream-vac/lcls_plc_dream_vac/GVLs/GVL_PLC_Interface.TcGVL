@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="GVL_PLC_Interface" Id="{dab371f1-c352-4339-b624-0365e0c17f18}">
+    <Declaration><![CDATA[//{attribute 'qualified_only'}
+VAR_GLOBAL
+	
+	xIP2_HV_SAFETY_ENABLE AT %Q* : BOOL;
+	
+	(*ISEG HV Crate Safety Loop*)
+	{attribute 'pytmc' := '
+        pv: TMO:PLC:DREAM:VAC:HV_SAFETY_ENABLE
+        io:i
+    '}
+	xHighVoltageSafteyLoopEnable AT %Q* : BOOL := FALSE; (*When Enables the High voltage Saftey loop is closed and HV can start.*)
+
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

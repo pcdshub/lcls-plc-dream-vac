@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PRG_Main_Chamber" Id="{563898ad-99a3-4a88-bce1-94f471bfe1e1}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_Main_Chamber
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(******************************************************************************************************)
+(*Main Chamber*)
+(******************************************************************************************************)
+(*GAUGES*)
+//Pirani Gauges
+DREAM_MC_GPI_01.M_SetBits(30518);
+DREAM_MC_GPI_01();
+
+//Hot Cathode Guages
+//DREAM_CAT1_GHC_01.M_SetBits(30518);
+//DREAM_CAT1_GHC_01(PG:= DREAM_MC_GPI_01.PG);
+DREAM_CAT2_GHC_01.M_SetBits(30518);
+DREAM_CAT2_GHC_01(PG:= DREAM_MC_GPI_01.PG);
+//Hot Cathode gauge IE514
+DREAM_MC_GHC.M_SetBits(30518);
+DREAM_MC_GHC(PG:= DREAM_MC_GPI_01.PG); //This fb reads statuses and control two gauges DREAM:MC:GHC:01 and DREAM:MC:GHC:02
+
+(*VALVES*)
+//DREAM_CAT1_VRC_01(i_xExt_OK := TRUE, i_xOverrideMode := xSystemOverrideMode);
+
+(*PUMPS*)
+DREAM_MC_PTM_01(i_xExtIlkOK:= FALSE, iq_stPTM => );
+DREAM_MC_PTM_02(i_xExtIlkOK:= FALSE, iq_stPTM => );
+DREAM_MC_PTM_03(i_xExtIlkOK:= FALSE, iq_stPTM => );
+
+DREAM_CAT1_PTM_01(i_xExtIlkOK:= FALSE, iq_stPTM => );
+DREAM_CAT2_PTM_01(i_xExtIlkOK:= FALSE, iq_stPTM => );
+
+
+(******************************************************************************************************)
+(*Serial Communication*)
+(******************************************************************************************************)
+//Leybold pumps
+//DREAM_MC_PTM_01
+(*Instanitate the Function block for serial communication with TD20 controller*)	
+fbTD20Com_DREAM_MC_PTM_01(SerialRXBuffer:= SerialRXBuffer_DREAM_MC_PTM_01, 
+						   SerialTXBuffer:= SerialTXBuffer_DREAM_MC_PTM_01, 
+						   astTD20Status=> stTD20_RBK_DREAM_MC_PTM_01);
+(*Copy Status Pv's into the PTM structure*)
+DREAM_MC_PTM_01.M_Serial_IO(stTD20_RBK_DREAM_MC_PTM_01);
+
+//DREAM_MC_PTM_02	
+fbTD20Com_DREAM_MC_PTM_02(SerialRXBuffer:= SerialRXBuffer_DREAM_MC_PTM_02, 
+						   SerialTXBuffer:= SerialTXBuffer_DREAM_MC_PTM_02, 
+						   astTD20Status=> stTD20_RBK_DREAM_MC_PTM_02);
+
+DREAM_MC_PTM_02.M_Serial_IO(stTD20_RBK_DREAM_MC_PTM_02);
+
+//DREAM_MC_PTM_03 (TD400)
+fbTD400Com_DREAM_MC_PTM_03(SerialRXBuffer:= SerialRXBuffer_DREAM_MC_PTM_03,
+						   SerialTXBuffer:= SerialTXBuffer_DREAM_MC_PTM_03,
+						   astTD20Status=> stTD400_RBK_DREAM_MC_PTM_03);
+
+DREAM_MC_PTM_03.M_Serial_IO(stTD400_RBK_DREAM_MC_PTM_03);
+
+//DREAM_CAT1_PTM_01 (TD400)
+fbTD400Com_DREAM_CAT1_PTM_01(SerialRXBuffer:= SerialRXBuffer_DREAM_CAT1_PTM_01,
+						     SerialTXBuffer:= SerialTXBuffer_DREAM_CAT1_PTM_01,
+						     astTD20Status=> stTD400_RBK_DREAM_CAT1_PTM_01);
+
+DREAM_CAT1_PTM_01.M_Serial_IO(stTD400_RBK_DREAM_CAT1_PTM_01);
+
+//DREAM_CAT2_PTM_01 (TD400)
+fbTD400Com_DREAM_CAT2_PTM_01(SerialRXBuffer:= SerialRXBuffer_DREAM_CAT2_PTM_01,
+						     SerialTXBuffer:= SerialTXBuffer_DREAM_CAT2_PTM_01,
+						     astTD20Status=> stTD400_RBK_DREAM_CAT2_PTM_01);
+
+DREAM_CAT2_PTM_01.M_Serial_IO(stTD400_RBK_DREAM_CAT2_PTM_01);]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

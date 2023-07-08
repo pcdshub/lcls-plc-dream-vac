@@ -10,19 +10,6 @@ VAR_GLOBAL
 '}
 x_rough_down : BOOL; 
 
-////
-{attribute 'pytmc' := '
-	pv: PLC:DREAM:VAC:OVRDON
-	io: io
-'}
-xSystemOverrideMode	: BOOL := FALSE; (* Global system override for the DREAM Vacuum System*)
-
-{attribute 'pytmc' := '
-	pv: PLC:DREAM:VAC:STARTALLTURBO
-	io: io
-'}
-xStartTurbo : BOOL := FALSE; (* Global system All Turbo ON for the DREAM Vacuum System*)
-
 ////// NOZZLE CHAMBER DEVICES
 /// GUAGES 
 {attribute 'pytmc' :=' pv: DREAM:NC:GPI:01'}
@@ -78,7 +65,7 @@ DREAM_DP1_PTM_01 : FB_PTM_Pfeiffer;
 '}			 
 {attribute 'pytmc' :=' pv: DREAM:DP1:GHC:01'}
 DREAM_DP1_GHC_01 : FB_MKS500;
-//DREAM_DP1_GHC_01 : FB_IMG401;
+//DREAM_DP1_GHC_01 : FB_IMG401; //temporary replacement
 
 {attribute 'pytmc' :=' pv: DREAM:DP1:GPI:01'}
 {attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[K4S8_DRL_03_E6_EL3174-0002]^AI Standard Channel 2^Value'}

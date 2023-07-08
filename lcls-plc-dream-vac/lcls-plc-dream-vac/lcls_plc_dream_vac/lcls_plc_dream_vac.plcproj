@@ -22,7 +22,19 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
+    <Compile Include="GVLs\GVL_PLC_Interface.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="GVLs\GVL_Roughing.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="GVLs\GVL_Serial_Com.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="GVLs\GVL_Variables.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
@@ -38,6 +50,15 @@
     <Compile Include="POUs\PRG_Gas_Injection.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\PRG_Main_Chamber.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PRG_Roughing.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\TempFB_IE514\FB_IE514.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Serial_COM.TcTTO">
       <SubType>Code</SubType>
     </Compile>
@@ -45,6 +66,7 @@
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="POUs\TempFB_IE514" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -60,6 +82,10 @@
     <PlaceholderReference Include="LCLSVacuumSerialDriverLib">
       <DefaultResolution>LCLSVacuumSerialDriverLib, * (SLAC - LCLS)</DefaultResolution>
       <Namespace>LCLS_Vacuum_Serial</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="PMPS">
+      <DefaultResolution>PMPS, * (SLAC - LCLS)</DefaultResolution>
+      <Namespace>PMPS</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_SerialCom">
       <DefaultResolution>Tc2_SerialCom, * (Beckhoff Automation GmbH)</DefaultResolution>
@@ -92,6 +118,9 @@
     </PlaceholderResolution>
     <PlaceholderResolution Include="LCLSVacuumSerialDriverLib">
       <Resolution>LCLSVacuumSerialDriverLib, 1.2.2 (SLAC - LCLS)</Resolution>
+    </PlaceholderResolution>
+    <PlaceholderResolution Include="PMPS">
+      <Resolution>PMPS, 3.0.14 (SLAC - LCLS)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="Tc2_SerialCom">
       <Resolution>Tc2_SerialCom, 3.3.10.0 (Beckhoff Automation GmbH)</Resolution>

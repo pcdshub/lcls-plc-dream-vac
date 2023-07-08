@@ -3,12 +3,12 @@
   <POU Name="PRG_COM" Id="{b8dd9c68-f48c-4f7d-bf8f-7c6f0e748615}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_COM
 VAR
-	errorID_DP2 : ComError_t;
+
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[(*Instanitate Serial port com function *) 
-(*fbSerialLineControl_DREAM_NC_PTM_01(
+fbSerialLineControl_DREAM_NC_PTM_01(
 	Mode:= SERIALLINEMODE_EL6_22B,
 	pComIn:= ADR(stComIn_DREAM_NC_PTM_01),
 	pComOut:= ADR(stComOut_DREAM_NC_PTM_01),
@@ -17,7 +17,7 @@ END_VAR
 	RxBuffer:= SerialRXBuffer_DREAM_NC_PTM_01,
 	Error=> ,
 	ErrorID=> );
-*)
+
 
 fbSerialLineControl_DREAM_NC_PTM_02(
 	Mode:= SERIALLINEMODE_EL6_22B,
@@ -38,7 +38,7 @@ fbSerialLineControl_DREAM_DP1_PTM_01(
 	RxBuffer:= SerialRXBuffer_DREAM_DP1_PTM_01,
 	Error=> ,
 	ErrorID=> );
-(*
+
 fbSerialLineControl_DREAM_DP2_PTM_01(
 	Mode:= SERIALLINEMODE_EL6_22B,
 	pComIn:= ADR(stComIn_DREAM_DP2_PTM_01),
@@ -48,23 +48,12 @@ fbSerialLineControl_DREAM_DP2_PTM_01(
 	RxBuffer:= SerialRXBuffer_DREAM_DP2_PTM_01,
 	Error=> ,
 	ErrorID=> );
-*)
-
-fbSerialLineControl_DREAM_DP2_PTM_01(
-	Mode:= SERIALLINEMODE_EL6_22B,
-	pComIn:= ADR(stComIn_DREAM_NC_PTM_01),
-	pComOut:= ADR(stComOut_DREAM_NC_PTM_01),
-	SizeComIn:= UINT_TO_INT(SIZEOF(stComIn_DREAM_NC_PTM_01)),
-	TxBuffer:= SerialTXBuffer_DREAM_DP2_PTM_01,
-	RxBuffer:= SerialRXBuffer_DREAM_DP2_PTM_01,
-	Error=> ,
-	ErrorID=> errorID_DP2);
 	
 fbSerialLineControl_DREAM_DP3_PTM_01(
 	Mode:= SERIALLINEMODE_EL6_22B,
-	pComIn:= ADR(stComIn_DREAM_DP2_PTM_01),
-	pComOut:= ADR(stComOut_DREAM_DP2_PTM_01),
-	SizeComIn:= UINT_TO_INT(SIZEOF(stComIn_DREAM_DP2_PTM_01)),
+	pComIn:= ADR(stComIn_DREAM_DP3_PTM_01),
+	pComOut:= ADR(stComOut_DREAM_DP3_PTM_01),
+	SizeComIn:= UINT_TO_INT(SIZEOF(stComIn_DREAM_DP3_PTM_01)),
 	TxBuffer:= SerialTXBuffer_DREAM_DP3_PTM_01,
 	RxBuffer:= SerialRXBuffer_DREAM_DP3_PTM_01,
 	Error=> ,
@@ -90,7 +79,7 @@ fbSerialLineControl_DREAM_MC_PTM_02(
 	RxBuffer:= SerialRXBuffer_DREAM_MC_PTM_02,
 	Error=> ,
 	ErrorID=> );
-(*
+
 fbSerialLineControl_DREAM_MC_PTM_03(
 	Mode:= SERIALLINEMODE_EL6_22B,
 	pComIn:= ADR(stComIn_DREAM_MC_PTM_03),
@@ -119,9 +108,7 @@ fbSerialLineControl_DREAM_CAT2_PTM_01(
 	TxBuffer:= SerialTXBuffer_DREAM_CAT2_PTM_01,
 	RxBuffer:= SerialRXBuffer_DREAM_CAT2_PTM_01,
 	Error=> ,
-	ErrorID=> );
-
-*)]]></ST>
+	ErrorID=> );]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

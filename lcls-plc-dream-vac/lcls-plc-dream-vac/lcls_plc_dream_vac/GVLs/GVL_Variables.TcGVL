@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="GVL_Variables" Id="{bf094cab-6961-468c-af79-aad967ce449e}">
+    <Declaration><![CDATA[//{attribute 'qualified_only'}
+VAR_GLOBAL
+	{attribute 'pytmc' := '
+		pv: PLC:DREAM:VAC:OVRDON
+		io: io
+	'}
+	xSystemOverrideMode	: BOOL := FALSE; (* Global system override for the DREAM Vacuum System*)
+
+	{attribute 'pytmc' := '
+		pv: PLC:DREAM:VAC:STARTALLTURBO
+		io: io
+	'}
+	xStartTurbo : BOOL := FALSE; (* Global system All Turbo ON for the DREAM Vacuum System*)
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

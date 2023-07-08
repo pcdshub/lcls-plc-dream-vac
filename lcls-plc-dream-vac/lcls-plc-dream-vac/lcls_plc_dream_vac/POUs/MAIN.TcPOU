@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="MAIN" Id="{b66c7c96-5039-4af5-8cda-935a9b086c6f}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
@@ -8,7 +8,11 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
+PRG_Roughing();
+
 PRG_Gas_Injection();
+
+PRG_Main_Chamber();
 
 //fbLogHandler();]]></ST>
     </Implementation>
