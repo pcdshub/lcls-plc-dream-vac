@@ -10,5 +10,20 @@
 		<Box File="K4S8_DRL_03_EK0_EK1100.xti" Id="16">
 			<EtherCAT PortABoxInfo="#x0300000f"/>
 		</Box>
+		<Box File="K4S8_DRL_04_EK0_EK1100.xti" Id="44">
+			<EtherCAT PortABoxInfo="#x02000010"/>
+		</Box>
+		<Box File="K4S8_DRL_04_EP1_EP4374-0002.xti" Id="43">
+			<EtherCAT PortABoxInfo="#x0200002c"/>
+		</Box>
+		<Box File="K4S8_DRL_04_EP2_EP4374-0002.xti" Id="42">
+			<EtherCAT PortABoxInfo="#x0100002b"/>
+		</Box>
+		<Box File="R03_DRL_01_EK1100.xti" Id="41">
+			<EtherCAT PortABoxInfo="#x0100002a"/>
+		</Box>
+		<Box File="WALL_E_PPL_01_EP1_EP4374-0002.xti" Id="40">
+			<EtherCAT PortABoxInfo="#x02000029"/>
+		</Box>
 	</Box>
 </TcSmItem>
