@@ -71,7 +71,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{6EADED65-7A35-03E4-F312-65C587D2FC34}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{739E6BF5-6A89-EF3D-0FEF-D90FB8858188}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -313,58 +313,6 @@
 					<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1084) ^Input]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH1_VRC_01.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH1_VRC_01.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_01.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_01.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_02.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_02.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH1_GPI_01.i_iPRESS_R</Name>
-					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH1_GPI_02.i_iPRESS_R</Name>
-					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_GPI_01.i_iPRESS_R</Name>
-					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_GPI_02.i_iPRESS_R</Name>
-					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_GPI_03.i_iPRESS_R</Name>
-					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
-					<Type>INT</Type>
-				</Var>
 			</Vars>
 			<Vars VarGrpType="2" AreaNo="1">
 				<Name>PlcTask Outputs</Name>
@@ -433,11 +381,11 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_Gas_Injection.DREAM_DP1_VRC_01.q_xOPN_DO</Name>
+					<Name>GVL_Gas_Injection.DREAM_DP1_VRC_02.q_xCLS_DO</Name>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_Gas_Injection.DREAM_DP1_VRC_02.q_xCLS_DO</Name>
+					<Name>GVL_Gas_Injection.DREAM_DP1_VRC_01.q_xOPN_DO</Name>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -500,43 +448,6 @@
 					<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EP2624) ^Output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH1_VRC_01.q_xOPN_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_01.q_xOPN_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_02.q_xOPN_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH1_VFV_01.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH1_VFV_02.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_VFV_01.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_VFV_02.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_VFV_03.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
 			</Vars>
 			<Vars VarGrpType="1" ContextId="1" AreaNo="16">
 				<Name>Serial_COM Inputs</Name>
@@ -558,6 +469,58 @@
 				<Var>
 					<Name>GVL_Main_Chamber.DREAM_CAT1_VRC_01.i_xClsLS</Name>
 					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH1_VRC_01.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH1_VRC_01.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_01.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_01.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_02.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_02.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH1_GPI_01.i_iPRESS_R</Name>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH1_GPI_02.i_iPRESS_R</Name>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_GPI_01.i_iPRESS_R</Name>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_GPI_02.i_iPRESS_R</Name>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_GPI_03.i_iPRESS_R</Name>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
+					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Serial_Com.stComIn_DREAM_NC_PTM_01</Name>
@@ -615,6 +578,43 @@
 				<Var>
 					<Name>GVL_Main_Chamber.DREAM_CAT1_VRC_01.q_xOPN_DO</Name>
 					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH1_VRC_01.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_01.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_02.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH1_VFV_01.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH1_VFV_02.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_VFV_01.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_VFV_02.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_VFV_03.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_Serial_Com.stComOut_DREAM_NC_PTM_01</Name>
@@ -1056,13 +1056,13 @@
 				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_NC_GPI_01.i_iPRESS_R" VarB="AI Standard Channel 1^Value" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_04_EK0_EK1100^K4S8_DRL_04_E10_EL1004">
-				<Link VarA="PlcTask Inputs^GVL_Roughing.DREAM_ROUGH2_VRC_02.i_xClsLS" VarB="Channel 2^Input" AutoLink="true" Size="1"/>
-				<Link VarA="PlcTask Inputs^GVL_Roughing.DREAM_ROUGH2_VRC_02.i_xOpnLS" VarB="Channel 1^Input" AutoLink="true" Size="1"/>
+				<Link VarA="Serial_COM Inputs^GVL_Roughing.DREAM_ROUGH2_VRC_02.i_xClsLS" VarB="Channel 2^Input" AutoLink="true" Size="1"/>
+				<Link VarA="Serial_COM Inputs^GVL_Roughing.DREAM_ROUGH2_VRC_02.i_xOpnLS" VarB="Channel 1^Input" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_04_EK0_EK1100^K4S8_DRL_04_E11_EL2004">
-				<Link VarA="PlcTask Outputs^GVL_Roughing.DREAM_ROUGH1_VRC_01.q_xOPN_DO" VarB="Channel 1^Output" AutoLink="true" Size="1"/>
-				<Link VarA="PlcTask Outputs^GVL_Roughing.DREAM_ROUGH2_VRC_01.q_xOPN_DO" VarB="Channel 2^Output" AutoLink="true" Size="1"/>
-				<Link VarA="PlcTask Outputs^GVL_Roughing.DREAM_ROUGH2_VRC_02.q_xOPN_DO" VarB="Channel 3^Output" AutoLink="true" Size="1"/>
+				<Link VarA="Serial_COM Outputs^GVL_Roughing.DREAM_ROUGH1_VRC_01.q_xOPN_DO" VarB="Channel 1^Output" AutoLink="true" Size="1"/>
+				<Link VarA="Serial_COM Outputs^GVL_Roughing.DREAM_ROUGH2_VRC_01.q_xOPN_DO" VarB="Channel 2^Output" AutoLink="true" Size="1"/>
+				<Link VarA="Serial_COM Outputs^GVL_Roughing.DREAM_ROUGH2_VRC_02.q_xOPN_DO" VarB="Channel 3^Output" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_04_EK0_EK1100^K4S8_DRL_04_E14_EL2624">
 				<Link VarA="PlcTask Outputs^GVL_Main_Chamber.DREAM_CAT2_GHC_01.q_xHV_DIS" VarB="Channel 2^Output" AutoLink="true" Size="1"/>
@@ -1241,20 +1241,20 @@
 				<Link VarA="Serial_COM Outputs^GVL_Serial_Com.stComOut_DREAM_CAT2_PTM_01^D[9]" VarB="COM Outputs^Data Out 9" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_04_EK0_EK1100^K4S8_DRL_04_E9_EL1004">
-				<Link VarA="PlcTask Inputs^GVL_Roughing.DREAM_ROUGH1_VRC_01.i_xClsLS" VarB="Channel 2^Input" AutoLink="true" Size="1"/>
-				<Link VarA="PlcTask Inputs^GVL_Roughing.DREAM_ROUGH1_VRC_01.i_xOpnLS" VarB="Channel 1^Input" AutoLink="true" Size="1"/>
-				<Link VarA="PlcTask Inputs^GVL_Roughing.DREAM_ROUGH2_VRC_01.i_xClsLS" VarB="Channel 4^Input" AutoLink="true" Size="1"/>
-				<Link VarA="PlcTask Inputs^GVL_Roughing.DREAM_ROUGH2_VRC_01.i_xOpnLS" VarB="Channel 3^Input" AutoLink="true" Size="1"/>
+				<Link VarA="Serial_COM Inputs^GVL_Roughing.DREAM_ROUGH1_VRC_01.i_xClsLS" VarB="Channel 2^Input" AutoLink="true" Size="1"/>
+				<Link VarA="Serial_COM Inputs^GVL_Roughing.DREAM_ROUGH1_VRC_01.i_xOpnLS" VarB="Channel 1^Input" AutoLink="true" Size="1"/>
+				<Link VarA="Serial_COM Inputs^GVL_Roughing.DREAM_ROUGH2_VRC_01.i_xClsLS" VarB="Channel 4^Input" AutoLink="true" Size="1"/>
+				<Link VarA="Serial_COM Inputs^GVL_Roughing.DREAM_ROUGH2_VRC_01.i_xOpnLS" VarB="Channel 3^Input" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_04_EP1_EP4374-0002">
-				<Link VarA="PlcTask Inputs^GVL_Roughing.DREAM_ROUGH1_GPI_02.i_iPRESS_R" VarB="AI Inputs Channel 1^Value" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^GVL_Roughing.DREAM_ROUGH2_GPI_02.i_iPRESS_R" VarB="AI Inputs Channel 2^Value" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_Roughing.DREAM_ROUGH1_VFV_02.q_iRawPosition" VarB="AO Outputs Channel 3^Analog output" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_Roughing.DREAM_ROUGH2_VFV_02.q_iRawPosition" VarB="AO Outputs Channel 4^Analog output" AutoLink="true"/>
+				<Link VarA="Serial_COM Inputs^GVL_Roughing.DREAM_ROUGH1_GPI_02.i_iPRESS_R" VarB="AI Inputs Channel 1^Value" AutoLink="true"/>
+				<Link VarA="Serial_COM Inputs^GVL_Roughing.DREAM_ROUGH2_GPI_02.i_iPRESS_R" VarB="AI Inputs Channel 2^Value" AutoLink="true"/>
+				<Link VarA="Serial_COM Outputs^GVL_Roughing.DREAM_ROUGH1_VFV_02.q_iRawPosition" VarB="AO Outputs Channel 3^Analog output" AutoLink="true"/>
+				<Link VarA="Serial_COM Outputs^GVL_Roughing.DREAM_ROUGH2_VFV_02.q_iRawPosition" VarB="AO Outputs Channel 4^Analog output" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_04_EP2_EP4374-0002">
-				<Link VarA="PlcTask Inputs^GVL_Roughing.DREAM_ROUGH2_GPI_03.i_iPRESS_R" VarB="AI Inputs Channel 1^Value" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_Roughing.DREAM_ROUGH2_VFV_03.q_iRawPosition" VarB="AO Outputs Channel 3^Analog output" AutoLink="true"/>
+				<Link VarA="Serial_COM Inputs^GVL_Roughing.DREAM_ROUGH2_GPI_03.i_iPRESS_R" VarB="AI Inputs Channel 1^Value" AutoLink="true"/>
+				<Link VarA="Serial_COM Outputs^GVL_Roughing.DREAM_ROUGH2_VFV_03.q_iRawPosition" VarB="AO Outputs Channel 3^Analog output" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^R03_DRL_01_EK1100^R03_DRL_01_E1_EL1004">
 				<Link VarA="PlcTask Inputs^GVL_Main_Chamber.DREAM_MC_GHC.i_xCH2_SEL" VarB="Channel 2^Input" AutoLink="true" Size="1"/>
@@ -1270,10 +1270,10 @@
 				<Link VarA="PlcTask Inputs^GVL_Main_Chamber.DREAM_MC_GHC.i_iPRESS_R" VarB="AI Standard Channel 1^Value" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^WALL_E_PPL_01_EP1_EP4374-0002">
-				<Link VarA="PlcTask Inputs^GVL_Roughing.DREAM_ROUGH1_GPI_01.i_iPRESS_R" VarB="AI Inputs Channel 1^Value" AutoLink="true"/>
-				<Link VarA="PlcTask Inputs^GVL_Roughing.DREAM_ROUGH2_GPI_01.i_iPRESS_R" VarB="AI Inputs Channel 2^Value" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_Roughing.DREAM_ROUGH1_VFV_01.q_iRawPosition" VarB="AO Outputs Channel 3^Analog output" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_Roughing.DREAM_ROUGH2_VFV_01.q_iRawPosition" VarB="AO Outputs Channel 4^Analog output" AutoLink="true"/>
+				<Link VarA="Serial_COM Inputs^GVL_Roughing.DREAM_ROUGH1_GPI_01.i_iPRESS_R" VarB="AI Inputs Channel 1^Value" AutoLink="true"/>
+				<Link VarA="Serial_COM Inputs^GVL_Roughing.DREAM_ROUGH2_GPI_01.i_iPRESS_R" VarB="AI Inputs Channel 2^Value" AutoLink="true"/>
+				<Link VarA="Serial_COM Outputs^GVL_Roughing.DREAM_ROUGH1_VFV_01.q_iRawPosition" VarB="AO Outputs Channel 3^Analog output" AutoLink="true"/>
+				<Link VarA="Serial_COM Outputs^GVL_Roughing.DREAM_ROUGH2_VFV_01.q_iRawPosition" VarB="AO Outputs Channel 4^Analog output" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E4_EL1004">
 				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_DP2_PTM_01.i_xAtSpd" VarB="Channel 2^Input" AutoLink="true" Size="1"/>
