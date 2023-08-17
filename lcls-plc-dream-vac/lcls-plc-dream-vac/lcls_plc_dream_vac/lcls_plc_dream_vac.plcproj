@@ -2,16 +2,16 @@
   <PropertyGroup>
     <FileVersion>1.0.0.0</FileVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{14039006-3313-4836-8088-640a82472786}</ProjectGuid>
+    <ProjectGuid>{8b5ca86e-1547-4766-aa3f-34b97851849d}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <Name>lcls_plc_dream_vac</Name>
     <ProgramVersion>3.1.4022.7</ProgramVersion>
-    <Application>{0615c4f5-cd95-4ca2-b46e-c29df6e3b64d}</Application>
-    <TypeSystem>{1b2a2e7e-13a2-400b-823b-7bc121dcf161}</TypeSystem>
-    <Implicit_Task_Info>{8262370f-4d56-46b7-a91f-0d051f46e526}</Implicit_Task_Info>
-    <Implicit_KindOfTask>{8c4ab515-64e2-4239-b652-3a0891435e91}</Implicit_KindOfTask>
-    <Implicit_Jitter_Distribution>{ea192644-5cb0-4224-a26f-4996dc0b0808}</Implicit_Jitter_Distribution>
-    <LibraryReferences>{18d1c7b0-a475-449c-b111-35a5dd0978d7}</LibraryReferences>
+    <Application>{835d5b94-3e6e-4585-bd94-9f803eeb99c5}</Application>
+    <TypeSystem>{f7b91e7a-a691-4c7e-9f65-1abe741aa8f6}</TypeSystem>
+    <Implicit_Task_Info>{1fd47f56-3934-4e80-b238-05cd16493315}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{b148a153-c224-41be-b98f-6e5209c29927}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{2c2e59c9-4036-44ba-b4b5-cafc731186a2}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{40468539-12c6-48f6-a3cd-29166fa0ef6d}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="GVLs\GVL_Gas_Injection.TcGVL">
@@ -22,7 +22,19 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
+    <Compile Include="GVLs\GVL_PLC_Interface.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="GVLs\GVL_Roughing.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="GVLs\GVL_Serial_Com.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="GVLs\GVL_Variables.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
@@ -32,26 +44,37 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\POU_COM.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\POU_Interlock.TcPOU">
+    <Compile Include="POUs\PRG_COM.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\PRG_Gas_Injection.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Serial_COM_Task.TcTTO">
+    <Compile Include="POUs\PRG_Main_Chamber.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PRG_Roughing.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\TempFB_IE514\FB_IE514.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Serial_COM.TcTTO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="POUs\TempFB_IE514" />
     <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>
+    <PlaceholderReference Include="LCLS General">
+      <DefaultResolution>LCLS General, * (SLAC)</DefaultResolution>
+      <Namespace>LCLS_General</Namespace>
+    </PlaceholderReference>
     <PlaceholderReference Include="LCLS Vacuum">
       <DefaultResolution>LCLS Vacuum, * (SLAC - LCLS)</DefaultResolution>
       <Namespace>LCLS_Vacuum</Namespace>
@@ -59,6 +82,10 @@
     <PlaceholderReference Include="LCLSVacuumSerialDriverLib">
       <DefaultResolution>LCLSVacuumSerialDriverLib, * (SLAC - LCLS)</DefaultResolution>
       <Namespace>LCLS_Vacuum_Serial</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="PMPS">
+      <DefaultResolution>PMPS, * (SLAC - LCLS)</DefaultResolution>
+      <Namespace>PMPS</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_SerialCom">
       <DefaultResolution>Tc2_SerialCom, * (Beckhoff Automation GmbH)</DefaultResolution>
@@ -83,11 +110,29 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PlaceholderResolution Include="LCLS General">
+      <Resolution>LCLS General, 2.8.1 (SLAC)</Resolution>
+    </PlaceholderResolution>
     <PlaceholderResolution Include="LCLS Vacuum">
-      <Resolution>LCLS Vacuum, * (SLAC - LCLS)</Resolution>
+      <Resolution>LCLS Vacuum, 2.3.1 (SLAC - LCLS)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="LCLSVacuumSerialDriverLib">
-      <Resolution>LCLSVacuumSerialDriverLib, * (SLAC - LCLS)</Resolution>
+      <Resolution>LCLSVacuumSerialDriverLib, 1.2.2 (SLAC - LCLS)</Resolution>
+    </PlaceholderResolution>
+    <PlaceholderResolution Include="PMPS">
+      <Resolution>PMPS, 3.0.14 (SLAC - LCLS)</Resolution>
+    </PlaceholderResolution>
+    <PlaceholderResolution Include="Tc2_SerialCom">
+      <Resolution>Tc2_SerialCom, 3.3.10.0 (Beckhoff Automation GmbH)</Resolution>
+    </PlaceholderResolution>
+    <PlaceholderResolution Include="Tc2_Standard">
+      <Resolution>Tc2_Standard, 3.3.3.0 (Beckhoff Automation GmbH)</Resolution>
+    </PlaceholderResolution>
+    <PlaceholderResolution Include="Tc2_System">
+      <Resolution>Tc2_System, 3.4.26.0 (Beckhoff Automation GmbH)</Resolution>
+    </PlaceholderResolution>
+    <PlaceholderResolution Include="Tc3_Module">
+      <Resolution>Tc3_Module, 3.3.21.0 (Beckhoff Automation GmbH)</Resolution>
     </PlaceholderResolution>
   </ItemGroup>
   <ProjectExtensions>
@@ -106,12 +151,6 @@
         <v>{246001F4-279D-43AC-B241-948EB31120E1}</v>
         <o>
           <v n="Name">"{246001F4-279D-43AC-B241-948EB31120E1}"</v>
-          <d n="SubKeys" t="Hashtable" />
-          <d n="Values" t="Hashtable" />
-        </o>
-        <v>{8F99A816-E488-41E4-9FA3-846536012284}</v>
-        <o>
-          <v n="Name">"{8F99A816-E488-41E4-9FA3-846536012284}"</v>
           <d n="SubKeys" t="Hashtable" />
           <d n="Values" t="Hashtable" />
         </o>

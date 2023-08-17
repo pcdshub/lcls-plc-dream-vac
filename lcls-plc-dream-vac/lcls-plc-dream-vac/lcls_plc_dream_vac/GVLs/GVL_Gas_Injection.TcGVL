@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
-  <GVL Name="GVL_Gas_Injection" Id="{56f1dcb4-685b-4cb8-b345-c0256483ed80}">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="GVL_Gas_Injection" Id="{fbaa2a9a-77d8-494c-8f06-f4317f50968e}">
     <Declaration><![CDATA[//{attribute 'qualified_only'}
 VAR_GLOBAL
-
 //INTERLOCK VARIABLE FOR TEST /// DELETE
 {attribute 'pytmc' := '
 	pv: PLC:DREAM:VAC:STARTROUGH
@@ -11,31 +10,17 @@ VAR_GLOBAL
 '}
 x_rough_down : BOOL; 
 
-////
-{attribute 'pytmc' := '
-	pv: PLC:DREAM:VAC:OVRDON
-	io: io
-'}
-xSystemOverrideMode	: BOOL := FALSE; (* Global system override for the DREAM Vacuum System*)
-
-{attribute 'pytmc' := '
-	pv: PLC:DREAM:VAC:STARTALLTURBO
-	io: io
-'}
-xStartTurbo : BOOL := FALSE; (* Global system All Turbo ON for the DREAM Vacuum System*)
-	
 ////// NOZZLE CHAMBER DEVICES
 /// GUAGES 
-{attribute 'pytmc' := ' pv: DREAM:NC:GPI:01 '}
+{attribute 'pytmc' :=' pv: DREAM:NC:GPI:01'}
 {attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[K4S8_DRL_03_E6_EL3174-0002]^AI Standard Channel 1^Value'}
 DREAM_NC_GPI_01 : FB_CVM201;
 
 {attribute 'TcLinkTo' := 	'    .i_iPRESS_R		:=	TIIB[K4S8_DRL_03_E5_EL3174-0002]^AI Standard Channel 1^Value;
 								 .i_xHV_ON			:=	TIIB[K4S8_DRL_03_E4_EL1084]^Channel 3^Input;
 								 .q_xHV_DIS			:=	TIIB[K4S8_DRL_03_E1_EL2624]^Channel 1^Output
-	'}	
-{attribute 'pytmc' := '
-		pv: DREAM:NC:GCC:01 '}
+'}	
+{attribute 'pytmc' :=' pv: DREAM:NC:GCC:01'}
 DREAM_NC_GCC_01: FB_CCM501;
 
 ///TURBO PUMPS
@@ -46,10 +31,7 @@ DREAM_NC_GCC_01: FB_CCM501;
 							 .q_PumpingStation  :=	TIIB[K4S8_DRL_03_E14_EL2004]^Channel 3^Output;   
 							 .q_xRemote	        :=	TIIB[K4S8_DRL_03_E14_EL2004]^Channel 2^Output			 
 '}
-{attribute 'pytmc' := '
-		pv: DREAM:NC:PTM:01
-		io: io
-'}
+{attribute 'pytmc' :=' pv: DREAM:NC:PTM:01'}
 DREAM_NC_PTM_01 : FB_PTM_Pfeiffer;
 
 
@@ -60,16 +42,8 @@ DREAM_NC_PTM_01 : FB_PTM_Pfeiffer;
 							 .q_PumpingStation  :=	TIIB[K4S8_DRL_03_E17_EL2004]^Channel 3^Output;   
 							 .q_xRemote	        :=	TIIB[K4S8_DRL_03_E17_EL2004]^Channel 2^Output			 
 '}
-{attribute 'pytmc' := '
-		pv: DREAM:NC:PTM:02
-		io: io
-'}
+{attribute 'pytmc' :=' pv: DREAM:NC:PTM:02'}
 DREAM_NC_PTM_02 : FB_PTM_Pfeiffer;
-
-//NC PTM 01 Serial Communication 
-NC_PTM_01_COM : FB_PFEIFFER_COM;
-st_Pfeiffer_NC_PTM_01_CTRL			: ARRAY[1..20] OF ST_PfeifferControl;
-st_Pfeiffer_NC_PTM_01_RBK		    : ARRAY[1..20] OF ST_PfeifferStatus;
 
 ///// DP1 (DIFFERENTIAL PRESSURE STAGE 1)
 ///TURBO PUMP
@@ -80,10 +54,7 @@ st_Pfeiffer_NC_PTM_01_RBK		    : ARRAY[1..20] OF ST_PfeifferStatus;
 							 .q_PumpingStation  :=	TIIB[K4S8_DRL_03_E20_EL2004]^Channel 3^Output;   
 							 .q_xRemote	        :=	TIIB[K4S8_DRL_03_E20_EL2004]^Channel 2^Output								 
 '}
-{attribute 'pytmc' := '
-		pv: DREAM:DP1:PTM:01
-		io: io
-'}
+{attribute 'pytmc' :=' pv: DREAM:DP1:PTM:01'}
 DREAM_DP1_PTM_01 : FB_PTM_Pfeiffer;
 
 
@@ -91,14 +62,12 @@ DREAM_DP1_PTM_01 : FB_PTM_Pfeiffer;
 {attribute 'TcLinkTo' := 	'    .i_iPRESS_R		:=	TIIB[K4S8_DRL_03_E5_EL3174-0002]^AI Standard Channel 2^Value;
 								 .i_xHV_ON			:=	TIIB[K4S8_DRL_03_E4_EL1084]^Channel 4^Input;
 								 .q_xHV_DIS			:=	TIIB[K4S8_DRL_03_E1_EL2624]^Channel 2^Output
-	'}			 
-{attribute 'pytmc' := '
-		pv: DREAM:DP1:GHC:01
-		io: io
-'}
-DREAM_DP1_GHC_01 : FB_IMG401;
+'}			 
+{attribute 'pytmc' :=' pv: DREAM:DP1:GHC:01'}
+DREAM_DP1_GHC_01 : FB_MKS500;
+//DREAM_DP1_GHC_01 : FB_IMG401; //temporary replacement
 
-{attribute 'pytmc' := ' pv: DREAM:DP1:GPI:01 '}
+{attribute 'pytmc' :=' pv: DREAM:DP1:GPI:01'}
 {attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[K4S8_DRL_03_E6_EL3174-0002]^AI Standard Channel 2^Value'}
 DREAM_DP1_GPI_01 : FB_CVM201;
 
@@ -106,44 +75,32 @@ DREAM_DP1_GPI_01 : FB_CVM201;
 {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_03_E10_EL1004]^Channel 3^Input;
 							 .i_xClsLS	:=	TIIB[K4S8_DRL_03_E10_EL1004]^Channel 4^Input;
 							 .q_xOPN_DO	:=	TIIB[K4S8_DRL_03_E11_EL2004]^Channel 2^Output
-	'}
-{attribute 'pytmc' := '
-		pv: DREAM:DP1:VRC:01
-		io: io
-	'}
+'}
+{attribute 'pytmc' :=' pv: DREAM:DP1:VRC:01'}
 DREAM_DP1_VRC_01: FB_VRC;
 
 {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_03_E10_EL1004]^Channel 1^Input;
 							 .i_xClsLS	:=	TIIB[K4S8_DRL_03_E10_EL1004]^Channel 2^Input;
-							 .q_xOPN_DO	:=	TIIB[K4S8_DRL_03_E11_EL2004]^Channel 1^Output
-	'}
-{attribute 'pytmc' := '
-		pv: DREAM:DP1:VRC:02
-		io: io
-	'}
+							 .q_xCLS_DO	:=	TIIB[K4S8_DRL_03_E11_EL2004]^Channel 1^Output
+'}
+{attribute 'pytmc' :=' pv: DREAM:DP1:VRC:02'}
 DREAM_DP1_VRC_02: FB_VRC_NO;
 
 ////// DP2 ( DIFFERENTIAL PRESSURE STAGE 2)
 //TURBO PUMP 
 {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[R20_DRL_03_E4_EL1004]^Channel 2^Input;
 							 .i_xFaultNC		:=	TIIB[R20_DRL_03_E4_EL1004]^Channel 1^Input;
-							 .q_RunDO			:=	TIIB[R20_DRL_03_E7_EL2794]^Channel 1^Output;	
+							 .q_RunDO			:=	TIIB[R20_DRL_03_E7_EL2794]^Channel 1^Output
 '}
-{attribute 'pytmc' := '
-		pv: DREAM:DP2:PTM:01
-		io: io
-'}
+{attribute 'pytmc' :=' pv: DREAM:DP2:PTM:01'}
 DREAM_DP2_PTM_01 : FB_PTM_TurboDrive;
 
 
 {attribute 'TcLinkTo' := 	'    .i_iPRESS_R		:=	TIIB[K4S8_DRL_03_E5_EL3174-0002]^AI Standard Channel 3^Value;
 								 .i_xHV_ON			:=	TIIB[K4S8_DRL_03_E4_EL1084]^Channel 1^Input;
 								 .q_xHV_DIS			:=	TIIB[K4S8_DRL_03_E1_EL2624]^Channel 3^Output
-	'}			 
-{attribute 'pytmc' := '
-		pv: DREAM:DP2:GHC:01
-		io: io
-'}
+'}			 
+{attribute 'pytmc' :=' pv: DREAM:DP2:GHC:01'}
 DREAM_DP2_GHC_01 : FB_IMG401;
 
 
@@ -153,23 +110,36 @@ DREAM_DP2_GHC_01 : FB_IMG401;
 							 .i_xFaultNC		:=	TIIB[R20_DRL_03_E4_EL1004]^Channel 3^Input;
 							 .q_RunDO			:=	TIIB[R20_DRL_03_E7_EL2794]^Channel 3^Output							 			 
 '}
-{attribute 'pytmc' := '
-		pv: DREAM:DP3:PTM:01
-		io: io
-'}
+{attribute 'pytmc' :=' pv: DREAM:DP3:PTM:01'}
 DREAM_DP3_PTM_01 : FB_PTM_TurboDrive;
 
 
 {attribute 'TcLinkTo' := 	'    .i_iPRESS_R		:=	TIIB[K4S8_DRL_03_E5_EL3174-0002]^AI Standard Channel 4^Value;
 								 .i_xHV_ON			:=	TIIB[K4S8_DRL_03_E4_EL1084]^Channel 2^Input;
 								 .q_xHV_DIS			:=	TIIB[K4S8_DRL_03_E1_EL2624]^Channel 4^Output
-	'}			 
-{attribute 'pytmc' := '
-		pv: DREAM:DP3:GHC:01
-		io: io
-'}
+'}			 
+{attribute 'pytmc' :=' pv: DREAM:DP3:GHC:01'}
 DREAM_DP3_GHC_01 : FB_IMG401;
 
+(*Pfeiffer serial*)
+stPfeiffer_CTRL_DREAM_NC_PTM_01     : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferControl;
+stPfeiffer_RBK_DREAM_NC_PTM_01      : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferStatus;
+fbPfeifferCom_DREAM_NC_PTM_01       : FB_PFEIFFER_COM;
+
+stPfeiffer_CTRL_DREAM_NC_PTM_02     : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferControl;
+stPfeiffer_RBK_DREAM_NC_PTM_02      : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferStatus;
+fbPfeifferCom_DREAM_NC_PTM_02       : FB_PFEIFFER_COM;
+
+stPfeiffer_CTRL_DREAM_DP1_PTM_01    : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferControl;
+stPfeiffer_RBK_DREAM_DP1_PTM_01	    : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferStatus;
+fbPfeifferCom_DREAM_DP1_PTM_01      : FB_PFEIFFER_COM;
+
+(*Leybold TD20 serial*)
+stTD20_RBK_DREAM_DP2_PTM_01 		: ST_TD20Status;
+fbTD20Com_DREAM_DP2_PTM_01 			: FB_OERLIKON_TD20_COM;
+
+stTD20_RBK_DREAM_DP3_PTM_01 		: ST_TD20Status;
+fbTD20Com_DREAM_DP3_PTM_01 			: FB_OERLIKON_TD20_COM;
 
 END_VAR]]></Declaration>
   </GVL>
