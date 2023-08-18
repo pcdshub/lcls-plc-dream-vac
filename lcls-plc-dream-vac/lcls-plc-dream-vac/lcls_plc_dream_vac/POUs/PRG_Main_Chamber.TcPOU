@@ -40,38 +40,38 @@ DREAM_CAT2_PTM_01(i_xExtIlkOK:= FALSE, iq_stPTM => );
 (******************************************************************************************************)
 //Leybold pumps
 //DREAM_MC_PTM_01
-(*Instanitate the Function block for serial communication with TD20 controller*)	
-fbTD20Com_DREAM_MC_PTM_01(SerialRXBuffer:= SerialRXBuffer_DREAM_MC_PTM_01, 
-						   SerialTXBuffer:= SerialTXBuffer_DREAM_MC_PTM_01, 
-						   astTD20Status=> stTD20_RBK_DREAM_MC_PTM_01);
+(*Instanitate the Function block for serial communication with TD20 controller*)
+fbTD20Com_DREAM_MC_PTM_01(SerialRXBuffer:= SerialRXBuffer_DREAM_MC_PTM_01,
+                           SerialTXBuffer:= SerialTXBuffer_DREAM_MC_PTM_01,
+                           astTD20Status=> stTD20_RBK_DREAM_MC_PTM_01);
 (*Copy Status Pv's into the PTM structure*)
 DREAM_MC_PTM_01.M_Serial_IO(stTD20_RBK_DREAM_MC_PTM_01);
 
-//DREAM_MC_PTM_02	
-fbTD20Com_DREAM_MC_PTM_02(SerialRXBuffer:= SerialRXBuffer_DREAM_MC_PTM_02, 
-						   SerialTXBuffer:= SerialTXBuffer_DREAM_MC_PTM_02, 
-						   astTD20Status=> stTD20_RBK_DREAM_MC_PTM_02);
+//DREAM_MC_PTM_02
+fbTD20Com_DREAM_MC_PTM_02(SerialRXBuffer:= SerialRXBuffer_DREAM_MC_PTM_02,
+                           SerialTXBuffer:= SerialTXBuffer_DREAM_MC_PTM_02,
+                           astTD20Status=> stTD20_RBK_DREAM_MC_PTM_02);
 
 DREAM_MC_PTM_02.M_Serial_IO(stTD20_RBK_DREAM_MC_PTM_02);
 
 //DREAM_MC_PTM_03 (TD400)
 fbTD400Com_DREAM_MC_PTM_03(SerialRXBuffer:= SerialRXBuffer_DREAM_MC_PTM_03,
-						   SerialTXBuffer:= SerialTXBuffer_DREAM_MC_PTM_03,
-						   astTD20Status=> stTD400_RBK_DREAM_MC_PTM_03);
+                           SerialTXBuffer:= SerialTXBuffer_DREAM_MC_PTM_03,
+                           astTD20Status=> stTD400_RBK_DREAM_MC_PTM_03);
 
 DREAM_MC_PTM_03.M_Serial_IO(stTD400_RBK_DREAM_MC_PTM_03);
 
 //DREAM_CAT1_PTM_01 (TD400)
 fbTD400Com_DREAM_CAT1_PTM_01(SerialRXBuffer:= SerialRXBuffer_DREAM_CAT1_PTM_01,
-						     SerialTXBuffer:= SerialTXBuffer_DREAM_CAT1_PTM_01,
-						     astTD20Status=> stTD400_RBK_DREAM_CAT1_PTM_01);
+                             SerialTXBuffer:= SerialTXBuffer_DREAM_CAT1_PTM_01,
+                             astTD20Status=> stTD400_RBK_DREAM_CAT1_PTM_01);
 
 DREAM_CAT1_PTM_01.M_Serial_IO(stTD400_RBK_DREAM_CAT1_PTM_01);
 
 //DREAM_CAT2_PTM_01 (TD400)
 fbTD400Com_DREAM_CAT2_PTM_01(SerialRXBuffer:= SerialRXBuffer_DREAM_CAT2_PTM_01,
-						     SerialTXBuffer:= SerialTXBuffer_DREAM_CAT2_PTM_01,
-						     astTD20Status=> stTD400_RBK_DREAM_CAT2_PTM_01);
+                             SerialTXBuffer:= SerialTXBuffer_DREAM_CAT2_PTM_01,
+                             astTD20Status=> stTD400_RBK_DREAM_CAT2_PTM_01);
 
 DREAM_CAT2_PTM_01.M_Serial_IO(stTD400_RBK_DREAM_CAT2_PTM_01);]]></ST>
     </Implementation>
