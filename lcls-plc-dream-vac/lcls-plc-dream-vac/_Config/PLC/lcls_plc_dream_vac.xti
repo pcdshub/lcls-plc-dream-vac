@@ -71,7 +71,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{739E6BF5-6A89-EF3D-0FEF-D90FB8858188}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{309620C0-B4E6-6C17-ADE4-3FC8BFB5DE66}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -254,31 +254,6 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_Main_Chamber.DREAM_MC_GHC.i_iPRESS_R</Name>
-					<Comment><![CDATA[ Controls and I/Os]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Main_Chamber.DREAM_MC_GHC.i_xHV_ON</Name>
-					<Comment><![CDATA[ True when EMI is on  // 'TcLinkTo' (EL1004 or EL1008) ^Input]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Main_Chamber.DREAM_MC_GHC.i_xERR_CH1</Name>
-					<Comment><![CDATA[ TRUE when NO error is present on assigned channel]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Main_Chamber.DREAM_MC_GHC.i_xERR_CH2</Name>
-					<Comment><![CDATA[ TRUE when NO error is present on assigned channel]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Main_Chamber.DREAM_MC_GHC.i_xCH2_SEL</Name>
-					<Comment><![CDATA[ TRUE when CH2 selected, FALSE when CH1 selected]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
 					<Name>GVL_Main_Chamber.DREAM_MC_GPI_01.i_iPRESS_R</Name>
 					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
@@ -311,6 +286,31 @@
 				<Var>
 					<Name>GVL_Main_Chamber.DREAM_CAT2_GHC_01.i_xHV_ON</Name>
 					<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1084) ^Input]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Main_Chamber.DREAM_MC_GHC.i_iPRESS_R</Name>
+					<Comment><![CDATA[ Controls and I/Os]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Main_Chamber.DREAM_MC_GHC.i_xHV_ON</Name>
+					<Comment><![CDATA[ True when EMI is on  // 'TcLinkTo' (EL1004 or EL1008) ^Input]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Main_Chamber.DREAM_MC_GHC.i_xERR_CH1</Name>
+					<Comment><![CDATA[ TRUE when NO error is present on assigned channel]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Main_Chamber.DREAM_MC_GHC.i_xERR_CH2</Name>
+					<Comment><![CDATA[ TRUE when NO error is present on assigned channel]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Main_Chamber.DREAM_MC_GHC.i_xCH2_SEL</Name>
+					<Comment><![CDATA[ TRUE when CH2 selected, FALSE when CH1 selected]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 			</Vars>
@@ -424,16 +424,6 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_Main_Chamber.DREAM_MC_GHC.q_xHV_DIS_CH1</Name>
-					<Comment><![CDATA[ Enable Gauge High Voltage on CH1 when True // 'TcLinkTo' (EL2124) ^Output]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Main_Chamber.DREAM_MC_GHC.q_xHV_DIS_CH2</Name>
-					<Comment><![CDATA[ Enable Gauge High Voltage on CH2 when True // 'TcLinkTo' (EL2124) ^Output]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
 					<Name>GVL_Main_Chamber.DREAM_CAT1_PTM_01.q_RunDO</Name>
 					<Comment><![CDATA[ Start/Stop]]></Comment>
 					<Type>BOOL</Type>
@@ -446,6 +436,16 @@
 				<Var>
 					<Name>GVL_Main_Chamber.DREAM_CAT2_GHC_01.q_xHV_DIS</Name>
 					<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EP2624) ^Output]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Main_Chamber.DREAM_MC_GHC.q_xHV_DIS_CH1</Name>
+					<Comment><![CDATA[ Enable Gauge High Voltage on CH1 when True // 'TcLinkTo' (EL2124) ^Output]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Main_Chamber.DREAM_MC_GHC.q_xHV_DIS_CH2</Name>
+					<Comment><![CDATA[ Enable Gauge High Voltage on CH2 when True // 'TcLinkTo' (EL2124) ^Output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 			</Vars>
