@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{309620C0-B4E6-6C17-ADE4-3FC8BFB5DE66}" GeneratedBy="TwinCAT XAE Plc">
+<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{053EE7CA-A534-1C62-3E8D-78D13E7C2992}" GeneratedBy="TwinCAT XAE Plc">
   <DataTypes>
     <DataType>
       <Name Namespace="LCLS_General.Tc2_Utilities">E_HashPrefixTypes</Name>
@@ -42474,15 +42474,15 @@ Micro piranis 925</Comment>
         </Property>
         <Property>
           <Name>ChangeDate</Name>
-          <Value>2023-08-18T16:07:14</Value>
+          <Value>2023-08-21T14:01:35</Value>
         </Property>
         <Property>
           <Name>GeneratedCodeSize</Name>
-          <Value>585728</Value>
+          <Value>622592</Value>
         </Property>
         <Property>
           <Name>GlobalDataSize</Name>
-          <Value>79540224</Value>
+          <Value>79577088</Value>
         </Property>
       </Properties>
     </Module>

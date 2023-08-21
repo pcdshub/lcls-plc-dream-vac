@@ -18,7 +18,6 @@ fbSerialLineControl_DREAM_NC_PTM_01(
     Error=> ,
     ErrorID=> );
 
-
 fbSerialLineControl_DREAM_NC_PTM_02(
     Mode:= SERIALLINEMODE_EL6_22B,
     pComIn:= ADR(stComIn_DREAM_NC_PTM_02),
@@ -68,7 +67,6 @@ fbSerialLineControl_DREAM_MC_PTM_01(
     RxBuffer:= SerialRXBuffer_DREAM_MC_PTM_01,
     Error=> ,
     ErrorID=> );
-
 
 fbSerialLineControl_DREAM_MC_PTM_02(
     Mode:= SERIALLINEMODE_EL6_22B,
