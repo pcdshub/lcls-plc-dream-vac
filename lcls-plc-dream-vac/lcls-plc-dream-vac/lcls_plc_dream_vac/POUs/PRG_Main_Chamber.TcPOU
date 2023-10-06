@@ -15,8 +15,8 @@ DREAM_MC_GPI_01.M_SetBits(30518);
 DREAM_MC_GPI_01();
 
 //Hot Cathode Guages
-//DREAM_CAT1_GHC_01.M_SetBits(30518);
-//DREAM_CAT1_GHC_01(PG:= DREAM_MC_GPI_01.PG);
+//DREAM_CAT1_GHC_01.M_SetBits(30518); //Not in the scope anymore
+//DREAM_CAT1_GHC_01(PG:= DREAM_MC_GPI_01.PG); //Not in the scope anymore
 DREAM_CAT2_GHC_01.M_SetBits(30518);
 DREAM_CAT2_GHC_01(PG:= DREAM_MC_GPI_01.PG);
 //Hot Cathode gauge IE514
