@@ -36,11 +36,11 @@ DREAM_ROUGH2_VRC_01(i_xExtILK_OK := ROUGH2_VRC_OK, i_xOverrideMode := xSystemOve
 DREAM_ROUGH2_VRC_02(i_xExtILK_OK := ROUGH2_VRC_OK, i_xOverrideMode := xSystemOverrideMode);
 
 //Flow control valves
-DREAM_ROUGH1_VFV_01(i_xExtIlkOK := TRUE);
-DREAM_ROUGH1_VFV_02(i_xExtIlkOK := TRUE);
-DREAM_ROUGH2_VFV_01(i_xExtIlkOK := TRUE);
-DREAM_ROUGH2_VFV_02(i_xExtIlkOK := TRUE);
-DREAM_ROUGH2_VFV_03(i_xExtIlkOK := TRUE);
+DREAM_ROUGH1_VFV_01(i_xExtIlkOK := FALSE);
+DREAM_ROUGH1_VFV_02(i_xExtIlkOK := FALSE);
+DREAM_ROUGH2_VFV_01(i_xExtIlkOK := FALSE);
+DREAM_ROUGH2_VFV_02(i_xExtIlkOK := FALSE);
+DREAM_ROUGH2_VFV_03(i_xExtIlkOK := FALSE);
 
 (******************************************************************************************************)
 (*Vacuum logic*)
