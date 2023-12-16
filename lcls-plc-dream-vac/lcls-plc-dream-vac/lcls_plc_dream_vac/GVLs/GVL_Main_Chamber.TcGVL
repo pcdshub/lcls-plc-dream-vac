@@ -25,8 +25,16 @@ VAR_GLOBAL
                                  .i_xFaultNC		:=	TIIB[K4S8_DRL_04_E3_EL1004]^Channel 1^Input;
                                  .q_RunDO			:=	TIIB[K4S8_DRL_04_E5_EL2794]^Channel 1^Output
     '}
-    {attribute 'pytmc' :=' pv: DREAM:MC:PTM:03'}
-    DREAM_MC_PTM_03 : FB_PTM_TurboDrive;
+    {attribute 'pytmc' :=' pv: DREAM:ROUGH2:PTM:01'}
+    DREAM_ROUGH2_PTM_01 : FB_PTM_TurboDrive;
+
+    {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_04_E10_EL1004]^Channel 3^Input;
+                                 .i_xFaultNC		:=	TIIB[K4S8_DRL_04_E10_EL1004]^Channel 4^Input;
+                                 .q_RunDO			:=	TIIB[K4S8_DRL_04_E14_EL2624]^Channel 3^Output;
+                                 .q_xReset 			:=	TIIB[K4S8_DRL_04_E14_EL2624]^Channel 4^Output
+    '}
+    {attribute 'pytmc' :=' pv: DREAM:ROUGH2:PTM:02'}
+    DREAM_ROUGH2_PTM_02 : FB_PTM_Pfeiffer;
 
     //HOT CATHODE GUAGE
     {attribute 'TcLinkTo' := 	'.i_iPRESS_R		:=	TIIB[R03_DRL_01_E3_EL3174-0002]^AI Standard Channel 1^Value;
@@ -101,14 +109,19 @@ VAR_GLOBAL
     fbTD20Com_DREAM_MC_PTM_02        : FB_OERLIKON_TD20_COM;
 
     (*Leybold TD400 serial*)
-    stTD400_RBK_DREAM_MC_PTM_03      : ST_TD20Status;
-    fbTD400Com_DREAM_MC_PTM_03       : FB_OERLIKON_TD20_COM;
-
     stTD400_RBK_DREAM_CAT1_PTM_01    : ST_TD20Status;
     fbTD400Com_DREAM_CAT1_PTM_01     : FB_OERLIKON_TD20_COM;
 
     stTD400_RBK_DREAM_CAT2_PTM_01    : ST_TD20Status;
     fbTD400Com_DREAM_CAT2_PTM_01     : FB_OERLIKON_TD20_COM;
+
+    stTD400_RBK_DREAM_ROUGH2_PTM_01  : ST_TD20Status;
+    fbTD400Com_DREAM_ROUGH2_PTM_01   : FB_OERLIKON_TD20_COM;
+
+    (*Pfeiffer TC110 serial*)
+    stPfeiffer_CTRL_DREAM_ROUGH2_PTM_02 : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferControl;
+    stPfeiffer_RBK_DREAM_ROUGH2_PTM_02	: ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferStatus;
+    fbPfeifferCom_DREAM_ROUGH2_PTM_02   : FB_PFEIFFER_COM;
 
 END_VAR]]></Declaration>
   </GVL>

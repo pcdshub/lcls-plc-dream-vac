@@ -78,16 +78,6 @@ fbSerialLineControl_DREAM_MC_PTM_02(
     Error=> ,
     ErrorID=> );
 
-fbSerialLineControl_DREAM_MC_PTM_03(
-    Mode:= SERIALLINEMODE_EL6_22B,
-    pComIn:= ADR(stComIn_DREAM_MC_PTM_03),
-    pComOut:= ADR(stComOut_DREAM_MC_PTM_03),
-    SizeComIn:= UINT_TO_INT(SIZEOF(stComIn_DREAM_MC_PTM_03)),
-    TxBuffer:= SerialTXBuffer_DREAM_MC_PTM_03,
-    RxBuffer:= SerialRXBuffer_DREAM_MC_PTM_03,
-    Error=> ,
-    ErrorID=> );
-
 fbSerialLineControl_DREAM_CAT1_PTM_01(
     Mode:= SERIALLINEMODE_EL6_22B,
     pComIn:= ADR(stComIn_DREAM_CAT1_PTM_01),
@@ -106,7 +96,18 @@ fbSerialLineControl_DREAM_CAT2_PTM_01(
     TxBuffer:= SerialTXBuffer_DREAM_CAT2_PTM_01,
     RxBuffer:= SerialRXBuffer_DREAM_CAT2_PTM_01,
     Error=> ,
-    ErrorID=> );]]></ST>
+    ErrorID=> );
+
+fbSerialLineControl_DREAM_ROUGH2_PTM_02(
+    Mode:= SERIALLINEMODE_EL6_22B,
+    pComIn:= ADR(stComIn_DREAM_ROUGH2_PTM_02),
+    pComOut:= ADR(stComOut_DREAM_ROUGH2_PTM_02),
+    SizeComIn:= UINT_TO_INT(SIZEOF(stComIn_DREAM_ROUGH2_PTM_02)),
+    TxBuffer:= SerialTXBuffer_DREAM_ROUGH2_PTM_02,
+    RxBuffer:= SerialRXBuffer_DREAM_ROUGH2_PTM_02,
+    Error=> ,
+    ErrorID=> );
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

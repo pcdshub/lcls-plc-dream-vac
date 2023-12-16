@@ -166,7 +166,7 @@ stPfeiffer_CTRL_DREAM_NC_PTM_01[1].iSerialAddress:= 1;
 stPfeiffer_CTRL_DREAM_NC_PTM_01[1].xEnableComm:= TRUE;
 (*Instanitate the Function block for serial communication with Pfeiffer*)
 fbPfeifferCom_DREAM_NC_PTM_01(astPfeifferControl:= stPfeiffer_CTRL_DREAM_NC_PTM_01,
-                                 astPfeifferStatus:= stPfeiffer_RBK_DREAM_NC_PTM_01,
+                              astPfeifferStatus:= stPfeiffer_RBK_DREAM_NC_PTM_01,
                               SerialRXBuffer:= SerialRXBuffer_DREAM_NC_PTM_01,
                               SerialTXBuffer:= SerialTXBuffer_DREAM_NC_PTM_01);
 (*Copy Status Pv's into the PTM structure*)
@@ -177,7 +177,7 @@ DREAM_NC_PTM_01.M_Serial_IO(st_Pfeiffer_RBK:= stPfeiffer_RBK_DREAM_NC_PTM_01[1],
 stPfeiffer_CTRL_DREAM_NC_PTM_02[1].iSerialAddress:= 1;
 stPfeiffer_CTRL_DREAM_NC_PTM_02[1].xEnableComm:= TRUE;
 fbPfeifferCom_DREAM_NC_PTM_02(astPfeifferControl:= stPfeiffer_CTRL_DREAM_NC_PTM_02,
-                                 astPfeifferStatus:= stPfeiffer_RBK_DREAM_NC_PTM_02,
+                              astPfeifferStatus:= stPfeiffer_RBK_DREAM_NC_PTM_02,
                               SerialRXBuffer:= SerialRXBuffer_DREAM_NC_PTM_02,
                               SerialTXBuffer:= SerialTXBuffer_DREAM_NC_PTM_02);
 
@@ -188,7 +188,7 @@ DREAM_NC_PTM_02.M_Serial_IO(st_Pfeiffer_RBK:= stPfeiffer_RBK_DREAM_NC_PTM_02[1],
 stPfeiffer_CTRL_DREAM_DP1_PTM_01[1].iSerialAddress:= 1;
 stPfeiffer_CTRL_DREAM_DP1_PTM_01[1].xEnableComm:= TRUE;
 fbPfeifferCom_DREAM_DP1_PTM_01(astPfeifferControl:= stPfeiffer_CTRL_DREAM_DP1_PTM_01,
-                                  astPfeifferStatus:= stPfeiffer_RBK_DREAM_DP1_PTM_01,
+                               astPfeifferStatus:= stPfeiffer_RBK_DREAM_DP1_PTM_01,
                                SerialRXBuffer:= SerialRXBuffer_DREAM_DP1_PTM_01,
                                SerialTXBuffer:= SerialTXBuffer_DREAM_DP1_PTM_01);
 
