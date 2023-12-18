@@ -3,560 +3,615 @@
   <GVL Name="GVL_Serial_Com" Id="{43dac701-90fd-47c7-88d3-17fd6c1cd813}">
     <Declaration><![CDATA[//{attribute 'qualified_only'}
 VAR_GLOBAL
-	//COMM FUNCTION
-	SerialRXBuffer_DREAM_NC_PTM_01   : ComBuffer;
-	SerialTXBuffer_DREAM_NC_PTM_01   : ComBuffer;
-	SerialRXBuffer_DREAM_NC_PTM_02   : ComBuffer;
-	SerialTXBuffer_DREAM_NC_PTM_02   : ComBuffer;
-	SerialRXBuffer_DREAM_DP1_PTM_01  : ComBuffer;
-	SerialTXBuffer_DREAM_DP1_PTM_01  : ComBuffer;
-	SerialRXBuffer_DREAM_DP2_PTM_01  : ComBuffer;
-	SerialTXBuffer_DREAM_DP2_PTM_01  : ComBuffer;
-	SerialRXBuffer_DREAM_DP3_PTM_01  : ComBuffer;
-	SerialTXBuffer_DREAM_DP3_PTM_01  : ComBuffer;
-	SerialRXBuffer_DREAM_MC_PTM_01   : ComBuffer;
-	SerialTXBuffer_DREAM_MC_PTM_01   : ComBuffer;
-	SerialRXBuffer_DREAM_MC_PTM_02   : ComBuffer;
-	SerialTXBuffer_DREAM_MC_PTM_02   : ComBuffer;
-	SerialRXBuffer_DREAM_MC_PTM_03   : ComBuffer;
-	SerialTXBuffer_DREAM_MC_PTM_03   : ComBuffer;	
-	SerialRXBuffer_DREAM_CAT1_PTM_01 : ComBuffer;
-	SerialTXBuffer_DREAM_CAT1_PTM_01 : ComBuffer;
-	SerialRXBuffer_DREAM_CAT2_PTM_01 : ComBuffer;
-	SerialTXBuffer_DREAM_CAT2_PTM_01 : ComBuffer;	
+    //COMM FUNCTION
+    SerialRXBuffer_DREAM_NC_PTM_01     : ComBuffer;
+    SerialTXBuffer_DREAM_NC_PTM_01     : ComBuffer;
+    SerialRXBuffer_DREAM_NC_PTM_02     : ComBuffer;
+    SerialTXBuffer_DREAM_NC_PTM_02     : ComBuffer;
+    SerialRXBuffer_DREAM_DP1_PTM_01    : ComBuffer;
+    SerialTXBuffer_DREAM_DP1_PTM_01    : ComBuffer;
+    SerialRXBuffer_DREAM_DP2_PTM_01    : ComBuffer;
+    SerialTXBuffer_DREAM_DP2_PTM_01    : ComBuffer;
+    SerialRXBuffer_DREAM_DP3_PTM_01    : ComBuffer;
+    SerialTXBuffer_DREAM_DP3_PTM_01    : ComBuffer;
+    SerialRXBuffer_DREAM_MC_PTM_01     : ComBuffer;
+    SerialTXBuffer_DREAM_MC_PTM_01     : ComBuffer;
+    SerialRXBuffer_DREAM_MC_PTM_02     : ComBuffer;
+    SerialTXBuffer_DREAM_MC_PTM_02     : ComBuffer;
+    SerialRXBuffer_DREAM_CAT1_PTM_01   : ComBuffer;
+    SerialTXBuffer_DREAM_CAT1_PTM_01   : ComBuffer;
+    SerialRXBuffer_DREAM_CAT2_PTM_01   : ComBuffer;
+    SerialTXBuffer_DREAM_CAT2_PTM_01   : ComBuffer;
+    SerialRXBuffer_DREAM_ROUGH2_PTM_01 : ComBuffer;
+    SerialTXBuffer_DREAM_ROUGH2_PTM_01 : ComBuffer;
+    SerialRXBuffer_DREAM_ROUGH2_PTM_02 : ComBuffer;
+    SerialTXBuffer_DREAM_ROUGH2_PTM_02 : ComBuffer;
 
-	//Serial Terminal
-	fbSerialLineControl_DREAM_NC_PTM_01   : SerialLineControl;
-	fbSerialLineControl_DREAM_NC_PTM_02   : SerialLineControl;
-	fbSerialLineControl_DREAM_DP1_PTM_01  : SerialLineControl;
-	fbSerialLineControl_DREAM_DP2_PTM_01  : SerialLineControl;
-	fbSerialLineControl_DREAM_DP3_PTM_01  : SerialLineControl;
-	fbSerialLineControl_DREAM_MC_PTM_01   : SerialLineControl;
-	fbSerialLineControl_DREAM_MC_PTM_02   : SerialLineControl;
-	fbSerialLineControl_DREAM_MC_PTM_03   : SerialLineControl;
-	fbSerialLineControl_DREAM_CAT1_PTM_01 : SerialLineControl;
-	fbSerialLineControl_DREAM_CAT2_PTM_01 : SerialLineControl;
-	
-	//SERIAL IO
-	{attribute	'TcLinkTo'	:=	'.Status:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Status;	
-								 .D[0]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 0;
-								 .D[1]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 1;
-								 .D[2]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 2;
-								 .D[3]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 3;
-								 .D[4]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 4;
-								 .D[5]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 5;
-								 .D[6]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 6;
-								 .D[7]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 7;
-								 .D[8]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 8;
-								 .D[9]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 9;
-								 .D[10]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 10;
-								 .D[11]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 11;
-								 .D[12]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 12;
-								 .D[13]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 13;
-								 .D[14]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 14;
-								 .D[15]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 15;
-								 .D[16]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 16;
-								 .D[17]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 17;
-								 .D[18]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 18;
-								 .D[19]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 19;
-								 .D[20]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 20;
-								 .D[21]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 21
-	'}
-	stComIn_DREAM_NC_PTM_01 AT %I* : EL6inData22B;
+    //Serial Terminal
+    fbSerialLineControl_DREAM_NC_PTM_01     : SerialLineControl;
+    fbSerialLineControl_DREAM_NC_PTM_02     : SerialLineControl;
+    fbSerialLineControl_DREAM_DP1_PTM_01    : SerialLineControl;
+    fbSerialLineControl_DREAM_DP2_PTM_01    : SerialLineControl;
+    fbSerialLineControl_DREAM_DP3_PTM_01    : SerialLineControl;
+    fbSerialLineControl_DREAM_MC_PTM_01     : SerialLineControl;
+    fbSerialLineControl_DREAM_MC_PTM_02     : SerialLineControl;
+    fbSerialLineControl_DREAM_CAT1_PTM_01   : SerialLineControl;
+    fbSerialLineControl_DREAM_CAT2_PTM_01   : SerialLineControl;
+    fbSerialLineControl_DREAM_ROUGH2_PTM_01 : SerialLineControl;
+    fbSerialLineControl_DREAM_ROUGH2_PTM_02 : SerialLineControl;
 
-	{attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Ctrl;
-								 .D[0]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 0;
-								 .D[1]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 1;
-								 .D[2]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 2;
-								 .D[3]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 3;
-								 .D[4]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 4;
-								 .D[5]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 5;
-								 .D[6]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 6;
-								 .D[7]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 7;
-								 .D[8]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 8;
-								 .D[9]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 9;
-								 .D[10]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 10;
-								 .D[11]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 11;
-								 .D[12]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 12;
-								 .D[13]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 13;
-								 .D[14]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 14;
-								 .D[15]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 15;
-								 .D[16]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 16;
-								 .D[17]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 17;
-								 .D[18]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 18;
-								 .D[19]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 19;
-								 .D[20]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 20;
-								 .D[21]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 21
-	'}
-	stComOut_DREAM_NC_PTM_01 AT %Q* : EL6outData22B;
+    //SERIAL IO
+    {attribute	'TcLinkTo'	:=	'.Status:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Status;
+                                 .D[0]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 0;
+                                 .D[1]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 1;
+                                 .D[2]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 2;
+                                 .D[3]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 3;
+                                 .D[4]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 4;
+                                 .D[5]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 5;
+                                 .D[6]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 6;
+                                 .D[7]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 7;
+                                 .D[8]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 8;
+                                 .D[9]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 9;
+                                 .D[10]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 10;
+                                 .D[11]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 11;
+                                 .D[12]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 12;
+                                 .D[13]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 13;
+                                 .D[14]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 14;
+                                 .D[15]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 15;
+                                 .D[16]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 16;
+                                 .D[17]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 17;
+                                 .D[18]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 18;
+                                 .D[19]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 19;
+                                 .D[20]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 20;
+                                 .D[21]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM TxPDO-Map Inputs^Data In 21
+    '}
+    stComIn_DREAM_NC_PTM_01 AT %I* : EL6inData22B;
 
-	{attribute	'TcLinkTo'	:=	'.Status:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Status;	
-								 .D[0]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 0;
-								 .D[1]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 1;
-								 .D[2]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 2;
-								 .D[3]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 3;
-								 .D[4]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 4;
-								 .D[5]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 5;
-								 .D[6]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 6;
-								 .D[7]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 7;
-								 .D[8]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 8;
-								 .D[9]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 9;
-								 .D[10]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 10;
-								 .D[11]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 11;
-								 .D[12]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 12;
-								 .D[13]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 13;
-								 .D[14]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 14;
-								 .D[15]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 15;
-								 .D[16]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 16;
-								 .D[17]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 17;
-								 .D[18]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 18;
-								 .D[19]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 19;
-								 .D[20]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 20;
-								 .D[21]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 21
-	'}
-	stComIn_DREAM_NC_PTM_02 AT %I* : EL6inData22B;
+    {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Ctrl;
+                                 .D[0]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 0;
+                                 .D[1]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 1;
+                                 .D[2]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 2;
+                                 .D[3]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 3;
+                                 .D[4]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 4;
+                                 .D[5]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 5;
+                                 .D[6]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 6;
+                                 .D[7]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 7;
+                                 .D[8]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 8;
+                                 .D[9]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 9;
+                                 .D[10]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 10;
+                                 .D[11]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 11;
+                                 .D[12]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 12;
+                                 .D[13]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 13;
+                                 .D[14]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 14;
+                                 .D[15]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 15;
+                                 .D[16]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 16;
+                                 .D[17]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 17;
+                                 .D[18]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 18;
+                                 .D[19]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 19;
+                                 .D[20]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 20;
+                                 .D[21]:=TIIB[K4S8_DRL_03_E12_EL6021]^COM RxPDO-Map Outputs^Data Out 21
+    '}
+    stComOut_DREAM_NC_PTM_01 AT %Q* : EL6outData22B;
 
-	{attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Ctrl;
-								 .D[0]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 0;
-								 .D[1]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 1;
-								 .D[2]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 2;
-								 .D[3]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 3;
-								 .D[4]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 4;
-								 .D[5]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 5;
-								 .D[6]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 6;
-								 .D[7]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 7;
-								 .D[8]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 8;
-								 .D[9]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 9;
-								 .D[10]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 10;
-								 .D[11]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 11;
-								 .D[12]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 12;
-								 .D[13]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 13;
-								 .D[14]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 14;
-								 .D[15]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 15;
-								 .D[16]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 16;
-								 .D[17]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 17;
-								 .D[18]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 18;
-								 .D[19]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 19;
-								 .D[20]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 20;
-								 .D[21]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 21
-	'}
-	stComOut_DREAM_NC_PTM_02 AT %Q* : EL6outData22B;
-	
-	{attribute	'TcLinkTo'	:=	'.Status:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Status;	
-								 .D[0]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 0;
-								 .D[1]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 1;
-								 .D[2]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 2;
-								 .D[3]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 3;
-								 .D[4]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 4;
-								 .D[5]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 5;
-								 .D[6]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 6;
-								 .D[7]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 7;
-								 .D[8]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 8;
-								 .D[9]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 9;
-								 .D[10]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 10;
-								 .D[11]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 11;
-								 .D[12]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 12;
-								 .D[13]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 13;
-								 .D[14]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 14;
-								 .D[15]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 15;
-								 .D[16]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 16;
-								 .D[17]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 17;
-								 .D[18]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 18;
-								 .D[19]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 19;
-								 .D[20]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 20;
-								 .D[21]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 21
-	'}
-	stComIn_DREAM_DP1_PTM_01 AT %I* : EL6inData22B;
+    {attribute	'TcLinkTo'	:=	'.Status:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Status;
+                                 .D[0]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 0;
+                                 .D[1]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 1;
+                                 .D[2]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 2;
+                                 .D[3]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 3;
+                                 .D[4]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 4;
+                                 .D[5]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 5;
+                                 .D[6]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 6;
+                                 .D[7]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 7;
+                                 .D[8]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 8;
+                                 .D[9]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 9;
+                                 .D[10]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 10;
+                                 .D[11]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 11;
+                                 .D[12]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 12;
+                                 .D[13]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 13;
+                                 .D[14]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 14;
+                                 .D[15]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 15;
+                                 .D[16]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 16;
+                                 .D[17]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 17;
+                                 .D[18]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 18;
+                                 .D[19]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 19;
+                                 .D[20]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 20;
+                                 .D[21]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM TxPDO-Map Inputs^Data In 21
+    '}
+    stComIn_DREAM_NC_PTM_02 AT %I* : EL6inData22B;
 
-	{attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Ctrl;
-								 .D[0]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 0;
-								 .D[1]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 1;
-								 .D[2]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 2;
-								 .D[3]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 3;
-								 .D[4]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 4;
-								 .D[5]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 5;
-								 .D[6]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 6;
-								 .D[7]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 7;
-								 .D[8]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 8;
-								 .D[9]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 9;
-								 .D[10]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 10;
-								 .D[11]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 11;
-								 .D[12]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 12;
-								 .D[13]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 13;
-								 .D[14]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 14;
-								 .D[15]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 15;
-								 .D[16]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 16;
-								 .D[17]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 17;
-								 .D[18]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 18;
-								 .D[19]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 19;
-								 .D[20]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 20;
-								 .D[21]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 21
-	'}
-	stComOut_DREAM_DP1_PTM_01 AT %Q* : EL6outData22B;
+    {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Ctrl;
+                                 .D[0]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 0;
+                                 .D[1]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 1;
+                                 .D[2]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 2;
+                                 .D[3]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 3;
+                                 .D[4]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 4;
+                                 .D[5]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 5;
+                                 .D[6]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 6;
+                                 .D[7]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 7;
+                                 .D[8]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 8;
+                                 .D[9]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 9;
+                                 .D[10]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 10;
+                                 .D[11]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 11;
+                                 .D[12]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 12;
+                                 .D[13]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 13;
+                                 .D[14]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 14;
+                                 .D[15]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 15;
+                                 .D[16]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 16;
+                                 .D[17]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 17;
+                                 .D[18]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 18;
+                                 .D[19]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 19;
+                                 .D[20]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 20;
+                                 .D[21]:=TIIB[K4S8_DRL_03_E15_EL6021]^COM RxPDO-Map Outputs^Data Out 21
+    '}
+    stComOut_DREAM_NC_PTM_02 AT %Q* : EL6outData22B;
 
-	{attribute	'TcLinkTo'	:=	'.Status:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Status;
-								 .D[0]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 0;
-								 .D[1]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 1;
-								 .D[2]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 2;
-								 .D[3]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 3;
-								 .D[4]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 4;
-								 .D[5]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 5;
-								 .D[6]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 6;
-								 .D[7]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 7;
-								 .D[8]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 8;
-								 .D[9]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 9;
-								 .D[10]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 10;
-								 .D[11]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 11;
-								 .D[12]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 12;
-								 .D[13]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 13;
-								 .D[14]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 14;
-								 .D[15]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 15;
-								 .D[16]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 16;
-								 .D[17]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 17;
-								 .D[18]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 18;
-								 .D[19]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 19;
-								 .D[20]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 20;
-								 .D[21]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 21
-	'}
-	stComIn_DREAM_DP2_PTM_01 AT %I* : EL6inData22B;
+    {attribute	'TcLinkTo'	:=	'.Status:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Status;
+                                 .D[0]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 0;
+                                 .D[1]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 1;
+                                 .D[2]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 2;
+                                 .D[3]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 3;
+                                 .D[4]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 4;
+                                 .D[5]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 5;
+                                 .D[6]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 6;
+                                 .D[7]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 7;
+                                 .D[8]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 8;
+                                 .D[9]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 9;
+                                 .D[10]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 10;
+                                 .D[11]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 11;
+                                 .D[12]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 12;
+                                 .D[13]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 13;
+                                 .D[14]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 14;
+                                 .D[15]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 15;
+                                 .D[16]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 16;
+                                 .D[17]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 17;
+                                 .D[18]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 18;
+                                 .D[19]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 19;
+                                 .D[20]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 20;
+                                 .D[21]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM TxPDO-Map Inputs^Data In 21
+    '}
+    stComIn_DREAM_DP1_PTM_01 AT %I* : EL6inData22B;
 
-	{attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Ctrl;
-								 .D[0]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 0;
-								 .D[1]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 1;
-								 .D[2]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 2;
-								 .D[3]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 3;
-								 .D[4]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 4;
-								 .D[5]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 5;
-								 .D[6]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 6;
-								 .D[7]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 7;
-								 .D[8]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 8;
-								 .D[9]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 9;
-								 .D[10]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 10;
-								 .D[11]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 11;
-								 .D[12]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 12;
-								 .D[13]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 13;
-								 .D[14]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 14;
-								 .D[15]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 15;
-								 .D[16]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 16;
-								 .D[17]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 17;
-								 .D[18]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 18;
-								 .D[19]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 19;
-								 .D[20]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 20;
-								 .D[21]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 21
-	'}
-	stComOut_DREAM_DP2_PTM_01 AT %Q* : EL6outData22B;
-	
-	{attribute	'TcLinkTo'	:=	'.Status:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Status;
-								 .D[0]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 0;
-								 .D[1]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 1;
-								 .D[2]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 2;
-								 .D[3]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 3;
-								 .D[4]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 4;
-								 .D[5]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 5;
-								 .D[6]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 6;
-								 .D[7]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 7;
-								 .D[8]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 8;
-								 .D[9]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 9;
-								 .D[10]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 10;
-								 .D[11]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 11;
-								 .D[12]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 12;
-								 .D[13]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 13;
-								 .D[14]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 14;
-								 .D[15]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 15;
-								 .D[16]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 16;
-								 .D[17]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 17;
-								 .D[18]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 18;
-								 .D[19]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 19;
-								 .D[20]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 20;
-								 .D[21]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 21
-	'}
-	stComIn_DREAM_DP3_PTM_01 AT %I* : EL6inData22B;
+    {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Ctrl;
+                                 .D[0]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 0;
+                                 .D[1]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 1;
+                                 .D[2]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 2;
+                                 .D[3]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 3;
+                                 .D[4]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 4;
+                                 .D[5]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 5;
+                                 .D[6]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 6;
+                                 .D[7]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 7;
+                                 .D[8]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 8;
+                                 .D[9]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 9;
+                                 .D[10]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 10;
+                                 .D[11]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 11;
+                                 .D[12]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 12;
+                                 .D[13]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 13;
+                                 .D[14]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 14;
+                                 .D[15]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 15;
+                                 .D[16]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 16;
+                                 .D[17]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 17;
+                                 .D[18]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 18;
+                                 .D[19]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 19;
+                                 .D[20]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 20;
+                                 .D[21]:=TIIB[K4S8_DRL_03_E18_EL6021]^COM RxPDO-Map Outputs^Data Out 21
+    '}
+    stComOut_DREAM_DP1_PTM_01 AT %Q* : EL6outData22B;
 
-	{attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Ctrl;
-								 .D[0]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 0;
-								 .D[1]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 1;
-								 .D[2]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 2;
-								 .D[3]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 3;
-								 .D[4]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 4;
-								 .D[5]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 5;
-								 .D[6]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 6;
-								 .D[7]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 7;
-								 .D[8]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 8;
-								 .D[9]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 9;
-								 .D[10]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 10;
-								 .D[11]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 11;
-								 .D[12]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 12;
-								 .D[13]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 13;
-								 .D[14]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 14;
-								 .D[15]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 15;
-								 .D[16]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 16;
-								 .D[17]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 17;
-								 .D[18]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 18;
-								 .D[19]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 19;
-								 .D[20]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 20;
-								 .D[21]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 21
-	'}
-	stComOut_DREAM_DP3_PTM_01 AT %Q* : EL6outData22B;
-	
-	{attribute	'TcLinkTo'	:=	'.Status:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Status;
-								 .D[0]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 0;
-								 .D[1]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 1;
-								 .D[2]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 2;
-								 .D[3]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 3;
-								 .D[4]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 4;
-								 .D[5]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 5;
-								 .D[6]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 6;
-								 .D[7]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 7;
-								 .D[8]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 8;
-								 .D[9]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 9;
-								 .D[10]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 10;
-								 .D[11]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 11;
-								 .D[12]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 12;
-								 .D[13]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 13;
-								 .D[14]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 14;
-								 .D[15]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 15;
-								 .D[16]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 16;
-								 .D[17]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 17;
-								 .D[18]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 18;
-								 .D[19]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 19;
-								 .D[20]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 20;
-								 .D[21]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 21
-	'}
-	stComIn_DREAM_MC_PTM_01 AT %I* : EL6inData22B;
+    {attribute	'TcLinkTo'	:=	'.Status:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Status;
+                                 .D[0]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 0;
+                                 .D[1]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 1;
+                                 .D[2]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 2;
+                                 .D[3]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 3;
+                                 .D[4]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 4;
+                                 .D[5]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 5;
+                                 .D[6]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 6;
+                                 .D[7]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 7;
+                                 .D[8]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 8;
+                                 .D[9]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 9;
+                                 .D[10]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 10;
+                                 .D[11]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 11;
+                                 .D[12]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 12;
+                                 .D[13]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 13;
+                                 .D[14]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 14;
+                                 .D[15]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 15;
+                                 .D[16]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 16;
+                                 .D[17]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 17;
+                                 .D[18]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 18;
+                                 .D[19]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 19;
+                                 .D[20]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 20;
+                                 .D[21]:=TIIB[R20_DRL_03_E9_EL6001]^COM Inputs^Data In 21
+    '}
+    stComIn_DREAM_DP2_PTM_01 AT %I* : EL6inData22B;
 
-	{attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Ctrl;
-								 .D[0]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 0;
-								 .D[1]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 1;
-								 .D[2]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 2;
-								 .D[3]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 3;
-								 .D[4]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 4;
-								 .D[5]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 5;
-								 .D[6]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 6;
-								 .D[7]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 7;
-								 .D[8]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 8;
-								 .D[9]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 9;
-								 .D[10]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 10;
-								 .D[11]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 11;
-								 .D[12]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 12;
-								 .D[13]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 13;
-								 .D[14]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 14;
-								 .D[15]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 15;
-								 .D[16]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 16;
-								 .D[17]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 17;
-								 .D[18]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 18;
-								 .D[19]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 19;
-								 .D[20]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 20;
-								 .D[21]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 21
-	'}
-	stComOut_DREAM_MC_PTM_01 AT %Q* : EL6outData22B;
-	
-	{attribute	'TcLinkTo'	:=	'.Status:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Status;
-								 .D[0]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 0;
-								 .D[1]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 1;
-								 .D[2]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 2;
-								 .D[3]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 3;
-								 .D[4]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 4;
-								 .D[5]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 5;
-								 .D[6]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 6;
-								 .D[7]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 7;
-								 .D[8]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 8;
-								 .D[9]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 9;
-								 .D[10]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 10;
-								 .D[11]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 11;
-								 .D[12]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 12;
-								 .D[13]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 13;
-								 .D[14]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 14;
-								 .D[15]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 15;
-								 .D[16]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 16;
-								 .D[17]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 17;
-								 .D[18]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 18;
-								 .D[19]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 19;
-								 .D[20]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 20;
-								 .D[21]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 21
-	'}
-	stComIn_DREAM_MC_PTM_02 AT %I* : EL6inData22B;
+    {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Ctrl;
+                                 .D[0]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 0;
+                                 .D[1]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 1;
+                                 .D[2]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 2;
+                                 .D[3]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 3;
+                                 .D[4]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 4;
+                                 .D[5]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 5;
+                                 .D[6]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 6;
+                                 .D[7]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 7;
+                                 .D[8]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 8;
+                                 .D[9]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 9;
+                                 .D[10]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 10;
+                                 .D[11]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 11;
+                                 .D[12]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 12;
+                                 .D[13]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 13;
+                                 .D[14]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 14;
+                                 .D[15]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 15;
+                                 .D[16]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 16;
+                                 .D[17]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 17;
+                                 .D[18]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 18;
+                                 .D[19]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 19;
+                                 .D[20]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 20;
+                                 .D[21]:=TIIB[R20_DRL_03_E9_EL6001]^COM Outputs^Data Out 21
+    '}
+    stComOut_DREAM_DP2_PTM_01 AT %Q* : EL6outData22B;
 
-	{attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Ctrl;
-								 .D[0]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 0;
-								 .D[1]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 1;
-								 .D[2]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 2;
-								 .D[3]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 3;
-								 .D[4]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 4;
-								 .D[5]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 5;
-								 .D[6]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 6;
-								 .D[7]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 7;
-								 .D[8]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 8;
-								 .D[9]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 9;
-								 .D[10]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 10;
-								 .D[11]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 11;
-								 .D[12]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 12;
-								 .D[13]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 13;
-								 .D[14]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 14;
-								 .D[15]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 15;
-								 .D[16]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 16;
-								 .D[17]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 17;
-								 .D[18]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 18;
-								 .D[19]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 19;
-								 .D[20]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 20;
-								 .D[21]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 21
-	'}
-	stComOut_DREAM_MC_PTM_02 AT %Q* : EL6outData22B;
+    {attribute	'TcLinkTo'	:=	'.Status:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Status;
+                                 .D[0]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 0;
+                                 .D[1]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 1;
+                                 .D[2]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 2;
+                                 .D[3]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 3;
+                                 .D[4]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 4;
+                                 .D[5]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 5;
+                                 .D[6]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 6;
+                                 .D[7]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 7;
+                                 .D[8]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 8;
+                                 .D[9]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 9;
+                                 .D[10]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 10;
+                                 .D[11]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 11;
+                                 .D[12]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 12;
+                                 .D[13]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 13;
+                                 .D[14]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 14;
+                                 .D[15]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 15;
+                                 .D[16]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 16;
+                                 .D[17]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 17;
+                                 .D[18]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 18;
+                                 .D[19]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 19;
+                                 .D[20]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 20;
+                                 .D[21]:=TIIB[R20_DRL_03_E10_EL6001]^COM Inputs^Data In 21
+    '}
+    stComIn_DREAM_DP3_PTM_01 AT %I* : EL6inData22B;
 
-	{attribute	'TcLinkTo'	:=	'.Status:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Status;
-								 .D[0]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 0;
-								 .D[1]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 1;
-								 .D[2]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 2;
-								 .D[3]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 3;
-								 .D[4]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 4;
-								 .D[5]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 5;
-								 .D[6]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 6;
-								 .D[7]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 7;
-								 .D[8]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 8;
-								 .D[9]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 9;
-								 .D[10]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 10;
-								 .D[11]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 11;
-								 .D[12]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 12;
-								 .D[13]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 13;
-								 .D[14]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 14;
-								 .D[15]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 15;
-								 .D[16]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 16;
-								 .D[17]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 17;
-								 .D[18]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 18;
-								 .D[19]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 19;
-								 .D[20]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 20;
-								 .D[21]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 21
-	'}
-	stComIn_DREAM_MC_PTM_03 AT %I* : EL6inData22B;
+    {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Ctrl;
+                                 .D[0]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 0;
+                                 .D[1]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 1;
+                                 .D[2]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 2;
+                                 .D[3]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 3;
+                                 .D[4]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 4;
+                                 .D[5]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 5;
+                                 .D[6]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 6;
+                                 .D[7]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 7;
+                                 .D[8]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 8;
+                                 .D[9]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 9;
+                                 .D[10]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 10;
+                                 .D[11]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 11;
+                                 .D[12]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 12;
+                                 .D[13]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 13;
+                                 .D[14]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 14;
+                                 .D[15]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 15;
+                                 .D[16]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 16;
+                                 .D[17]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 17;
+                                 .D[18]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 18;
+                                 .D[19]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 19;
+                                 .D[20]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 20;
+                                 .D[21]:=TIIB[R20_DRL_03_E10_EL6001]^COM Outputs^Data Out 21
+    '}
+    stComOut_DREAM_DP3_PTM_01 AT %Q* : EL6outData22B;
 
-	{attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Ctrl;
-								 .D[0]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 0;
-								 .D[1]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 1;
-								 .D[2]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 2;
-								 .D[3]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 3;
-								 .D[4]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 4;
-								 .D[5]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 5;
-								 .D[6]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 6;
-								 .D[7]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 7;
-								 .D[8]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 8;
-								 .D[9]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 9;
-								 .D[10]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 10;
-								 .D[11]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 11;
-								 .D[12]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 12;
-								 .D[13]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 13;
-								 .D[14]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 14;
-								 .D[15]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 15;
-								 .D[16]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 16;
-								 .D[17]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 17;
-								 .D[18]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 18;
-								 .D[19]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 19;
-								 .D[20]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 20;
-								 .D[21]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 21
-	'}
-	stComOut_DREAM_MC_PTM_03 AT %Q* : EL6outData22B;
+    {attribute	'TcLinkTo'	:=	'.Status:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Status;
+                                 .D[0]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 0;
+                                 .D[1]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 1;
+                                 .D[2]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 2;
+                                 .D[3]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 3;
+                                 .D[4]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 4;
+                                 .D[5]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 5;
+                                 .D[6]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 6;
+                                 .D[7]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 7;
+                                 .D[8]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 8;
+                                 .D[9]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 9;
+                                 .D[10]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 10;
+                                 .D[11]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 11;
+                                 .D[12]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 12;
+                                 .D[13]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 13;
+                                 .D[14]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 14;
+                                 .D[15]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 15;
+                                 .D[16]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 16;
+                                 .D[17]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 17;
+                                 .D[18]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 18;
+                                 .D[19]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 19;
+                                 .D[20]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 20;
+                                 .D[21]:=TIIB[R20_DRL_03_E11_EL6001]^COM Inputs^Data In 21
+    '}
+    stComIn_DREAM_MC_PTM_01 AT %I* : EL6inData22B;
 
-	{attribute	'TcLinkTo'	:=	'.Status:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Status;
-								 .D[0]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 0;
-								 .D[1]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 1;
-								 .D[2]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 2;
-								 .D[3]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 3;
-								 .D[4]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 4;
-								 .D[5]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 5;
-								 .D[6]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 6;
-								 .D[7]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 7;
-								 .D[8]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 8;
-								 .D[9]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 9;
-								 .D[10]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 10;
-								 .D[11]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 11;
-								 .D[12]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 12;
-								 .D[13]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 13;
-								 .D[14]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 14;
-								 .D[15]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 15;
-								 .D[16]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 16;
-								 .D[17]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 17;
-								 .D[18]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 18;
-								 .D[19]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 19;
-								 .D[20]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 20;
-								 .D[21]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 21
-	'}
-	stComIn_DREAM_CAT1_PTM_01 AT %I* : EL6inData22B;
+    {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Ctrl;
+                                 .D[0]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 0;
+                                 .D[1]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 1;
+                                 .D[2]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 2;
+                                 .D[3]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 3;
+                                 .D[4]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 4;
+                                 .D[5]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 5;
+                                 .D[6]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 6;
+                                 .D[7]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 7;
+                                 .D[8]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 8;
+                                 .D[9]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 9;
+                                 .D[10]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 10;
+                                 .D[11]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 11;
+                                 .D[12]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 12;
+                                 .D[13]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 13;
+                                 .D[14]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 14;
+                                 .D[15]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 15;
+                                 .D[16]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 16;
+                                 .D[17]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 17;
+                                 .D[18]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 18;
+                                 .D[19]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 19;
+                                 .D[20]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 20;
+                                 .D[21]:=TIIB[R20_DRL_03_E11_EL6001]^COM Outputs^Data Out 21
+    '}
+    stComOut_DREAM_MC_PTM_01 AT %Q* : EL6outData22B;
 
-	{attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Ctrl;
-								 .D[0]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 0;
-								 .D[1]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 1;
-								 .D[2]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 2;
-								 .D[3]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 3;
-								 .D[4]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 4;
-								 .D[5]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 5;
-								 .D[6]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 6;
-								 .D[7]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 7;
-								 .D[8]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 8;
-								 .D[9]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 9;
-								 .D[10]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 10;
-								 .D[11]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 11;
-								 .D[12]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 12;
-								 .D[13]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 13;
-								 .D[14]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 14;
-								 .D[15]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 15;
-								 .D[16]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 16;
-								 .D[17]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 17;
-								 .D[18]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 18;
-								 .D[19]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 19;
-								 .D[20]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 20;
-								 .D[21]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 21
-	'}
-	stComOut_DREAM_CAT1_PTM_01 AT %Q* : EL6outData22B;
+    {attribute	'TcLinkTo'	:=	'.Status:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Status;
+                                 .D[0]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 0;
+                                 .D[1]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 1;
+                                 .D[2]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 2;
+                                 .D[3]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 3;
+                                 .D[4]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 4;
+                                 .D[5]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 5;
+                                 .D[6]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 6;
+                                 .D[7]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 7;
+                                 .D[8]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 8;
+                                 .D[9]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 9;
+                                 .D[10]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 10;
+                                 .D[11]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 11;
+                                 .D[12]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 12;
+                                 .D[13]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 13;
+                                 .D[14]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 14;
+                                 .D[15]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 15;
+                                 .D[16]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 16;
+                                 .D[17]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 17;
+                                 .D[18]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 18;
+                                 .D[19]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 19;
+                                 .D[20]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 20;
+                                 .D[21]:=TIIB[R20_DRL_03_E12_EL6001]^COM Inputs^Data In 21
+    '}
+    stComIn_DREAM_MC_PTM_02 AT %I* : EL6inData22B;
 
-	{attribute	'TcLinkTo'	:=	'.Status:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Status;
-								 .D[0]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 0;
-								 .D[1]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 1;
-								 .D[2]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 2;
-								 .D[3]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 3;
-								 .D[4]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 4;
-								 .D[5]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 5;
-								 .D[6]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 6;
-								 .D[7]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 7;
-								 .D[8]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 8;
-								 .D[9]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 9;
-								 .D[10]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 10;
-								 .D[11]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 11;
-								 .D[12]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 12;
-								 .D[13]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 13;
-								 .D[14]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 14;
-								 .D[15]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 15;
-								 .D[16]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 16;
-								 .D[17]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 17;
-								 .D[18]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 18;
-								 .D[19]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 19;
-								 .D[20]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 20;
-								 .D[21]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 21
-	'}
-	stComIn_DREAM_CAT2_PTM_01 AT %I* : EL6inData22B;
+    {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Ctrl;
+                                 .D[0]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 0;
+                                 .D[1]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 1;
+                                 .D[2]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 2;
+                                 .D[3]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 3;
+                                 .D[4]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 4;
+                                 .D[5]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 5;
+                                 .D[6]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 6;
+                                 .D[7]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 7;
+                                 .D[8]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 8;
+                                 .D[9]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 9;
+                                 .D[10]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 10;
+                                 .D[11]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 11;
+                                 .D[12]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 12;
+                                 .D[13]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 13;
+                                 .D[14]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 14;
+                                 .D[15]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 15;
+                                 .D[16]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 16;
+                                 .D[17]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 17;
+                                 .D[18]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 18;
+                                 .D[19]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 19;
+                                 .D[20]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 20;
+                                 .D[21]:=TIIB[R20_DRL_03_E12_EL6001]^COM Outputs^Data Out 21
+    '}
+    stComOut_DREAM_MC_PTM_02 AT %Q* : EL6outData22B;
 
-	{attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Ctrl;
-								 .D[0]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 0;
-								 .D[1]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 1;
-								 .D[2]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 2;
-								 .D[3]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 3;
-								 .D[4]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 4;
-								 .D[5]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 5;
-								 .D[6]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 6;
-								 .D[7]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 7;
-								 .D[8]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 8;
-								 .D[9]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 9;
-								 .D[10]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 10;
-								 .D[11]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 11;
-								 .D[12]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 12;
-								 .D[13]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 13;
-								 .D[14]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 14;
-								 .D[15]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 15;
-								 .D[16]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 16;
-								 .D[17]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 17;
-								 .D[18]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 18;
-								 .D[19]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 19;
-								 .D[20]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 20;
-								 .D[21]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 21
-	'}
-	stComOut_DREAM_CAT2_PTM_01 AT %Q* : EL6outData22B;
+    {attribute	'TcLinkTo'	:=	'.Status:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Status;
+                                 .D[0]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 0;
+                                 .D[1]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 1;
+                                 .D[2]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 2;
+                                 .D[3]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 3;
+                                 .D[4]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 4;
+                                 .D[5]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 5;
+                                 .D[6]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 6;
+                                 .D[7]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 7;
+                                 .D[8]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 8;
+                                 .D[9]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 9;
+                                 .D[10]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 10;
+                                 .D[11]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 11;
+                                 .D[12]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 12;
+                                 .D[13]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 13;
+                                 .D[14]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 14;
+                                 .D[15]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 15;
+                                 .D[16]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 16;
+                                 .D[17]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 17;
+                                 .D[18]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 18;
+                                 .D[19]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 19;
+                                 .D[20]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 20;
+                                 .D[21]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Inputs^Data In 21
+    '}
+    stComIn_DREAM_CAT1_PTM_01 AT %I* : EL6inData22B;
+
+    {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Ctrl;
+                                 .D[0]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 0;
+                                 .D[1]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 1;
+                                 .D[2]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 2;
+                                 .D[3]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 3;
+                                 .D[4]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 4;
+                                 .D[5]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 5;
+                                 .D[6]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 6;
+                                 .D[7]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 7;
+                                 .D[8]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 8;
+                                 .D[9]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 9;
+                                 .D[10]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 10;
+                                 .D[11]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 11;
+                                 .D[12]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 12;
+                                 .D[13]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 13;
+                                 .D[14]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 14;
+                                 .D[15]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 15;
+                                 .D[16]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 16;
+                                 .D[17]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 17;
+                                 .D[18]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 18;
+                                 .D[19]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 19;
+                                 .D[20]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 20;
+                                 .D[21]:=TIIB[K4S8_DRL_04_E7_EL6001]^COM Outputs^Data Out 21
+    '}
+    stComOut_DREAM_CAT1_PTM_01 AT %Q* : EL6outData22B;
+
+    {attribute	'TcLinkTo'	:=	'.Status:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Status;
+                                 .D[0]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 0;
+                                 .D[1]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 1;
+                                 .D[2]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 2;
+                                 .D[3]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 3;
+                                 .D[4]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 4;
+                                 .D[5]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 5;
+                                 .D[6]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 6;
+                                 .D[7]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 7;
+                                 .D[8]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 8;
+                                 .D[9]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 9;
+                                 .D[10]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 10;
+                                 .D[11]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 11;
+                                 .D[12]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 12;
+                                 .D[13]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 13;
+                                 .D[14]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 14;
+                                 .D[15]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 15;
+                                 .D[16]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 16;
+                                 .D[17]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 17;
+                                 .D[18]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 18;
+                                 .D[19]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 19;
+                                 .D[20]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 20;
+                                 .D[21]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Inputs^Data In 21
+    '}
+    stComIn_DREAM_CAT2_PTM_01 AT %I* : EL6inData22B;
+
+    {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Ctrl;
+                                 .D[0]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 0;
+                                 .D[1]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 1;
+                                 .D[2]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 2;
+                                 .D[3]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 3;
+                                 .D[4]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 4;
+                                 .D[5]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 5;
+                                 .D[6]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 6;
+                                 .D[7]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 7;
+                                 .D[8]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 8;
+                                 .D[9]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 9;
+                                 .D[10]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 10;
+                                 .D[11]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 11;
+                                 .D[12]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 12;
+                                 .D[13]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 13;
+                                 .D[14]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 14;
+                                 .D[15]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 15;
+                                 .D[16]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 16;
+                                 .D[17]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 17;
+                                 .D[18]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 18;
+                                 .D[19]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 19;
+                                 .D[20]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 20;
+                                 .D[21]:=TIIB[K4S8_DRL_04_E8_EL6001]^COM Outputs^Data Out 21
+    '}
+    stComOut_DREAM_CAT2_PTM_01 AT %Q* : EL6outData22B;
+
+    {attribute	'TcLinkTo'	:=	'.Status:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Status;
+                                 .D[0]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 0;
+                                 .D[1]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 1;
+                                 .D[2]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 2;
+                                 .D[3]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 3;
+                                 .D[4]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 4;
+                                 .D[5]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 5;
+                                 .D[6]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 6;
+                                 .D[7]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 7;
+                                 .D[8]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 8;
+                                 .D[9]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 9;
+                                 .D[10]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 10;
+                                 .D[11]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 11;
+                                 .D[12]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 12;
+                                 .D[13]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 13;
+                                 .D[14]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 14;
+                                 .D[15]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 15;
+                                 .D[16]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 16;
+                                 .D[17]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 17;
+                                 .D[18]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 18;
+                                 .D[19]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 19;
+                                 .D[20]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 20;
+                                 .D[21]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Inputs^Data In 21
+    '}
+    stComIn_DREAM_ROUGH2_PTM_01 AT %I* : EL6inData22B;
+
+    {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Ctrl;
+                                 .D[0]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 0;
+                                 .D[1]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 1;
+                                 .D[2]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 2;
+                                 .D[3]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 3;
+                                 .D[4]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 4;
+                                 .D[5]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 5;
+                                 .D[6]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 6;
+                                 .D[7]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 7;
+                                 .D[8]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 8;
+                                 .D[9]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 9;
+                                 .D[10]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 10;
+                                 .D[11]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 11;
+                                 .D[12]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 12;
+                                 .D[13]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 13;
+                                 .D[14]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 14;
+                                 .D[15]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 15;
+                                 .D[16]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 16;
+                                 .D[17]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 17;
+                                 .D[18]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 18;
+                                 .D[19]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 19;
+                                 .D[20]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 20;
+                                 .D[21]:=TIIB[K4S8_DRL_04_E6_EL6001]^COM Outputs^Data Out 21
+    '}
+    stComOut_DREAM_ROUGH2_PTM_01 AT %Q* : EL6outData22B;
+
+    {attribute	'TcLinkTo'	:=	'.Status:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Status;
+                                 .D[0]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 0;
+                                 .D[1]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 1;
+                                 .D[2]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 2;
+                                 .D[3]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 3;
+                                 .D[4]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 4;
+                                 .D[5]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 5;
+                                 .D[6]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 6;
+                                 .D[7]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 7;
+                                 .D[8]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 8;
+                                 .D[9]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 9;
+                                 .D[10]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 10;
+                                 .D[11]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 11;
+                                 .D[12]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 12;
+                                 .D[13]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 13;
+                                 .D[14]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 14;
+                                 .D[15]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 15;
+                                 .D[16]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 16;
+                                 .D[17]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 17;
+                                 .D[18]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 18;
+                                 .D[19]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 19;
+                                 .D[20]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 20;
+                                 .D[21]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM TxPDO-Map Inputs^Data In 21
+    '}
+    stComIn_DREAM_ROUGH2_PTM_02 AT %I* : EL6inData22B;
+
+    {attribute 'TcLinkTo'	:=	'.Ctrl:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Ctrl;
+                                 .D[0]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 0;
+                                 .D[1]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 1;
+                                 .D[2]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 2;
+                                 .D[3]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 3;
+                                 .D[4]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 4;
+                                 .D[5]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 5;
+                                 .D[6]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 6;
+                                 .D[7]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 7;
+                                 .D[8]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 8;
+                                 .D[9]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 9;
+                                 .D[10]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 10;
+                                 .D[11]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 11;
+                                 .D[12]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 12;
+                                 .D[13]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 13;
+                                 .D[14]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 14;
+                                 .D[15]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 15;
+                                 .D[16]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 16;
+                                 .D[17]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 17;
+                                 .D[18]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 18;
+                                 .D[19]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 19;
+                                 .D[20]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 20;
+                                 .D[21]:=TIIB[K4S8_DRL_04_E17_EL6021]^COM RxPDO-Map Outputs^Data Out 21
+    '}
+    stComOut_DREAM_ROUGH2_PTM_02 AT %Q* : EL6outData22B;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

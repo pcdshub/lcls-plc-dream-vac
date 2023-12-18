@@ -2,10 +2,10 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="PRG_Roughing" Id="{e3860905-54da-4567-90ea-609335693fbd}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_Roughing
-VAR	
-	//Rough lines VRC external interlocks
-	ROUGH1_VRC_OK : BOOL;
-	ROUGH2_VRC_OK : BOOL;
+VAR
+    //Rough lines VRC external interlocks
+    ROUGH1_VRC_OK : BOOL;
+    ROUGH2_VRC_OK : BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -36,11 +36,11 @@ DREAM_ROUGH2_VRC_01(i_xExtILK_OK := ROUGH2_VRC_OK, i_xOverrideMode := xSystemOve
 DREAM_ROUGH2_VRC_02(i_xExtILK_OK := ROUGH2_VRC_OK, i_xOverrideMode := xSystemOverrideMode);
 
 //Flow control valves
-DREAM_ROUGH1_VFV_01(i_xExtIlkOK := TRUE);
-DREAM_ROUGH1_VFV_02(i_xExtIlkOK := TRUE);
-DREAM_ROUGH2_VFV_01(i_xExtIlkOK := TRUE);
-DREAM_ROUGH2_VFV_02(i_xExtIlkOK := TRUE);
-DREAM_ROUGH2_VFV_03(i_xExtIlkOK := TRUE);
+DREAM_ROUGH1_VFV_01(i_xExtIlkOK := FALSE);
+DREAM_ROUGH1_VFV_02(i_xExtIlkOK := FALSE);
+DREAM_ROUGH2_VFV_01(i_xExtIlkOK := FALSE);
+DREAM_ROUGH2_VFV_02(i_xExtIlkOK := FALSE);
+DREAM_ROUGH2_VFV_03(i_xExtIlkOK := FALSE);
 
 (******************************************************************************************************)
 (*Vacuum logic*)

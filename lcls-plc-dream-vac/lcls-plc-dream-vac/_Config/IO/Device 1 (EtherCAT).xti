@@ -37,7 +37,7 @@
 			<EtherCAT PortABoxInfo="#x00ffffff"/>
 		</Box>
 		<EtherCAT EnableVirtualSwitch="true" MaxSwitchPorts="2" MaxSwitchFrames="120">
-			<Redundancy Mode="2" DeviceDesc="PCI\TcI8254x2" Miniport="PCI\TCI8254X2" IpAddress="#xa9fe8e0a" IpMask="#xa9fe8e0a" PreviousPort="16777256" Mac="00010556ae2d"/>
+			<Redundancy Mode="2" DeviceDesc="PCI\TcI8254x2" Miniport="PCI\TCI8254X2" IpAddress="#xa9fe8e0a" IpMask="#xa9fe8e0a" PreviousPort="16777231" Mac="00010556ae2d"/>
 		</EtherCAT>
 	</Device>
 </TcSmItem>
