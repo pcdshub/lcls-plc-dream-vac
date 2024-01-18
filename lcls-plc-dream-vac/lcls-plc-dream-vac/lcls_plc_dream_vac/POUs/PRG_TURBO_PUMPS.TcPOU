@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PRG_TURBO_PUMPS" Id="{fe28b3e0-a4e5-4589-97c5-cdcab876d63e}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_TURBO_PUMPS
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bStartAllTurbo THEN
+DREAM_NC_PTM_01.M_Run(TRUE);
+DREAM_NC_PTM_02.M_Run(TRUE);
+DREAM_DP1_PTM_01.M_Run(TRUE);
+DREAM_DP2_PTM_01.M_Run(TRUE);
+DREAM_DP3_PTM_01.M_Run(TRUE);
+bStartAllTurbo := FALSE;
+END_IF
+
+(**Gas Injection Turbo pumps**)
+DREAM_NC_PTM_01(i_xExtIlkOK:= FALSE, iq_stPTM => );
+DREAM_NC_PTM_02(i_xExtIlkOK:= FALSE, iq_stPTM => );
+DREAM_DP1_PTM_01(i_xExtIlkOK:= FALSE, iq_stPTM => );
+DREAM_DP2_PTM_01(i_xExtIlkOK:= FALSE, iq_stPTM => );
+DREAM_DP3_PTM_01(i_xExtIlkOK:= FALSE, iq_stPTM => );
+
+(**Main Chamber Turbo pumps**)
+DREAM_MC_PTM_01(i_xExtIlkOK:= FALSE, iq_stPTM => );
+DREAM_MC_PTM_02(i_xExtIlkOK:= FALSE, iq_stPTM => );
+
+DREAM_CAT1_PTM_01(i_xExtIlkOK:= FALSE, iq_stPTM => );
+DREAM_CAT2_PTM_01(i_xExtIlkOK:= FALSE, iq_stPTM => );
+
+(**ROUGHING SECTION TURBO BOOSTER PUMPS**)
+DREAM_ROUGH2_PTM_01(i_xExtIlkOK:= FALSE, iq_stPTM => );
+DREAM_ROUGH2_PTM_02(i_xExtIlkOK:= FALSE, iq_stPTM => );
+
+
+bAllTurboOn := ( NOT (DREAM_NC_PTM_01.iq_stPTM.eState = pumpFAULT) and  (NOT(DREAM_NC_PTM_01.iq_stPTM.eState = pumpSTOPPED)) and
+                 NOT (DREAM_NC_PTM_02.iq_stPTM.eState = pumpFAULT) and (NOT(DREAM_NC_PTM_02.iq_stPTM.eState = pumpSTOPPED)) and
+                 NOT (DREAM_DP1_PTM_01.iq_stPTM.eState = pumpFAULT) and (NOT(DREAM_DP1_PTM_01.iq_stPTM.eState = pumpSTOPPED)) AND
+                 NOT (DREAM_DP2_PTM_01.iq_stPTM.eState = pumpFAULT) and (NOT(DREAM_DP2_PTM_01.iq_stPTM.eState = pumpSTOPPED)) AND
+                 NOT (DREAM_DP3_PTM_01.iq_stPTM.eState = pumpFAULT) and (NOT(DREAM_DP3_PTM_01.iq_stPTM.eState = pumpSTOPPED)) );
+
+
+(**SERIAL COMMUNICATION**)
+
+(*Pfeiffer pumps at Gas Injection*)
+//DREAM_NC_PTM_01
+(*Assign adresses to the pfeiffer controllers connected to this serial terminal*)
+stPfeiffer_CTRL_DREAM_NC_PTM_01[1].iSerialAddress:= 1;
+stPfeiffer_CTRL_DREAM_NC_PTM_01[1].xEnableComm:= TRUE;
+(*Instanitate the Function block for serial communication with Pfeiffer*)
+fbPfeifferCom_DREAM_NC_PTM_01(astPfeifferControl:= stPfeiffer_CTRL_DREAM_NC_PTM_01,
+                              astPfeifferStatus:= stPfeiffer_RBK_DREAM_NC_PTM_01,
+                              SerialRXBuffer:= SerialRXBuffer_DREAM_NC_PTM_01,
+                              SerialTXBuffer:= SerialTXBuffer_DREAM_NC_PTM_01);
+(*Copy Status Pv's into the PTM structure*)
+DREAM_NC_PTM_01.M_Serial_IO(st_Pfeiffer_RBK:= stPfeiffer_RBK_DREAM_NC_PTM_01[1],
+                            st_Pfeiffer_CTRL:= stPfeiffer_CTRL_DREAM_NC_PTM_01[1]);
+
+//DREAM_NC_PTM_02
+stPfeiffer_CTRL_DREAM_NC_PTM_02[1].iSerialAddress:= 1;
+stPfeiffer_CTRL_DREAM_NC_PTM_02[1].xEnableComm:= TRUE;
+fbPfeifferCom_DREAM_NC_PTM_02(astPfeifferControl:= stPfeiffer_CTRL_DREAM_NC_PTM_02,
+                              astPfeifferStatus:= stPfeiffer_RBK_DREAM_NC_PTM_02,
+                              SerialRXBuffer:= SerialRXBuffer_DREAM_NC_PTM_02,
+                              SerialTXBuffer:= SerialTXBuffer_DREAM_NC_PTM_02);
+
+DREAM_NC_PTM_02.M_Serial_IO(st_Pfeiffer_RBK:= stPfeiffer_RBK_DREAM_NC_PTM_02[1],
+                            st_Pfeiffer_CTRL:= stPfeiffer_CTRL_DREAM_NC_PTM_02[1]);
+
+//DREAM_DP1_PTM_01
+stPfeiffer_CTRL_DREAM_DP1_PTM_01[1].iSerialAddress:= 1;
+stPfeiffer_CTRL_DREAM_DP1_PTM_01[1].xEnableComm:= TRUE;
+fbPfeifferCom_DREAM_DP1_PTM_01(astPfeifferControl:= stPfeiffer_CTRL_DREAM_DP1_PTM_01,
+                               astPfeifferStatus:= stPfeiffer_RBK_DREAM_DP1_PTM_01,
+                               SerialRXBuffer:= SerialRXBuffer_DREAM_DP1_PTM_01,
+                               SerialTXBuffer:= SerialTXBuffer_DREAM_DP1_PTM_01);
+
+DREAM_DP1_PTM_01.M_Serial_IO(st_Pfeiffer_RBK:= stPfeiffer_RBK_DREAM_DP1_PTM_01[1],
+                             st_Pfeiffer_CTRL:= stPfeiffer_CTRL_DREAM_DP1_PTM_01[1]);
+
+
+(*Leybold pumps at Gas Injection*)
+//DREAM_DP2_PTM_01
+(*Instanitate the Function block for serial communication with TD20 controller*)
+fbTD20Com_DREAM_DP2_PTM_01(SerialRXBuffer:= SerialRXBuffer_DREAM_DP2_PTM_01,
+                           SerialTXBuffer:= SerialTXBuffer_DREAM_DP2_PTM_01,
+                           astTD20Status=> stTD20_RBK_DREAM_DP2_PTM_01);
+(*Copy Status Pv's into the PTM structure*)
+DREAM_DP2_PTM_01.M_Serial_IO(i_st_TD20_RBK:= stTD20_RBK_DREAM_DP2_PTM_01);
+
+//DREAM_DP3_PTM_01
+fbTD20Com_DREAM_DP3_PTM_01(SerialRXBuffer:= SerialRXBuffer_DREAM_DP3_PTM_01,
+                           SerialTXBuffer:= SerialTXBuffer_DREAM_DP3_PTM_01,
+                           astTD20Status=> stTD20_RBK_DREAM_DP3_PTM_01);
+
+DREAM_DP3_PTM_01.M_Serial_IO(i_st_TD20_RBK:= stTD20_RBK_DREAM_DP3_PTM_01);
+
+(*Leybold pumps at Main Chamber*)
+//DREAM_MC_PTM_01
+fbTD20Com_DREAM_MC_PTM_01(SerialRXBuffer:= SerialRXBuffer_DREAM_MC_PTM_01,
+                           SerialTXBuffer:= SerialTXBuffer_DREAM_MC_PTM_01,
+                           astTD20Status=> stTD20_RBK_DREAM_MC_PTM_01);
+
+DREAM_MC_PTM_01.M_Serial_IO(stTD20_RBK_DREAM_MC_PTM_01);
+
+//DREAM_MC_PTM_02
+fbTD20Com_DREAM_MC_PTM_02(SerialRXBuffer:= SerialRXBuffer_DREAM_MC_PTM_02,
+                           SerialTXBuffer:= SerialTXBuffer_DREAM_MC_PTM_02,
+                           astTD20Status=> stTD20_RBK_DREAM_MC_PTM_02);
+
+DREAM_MC_PTM_02.M_Serial_IO(stTD20_RBK_DREAM_MC_PTM_02);
+
+(*Leybold pumps at Catcher*)
+//DREAM_CAT1_PTM_01 (TD400)
+fbTD400Com_DREAM_CAT1_PTM_01(SerialRXBuffer:= SerialRXBuffer_DREAM_CAT1_PTM_01,
+                             SerialTXBuffer:= SerialTXBuffer_DREAM_CAT1_PTM_01,
+                             astTD20Status=> stTD400_RBK_DREAM_CAT1_PTM_01);
+
+DREAM_CAT1_PTM_01.M_Serial_IO(stTD400_RBK_DREAM_CAT1_PTM_01);
+
+//DREAM_CAT2_PTM_01 (TD400)
+fbTD400Com_DREAM_CAT2_PTM_01(SerialRXBuffer:= SerialRXBuffer_DREAM_CAT2_PTM_01,
+                             SerialTXBuffer:= SerialTXBuffer_DREAM_CAT2_PTM_01,
+                             astTD20Status=> stTD400_RBK_DREAM_CAT2_PTM_01);
+
+DREAM_CAT2_PTM_01.M_Serial_IO(stTD400_RBK_DREAM_CAT2_PTM_01);
+
+(*Leybold pump-roughing section-booster pump*)
+//DREAM_ROUGH2_PTM_01 (TD400)
+fbTD400Com_DREAM_ROUGH2_PTM_01(SerialRXBuffer:= SerialRXBuffer_DREAM_ROUGH2_PTM_01,
+                           SerialTXBuffer:= SerialTXBuffer_DREAM_ROUGH2_PTM_01,
+                           astTD20Status=> stTD400_RBK_DREAM_ROUGH2_PTM_01);
+
+DREAM_ROUGH2_PTM_01.M_Serial_IO(stTD400_RBK_DREAM_ROUGH2_PTM_01);
+
+(*Pfeiffer pump-roughing section-booster pump*)
+//DREAM_NC_PTM_02 (Pfeiffer TC110)
+stPfeiffer_CTRL_DREAM_ROUGH2_PTM_02[1].iSerialAddress:= 1;
+stPfeiffer_CTRL_DREAM_ROUGH2_PTM_02[1].xEnableComm:= TRUE;
+fbPfeifferCom_DREAM_ROUGH2_PTM_02(astPfeifferControl:= stPfeiffer_CTRL_DREAM_ROUGH2_PTM_02,
+                                  astPfeifferStatus:= stPfeiffer_RBK_DREAM_ROUGH2_PTM_02,
+                                  SerialRXBuffer:= SerialRXBuffer_DREAM_ROUGH2_PTM_02,
+                                  SerialTXBuffer:= SerialTXBuffer_DREAM_ROUGH2_PTM_02);
+
+DREAM_ROUGH2_PTM_02.M_Serial_IO(st_Pfeiffer_RBK:= stPfeiffer_RBK_DREAM_ROUGH2_PTM_02[1],
+                                st_Pfeiffer_CTRL:= stPfeiffer_CTRL_DREAM_ROUGH2_PTM_02[1]);]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

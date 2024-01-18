@@ -10,13 +10,19 @@ VAR_GLOBAL
     bSystemOverrideMode	: BOOL := FALSE; (* Global system override for the DREAM Vacuum System*)
 
     {attribute 'pytmc' := '
-        pv: PLC:DREAM:VAC:STARTALLTURBO
+        pv: PLC:DREAM:VAC:START_ALL_TURBO
         io: io
     '}
-    bStartTurbo : BOOL := FALSE; (* Global system All Turbo ON for the DREAM Vacuum System*)
+    bStartAllTurbo : BOOL := FALSE; (* Global system Start All Turbo for the DREAM Vacuum System*)
 
     {attribute 'pytmc' := '
-        pv: PLC:DREAM:ON:BEAMLINE
+        pv: PLC:DREAM:VAC:ALL_TURBO_ON
+        io: i
+    '}
+    bAllTurboOn : BOOL := FALSE; (* Global system All Turbo ON for the DREAM Vacuum System*)
+
+    {attribute 'pytmc' := '
+        pv: PLC:DREAM:ON_BEAMLINE
         io: i
     '}
     bOnBeamline	:	BOOL := TRUE; (*Always assume On Beamline for safety checks*)

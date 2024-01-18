@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="PRG_Roughing" Id="{e3860905-54da-4567-90ea-609335693fbd}" SpecialFunc="None">
-    <Declaration><![CDATA[PROGRAM PRG_Roughing
+  <POU Name="PRG_VALVES" Id="{03dcac03-cfad-4254-831b-855af8503ea4}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_VALVES
 VAR
     //Rough lines VRC external interlocks
     ROUGH1_VRC_OK : BOOL;
@@ -9,23 +9,14 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[(******************************************************************************************************)
-(*Roughing section*)
-(******************************************************************************************************)
-(*GAUGES*)
-DREAM_ROUGH1_GPI_01.M_SetBits(30518);
-DREAM_ROUGH1_GPI_01();
-DREAM_ROUGH1_GPI_02.M_SetBits(30518);
-DREAM_ROUGH1_GPI_02();
+      <ST><![CDATA[(**Gas Injection Valves**)
+DREAM_DP1_VRC_01(i_xExtILK_OK := FALSE, i_xOverrideMode := bSystemOverrideMode, iq_stValve => );
+DREAM_DP1_VRC_02(i_xExtILK_OK := FALSE, i_xOverrideMode := bSystemOverrideMode, iq_stValve => ); //Normally open valve
 
-DREAM_ROUGH2_GPI_01.M_SetBits(30518);
-DREAM_ROUGH2_GPI_01();
-DREAM_ROUGH2_GPI_02.M_SetBits(30518);
-DREAM_ROUGH2_GPI_02();
-DREAM_ROUGH2_GPI_03.M_SetBits(30518);
-DREAM_ROUGH2_GPI_03();
+(**Catcher valve**)
+DREAM_CAT1_VRC_01(i_xExtILK_OK := FALSE, i_xOverrideMode := bSystemOverrideMode);
 
-(*VALVES*)
+(**Roughing Valves**)
 //VRC valves
 //Interlock evaluation
 ROUGH1_VRC_OK := (DREAM_ROUGH1_GPI_01.PG.rPRESS < 5E-3) AND DREAM_ROUGH1_GPI_01.PG.xPRESS_OK;
@@ -42,9 +33,7 @@ DREAM_ROUGH2_VFV_01(i_xExtIlkOK := FALSE);
 DREAM_ROUGH2_VFV_02(i_xExtIlkOK := FALSE);
 DREAM_ROUGH2_VFV_03(i_xExtIlkOK := FALSE);
 
-(******************************************************************************************************)
-(*Vacuum logic*)
-(******************************************************************************************************)]]></ST>
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

@@ -50,13 +50,13 @@
     <Compile Include="POUs\PRG_ECAT_CHECK.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\PRG_Gas_Injection.TcPOU">
+    <Compile Include="POUs\PRG_GAUGES.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\PRG_Main_Chamber.TcPOU">
+    <Compile Include="POUs\PRG_TURBO_PUMPS.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\PRG_Roughing.TcPOU">
+    <Compile Include="POUs\PRG_VALVES.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\TempFB_IE514\FB_IE514.TcPOU">

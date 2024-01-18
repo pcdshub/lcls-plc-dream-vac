@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PRG_GAUGES" Id="{7665eae9-0131-4800-a0b0-e14e5c60e001}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_GAUGES
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(**Gas Injection Gauges**)
+//Pirani MKS 275 Gauges
+DREAM_NC_GPI_01.M_SetBits(30518);
+DREAM_NC_GPI_01(PG=>);
+DREAM_DP1_GPI_01.M_SetBits(30518);
+DREAM_DP1_GPI_01(PG=>);
+
+//Cold Cathode Guages
+DREAM_NC_GCC_01.M_SetBits(30518);
+DREAM_NC_GCC_01(PG:= DREAM_NC_GPI_01.PG);
+
+//Hot Cathode Guages
+DREAM_DP1_GHC_01.M_SetBits(30518);
+DREAM_DP1_GHC_01(PG:= DREAM_NC_GPI_01.PG, IG=>);
+DREAM_DP2_GHC_01.M_SetBits(30518);
+DREAM_DP2_GHC_01(PG:= DREAM_NC_GPI_01.PG, IG=>);
+DREAM_DP3_GHC_01.M_SetBits(30518);
+DREAM_DP3_GHC_01(PG:= DREAM_NC_GPI_01.PG, IG=>);
+
+(**Main Chmamber Gauges**)
+//Pirani Gauges
+DREAM_MC_GPI_01.M_SetBits(30518);
+DREAM_MC_GPI_01();
+
+//Hot Cathode gauge IE514
+DREAM_MC_GHC.M_SetBits(30518);
+DREAM_MC_GHC(PG:= DREAM_MC_GPI_01.PG); //This fb reads statuses and control two gauges DREAM:MC:GHC:01 and DREAM:MC:GHC:02
+
+(**Catcher Gauges**)
+//Hot Cathode Guages
+DREAM_CAT2_GHC_01.M_SetBits(30518);
+DREAM_CAT2_GHC_01(PG:= DREAM_MC_GPI_01.PG);
+
+(**Roughing Section Gauges**)
+DREAM_ROUGH1_GPI_01.M_SetBits(30518);
+DREAM_ROUGH1_GPI_01();
+DREAM_ROUGH1_GPI_02.M_SetBits(30518);
+DREAM_ROUGH1_GPI_02();
+
+DREAM_ROUGH2_GPI_01.M_SetBits(30518);
+DREAM_ROUGH2_GPI_01();
+DREAM_ROUGH2_GPI_02.M_SetBits(30518);
+DREAM_ROUGH2_GPI_02();
+DREAM_ROUGH2_GPI_03.M_SetBits(30518);
+DREAM_ROUGH2_GPI_03();
+
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

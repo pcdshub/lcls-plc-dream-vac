@@ -11,12 +11,11 @@ END_VAR
 
 PRG_ECAT_CHECK();
 
-PRG_Roughing();
+PRG_GAUGES();
 
-PRG_Gas_Injection();
+PRG_VALVES();
 
-PRG_Main_Chamber();
-
+PRG_TURBO_PUMPS();
 ]]></ST>
     </Implementation>
   </POU>
