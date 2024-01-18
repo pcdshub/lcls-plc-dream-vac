@@ -71,7 +71,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{C7D94901-396C-FD88-78A8-FD677B39B7E1}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{B7365BAA-5DD6-A127-4536-4FE845025DD9}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -224,58 +224,6 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH1_VRC_01.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH1_VRC_01.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_01.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_01.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_02.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_02.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH1_GPI_01.i_iPRESS_R</Name>
-					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH1_GPI_02.i_iPRESS_R</Name>
-					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_GPI_01.i_iPRESS_R</Name>
-					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_GPI_02.i_iPRESS_R</Name>
-					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_GPI_03.i_iPRESS_R</Name>
-					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
 					<Name>GVL_Main_Chamber.DREAM_MC_PTM_01.i_xAtSpd</Name>
 					<Comment><![CDATA[ Normaml operation when true]]></Comment>
 					<Type>BOOL</Type>
@@ -392,6 +340,79 @@
 					<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1084) ^Input]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bEcatBridge_TxPDO_state</Name>
+					<Comment><![CDATA[ETHERCAT BRRIDGE COM STATUS
+0: Other side is in OP state, >0: Error]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH1_VRC_01.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH1_VRC_01.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_01.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_01.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_02.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_02.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH1_GPI_01.i_iPRESS_R</Name>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH1_GPI_02.i_iPRESS_R</Name>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_GPI_01.i_iPRESS_R</Name>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_GPI_02.i_iPRESS_R</Name>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_GPI_03.i_iPRESS_R</Name>
+					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bEcatBridge_External_device_not_connected</Name>
+					<Comment><![CDATA[0: External device connectd, 1: External device not connected]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bEcatBridge_WcState</Name>
+					<Comment><![CDATA[0 = Data valid, 1 = Data invalid]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.sHUTCH_PLC_NAME</Name>
+					<Comment><![CDATA[ I/O Inputs from TMO Beamline]]></Comment>
+					<Type>STRING(8)</Type>
+				</Var>
 			</Vars>
 			<Vars VarGrpType="2" AreaNo="1">
 				<Name>PlcTask Outputs</Name>
@@ -488,43 +509,6 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH1_VRC_01.q_xOPN_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_01.q_xOPN_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_02.q_xOPN_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH1_VFV_01.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH1_VFV_02.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_VFV_01.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_VFV_02.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_Roughing.DREAM_ROUGH2_VFV_03.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
 					<Name>GVL_Main_Chamber.DREAM_MC_PTM_01.q_RunDO</Name>
 					<Comment><![CDATA[ Start/Stop]]></Comment>
 					<Type>BOOL</Type>
@@ -585,6 +569,43 @@
 					<Name>GVL_Main_Chamber.DREAM_CAT2_GHC_01.q_xHV_DIS</Name>
 					<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EP2624) ^Output]]></Comment>
 					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH1_VRC_01.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_01.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_VRC_02.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH1_VFV_01.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH1_VFV_02.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_VFV_01.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_VFV_02.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_Roughing.DREAM_ROUGH2_VFV_03.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
 				</Var>
 			</Vars>
 			<Vars VarGrpType="1" ContextId="1" AreaNo="16">
@@ -648,15 +669,6 @@
 			<Vars VarGrpType="2" ContextId="1" AreaNo="17">
 				<Name>Serial_COM Outputs</Name>
 				<Var>
-					<Name>GVL_PLC_Interface.xIP2_HV_SAFETY_ENABLE</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.xHighVoltageSafteyLoopEnable</Name>
-					<Comment><![CDATA[When Enables the High voltage Saftey loop is closed and HV can start.]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
 					<Name>GVL_Serial_Com.stComOut_DREAM_NC_PTM_01</Name>
 					<Type GUID="{5515528D-DE50-457E-BAE6-25F542B4D8B8}" Namespace="Tc2_SerialCom">EL6outData22B</Type>
 				</Var>
@@ -699,6 +711,36 @@
 				<Var>
 					<Name>GVL_Serial_Com.stComOut_DREAM_ROUGH2_PTM_02</Name>
 					<Type GUID="{5515528D-DE50-457E-BAE6-25F542B4D8B8}" Namespace="Tc2_SerialCom">EL6outData22B</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bIP1_TURBOS_ALL_AtSpd</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bIP1_MAIN_xAT_VAC</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bIP1_MAIN_xPRESS_OK</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bDREAM_HV_SAFETY_ENABLE</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.fIP1_MAIN_rPRESS</Name>
+					<Type>REAL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bHighVoltageSafteyLoopEnable</Name>
+					<Comment><![CDATA[When Enables the High voltage Saftey loop is closed and HV can start.]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.sENDSTATION_PLC_NAME</Name>
+					<Comment><![CDATA[I/O Outputs to TMO Beamline PLC]]></Comment>
+					<Type>STRING(8)</Type>
 				</Var>
 			</Vars>
 			<Vars VarGrpType="8" ContextId="1" AreaNo="20">
@@ -892,6 +934,18 @@
 				<Link VarA="Serial_COM Outputs^GVL_Serial_Com.stComOut_DREAM_MC_PTM_02^D[7]" VarB="COM Outputs^Data Out 7" AutoLink="true"/>
 				<Link VarA="Serial_COM Outputs^GVL_Serial_Com.stComOut_DREAM_MC_PTM_02^D[8]" VarB="COM Outputs^Data Out 8" AutoLink="true"/>
 				<Link VarA="Serial_COM Outputs^GVL_Serial_Com.stComOut_DREAM_MC_PTM_02^D[9]" VarB="COM Outputs^Data Out 9" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E14_EL6695">
+				<Link VarA="PlcTask Inputs^GVL_PLC_Interface.bEcatBridge_External_device_not_connected" VarB="SYNC Inputs^External device not connected" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_PLC_Interface.bEcatBridge_TxPDO_state" VarB="SYNC Inputs^TxPDO state" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_PLC_Interface.bEcatBridge_WcState" VarB="WcState^WcStateIn" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_PLC_Interface.sHUTCH_PLC_NAME" VarB="IO Inputs^HUTCH_PLC_NAME" AutoLink="true"/>
+				<Link VarA="Serial_COM Outputs^GVL_PLC_Interface.bDREAM_HV_SAFETY_ENABLE" VarB="IO Outputs^DREAM_HV_SAFETY_ENABLE" AutoLink="true"/>
+				<Link VarA="Serial_COM Outputs^GVL_PLC_Interface.bIP1_MAIN_xAT_VAC" VarB="IO Outputs^DREAM_MAIN_xAT_VAC" AutoLink="true"/>
+				<Link VarA="Serial_COM Outputs^GVL_PLC_Interface.bIP1_MAIN_xPRESS_OK" VarB="IO Outputs^DREAM_MAIN_xPRESS_OK" AutoLink="true"/>
+				<Link VarA="Serial_COM Outputs^GVL_PLC_Interface.bIP1_TURBOS_ALL_AtSpd" VarB="IO Outputs^DREAM_TURBOS_ALL_AtSpd" AutoLink="true"/>
+				<Link VarA="Serial_COM Outputs^GVL_PLC_Interface.fIP1_MAIN_rPRESS" VarB="IO Outputs^DREAM_MAIN_rPRESS" AutoLink="true" Size="8"/>
+				<Link VarA="Serial_COM Outputs^GVL_PLC_Interface.sENDSTATION_PLC_NAME" VarB="IO Outputs^ENDSTATION_PLC_NAME" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_03_EK0_EK1100^K4S8_DRL_03_E10_EL1004">
 				<Link VarA="PlcTask Inputs^GVL_Gas_Injection.DREAM_DP1_VRC_01.i_xClsLS" VarB="Channel 4^Input" AutoLink="true" Size="1"/>

@@ -31,9 +31,9 @@ DREAM_ROUGH2_GPI_03();
 ROUGH1_VRC_OK := (DREAM_ROUGH1_GPI_01.PG.rPRESS < 5E-3) AND DREAM_ROUGH1_GPI_01.PG.xPRESS_OK;
 ROUGH2_VRC_OK := (DREAM_ROUGH2_GPI_01.PG.rPRESS < 5E-3) AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK;
 
-DREAM_ROUGH1_VRC_01(i_xExtILK_OK := ROUGH1_VRC_OK, i_xOverrideMode := xSystemOverrideMode);
-DREAM_ROUGH2_VRC_01(i_xExtILK_OK := ROUGH2_VRC_OK, i_xOverrideMode := xSystemOverrideMode);
-DREAM_ROUGH2_VRC_02(i_xExtILK_OK := ROUGH2_VRC_OK, i_xOverrideMode := xSystemOverrideMode);
+DREAM_ROUGH1_VRC_01(i_xExtILK_OK := ROUGH1_VRC_OK, i_xOverrideMode := bSystemOverrideMode);
+DREAM_ROUGH2_VRC_01(i_xExtILK_OK := ROUGH2_VRC_OK, i_xOverrideMode := bSystemOverrideMode);
+DREAM_ROUGH2_VRC_02(i_xExtILK_OK := ROUGH2_VRC_OK, i_xOverrideMode := bSystemOverrideMode);
 
 //Flow control valves
 DREAM_ROUGH1_VFV_01(i_xExtIlkOK := FALSE);

@@ -3,15 +3,53 @@
   <GVL Name="GVL_PLC_Interface" Id="{dab371f1-c352-4339-b624-0365e0c17f18}">
     <Declaration><![CDATA[//{attribute 'qualified_only'}
 VAR_GLOBAL
+    (*ETHERCAT BRRIDGE COM STATUS*)
+    //0: Other side is in OP state, >0: Error
+    {attribute 'TcLinkTo' := 'TIIB[R20_DRL_03_E14_EL6695]^SYNC Inputs^TxPDO state'}
+    bEcatBridge_TxPDO_state AT %I* :BOOL;
 
-    xIP2_HV_SAFETY_ENABLE AT %Q* : BOOL;
+    //0: External device connectd, 1: External device not connected
+    {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^SYNC Inputs^External device not connected'}
+    bEcatBridge_External_device_not_connected AT %I* : BOOL;
+
+    //0 = Data valid, 1 = Data invalid
+    {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^WcState^WcStateIn'}
+    bEcatBridge_WcState AT %I* : BOOL;
+
+    (* I/O Inputs from TMO Beamline*)
+    {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Inputs^HUTCH_PLC_NAME'}
+    sHUTCH_PLC_NAME AT %I* : STRING(8);
+
+
+    (*I/O Outputs to TMO Beamline PLC*)
+    {attribute 'TcLinkTo' :=   'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^ENDSTATION_PLC_NAME'}
+    sENDSTATION_PLC_NAME AT %Q* : STRING(8):= 'DREAM';
+
+    {attribute 'TcLInkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_TURBOS_ALL_AtSpd'}
+    {attribute 'pytmc' := '
+            pv: PLC:DREAM:VAC:TURBOS_ALL_ATSPD
+            io: i
+    '}
+    bIP1_TURBOS_ALL_AtSpd AT %Q* : BOOL;
+
+    {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_MAIN_xAT_VAC'}
+    bIP1_MAIN_xAT_VAC AT %Q* : BOOL;
+
+    {attribute 'TcLInkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_MAIN_xPRESS_OK'}
+    bIP1_MAIN_xPRESS_OK AT %Q* : BOOL;
+
+    {attribute 'TcLINKTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_MAIN_rPRESS'}
+    fIP1_MAIN_rPRESS AT %Q* : REAL;
+
+    {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_HV_SAFETY_ENABLE'}
+    bDREAM_HV_SAFETY_ENABLE AT %Q* : BOOL;
 
     (*ISEG HV Crate Safety Loop*)
     {attribute 'pytmc' := '
         pv: TMO:PLC:DREAM:VAC:HV_SAFETY_ENABLE
         io:i
     '}
-    xHighVoltageSafteyLoopEnable AT %Q* : BOOL := FALSE; (*When Enables the High voltage Saftey loop is closed and HV can start.*)
+    bHighVoltageSafteyLoopEnable AT %Q* : BOOL := FALSE; (*When Enables the High voltage Saftey loop is closed and HV can start.*)
 
 END_VAR]]></Declaration>
   </GVL>

@@ -51,8 +51,8 @@ DREAM_DP3_GHC_01.M_SetBits(30518);
 DREAM_DP3_GHC_01(PG:= DREAM_NC_GPI_01.PG, IG=>);
 
 //Valves
-DREAM_DP1_VRC_01(i_xExtILK_OK := FALSE, i_xOverrideMode := xSystemOverrideMode, iq_stValve => );
-DREAM_DP1_VRC_02(i_xExtILK_OK := FALSE, i_xOverrideMode := xSystemOverrideMode, iq_stValve => );
+DREAM_DP1_VRC_01(i_xExtILK_OK := FALSE, i_xOverrideMode := bSystemOverrideMode, iq_stValve => );
+DREAM_DP1_VRC_02(i_xExtILK_OK := FALSE, i_xOverrideMode := bSystemOverrideMode, iq_stValve => );
 
 // INTERLOCK CONDITIONS FOR TESTING ----- REMOVE BEFORE INSTALLATION
 
@@ -92,12 +92,12 @@ END_IF
 
 // Timer logic
 
-TurboStart_TOF( IN := xStartTurbo, PT := T#300s);
+TurboStart_TOF( IN := bStartTurbo, PT := T#300s);
 
-TurboRun_T0F( IN := xStartTurbo, PT := T#30s);
+TurboRun_T0F( IN := bStartTurbo, PT := T#30s);
 
 
-IF xStartTurbo THEN
+IF bStartTurbo THEN
 DREAM_NC_PTM_01.M_Run(TRUE);
 DREAM_NC_PTM_02.M_Run(TRUE);
 DREAM_DP1_PTM_01.M_Run(TRUE);
@@ -153,7 +153,7 @@ DREAM_DP1_PTM_01(i_xExtIlkOK:= xExtIlkOK_DP, iq_stPTM => );
 DREAM_DP2_PTM_01(i_xExtIlkOK:= xExtIlkOK_DP, iq_stPTM => );
 DREAM_DP3_PTM_01(i_xExtIlkOK:= xExtIlkOK_DP, iq_stPTM => );
 
-xStartTurbo := FALSE;
+bStartTurbo := FALSE;
 
 
 (******************************************************************************************************)

@@ -47,6 +47,9 @@
     <Compile Include="POUs\PRG_COM.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\PRG_ECAT_CHECK.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\PRG_Gas_Injection.TcPOU">
       <SubType>Code</SubType>
     </Compile>
