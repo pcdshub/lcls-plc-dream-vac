@@ -3,45 +3,58 @@
   <POU Name="PRG_TURBO_PUMPS" Id="{fe28b3e0-a4e5-4589-97c5-cdcab876d63e}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_TURBO_PUMPS
 VAR
+    NC_PTM_ILK : BOOL;
+    DP_MC_PTM_ILK: BOOL;
+    CAT_PTM_ILK: BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF bStartAllTurbo THEN
-DREAM_NC_PTM_01.M_Run(TRUE);
-DREAM_NC_PTM_02.M_Run(TRUE);
-DREAM_DP1_PTM_01.M_Run(TRUE);
-DREAM_DP2_PTM_01.M_Run(TRUE);
-DREAM_DP3_PTM_01.M_Run(TRUE);
-bStartAllTurbo := FALSE;
-END_IF
+      <ST><![CDATA[//PTM Interlock evaluation
+NC_PTM_ILK := DREAM_ROUGH1_GPI_02.PG.rPRESS < 1.0 AND DREAM_ROUGH1_GPI_02.PG.xPRESS_OK AND
+              DREAM_ROUGH1_VRC_01.M_IsOpen();
+
+DP_MC_PTM_ILK := DREAM_ROUGH2_GPI_02.PG.rPRESS < 1.0 AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK AND
+                 DREAM_ROUGH2_VRC_01.M_IsOpen();
+
+CAT_PTM_ILK := DREAM_ROUGH2_GPI_03.PG.rPRESS < 1.0 AND DREAM_ROUGH2_GPI_03.PG.xPRESS_OK AND
+               DREAM_ROUGH2_VRC_02.M_IsOpen();
 
 (**Gas Injection Turbo pumps**)
-DREAM_NC_PTM_01(i_xExtIlkOK:= FALSE, iq_stPTM => );
-DREAM_NC_PTM_02(i_xExtIlkOK:= FALSE, iq_stPTM => );
-DREAM_DP1_PTM_01(i_xExtIlkOK:= FALSE, iq_stPTM => );
-DREAM_DP2_PTM_01(i_xExtIlkOK:= FALSE, iq_stPTM => );
-DREAM_DP3_PTM_01(i_xExtIlkOK:= FALSE, iq_stPTM => );
+DREAM_NC_PTM_01(i_xExtIlkOK:= NC_PTM_ILK);
+DREAM_NC_PTM_02(i_xExtIlkOK:= NC_PTM_ILK);
+
+(**Differential pumping stations Turbo pumps**)
+DREAM_DP1_PTM_01(i_xExtIlkOK:= DP_MC_PTM_ILK);
+DREAM_DP2_PTM_01(i_xExtIlkOK:= DP_MC_PTM_ILK);
+DREAM_DP3_PTM_01(i_xExtIlkOK:= DP_MC_PTM_ILK);
 
 (**Main Chamber Turbo pumps**)
-DREAM_MC_PTM_01(i_xExtIlkOK:= FALSE, iq_stPTM => );
-DREAM_MC_PTM_02(i_xExtIlkOK:= FALSE, iq_stPTM => );
+DREAM_MC_PTM_01(i_xExtIlkOK:= DP_MC_PTM_ILK);
+DREAM_MC_PTM_02(i_xExtIlkOK:= DP_MC_PTM_ILK);
 
-DREAM_CAT1_PTM_01(i_xExtIlkOK:= FALSE, iq_stPTM => );
-DREAM_CAT2_PTM_01(i_xExtIlkOK:= FALSE, iq_stPTM => );
+(**Catcher Turbo pumps**)
+DREAM_CAT1_PTM_01(i_xExtIlkOK:= CAT_PTM_ILK);
+DREAM_CAT2_PTM_01(i_xExtIlkOK:= CAT_PTM_ILK);
 
 (**ROUGHING SECTION TURBO BOOSTER PUMPS**)
-DREAM_ROUGH2_PTM_01(i_xExtIlkOK:= FALSE, iq_stPTM => );
-DREAM_ROUGH2_PTM_02(i_xExtIlkOK:= FALSE, iq_stPTM => );
+DREAM_ROUGH2_PTM_01(i_xExtIlkOK:= DP_MC_PTM_ILK);
+DREAM_ROUGH2_PTM_02(i_xExtIlkOK:= DP_MC_PTM_ILK);
 
 
-bAllTurboOn := ( NOT (DREAM_NC_PTM_01.iq_stPTM.eState = pumpFAULT) and  (NOT(DREAM_NC_PTM_01.iq_stPTM.eState = pumpSTOPPED)) and
-                 NOT (DREAM_NC_PTM_02.iq_stPTM.eState = pumpFAULT) and (NOT(DREAM_NC_PTM_02.iq_stPTM.eState = pumpSTOPPED)) and
-                 NOT (DREAM_DP1_PTM_01.iq_stPTM.eState = pumpFAULT) and (NOT(DREAM_DP1_PTM_01.iq_stPTM.eState = pumpSTOPPED)) AND
-                 NOT (DREAM_DP2_PTM_01.iq_stPTM.eState = pumpFAULT) and (NOT(DREAM_DP2_PTM_01.iq_stPTM.eState = pumpSTOPPED)) AND
-                 NOT (DREAM_DP3_PTM_01.iq_stPTM.eState = pumpFAULT) and (NOT(DREAM_DP3_PTM_01.iq_stPTM.eState = pumpSTOPPED)) );
+bAllTurbosOn := (NOT (DREAM_NC_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_NC_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
+                 NOT (DREAM_NC_PTM_02.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_NC_PTM_02.iq_stPTM.eState = pumpSTOPPED) AND
+                 NOT (DREAM_DP1_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_DP1_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
+                 NOT (DREAM_DP2_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_DP2_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
+                 NOT (DREAM_DP3_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_DP3_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
+                 NOT (DREAM_MC_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_MC_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
+                 NOT (DREAM_MC_PTM_02.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_MC_PTM_02.iq_stPTM.eState = pumpSTOPPED) AND
+                 NOT (DREAM_CAT1_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_CAT1_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
+                 NOT (DREAM_CAT2_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_CAT2_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
+                 NOT (DREAM_ROUGH2_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_ROUGH2_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
+                 NOT (DREAM_ROUGH2_PTM_02.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_ROUGH2_PTM_02.iq_stPTM.eState = pumpSTOPPED));
 
 
-(**SERIAL COMMUNICATION**)
+(*********SERIAL COMMUNICATION**********)
 
 (*Pfeiffer pumps at Gas Injection*)
 //DREAM_NC_PTM_01

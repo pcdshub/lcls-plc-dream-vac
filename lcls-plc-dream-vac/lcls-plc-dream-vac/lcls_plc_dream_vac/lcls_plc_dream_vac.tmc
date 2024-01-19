@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{D569E763-BC0C-EFF3-A940-FE767C14FACB}" GeneratedBy="TwinCAT XAE Plc">
+<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{6FF05EF2-17C4-F37A-D8E2-A352416A328D}" GeneratedBy="TwinCAT XAE Plc">
   <DataTypes>
     <DataType>
       <Name Namespace="Tc2_SerialCom">ComBuffer</Name>
@@ -43368,7 +43368,7 @@ In case VRC is normally open</Comment>
           <AreaNo AreaType="InputDst" CreateSymbols="true">0</AreaNo>
           <Name>Serial_COM Inputs</Name>
           <ContextId>0</ContextId>
-          <ByteSize>81461248</ByteSize>
+          <ByteSize>81526784</ByteSize>
           <Symbol>
             <Name>GVL_Serial_Com.stComIn_DREAM_NC_PTM_01</Name>
             <Comment>SERIAL IO</Comment>
@@ -43795,7 +43795,7 @@ In case VRC is normally open</Comment>
           <AreaNo AreaType="OutputSrc" CreateSymbols="true">1</AreaNo>
           <Name>Serial_COM Outputs</Name>
           <ContextId>0</ContextId>
-          <ByteSize>81461248</ByteSize>
+          <ByteSize>81526784</ByteSize>
           <Symbol>
             <Name>GVL_Serial_Com.stComOut_DREAM_NC_PTM_01</Name>
             <BitSize>192</BitSize>
@@ -44221,7 +44221,7 @@ In case VRC is normally open</Comment>
           <AreaNo AreaType="Internal" CreateSymbols="true">3</AreaNo>
           <Name>Serial_COM Internal</Name>
           <ContextId>0</ContextId>
-          <ByteSize>81461248</ByteSize>
+          <ByteSize>81526784</ByteSize>
           <Symbol>
             <Name>GVL_Serial_Com.SerialRXBuffer_DREAM_NC_PTM_01</Name>
             <Comment>COMM FUNCTION</Comment>
@@ -44622,7 +44622,7 @@ In case VRC is normally open</Comment>
           <AreaNo AreaType="InputDst" CreateSymbols="true">16</AreaNo>
           <Name>PlcTask Inputs</Name>
           <ContextId>1</ContextId>
-          <ByteSize>81461248</ByteSize>
+          <ByteSize>81526784</ByteSize>
           <Symbol>
             <Name>LCLS_General.DefaultGlobals.stSys.I_EcatMaster1</Name>
             <Comment> AMS Net ID used for FB_EcatDiag, among others </Comment>
@@ -45616,7 +45616,7 @@ In case VRC is normally open</Comment>
           <AreaNo AreaType="OutputSrc" CreateSymbols="true">17</AreaNo>
           <Name>PlcTask Outputs</Name>
           <ContextId>1</ContextId>
-          <ByteSize>81461248</ByteSize>
+          <ByteSize>81526784</ByteSize>
           <Symbol>
             <Name>GVL_PLC_Interface.bIP1_TURBOS_ALL_AtSpd</Name>
             <BitSize>8</BitSize>
@@ -45682,6 +45682,25 @@ In case VRC is normally open</Comment>
             <BitOffs>639432616</BitOffs>
           </Symbol>
           <Symbol>
+            <Name>GVL_PLC_Interface.bDREAM_HV_SAFETY_ENABLE</Name>
+            <BitSize>8</BitSize>
+            <BaseType>BOOL</BaseType>
+            <Properties>
+              <Property>
+                <Name>TcLinkTo</Name>
+                <Value>TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_HV_SAFETY_ENABLE</Value>
+              </Property>
+              <Property>
+                <Name>TcAddressType</Name>
+                <Value>Output</Value>
+              </Property>
+              <Property>
+                <Name>TcVarGlobal</Name>
+              </Property>
+            </Properties>
+            <BitOffs>639432624</BitOffs>
+          </Symbol>
+          <Symbol>
             <Name>GVL_PLC_Interface.bHighVoltageSafteyLoopEnable</Name>
             <Comment>When Enables the High voltage Saftey loop is closed and HV can start.</Comment>
             <BitSize>8</BitSize>
@@ -45706,25 +45725,6 @@ In case VRC is normally open</Comment>
               </Property>
             </Properties>
             <BitOffs>639432632</BitOffs>
-          </Symbol>
-          <Symbol>
-            <Name>GVL_PLC_Interface.bDREAM_HV_SAFETY_ENABLE</Name>
-            <BitSize>8</BitSize>
-            <BaseType>BOOL</BaseType>
-            <Properties>
-              <Property>
-                <Name>TcLinkTo</Name>
-                <Value>TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_HV_SAFETY_ENABLE</Value>
-              </Property>
-              <Property>
-                <Name>TcAddressType</Name>
-                <Value>Output</Value>
-              </Property>
-              <Property>
-                <Name>TcVarGlobal</Name>
-              </Property>
-            </Properties>
-            <BitOffs>639432624</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Main_Chamber.DREAM_MC_PTM_01.q_RunDO</Name>
@@ -46334,7 +46334,7 @@ In case VRC is normally open</Comment>
           <AreaNo AreaType="Internal" CreateSymbols="true">19</AreaNo>
           <Name>PlcTask Internal</Name>
           <ContextId>1</ContextId>
-          <ByteSize>81461248</ByteSize>
+          <ByteSize>81526784</ByteSize>
           <Symbol>
             <Name>DefaultGlobals.stSys</Name>
             <Comment>Included for you</Comment>
@@ -54744,14 +54744,13 @@ In case VRC is normally open</Comment>
             <BitOffs>633586496</BitOffs>
           </Symbol>
           <Symbol>
-            <Name>PRG_VALVES.ROUGH1_VRC_OK</Name>
-            <Comment>Rough lines VRC external interlocks</Comment>
+            <Name>PRG_VALVES.CAT1_VRC_01_ILK</Name>
             <BitSize>8</BitSize>
             <BaseType>BOOL</BaseType>
             <BitOffs>633586512</BitOffs>
           </Symbol>
           <Symbol>
-            <Name>PRG_VALVES.ROUGH2_VRC_OK</Name>
+            <Name>PRG_VALVES.DP1_VRC_01_ILK</Name>
             <BitSize>8</BitSize>
             <BaseType>BOOL</BaseType>
             <BitOffs>633586520</BitOffs>
@@ -55241,28 +55240,6 @@ Leybold TD20 serial</Comment>
             <BitOffs>640283504</BitOffs>
           </Symbol>
           <Symbol>
-            <Name>GVL_Variables.bStartAllTurbo</Name>
-            <Comment> Global system Start All Turbo for the DREAM Vacuum System</Comment>
-            <BitSize>8</BitSize>
-            <BaseType>BOOL</BaseType>
-            <Default>
-              <Bool>false</Bool>
-            </Default>
-            <Properties>
-              <Property>
-                <Name>pytmc</Name>
-                <Value>
-        pv: PLC:DREAM:VAC:START_ALL_TURBO
-        io: io
-    </Value>
-              </Property>
-              <Property>
-                <Name>TcVarGlobal</Name>
-              </Property>
-            </Properties>
-            <BitOffs>640283512</BitOffs>
-          </Symbol>
-          <Symbol>
             <Name>GVL_Main_Chamber.fbTD20Com_DREAM_MC_PTM_01</Name>
             <BitSize>17696</BitSize>
             <BaseType Namespace="LCLS_Vacuum_Serial">FB_OERLIKON_TD20_COM</BaseType>
@@ -55283,28 +55260,6 @@ Leybold TD20 serial</Comment>
               </Property>
             </Properties>
             <BitOffs>640301216</BitOffs>
-          </Symbol>
-          <Symbol>
-            <Name>GVL_Variables.bAllTurboOn</Name>
-            <Comment> Global system All Turbo ON for the DREAM Vacuum System</Comment>
-            <BitSize>8</BitSize>
-            <BaseType>BOOL</BaseType>
-            <Default>
-              <Bool>false</Bool>
-            </Default>
-            <Properties>
-              <Property>
-                <Name>pytmc</Name>
-                <Value>
-        pv: PLC:DREAM:VAC:ALL_TURBO_ON
-        io: i
-    </Value>
-              </Property>
-              <Property>
-                <Name>TcVarGlobal</Name>
-              </Property>
-            </Properties>
-            <BitOffs>640301392</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Variables.bOnBeamline</Name>
@@ -56304,6 +56259,13 @@ TURBO DRIVE</Comment>
             <BitOffs>645650224</BitOffs>
           </Symbol>
           <Symbol>
+            <Name>PRG_VALVES.ROUGH1_VRC_01_ILK</Name>
+            <Comment>Rough lines VRC external interlocks</Comment>
+            <BitSize>8</BitSize>
+            <BaseType>BOOL</BaseType>
+            <BitOffs>645650232</BitOffs>
+          </Symbol>
+          <Symbol>
             <Name>GVL_Gas_Injection.fbTD20Com_DREAM_DP2_PTM_01</Name>
             <BitSize>17696</BitSize>
             <BaseType Namespace="LCLS_Vacuum_Serial">FB_OERLIKON_TD20_COM</BaseType>
@@ -56990,12 +56952,92 @@ TURBO DRIVE</Comment>
             </Properties>
             <BitOffs>645755328</BitOffs>
           </Symbol>
+          <Symbol>
+            <Name>PRG_VALVES.ROUGH2_VRC_01_ILK</Name>
+            <BitSize>8</BitSize>
+            <BaseType>BOOL</BaseType>
+            <BitOffs>645905824</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>PRG_VALVES.ROUGH2_VRC_02_ILK</Name>
+            <BitSize>8</BitSize>
+            <BaseType>BOOL</BaseType>
+            <BitOffs>645905832</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>PRG_VALVES.DP1_VRC_02_ILK</Name>
+            <BitSize>8</BitSize>
+            <BaseType>BOOL</BaseType>
+            <BitOffs>645905840</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>PRG_TURBO_PUMPS.NC_PTM_ILK</Name>
+            <BitSize>8</BitSize>
+            <BaseType>BOOL</BaseType>
+            <BitOffs>645905848</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>PRG_TURBO_PUMPS.DP_MC_PTM_ILK</Name>
+            <BitSize>8</BitSize>
+            <BaseType>BOOL</BaseType>
+            <BitOffs>646120032</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>PRG_TURBO_PUMPS.CAT_PTM_ILK</Name>
+            <BitSize>8</BitSize>
+            <BaseType>BOOL</BaseType>
+            <BitOffs>646120040</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>GVL_Variables.bStartAllTurbos</Name>
+            <Comment> Global system Start All Turbo for the DREAM Vacuum System</Comment>
+            <BitSize>8</BitSize>
+            <BaseType>BOOL</BaseType>
+            <Default>
+              <Bool>false</Bool>
+            </Default>
+            <Properties>
+              <Property>
+                <Name>pytmc</Name>
+                <Value>
+        pv: PLC:DREAM:VAC:START_ALL_TURBO
+        io: io
+    </Value>
+              </Property>
+              <Property>
+                <Name>TcVarGlobal</Name>
+              </Property>
+            </Properties>
+            <BitOffs>646120048</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>GVL_Variables.bAllTurbosOn</Name>
+            <Comment> Global system All Turbo ON for the DREAM Vacuum System</Comment>
+            <BitSize>8</BitSize>
+            <BaseType>BOOL</BaseType>
+            <Default>
+              <Bool>false</Bool>
+            </Default>
+            <Properties>
+              <Property>
+                <Name>pytmc</Name>
+                <Value>
+        pv: PLC:DREAM:VAC:ALL_TURBO_ON
+        io: i
+    </Value>
+              </Property>
+              <Property>
+                <Name>TcVarGlobal</Name>
+              </Property>
+            </Properties>
+            <BitOffs>646120056</BitOffs>
+          </Symbol>
         </DataArea>
         <DataArea>
           <AreaNo AreaType="RetainSrc" CreateSymbols="true">20</AreaNo>
           <Name>PlcTask Retains</Name>
           <ContextId>1</ContextId>
-          <ByteSize>81461248</ByteSize>
+          <ByteSize>81526784</ByteSize>
           <Symbol>
             <Name>PMPS_GVL.SuccessfulPreemption</Name>
             <Comment> Any time BPTM applies a new BP request which is confirmed</Comment>
@@ -57075,7 +57117,7 @@ TURBO DRIVE</Comment>
         </Property>
         <Property>
           <Name>ChangeDate</Name>
-          <Value>2024-01-18T10:04:27</Value>
+          <Value>2024-01-18T16:48:29</Value>
         </Property>
         <Property>
           <Name>GeneratedCodeSize</Name>

@@ -71,7 +71,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{D569E763-BC0C-EFF3-A940-FE767C14FACB}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{6FF05EF2-17C4-F37A-D8E2-A352416A328D}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -525,12 +525,12 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_PLC_Interface.bHighVoltageSafteyLoopEnable</Name>
-					<Comment><![CDATA[When Enables the High voltage Saftey loop is closed and HV can start.]]></Comment>
+					<Name>GVL_PLC_Interface.bDREAM_HV_SAFETY_ENABLE</Name>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_PLC_Interface.bDREAM_HV_SAFETY_ENABLE</Name>
+					<Name>GVL_PLC_Interface.bHighVoltageSafteyLoopEnable</Name>
+					<Comment><![CDATA[When Enables the High voltage Saftey loop is closed and HV can start.]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
