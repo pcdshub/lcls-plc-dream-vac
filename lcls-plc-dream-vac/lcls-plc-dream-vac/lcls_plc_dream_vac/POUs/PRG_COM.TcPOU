@@ -98,6 +98,16 @@ fbSerialLineControl_DREAM_CAT2_PTM_01(
     Error=> ,
     ErrorID=> );
 
+fbSerialLineControl_DREAM_ROUGH2_PTM_01(
+    Mode:= SERIALLINEMODE_EL6_22B,
+    pComIn:= ADR(stComIn_DREAM_ROUGH2_PTM_01),
+    pComOut:= ADR(stComOut_DREAM_ROUGH2_PTM_01),
+    SizeComIn:= UINT_TO_INT(SIZEOF(stComIn_DREAM_ROUGH2_PTM_01)),
+    TxBuffer:= SerialTXBuffer_DREAM_ROUGH2_PTM_01,
+    RxBuffer:= SerialRXBuffer_DREAM_ROUGH2_PTM_01,
+    Error=> ,
+    ErrorID=> );
+
 fbSerialLineControl_DREAM_ROUGH2_PTM_02(
     Mode:= SERIALLINEMODE_EL6_22B,
     pComIn:= ADR(stComIn_DREAM_ROUGH2_PTM_02),
