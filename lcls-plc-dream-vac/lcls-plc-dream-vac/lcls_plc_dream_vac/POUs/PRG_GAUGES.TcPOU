@@ -36,6 +36,8 @@ DREAM_MC_GHC(PG:= DREAM_MC_GPI_01.PG); //This fb reads statuses and control two 
 
 (**Catcher Gauges**)
 //Hot Cathode Guages
+DREAM_CAT1_GHC_01.M_SetBits(30518);
+DREAM_CAT1_GHC_01(PG:= DREAM_MC_GPI_01.PG);
 DREAM_CAT2_GHC_01.M_SetBits(30518);
 DREAM_CAT2_GHC_01(PG:= DREAM_MC_GPI_01.PG);
 
