@@ -53,6 +53,17 @@ bAllTurbosOn := (NOT (DREAM_NC_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM
                  NOT (DREAM_ROUGH2_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_ROUGH2_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
                  NOT (DREAM_ROUGH2_PTM_02.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_ROUGH2_PTM_02.iq_stPTM.eState = pumpSTOPPED));
 
+bDREAM_TURBOS_ALL_AtSpd := DREAM_NC_PTM_01.iq_stPTM.eState = pumpRUNNING AND
+                           DREAM_NC_PTM_02.iq_stPTM.eState = pumpRUNNING AND
+                           DREAM_DP1_PTM_01.iq_stPTM.eState = pumpRUNNING AND
+                           DREAM_DP2_PTM_01.iq_stPTM.eState = pumpRUNNING AND
+                           DREAM_DP3_PTM_01.iq_stPTM.eState = pumpRUNNING AND
+                           DREAM_MC_PTM_01.iq_stPTM.eState = pumpRUNNING AND
+                           DREAM_MC_PTM_02.iq_stPTM.eState = pumpRUNNING AND
+                           DREAM_CAT1_PTM_01.iq_stPTM.eState = pumpRUNNING AND
+                           DREAM_CAT2_PTM_01.iq_stPTM.eState = pumpRUNNING AND
+                           DREAM_ROUGH2_PTM_01.iq_stPTM.eState = pumpRUNNING AND
+                           DREAM_ROUGH2_PTM_02.iq_stPTM.eState = pumpRUNNING;
 
 (*********SERIAL COMMUNICATION**********)
 

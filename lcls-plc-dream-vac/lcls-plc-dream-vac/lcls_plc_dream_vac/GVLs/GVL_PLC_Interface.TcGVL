@@ -30,16 +30,16 @@ VAR_GLOBAL
             pv: PLC:DREAM:VAC:TURBOS_ALL_ATSPD
             io: i
     '}
-    bIP1_TURBOS_ALL_AtSpd AT %Q* : BOOL;
+    bDREAM_TURBOS_ALL_AtSpd AT %Q* : BOOL;
 
     {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_MAIN_xAT_VAC'}
-    bIP1_MAIN_xAT_VAC AT %Q* : BOOL;
+    bDREAM_MAIN_xAT_VAC AT %Q* : BOOL;
 
     {attribute 'TcLInkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_MAIN_xPRESS_OK'}
-    bIP1_MAIN_xPRESS_OK AT %Q* : BOOL;
+    bDREAM_MAIN_xPRESS_OK AT %Q* : BOOL;
 
     {attribute 'TcLINKTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_MAIN_rPRESS'}
-    fIP1_MAIN_rPRESS AT %Q* : REAL;
+    fDREAM_MAIN_rPRESS AT %Q* : REAL;
 
     {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_HV_SAFETY_ENABLE'}
     bDREAM_HV_SAFETY_ENABLE AT %Q* : BOOL;
