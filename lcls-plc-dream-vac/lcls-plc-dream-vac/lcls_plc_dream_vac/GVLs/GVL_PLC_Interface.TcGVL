@@ -16,12 +16,12 @@ VAR_GLOBAL
     {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^WcState^WcStateIn'}
     bEcatBridge_WcState AT %I* : BOOL;
 
-    (* I/O Inputs from TMO Beamline*)
+    (*Inputs from TMO Beamline*)
     {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Inputs^HUTCH_PLC_NAME'}
     sHUTCH_PLC_NAME AT %I* : STRING(8);
 
 
-    (*I/O Outputs to TMO Beamline PLC*)
+    (*Outputs to TMO Beamline PLC*)
     {attribute 'TcLinkTo' :=   'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^ENDSTATION_PLC_NAME'}
     sENDSTATION_PLC_NAME AT %Q* : STRING(8):= 'DREAM';
 

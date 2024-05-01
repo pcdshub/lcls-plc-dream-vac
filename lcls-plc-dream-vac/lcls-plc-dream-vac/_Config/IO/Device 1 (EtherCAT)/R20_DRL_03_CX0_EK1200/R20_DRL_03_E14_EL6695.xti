@@ -38,7 +38,7 @@
 		<EtherCAT SlaveType="3" AdsServerAddress="ac15849f020ff503" PdiType="#x0008" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="1" FoeType="1" VendorId="#x00000002" ProductCode="#x1a273052" RevisionNo="#x00050000" InfoDataAddr="true" InfoDataNetId="true" TimeoutMailbox2="2000" GenerateOwnNetId="true" CheckRevisionNoType="3" PortPhys="51" DcTimeLoopControlOnly="true" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6695 EtherCAT Bridge terminal (Primary)" Desc="EL6695">
 			<SyncMan>0010000426000100010000008000da050004001026010000</SyncMan>
 			<SyncMan>0016000422000100020000008000da050004001622010000</SyncMan>
-			<SyncMan>001c0e006400010003000000000000000000001c64010000</SyncMan>
+			<SyncMan>001c11006400010003000000000000000000001c64010000</SyncMan>
 			<SyncMan>008e0b002000010004000000000000000200008e20010000</SyncMan>
 			<Fmmu>0000000000000000001c00020100000001000000000000000000000000000000</Fmmu>
 			<Fmmu>0000000000000000008e00010100000002000000000000000000000000000000</Fmmu>
@@ -165,20 +165,20 @@
 				<Entry Name="ENDSTATION_PLC_NAME" Index="#x7000" Sub="#x01">
 					<Type>STRING(8)</Type>
 				</Entry>
-				<Entry Name="DREAM_TURBOS_ALL_AtSpd" Index="#x7000" Sub="#x02">
+				<Entry Name="DREAM_HV_SAFETY_ENABLE" Index="#x7000" Sub="#x02">
 					<Type>BOOL</Type>
 				</Entry>
-				<Entry Name="DREAM_MAIN_xAT_VAC" Index="#x7000" Sub="#x03">
+				<Entry Name="DREAM_TURBOS_ALL_AtSpd" Index="#x7000" Sub="#x03">
 					<Type>BOOL</Type>
 				</Entry>
-				<Entry Name="DREAM_MAIN_xPRESS_OK" Index="#x7000" Sub="#x04">
+				<Entry Name="DREAM_MAIN_xAT_VAC" Index="#x7000" Sub="#x04">
 					<Type>BOOL</Type>
 				</Entry>
-				<Entry Name="DREAM_MAIN_rPRESS" Index="#x7000" Sub="#x05">
+				<Entry Name="DREAM_MAIN_xPRESS_OK" Index="#x7000" Sub="#x05">
 					<Type>BOOL</Type>
 				</Entry>
-				<Entry Name="DREAM_HV_SAFETY_ENABLE" Index="#x7000" Sub="#x06">
-					<Type>BOOL</Type>
+				<Entry Name="DREAM_MAIN_rPRESS" Index="#x7000" Sub="#x06">
+					<Type>REAL</Type>
 				</Entry>
 			</Pdo>
 			<CoeProfile ProfileNo="5001"/>

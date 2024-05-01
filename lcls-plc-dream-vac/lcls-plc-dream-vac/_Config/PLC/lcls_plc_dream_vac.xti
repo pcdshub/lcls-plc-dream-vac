@@ -71,7 +71,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{0E5870A5-8014-6BA5-57D5-C398F58839F5}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{C620C875-7FD8-3F18-9A95-75C927B9E368}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -467,11 +467,6 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_PLC_Interface.sHUTCH_PLC_NAME</Name>
-					<Comment><![CDATA[ I/O Inputs from TMO Beamline]]></Comment>
-					<Type>STRING(8)</Type>
-				</Var>
-				<Var>
 					<Name>GVL_Roughing.DREAM_ROUGH1_VRC_01.i_xOpnLS</Name>
 					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
@@ -522,6 +517,11 @@
 					<Name>GVL_Roughing.DREAM_ROUGH2_GPI_03.i_iPRESS_R</Name>
 					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.sHUTCH_PLC_NAME</Name>
+					<Comment><![CDATA[Inputs from TMO Beamline]]></Comment>
+					<Type>STRING(8)</Type>
 				</Var>
 			</Vars>
 			<Vars VarGrpType="2" ContextId="1" AreaNo="17">
@@ -707,15 +707,6 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_PLC_Interface.fDREAM_MAIN_rPRESS</Name>
-					<Type>REAL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.sENDSTATION_PLC_NAME</Name>
-					<Comment><![CDATA[I/O Outputs to TMO Beamline PLC]]></Comment>
-					<Type>STRING(8)</Type>
-				</Var>
-				<Var>
 					<Name>GVL_Roughing.DREAM_ROUGH1_VRC_01.q_xOPN_DO</Name>
 					<Type>BOOL</Type>
 				</Var>
@@ -751,6 +742,15 @@
 					<Name>GVL_Roughing.DREAM_ROUGH2_VFV_03.q_iRawPosition</Name>
 					<Comment><![CDATA[IO]]></Comment>
 					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.fDREAM_MAIN_rPRESS</Name>
+					<Type>REAL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.sENDSTATION_PLC_NAME</Name>
+					<Comment><![CDATA[Outputs to TMO Beamline PLC]]></Comment>
+					<Type>STRING(8)</Type>
 				</Var>
 			</Vars>
 			<Vars VarGrpType="8" ContextId="1" AreaNo="20">
@@ -954,7 +954,7 @@
 				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.bDREAM_MAIN_xAT_VAC" VarB="IO Outputs^DREAM_MAIN_xAT_VAC" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK" VarB="IO Outputs^DREAM_MAIN_xPRESS_OK" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.bDREAM_TURBOS_ALL_AtSpd" VarB="IO Outputs^DREAM_TURBOS_ALL_AtSpd" AutoLink="true"/>
-				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.fDREAM_MAIN_rPRESS" VarB="IO Outputs^DREAM_MAIN_rPRESS" AutoLink="true" Size="8"/>
+				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.fDREAM_MAIN_rPRESS" VarB="IO Outputs^DREAM_MAIN_rPRESS" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.sENDSTATION_PLC_NAME" VarB="IO Outputs^ENDSTATION_PLC_NAME" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_03_EK0_EK1100^K4S8_DRL_03_E10_EL1004">
