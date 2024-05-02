@@ -27,8 +27,8 @@ VAR_GLOBAL
 
     {attribute 'TcLInkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_TURBOS_ALL_AtSpd'}
     {attribute 'pytmc' := '
-            pv: PLC:DREAM:VAC:TURBOS_ALL_ATSPD
-            io: i
+        pv: PLC:DREAM:VAC:TURBOS_ALL_ATSPD
+        io: i
     '}
     bDREAM_TURBOS_ALL_AtSpd AT %Q* : BOOL;
 
@@ -50,6 +50,14 @@ VAR_GLOBAL
         io:i
     '}
     bHighVoltageSafteyLoopEnable AT %Q* : BOOL := FALSE; (*When Enables the High voltage Saftey loop is closed and HV can start.*)
+
+    (*Interlock output to control COIL PS*)
+    {attribute 'TcLInkTo' :=  'TIIB[K4S8_DRL_04_E14_EL2624]^Channel 3^Output'}
+    {attribute 'pytmc' := '
+        pv: PLC:DREAM:COIL_PS:ILK
+        io: i
+    '}
+    bCoilPS_ILK AT %Q* : BOOL := FALSE;
 
 END_VAR]]></Declaration>
   </GVL>

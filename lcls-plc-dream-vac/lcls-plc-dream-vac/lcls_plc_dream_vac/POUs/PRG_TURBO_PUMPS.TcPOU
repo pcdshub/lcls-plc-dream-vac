@@ -6,6 +6,10 @@ VAR
     NC_PTM_ILK : BOOL;
     DP_MC_PTM_ILK: BOOL;
     CAT_PTM_ILK: BOOL;
+
+    bTurboPumpRunning : BOOL;
+    tTurboPumpDelayTime : TIME := T#30s;
+    tTurboPumpTOF : TOF;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -40,7 +44,7 @@ DREAM_CAT2_PTM_01(i_xExtIlkOK:= CAT_PTM_ILK);
 DREAM_ROUGH2_PTM_01(i_xExtIlkOK:= DP_MC_PTM_ILK);
 DREAM_ROUGH2_PTM_02(i_xExtIlkOK:= DP_MC_PTM_ILK);
 
-
+(*
 bAllTurbosOn := (NOT (DREAM_NC_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_NC_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
                  NOT (DREAM_NC_PTM_02.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_NC_PTM_02.iq_stPTM.eState = pumpSTOPPED) AND
                  NOT (DREAM_DP1_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_DP1_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
@@ -52,18 +56,22 @@ bAllTurbosOn := (NOT (DREAM_NC_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM
                  NOT (DREAM_CAT2_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_CAT2_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
                  NOT (DREAM_ROUGH2_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_ROUGH2_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
                  NOT (DREAM_ROUGH2_PTM_02.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_ROUGH2_PTM_02.iq_stPTM.eState = pumpSTOPPED));
+*)
 
-bDREAM_TURBOS_ALL_AtSpd := DREAM_NC_PTM_01.iq_stPTM.eState = pumpRUNNING AND
-                           DREAM_NC_PTM_02.iq_stPTM.eState = pumpRUNNING AND
-                           DREAM_DP1_PTM_01.iq_stPTM.eState = pumpRUNNING AND
-                           DREAM_DP2_PTM_01.iq_stPTM.eState = pumpRUNNING AND
-                           DREAM_DP3_PTM_01.iq_stPTM.eState = pumpRUNNING AND
-                           DREAM_MC_PTM_01.iq_stPTM.eState = pumpRUNNING AND
-                           DREAM_MC_PTM_02.iq_stPTM.eState = pumpRUNNING AND
-                           DREAM_CAT1_PTM_01.iq_stPTM.eState = pumpRUNNING AND
-                           DREAM_CAT2_PTM_01.iq_stPTM.eState = pumpRUNNING AND
-                           DREAM_ROUGH2_PTM_01.iq_stPTM.eState = pumpRUNNING AND
-                           DREAM_ROUGH2_PTM_02.iq_stPTM.eState = pumpRUNNING;
+bTurboPumpRunning := DREAM_NC_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                     DREAM_NC_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                     DREAM_DP1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                     DREAM_DP2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                     DREAM_DP3_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                     DREAM_MC_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                     DREAM_MC_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                     DREAM_CAT1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                     DREAM_CAT2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                     DREAM_ROUGH2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                     DREAM_ROUGH2_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING;
+
+tTurboPumpTOF(IN:= bTurboPumpRunning, PT := tTurboPumpDelayTime);
+bDREAM_TURBOS_ALL_AtSpd := tTurboPumpTOF.Q;
 
 (*********SERIAL COMMUNICATION**********)
 

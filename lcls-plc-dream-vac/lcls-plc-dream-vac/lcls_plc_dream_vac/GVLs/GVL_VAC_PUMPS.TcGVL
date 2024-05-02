@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="GVL_VAC_PUMPS" Id="{c5d32c42-6168-4e80-9249-092ab0b137a1}">
+    <Declaration><![CDATA[//{attribute 'qualified_only'}
+VAR_GLOBAL
+    (*NOZZLE CHAMBER*)
+    {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_03_E13_EL1004]^Channel 1^Input;
+                                 .i_xFaultNC		:=	TIIB[K4S8_DRL_03_E13_EL1004]^Channel 3^Input;
+                                 .i_xRemote         :=  TIIB[K4S8_DRL_03_E13_EL1004]^Channel 2^Input;
+                                 .q_RunDO			:=	TIIB[K4S8_DRL_03_E14_EL2004]^Channel 1^Output;
+                                 .q_PumpingStation  :=	TIIB[K4S8_DRL_03_E14_EL2004]^Channel 3^Output;
+                                 .q_xRemote	        :=	TIIB[K4S8_DRL_03_E14_EL2004]^Channel 2^Output
+     '}
+     {attribute 'pytmc' :=' pv: DREAM:NC:PTM:01'}
+     DREAM_NC_PTM_01 : FB_PTM_Pfeiffer;
+
+
+     {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_03_E16_EL1004]^Channel 1^Input;
+                                 .i_xFaultNC		:=	TIIB[K4S8_DRL_03_E16_EL1004]^Channel 3^Input;
+                                 .i_xRemote         :=  TIIB[K4S8_DRL_03_E16_EL1004]^Channel 2^Input;
+                                 .q_RunDO			:=	TIIB[K4S8_DRL_03_E17_EL2004]^Channel 1^Output;
+                                 .q_PumpingStation  :=	TIIB[K4S8_DRL_03_E17_EL2004]^Channel 3^Output;
+                                 .q_xRemote	        :=	TIIB[K4S8_DRL_03_E17_EL2004]^Channel 2^Output
+    '}
+    {attribute 'pytmc' :=' pv: DREAM:NC:PTM:02'}
+    DREAM_NC_PTM_02 : FB_PTM_Pfeiffer;
+
+    (*DP1*)
+    {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_03_E19_EL1004]^Channel 1^Input;
+                                 .i_xFaultNC		:=	TIIB[K4S8_DRL_03_E19_EL1004]^Channel 3^Input;
+                                 .i_xRemote         :=  TIIB[K4S8_DRL_03_E19_EL1004]^Channel 2^Input;
+                                 .q_RunDO			:=	TIIB[K4S8_DRL_03_E20_EL2004]^Channel 1^Output;
+                                 .q_PumpingStation  :=	TIIB[K4S8_DRL_03_E20_EL2004]^Channel 3^Output;
+                                 .q_xRemote	        :=	TIIB[K4S8_DRL_03_E20_EL2004]^Channel 2^Output
+    '}
+    {attribute 'pytmc' :=' pv: DREAM:DP1:PTM:01'}
+    DREAM_DP1_PTM_01 : FB_PTM_Pfeiffer;
+
+    (*DP2*)
+    {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[R20_DRL_03_E4_EL1004]^Channel 2^Input;
+                                 .i_xFaultNC		:=	TIIB[R20_DRL_03_E4_EL1004]^Channel 1^Input;
+                                 .q_RunDO			:=	TIIB[R20_DRL_03_E7_EL2794]^Channel 1^Output
+     '}
+    {attribute 'pytmc' :=' pv: DREAM:DP2:PTM:01'}
+    DREAM_DP2_PTM_01 : FB_PTM_TurboDrive;
+
+    (*DP3*)
+    {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[R20_DRL_03_E4_EL1004]^Channel 4^Input;
+                                 .i_xFaultNC		:=	TIIB[R20_DRL_03_E4_EL1004]^Channel 3^Input;
+                                 .q_RunDO			:=	TIIB[R20_DRL_03_E7_EL2794]^Channel 3^Output
+    '}
+    {attribute 'pytmc' :=' pv: DREAM:DP3:PTM:01'}
+    DREAM_DP3_PTM_01 : FB_PTM_TurboDrive;
+
+
+    (*MAIN CHAMBER*)
+    {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[R20_DRL_03_E5_EL1004]^Channel 2^Input;
+                                 .i_xFaultNC		:=	TIIB[R20_DRL_03_E5_EL1004]^Channel 1^Input;
+                                 .q_RunDO			:=	TIIB[R20_DRL_03_E7_EL2794]^Channel 2^Output
+    '}
+    {attribute 'pytmc' :=' pv: DREAM:MC:PTM:01'}
+    DREAM_MC_PTM_01 : FB_PTM_TurboDrive;
+
+    {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[R20_DRL_03_E5_EL1004]^Channel 4^Input;
+                                 .i_xFaultNC		:=	TIIB[R20_DRL_03_E5_EL1004]^Channel 3^Input;
+                                 .q_RunDO			:=	TIIB[R20_DRL_03_E7_EL2794]^Channel 4^Output
+    '}
+    {attribute 'pytmc' :=' pv: DREAM:MC:PTM:02'}
+    DREAM_MC_PTM_02 : FB_PTM_TurboDrive;
+
+    (*BOOSTER TURBO PUMPS ROUGHING*)
+    {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_04_E3_EL1004]^Channel 2^Input;
+                                 .i_xFaultNC		:=	TIIB[K4S8_DRL_04_E3_EL1004]^Channel 1^Input;
+                                 .q_RunDO			:=	TIIB[K4S8_DRL_04_E5_EL2794]^Channel 1^Output
+    '}
+    {attribute 'pytmc' :=' pv: DREAM:ROUGH2:PTM:01'}
+    DREAM_ROUGH2_PTM_01 : FB_PTM_TurboDrive;
+
+    {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_04_E10_EL1004]^Channel 3^Input;
+                                 .i_xFaultNC		:=	TIIB[K4S8_DRL_04_E10_EL1004]^Channel 4^Input;
+                                 .q_RunDO			:=	TIIB[K4S8_DRL_04_E18_EL2794]^Channel 1^Output;
+                                 .q_xReset 			:=	TIIB[K4S8_DRL_04_E18_EL2794]^Channel 2^Output
+    '}
+    {attribute 'pytmc' :=' pv: DREAM:ROUGH2:PTM:02'}
+    DREAM_ROUGH2_PTM_02 : FB_PTM_Pfeiffer;
+
+    (*CATCHER 1*)
+    {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_04_E3_EL1004]^Channel 4^Input;
+                                 .i_xFaultNC		:=	TIIB[K4S8_DRL_04_E3_EL1004]^Channel 3^Input;
+                                 .q_RunDO			:=	TIIB[K4S8_DRL_04_E5_EL2794]^Channel 2^Output
+    '}
+    {attribute 'pytmc' :=' pv: DREAM:CAT1:PTM:01'}
+    DREAM_CAT1_PTM_01 : FB_PTM_TurboDrive;
+
+    (*CATCHER 2*)
+    {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_04_E4_EL1004]^Channel 2^Input;
+                                 .i_xFaultNC		:=	TIIB[K4S8_DRL_04_E4_EL1004]^Channel 1^Input;
+                                 .q_RunDO			:=	TIIB[K4S8_DRL_04_E5_EL2794]^Channel 3^Output
+    '}
+    {attribute 'pytmc' :=' pv: DREAM:CAT2:PTM:01'}
+    DREAM_CAT2_PTM_01 : FB_PTM_TurboDrive;
+
+
+    (*Serial Interface*)
+    (*Pfeiffer TC400 serial*)
+    stPfeiffer_CTRL_DREAM_NC_PTM_01  : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferControl;
+    stPfeiffer_RBK_DREAM_NC_PTM_01   : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferStatus;
+    fbPfeifferCom_DREAM_NC_PTM_01    : FB_PFEIFFER_COM;
+
+    stPfeiffer_CTRL_DREAM_NC_PTM_02  : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferControl;
+    stPfeiffer_RBK_DREAM_NC_PTM_02   : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferStatus;
+    fbPfeifferCom_DREAM_NC_PTM_02    : FB_PFEIFFER_COM;
+
+    stPfeiffer_CTRL_DREAM_DP1_PTM_01 : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferControl;
+    stPfeiffer_RBK_DREAM_DP1_PTM_01	 : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferStatus;
+    fbPfeifferCom_DREAM_DP1_PTM_01   : FB_PFEIFFER_COM;
+
+    (*Leybold TD20 serial*)
+    stTD20_RBK_DREAM_DP2_PTM_01      : ST_TD20Status;
+    fbTD20Com_DREAM_DP2_PTM_01       : FB_OERLIKON_TD20_COM;
+
+    stTD20_RBK_DREAM_DP3_PTM_01      : ST_TD20Status;
+    fbTD20Com_DREAM_DP3_PTM_01       : FB_OERLIKON_TD20_COM;
+
+    stTD20_RBK_DREAM_MC_PTM_01       : ST_TD20Status;
+    fbTD20Com_DREAM_MC_PTM_01        : FB_OERLIKON_TD20_COM;
+
+    stTD20_RBK_DREAM_MC_PTM_02       : ST_TD20Status;
+    fbTD20Com_DREAM_MC_PTM_02        : FB_OERLIKON_TD20_COM;
+
+    (*Leybold TD400 serial*)
+    stTD400_RBK_DREAM_CAT1_PTM_01    : ST_TD20Status;
+    fbTD400Com_DREAM_CAT1_PTM_01     : FB_OERLIKON_TD20_COM;
+
+    stTD400_RBK_DREAM_CAT2_PTM_01    : ST_TD20Status;
+    fbTD400Com_DREAM_CAT2_PTM_01     : FB_OERLIKON_TD20_COM;
+
+    stTD400_RBK_DREAM_ROUGH2_PTM_01  : ST_TD20Status;
+    fbTD400Com_DREAM_ROUGH2_PTM_01   : FB_OERLIKON_TD20_COM;
+
+    (*Pfeiffer TC110 serial*)
+    stPfeiffer_CTRL_DREAM_ROUGH2_PTM_02 : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferControl;
+    stPfeiffer_RBK_DREAM_ROUGH2_PTM_02	: ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferStatus;
+    fbPfeifferCom_DREAM_ROUGH2_PTM_02   : FB_PFEIFFER_COM;
+
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

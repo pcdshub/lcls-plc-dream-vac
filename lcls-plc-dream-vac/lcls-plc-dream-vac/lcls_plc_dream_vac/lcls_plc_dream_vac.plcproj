@@ -14,11 +14,7 @@
     <LibraryReferences>{40468539-12c6-48f6-a3cd-29166fa0ef6d}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="GVLs\GVL_Gas_Injection.TcGVL">
-      <SubType>Code</SubType>
-      <LinkAlways>true</LinkAlways>
-    </Compile>
-    <Compile Include="GVLs\GVL_Main_Chamber.TcGVL">
+    <Compile Include="GVLs\GVL_FWM.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
@@ -26,11 +22,19 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
-    <Compile Include="GVLs\GVL_Roughing.TcGVL">
+    <Compile Include="GVLs\GVL_Serial_Com.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
-    <Compile Include="GVLs\GVL_Serial_Com.TcGVL">
+    <Compile Include="GVLs\GVL_VAC_GAUGES.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="GVLs\GVL_VAC_PUMPS.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="GVLs\GVL_VAC_VALVES.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
@@ -51,6 +55,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\PRG_GAUGES.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PRG_HV_ILK.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PRG_COIL_PS_ILK.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\PRG_TURBO_PUMPS.TcPOU">

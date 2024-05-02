@@ -16,7 +16,10 @@ PRG_GAUGES();
 PRG_VALVES();
 
 PRG_TURBO_PUMPS();
-]]></ST>
+
+PRG_HV_ILK();
+
+PRG_COIL_PS_ILK();]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PRG_HV_ILK" Id="{d0f59b88-3cfc-41d8-b70c-ef6b66a977a9}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_HV_ILK
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*High Voltage Saftey Loop*)
+IF DREAM_MC_GHC.M_IsCh1Selected() THEN
+    bHighVoltageSafteyLoopEnable := (DREAM_MC_GHC.IG_CH1.rPRESS <= rHighVoltageMinPressure) AND (DREAM_MC_GHC.IG_CH1.xPRESS_OK = TRUE);
+END_IF
+
+IF DREAM_MC_GHC.M_IsCh2Selected() THEN
+    bHighVoltageSafteyLoopEnable := (DREAM_MC_GHC.IG_CH2.rPRESS <= rHighVoltageMinPressure) AND (DREAM_MC_GHC.IG_CH2.xPRESS_OK = TRUE);
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
