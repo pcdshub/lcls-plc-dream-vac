@@ -1,3 +1,16 @@
+record(ai, "DREAM:COIL_PS:FWM_RBV") {
+  field(DESC, "GVL_FWM.fCoilPSFlowMeterRBV")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynFloat64")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_FWM.fCoilPSFlowMeterRBV?")
+  field(PREC, "3")
+  field(EGU, "lpm")
+  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS")
+  info(archive, "VAL")
+}
+
 record(bi, "$(PREFIX)LCLSGeneral:GlobalLogTrickleTrip_RBV") {
   field(DESC, "Tripped by overall log count")
   field(SCAN, "I/O Intr")
@@ -12714,12 +12727,12 @@ record(bo, "PLC:DREAM:VAC:OVRDON") {
 }
 
 record(ai, "PLC:DREAM:HV_MIN_PRESS_RBV") {
-  field(DESC, "GVL_Variables.rHighVoltageMinPressure")
+  field(DESC, "GVL_Variables.fHighVoltageMinPressure")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynFloat64")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_Variables.rHighVoltageMinPressure?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_Variables.fHighVoltageMinPressure?")
   field(PREC, "3")
   info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS")
   info(archive, "VAL")
