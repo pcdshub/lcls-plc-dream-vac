@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{23D0943C-11E9-8EC7-5617-B1C851F96A1A}" GeneratedBy="TwinCAT XAE Plc">
+<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{2FD3345B-CFE8-844F-B183-80B93361160D}" GeneratedBy="TwinCAT XAE Plc">
   <DataTypes>
     <DataType>
       <Name Namespace="Tc2_SerialCom">ComBuffer</Name>
@@ -55251,10 +55251,6 @@ In case VRC is normally open</Comment>
             </Default>
             <Properties>
               <Property>
-                <Name>pytmc</Name>
-                <Value> pv: DREAM:COIL_PS:FWM</Value>
-              </Property>
-              <Property>
                 <Name>TcLinkTo</Name>
                 <Value>.iRaw	:=	TIIB[K4S8_DRL_04_E19_EL3052]^AI Standard Channel 1^Value</Value>
               </Property>
@@ -55288,11 +55284,10 @@ In case VRC is normally open</Comment>
           </Symbol>
           <Symbol>
             <Name>GVL_Variables.bOnBeamline</Name>
-            <Comment>Always assume On Beamline for safety checks</Comment>
             <BitSize>8</BitSize>
             <BaseType>BOOL</BaseType>
             <Default>
-              <Bool>true</Bool>
+              <Bool>false</Bool>
             </Default>
             <Properties>
               <Property>
@@ -56536,28 +56531,6 @@ FLow Control valves MKS248</Comment>
             <BitOffs>646287040</BitOffs>
           </Symbol>
           <Symbol>
-            <Name>GVL_Variables.rHighVoltageMinPressure</Name>
-            <Comment>Hard coded High voltage Minimum Enable Pressure</Comment>
-            <BitSize>32</BitSize>
-            <BaseType>REAL</BaseType>
-            <Default>
-              <Value>1E-05</Value>
-            </Default>
-            <Properties>
-              <Property>
-                <Name>pytmc</Name>
-                <Value>
-        pv: PLC:DREAM:HV_MIN_PRESS
-        io: i
-    </Value>
-              </Property>
-              <Property>
-                <Name>TcVarGlobal</Name>
-              </Property>
-            </Properties>
-            <BitOffs>646287680</BitOffs>
-          </Symbol>
-          <Symbol>
             <Name>Constants.RuntimeVersion</Name>
             <Comment> Does the target support multiple cores?</Comment>
             <BitSize>64</BitSize>
@@ -57241,6 +57214,47 @@ FLow Control valves MKS248</Comment>
             </Properties>
             <BitOffs>646345792</BitOffs>
           </Symbol>
+          <Symbol>
+            <Name>GVL_Variables.fHighVoltageMinPressure</Name>
+            <Comment>Hard coded High voltage Minimum Enable Pressure</Comment>
+            <BitSize>32</BitSize>
+            <BaseType>REAL</BaseType>
+            <Default>
+              <Value>1E-05</Value>
+            </Default>
+            <Properties>
+              <Property>
+                <Name>pytmc</Name>
+                <Value>
+        pv: PLC:DREAM:HV_MIN_PRESS
+        io: i
+    </Value>
+              </Property>
+              <Property>
+                <Name>TcVarGlobal</Name>
+              </Property>
+            </Properties>
+            <BitOffs>646384288</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>GVL_FWM.fCoilPSFlowMeterRBV</Name>
+            <BitSize>32</BitSize>
+            <BaseType>REAL</BaseType>
+            <Properties>
+              <Property>
+                <Name>pytmc</Name>
+                <Value>
+        pv: DREAM:COIL_PS:FWM
+        io: i
+        field: EGU "lpm"
+    </Value>
+              </Property>
+              <Property>
+                <Name>TcVarGlobal</Name>
+              </Property>
+            </Properties>
+            <BitOffs>650323168</BitOffs>
+          </Symbol>
         </DataArea>
         <DataArea>
           <AreaNo AreaType="RetainSrc" CreateSymbols="true">20</AreaNo>
@@ -57326,7 +57340,7 @@ FLow Control valves MKS248</Comment>
         </Property>
         <Property>
           <Name>ChangeDate</Name>
-          <Value>2024-05-02T15:52:21</Value>
+          <Value>2024-05-03T15:00:30</Value>
         </Property>
         <Property>
           <Name>GeneratedCodeSize</Name>

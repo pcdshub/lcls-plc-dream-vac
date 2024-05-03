@@ -3,9 +3,15 @@
   <GVL Name="GVL_FWM" Id="{f779eb75-52be-49f4-8215-82075f255b6e}">
     <Declaration><![CDATA[//{attribute 'qualified_only'}
 VAR_GLOBAL
-    {attribute 'pytmc' :=' pv: DREAM:COIL_PS:FWM'}
     {attribute 'TcLinkTo' := '.iRaw	:=	TIIB[K4S8_DRL_04_E19_EL3052]^AI Standard Channel 1^Value'}
     fbCoilPSFlowMeter : FB_AnalogInput := (iTermBits:=15, fTermMax:=60, fTermMin:=0);
+
+    {attribute 'pytmc' := '
+        pv: DREAM:COIL_PS:FWM
+        io: i
+        field: EGU "lpm"
+    '}
+    fCoilPSFlowMeterRBV : REAL;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

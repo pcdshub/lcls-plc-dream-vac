@@ -13,13 +13,13 @@ VAR_GLOBAL
         pv: PLC:DREAM:ON_BEAMLINE
         io: i
     '}
-    bOnBeamline	: BOOL := TRUE; (*Always assume On Beamline for safety checks*)
+    bOnBeamline	: BOOL := FALSE;
 
     {attribute 'pytmc' := '
         pv: PLC:DREAM:HV_MIN_PRESS
         io: i
     '}
-    rHighVoltageMinPressure : REAL := 1e-05; (*Hard coded High voltage Minimum Enable Pressure*)
+    fHighVoltageMinPressure : REAL := 1e-05; (*Hard coded High voltage Minimum Enable Pressure*)
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
