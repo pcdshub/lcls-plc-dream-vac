@@ -1,10 +1,10 @@
-record(ai, "DREAM:COIL_PS:FWM_RBV") {
-  field(DESC, "GVL_FWM.fCoilPSFlowMeterRBV")
+record(ai, "DREAM:COIL:FWM_RBV") {
+  field(DESC, "GVL_FWM.fCoilCoolantFlowMeterRBV")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynFloat64")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_FWM.fCoilPSFlowMeterRBV?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_FWM.fCoilCoolantFlowMeterRBV?")
   field(PREC, "3")
   field(EGU, "lpm")
   info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS")

@@ -1,4 +1,4 @@
-DREAM:COIL_PS:FWM_RBV.VAL	1	scan
+DREAM:COIL:FWM_RBV.VAL	1	scan
 $(PREFIX)LCLSGeneral:GlobalLogTrickleTrip_RBV.VAL	1	scan
 $(PREFIX)LCLSGeneral:LogHost_RBV.VAL	1	scan
 $(PREFIX)LCLSGeneral:LogHost.VAL	1	scan
