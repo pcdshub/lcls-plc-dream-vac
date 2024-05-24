@@ -145,26 +145,41 @@ DREAM_MC_PTM_02.M_Serial_IO(stTD20_RBK_DREAM_MC_PTM_02);
 
 (*Leybold pumps at Catcher*)
 //DREAM_CAT1_PTM_01 (TD400)
-fbTD400Com_DREAM_CAT1_PTM_01(SerialRXBuffer:= SerialRXBuffer_DREAM_CAT1_PTM_01,
-                             SerialTXBuffer:= SerialTXBuffer_DREAM_CAT1_PTM_01,
-                             astTD20Status=> stTD400_RBK_DREAM_CAT1_PTM_01);
+fbTD400SerialIO_DREAM_CAT1_PTM_01(iq_stPTM := DREAM_CAT1_PTM_01.iq_stPtm,
+                                  iq_stTD400Control := stTD400_CTRL_DREAM_CAT1_PTM_01,
+                                  iq_stTD400Status := stTD400_RBK_DREAM_CAT1_PTM_01);
 
-DREAM_CAT1_PTM_01.M_Serial_IO(stTD400_RBK_DREAM_CAT1_PTM_01);
+fbTD400Com_DREAM_CAT1_PTM_01(SerialRXBuffer := SerialRXBuffer_DREAM_CAT1_PTM_01,
+                             SerialTXBuffer := SerialTXBuffer_DREAM_CAT1_PTM_01,
+                             stTD400Control := stTD400_CTRL_DREAM_CAT1_PTM_01,
+                             stTD400Status => stTD400_RBK_DREAM_CAT1_PTM_01);
+
+//DREAM_CAT1_PTM_01.M_Serial_IO(stTD400_RBK_DREAM_CAT1_PTM_01);
 
 //DREAM_CAT2_PTM_01 (TD400)
-fbTD400Com_DREAM_CAT2_PTM_01(SerialRXBuffer:= SerialRXBuffer_DREAM_CAT2_PTM_01,
-                             SerialTXBuffer:= SerialTXBuffer_DREAM_CAT2_PTM_01,
-                             astTD20Status=> stTD400_RBK_DREAM_CAT2_PTM_01);
+fbTD400SerialIO_DREAM_CAT2_PTM_01(iq_stPTM := DREAM_CAT2_PTM_01.iq_stPtm,
+                                  iq_stTD400Control := stTD400_CTRL_DREAM_CAT2_PTM_01,
+                                  iq_stTD400Status := stTD400_RBK_DREAM_CAT2_PTM_01);
 
-DREAM_CAT2_PTM_01.M_Serial_IO(stTD400_RBK_DREAM_CAT2_PTM_01);
+fbTD400Com_DREAM_CAT2_PTM_01(SerialRXBuffer := SerialRXBuffer_DREAM_CAT2_PTM_01,
+                             SerialTXBuffer := SerialTXBuffer_DREAM_CAT2_PTM_01,
+                             stTD400Control := stTD400_CTRL_DREAM_CAT2_PTM_01,
+                             stTD400Status => stTD400_RBK_DREAM_CAT2_PTM_01);
+
+//DREAM_CAT2_PTM_01.M_Serial_IO(stTD400_RBK_DREAM_CAT2_PTM_01);
 
 (*Leybold pump-roughing section-booster pump*)
 //DREAM_ROUGH2_PTM_01 (TD400)
-fbTD400Com_DREAM_ROUGH2_PTM_01(SerialRXBuffer:= SerialRXBuffer_DREAM_ROUGH2_PTM_01,
-                           SerialTXBuffer:= SerialTXBuffer_DREAM_ROUGH2_PTM_01,
-                           astTD20Status=> stTD400_RBK_DREAM_ROUGH2_PTM_01);
+fbTD400SerialIO_DREAM_ROUGH2_PTM_01(iq_stPTM := DREAM_ROUGH2_PTM_01.iq_stPtm,
+                                    iq_stTD400Control := stTD400_CTRL_DREAM_ROUGH2_PTM_01,
+                                    iq_stTD400Status := stTD400_RBK_DREAM_ROUGH2_PTM_01);
 
-DREAM_ROUGH2_PTM_01.M_Serial_IO(stTD400_RBK_DREAM_ROUGH2_PTM_01);
+fbTD400Com_DREAM_ROUGH2_PTM_01(SerialRXBuffer := SerialRXBuffer_DREAM_ROUGH2_PTM_01,
+                               SerialTXBuffer := SerialTXBuffer_DREAM_ROUGH2_PTM_01,
+                               stTD400Control := stTD400_CTRL_DREAM_ROUGH2_PTM_01,
+                               stTD400Status => stTD400_RBK_DREAM_ROUGH2_PTM_01);
+
+//DREAM_ROUGH2_PTM_01.M_Serial_IO(stTD400_RBK_DREAM_ROUGH2_PTM_01);
 
 (*Pfeiffer pump-roughing section-booster pump*)
 //DREAM_NC_PTM_02 (Pfeiffer TC110)

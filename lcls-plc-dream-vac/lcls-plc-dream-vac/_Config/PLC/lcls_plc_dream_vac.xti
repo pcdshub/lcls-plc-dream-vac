@@ -71,7 +71,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{B1FC518E-74A4-B8CD-BE5F-E068109FD358}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{7C1DDFC1-03BA-0712-A7D7-85F6CC0C2D66}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -180,6 +180,11 @@
 					<Name>LCLS_Vacuum.Global_Variables.g_stSystem.I_EcatMaster1</Name>
 					<Comment><![CDATA[ AMS Net ID used for FB_EcatDiag, among others ]]></Comment>
 					<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
+				</Var>
+				<Var>
+					<Name>GVL_FWM.fbCoilFlowMeter.iRaw</Name>
+					<Comment><![CDATA[ Connect this input to the terminal]]></Comment>
+					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_PLC_Interface.bEcatBridge_TxPDO_state</Name>
@@ -328,6 +333,60 @@
 					<Type>INT</Type>
 				</Var>
 				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
 					<Name>GVL_VAC_PUMPS.DREAM_NC_PTM_01.i_xAtSpd</Name>
 					<Comment><![CDATA[ Normaml operation when true]]></Comment>
 					<Type>BOOL</Type>
@@ -469,65 +528,6 @@
 					<Comment><![CDATA[ Error Active when no Error is present]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_FWM.fbCoilFlowMeter.iRaw</Name>
-					<Comment><![CDATA[ Connect this input to the terminal]]></Comment>
-					<Type>INT</Type>
-				</Var>
 			</Vars>
 			<Vars VarGrpType="2" ContextId="1" AreaNo="17">
 				<Name>PlcTask Outputs</Name>
@@ -605,6 +605,55 @@
 					<Name>GVL_VAC_GAUGES.DREAM_CAT2_GHC_01.q_xHV_DIS</Name>
 					<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EP2624) ^Output]]></Comment>
 					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.q_xCLS_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VFV_01.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VFV_02.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_01.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_02.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_03.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_VAC_PUMPS.DREAM_NC_PTM_01.q_RunDO</Name>
@@ -712,55 +761,6 @@
 					<Name>GVL_VAC_PUMPS.DREAM_CAT2_PTM_01.q_RunDO</Name>
 					<Comment><![CDATA[ Start/Stop]]></Comment>
 					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.q_xOPN_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.q_xCLS_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.q_xOPN_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.q_xOPN_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.q_xOPN_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.q_xOPN_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VFV_01.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VFV_02.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_01.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_02.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_03.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
 				</Var>
 			</Vars>
 			<Vars VarGrpType="8" ContextId="1" AreaNo="20">
