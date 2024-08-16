@@ -14,7 +14,6 @@ VAR_GLOBAL
      {attribute 'pytmc' :=' pv: DREAM:NC:PTM:01'}
      DREAM_NC_PTM_01 : FB_PTM_Pfeiffer;
 
-
      {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_03_E16_EL1004]^Channel 1^Input;
                                  .i_xFaultNC		:=	TIIB[K4S8_DRL_03_E16_EL1004]^Channel 3^Input;
                                  .i_xRemote         :=  TIIB[K4S8_DRL_03_E16_EL1004]^Channel 2^Input;

@@ -45,6 +45,7 @@ VAR_GLOBAL
     bDREAM_HV_SAFETY_ENABLE AT %Q* : BOOL;
 
     (*ISEG HV Crate Safety Loop*)
+    {attribute 'TcLInkTo' :=  'TIIB[K4S8_DRL_04_E14_EL2624]^Channel 4^Output'}
     {attribute 'pytmc' := '
         pv: TMO:PLC:DREAM:VAC:HV_SAFETY_ENABLE
         io:i

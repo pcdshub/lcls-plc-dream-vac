@@ -71,7 +71,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{7C1DDFC1-03BA-0712-A7D7-85F6CC0C2D66}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{9FB18925-0F63-3627-531C-EB5F1EF60F48}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -185,27 +185,6 @@
 					<Name>GVL_FWM.fbCoilFlowMeter.iRaw</Name>
 					<Comment><![CDATA[ Connect this input to the terminal]]></Comment>
 					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.bEcatBridge_TxPDO_state</Name>
-					<Comment><![CDATA[ETHERCAT BRRIDGE COM STATUS
-0: Other side is in OP state, >0: Error]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.bEcatBridge_External_device_not_connected</Name>
-					<Comment><![CDATA[0: External device connectd, 1: External device not connected]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.bEcatBridge_WcState</Name>
-					<Comment><![CDATA[0 = Data valid, 1 = Data invalid]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.sHUTCH_PLC_NAME</Name>
-					<Comment><![CDATA[Inputs from TMO Beamline]]></Comment>
-					<Type>STRING(8)</Type>
 				</Var>
 				<Var>
 					<Name>GVL_VAC_GAUGES.DREAM_NC_GPI_01.i_iPRESS_R</Name>
@@ -331,6 +310,27 @@
 					<Name>GVL_VAC_GAUGES.DREAM_ROUGH2_GPI_03.i_iPRESS_R</Name>
 					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bEcatBridge_TxPDO_state</Name>
+					<Comment><![CDATA[ETHERCAT BRRIDGE COM STATUS
+0: Other side is in OP state, >0: Error]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bEcatBridge_External_device_not_connected</Name>
+					<Comment><![CDATA[0: External device connectd, 1: External device not connected]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bEcatBridge_WcState</Name>
+					<Comment><![CDATA[0 = Data valid, 1 = Data invalid]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.sHUTCH_PLC_NAME</Name>
+					<Comment><![CDATA[Inputs from TMO Beamline]]></Comment>
+					<Type>STRING(8)</Type>
 				</Var>
 				<Var>
 					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xOpnLS</Name>
@@ -532,38 +532,7 @@
 			<Vars VarGrpType="2" ContextId="1" AreaNo="17">
 				<Name>PlcTask Outputs</Name>
 				<Var>
-					<Name>GVL_PLC_Interface.sENDSTATION_PLC_NAME</Name>
-					<Comment><![CDATA[Outputs to TMO Beamline PLC]]></Comment>
-					<Type>STRING(8)</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.bDREAM_TURBOS_ALL_AtSpd</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.bDREAM_MAIN_xAT_VAC</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.fDREAM_MAIN_rPRESS</Name>
-					<Type>REAL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.bDREAM_HV_SAFETY_ENABLE</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.bHighVoltageSafteyLoopEnable</Name>
-					<Comment><![CDATA[When Enables the High voltage Saftey loop is closed and HV can start.]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.bCoilPS_ILK</Name>
-					<Comment><![CDATA[Interlock output to control COIL PS]]></Comment>
+					<Name>PRG_VALVES.dummy_FFFO.q_xFastFaultOut</Name>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -604,6 +573,41 @@
 				<Var>
 					<Name>GVL_VAC_GAUGES.DREAM_CAT2_GHC_01.q_xHV_DIS</Name>
 					<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EP2624) ^Output]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.sENDSTATION_PLC_NAME</Name>
+					<Comment><![CDATA[Outputs to TMO Beamline PLC]]></Comment>
+					<Type>STRING(8)</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bDREAM_TURBOS_ALL_AtSpd</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bDREAM_MAIN_xAT_VAC</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.fDREAM_MAIN_rPRESS</Name>
+					<Type>REAL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bDREAM_HV_SAFETY_ENABLE</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bHighVoltageSafteyLoopEnable</Name>
+					<Comment><![CDATA[When Enables the High voltage Saftey loop is closed and HV can start.]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bCoilPS_ILK</Name>
+					<Comment><![CDATA[Interlock output to control COIL PS]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -1186,6 +1190,7 @@
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_04_EK0_EK1100^K4S8_DRL_04_E14_EL2624">
 				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.bCoilPS_ILK" VarB="Channel 3^Output" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.bHighVoltageSafteyLoopEnable" VarB="Channel 4^Output" AutoLink="true" Size="1"/>
 				<Link VarA="PlcTask Outputs^GVL_VAC_GAUGES.DREAM_CAT1_GHC_01.q_xHV_DIS" VarB="Channel 1^Output" AutoLink="true" Size="1"/>
 				<Link VarA="PlcTask Outputs^GVL_VAC_GAUGES.DREAM_CAT2_GHC_01.q_xHV_DIS" VarB="Channel 2^Output" AutoLink="true" Size="1"/>
 			</OwnerB>

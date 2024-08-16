@@ -10,6 +10,8 @@ VAR
     CAT1_VRC_01_ILK : BOOL;
     DP1_VRC_01_ILK : BOOL;
     DP1_VRC_02_ILK : BOOL;
+    dummy_FFFO : FB_HardwareFFOutput;
+    dummy_fbArbiter1 : FB_Arbiter(1);
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -46,9 +48,44 @@ ROUGH2_VRC_02_ILK := DREAM_ROUGH2_GPI_01.PG.rPRESS < 5E-3 AND DREAM_ROUGH2_GPI_0
                      DREAM_ROUGH2_VFV_01.iq_stVFN.rReqPosition = 0.0 AND
                      DREAM_ROUGH2_VFV_03.iq_stVFN.rReqPosition = 0.0;
 
-DREAM_ROUGH1_VRC_01(i_xExtILK_OK := ROUGH1_VRC_01_ILK, i_xOverrideMode := bSystemOverrideMode);
-DREAM_ROUGH2_VRC_01(i_xExtILK_OK := ROUGH2_VRC_01_ILK, i_xOverrideMode := bSystemOverrideMode);
-DREAM_ROUGH2_VRC_02(i_xExtILK_OK := ROUGH2_VRC_02_ILK, i_xOverrideMode := bSystemOverrideMode);
+DREAM_ROUGH1_VRC_01(i_stUSG := DREAM_ROUGH1_GPI_01.PG,
+                    i_stDSG := DREAM_ROUGH1_GPI_02.PG,
+                    i_xDis_DPIlk := FALSE,
+                    i_xEPS_OK := TRUE,
+                    i_xPMPS_OK := TRUE,
+                    i_xReset := FALSE,
+                    i_xExt_OK := ROUGH1_VRC_01_ILK,
+                    i_xOverrideMode := bSystemOverrideMode,
+                    io_fbFFHWO := dummy_FFFO,
+                    fbArbiter := dummy_fbArbiter1,
+                    i_sDevName := 'DREAM-ROUGH1-VRC-01');
+
+DREAM_ROUGH2_VRC_01(i_stUSG := DREAM_ROUGH2_GPI_01.PG,
+                    i_stDSG := DREAM_ROUGH2_GPI_02.PG,
+                    i_xDis_DPIlk := FALSE,
+                    i_xEPS_OK := TRUE,
+                    i_xPMPS_OK := TRUE,
+                    i_xReset := FALSE,
+                    i_xExt_OK := ROUGH2_VRC_01_ILK,
+                    i_xOverrideMode := bSystemOverrideMode,
+                    io_fbFFHWO := dummy_FFFO,
+                    fbArbiter := dummy_fbArbiter1,
+                    i_sDevName := 'DREAM-ROUGH2-VRC-01');
+
+DREAM_ROUGH2_VRC_02(i_stUSG := DREAM_ROUGH2_GPI_01.PG,
+                    i_stDSG := DREAM_ROUGH2_GPI_03.PG,
+                    i_xDis_DPIlk := FALSE,
+                    i_xEPS_OK := TRUE,
+                    i_xPMPS_OK := TRUE,
+                    i_xReset := FALSE,
+                    i_xExt_OK := ROUGH2_VRC_02_ILK,
+                    i_xOverrideMode := bSystemOverrideMode,
+                    io_fbFFHWO := dummy_FFFO,
+                    fbArbiter := dummy_fbArbiter1,
+                    i_sDevName := 'DREAM-ROUGH2-VRC-02');
+//DREAM_ROUGH1_VRC_01(i_xExtILK_OK := ROUGH1_VRC_01_ILK, i_xOverrideMode := bSystemOverrideMode);
+//DREAM_ROUGH2_VRC_01(i_xExtILK_OK := ROUGH2_VRC_01_ILK, i_xOverrideMode := bSystemOverrideMode);
+//DREAM_ROUGH2_VRC_02(i_xExtILK_OK := ROUGH2_VRC_02_ILK, i_xOverrideMode := bSystemOverrideMode);
 
 //Flow control valves
 DREAM_ROUGH1_VFV_01(i_xExtIlkOK := DREAM_ROUGH1_VRC_01.M_IsClosed());
