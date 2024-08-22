@@ -3,14 +3,18 @@
   <POU Name="PRG_COIL_PS_ILK" Id="{3fe79328-964f-4827-83b5-a95ad08eb1c0}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_COIL_PS_ILK
 VAR
+    //fCoilCoolantFlowMeterRBV : REAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[(*Interlock logic for Coil PS based on reading from Flow meter*)
-fbCoilFlowMeter();
-fCoilCoolantFlowMeterRBV := LREAL_TO_REAL(fbCoilFlowMeter.fReal);
+//fbCoilFlowMeter();
+//fCoilCoolantFlowMeterRBV := LREAL_TO_REAL(fbCoilFlowMeter.fReal);
 //evaluate flow meter readback to Interlock interlock Coil PS
-bCoilPS_ILK := fCoilCoolantFlowMeterRBV > 3; //If flow meter reading is above XX is ok to turn ON output of the Coil PS. Units are lpm]]></ST>
+//bCoilPS_ILK := fCoilCoolantFlowMeterRBV > 3; //If flow meter reading is above XX is ok to turn ON output of the Coil PS. Units are lpm
+//bCoilPS_ILK := fbCoilFlowMeter.fbFlowMeter.fReal > 3; //If flow meter reading is above XX is ok to turn ON output of the Coil PS. Units are lpm
+fbDreamCoilFlowMeter();
+bCoilPS_ILK := fbDreamCoilFlowMeter.fbFlowMeter.fReal > 3; //If flow meter reading is above XX is ok to turn ON output of the Coil PS. Units are lpm]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

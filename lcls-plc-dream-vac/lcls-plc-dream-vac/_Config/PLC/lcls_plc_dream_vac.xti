@@ -51,27 +51,9 @@
 				<BitOffs>16</BitOffs>
 			</SubItem>
 		</DataType>
-		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-000000000041}" TcBaseType="true" HideSubItems="true" CName="AmsNetId">AMSNETID</Name>
-			<BitSize>48</BitSize>
-			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
-			<ArrayInfo>
-				<LBound>0</LBound>
-				<Elements>6</Elements>
-			</ArrayInfo>
-			<Format>
-				<Printf>%d.%d.%d.%d.%d.%d</Printf>
-				<Parameter>[0]</Parameter>
-				<Parameter>[1]</Parameter>
-				<Parameter>[2]</Parameter>
-				<Parameter>[3]</Parameter>
-				<Parameter>[4]</Parameter>
-				<Parameter>[5]</Parameter>
-			</Format>
-		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{9FB18925-0F63-3627-531C-EB5F1EF60F48}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{1A00940F-AB5B-DFA7-868D-1817F724C89C}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -172,19 +154,25 @@
 			<Vars VarGrpType="1" ContextId="1" AreaNo="16">
 				<Name>PlcTask Inputs</Name>
 				<Var>
-					<Name>LCLS_General.DefaultGlobals.stSys.I_EcatMaster1</Name>
-					<Comment><![CDATA[ AMS Net ID used for FB_EcatDiag, among others ]]></Comment>
-					<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
+					<Name>GVL_PLC_Interface.bEcatBridge_TxPDO_state</Name>
+					<Comment><![CDATA[ETHERCAT BRRIDGE COM STATUS
+0: Other side is in OP state, >0: Error]]></Comment>
+					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>LCLS_Vacuum.Global_Variables.g_stSystem.I_EcatMaster1</Name>
-					<Comment><![CDATA[ AMS Net ID used for FB_EcatDiag, among others ]]></Comment>
-					<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
+					<Name>GVL_PLC_Interface.bEcatBridge_External_device_not_connected</Name>
+					<Comment><![CDATA[0: External device connectd, 1: External device not connected]]></Comment>
+					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_FWM.fbCoilFlowMeter.iRaw</Name>
-					<Comment><![CDATA[ Connect this input to the terminal]]></Comment>
-					<Type>INT</Type>
+					<Name>GVL_PLC_Interface.bEcatBridge_WcState</Name>
+					<Comment><![CDATA[0 = Data valid, 1 = Data invalid]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.sHUTCH_PLC_NAME</Name>
+					<Comment><![CDATA[Inputs from TMO Beamline]]></Comment>
+					<Type>STRING(8)</Type>
 				</Var>
 				<Var>
 					<Name>GVL_VAC_GAUGES.DREAM_NC_GPI_01.i_iPRESS_R</Name>
@@ -310,81 +298,6 @@
 					<Name>GVL_VAC_GAUGES.DREAM_ROUGH2_GPI_03.i_iPRESS_R</Name>
 					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.bEcatBridge_TxPDO_state</Name>
-					<Comment><![CDATA[ETHERCAT BRRIDGE COM STATUS
-0: Other side is in OP state, >0: Error]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.bEcatBridge_External_device_not_connected</Name>
-					<Comment><![CDATA[0: External device connectd, 1: External device not connected]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.bEcatBridge_WcState</Name>
-					<Comment><![CDATA[0 = Data valid, 1 = Data invalid]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.sHUTCH_PLC_NAME</Name>
-					<Comment><![CDATA[Inputs from TMO Beamline]]></Comment>
-					<Type>STRING(8)</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xClsLS</Name>
-					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_VAC_PUMPS.DREAM_NC_PTM_01.i_xAtSpd</Name>
@@ -528,11 +441,110 @@
 					<Comment><![CDATA[ Error Active when no Error is present]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_FWM.fbDreamCoilFlowMeter.iRaw</Name>
+					<Comment><![CDATA[ Connect this input to the terminal]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_FWM.fbDreamCoilFlowMeter.fbFlowMeter.iRaw</Name>
+					<Comment><![CDATA[ Connect this input to the terminal]]></Comment>
+					<Type>INT</Type>
+				</Var>
 			</Vars>
 			<Vars VarGrpType="2" ContextId="1" AreaNo="17">
 				<Name>PlcTask Outputs</Name>
 				<Var>
 					<Name>PRG_VALVES.dummy_FFFO.q_xFastFaultOut</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.sENDSTATION_PLC_NAME</Name>
+					<Comment><![CDATA[Outputs to TMO Beamline PLC]]></Comment>
+					<Type>STRING(8)</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bDREAM_TURBOS_ALL_AtSpd</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bDREAM_MAIN_xAT_VAC</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.fDREAM_MAIN_rPRESS</Name>
+					<Type>REAL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bDREAM_HV_SAFETY_ENABLE</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bHighVoltageSafteyLoopEnable</Name>
+					<Comment><![CDATA[When Enables the High voltage Saftey loop is closed and HV can start.]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bCoilPS_ILK</Name>
+					<Comment><![CDATA[Interlock output to control COIL PS]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -574,90 +586,6 @@
 					<Name>GVL_VAC_GAUGES.DREAM_CAT2_GHC_01.q_xHV_DIS</Name>
 					<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EP2624) ^Output]]></Comment>
 					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.sENDSTATION_PLC_NAME</Name>
-					<Comment><![CDATA[Outputs to TMO Beamline PLC]]></Comment>
-					<Type>STRING(8)</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.bDREAM_TURBOS_ALL_AtSpd</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.bDREAM_MAIN_xAT_VAC</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.fDREAM_MAIN_rPRESS</Name>
-					<Type>REAL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.bDREAM_HV_SAFETY_ENABLE</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.bHighVoltageSafteyLoopEnable</Name>
-					<Comment><![CDATA[When Enables the High voltage Saftey loop is closed and HV can start.]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.bCoilPS_ILK</Name>
-					<Comment><![CDATA[Interlock output to control COIL PS]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.q_xOPN_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.q_xCLS_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.q_xOPN_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.q_xOPN_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.q_xOPN_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.q_xOPN_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VFV_01.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VFV_02.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_01.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_02.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_03.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_VAC_PUMPS.DREAM_NC_PTM_01.q_RunDO</Name>
@@ -765,6 +693,55 @@
 					<Name>GVL_VAC_PUMPS.DREAM_CAT2_PTM_01.q_RunDO</Name>
 					<Comment><![CDATA[ Start/Stop]]></Comment>
 					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.q_xCLS_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VFV_01.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VFV_02.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_01.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_02.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_03.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
 				</Var>
 			</Vars>
 			<Vars VarGrpType="8" ContextId="1" AreaNo="20">
@@ -1161,6 +1138,9 @@
 				<Link VarA="PlcTask Outputs^GVL_VAC_PUMPS.DREAM_DP1_PTM_01.q_RunDO" VarB="Channel 1^Output" AutoLink="true" Size="1"/>
 				<Link VarA="PlcTask Outputs^GVL_VAC_PUMPS.DREAM_DP1_PTM_01.q_xRemote" VarB="Channel 2^Output" AutoLink="true" Size="1"/>
 			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_03_EK0_EK1100^K4S8_DRL_03_E21_EL3052">
+				<Link VarA="PlcTask Inputs^GVL_FWM.fbDreamCoilFlowMeter.iRaw" VarB="AI Standard Channel 1^Value" AutoLink="true"/>
+			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_03_EK0_EK1100^K4S8_DRL_03_E4_EL1084">
 				<Link VarA="PlcTask Inputs^GVL_VAC_GAUGES.DREAM_DP1_GHC_01.i_xHV_ON" VarB="Channel 4^Input" AutoLink="true" Size="1"/>
 				<Link VarA="PlcTask Inputs^GVL_VAC_GAUGES.DREAM_DP2_GHC_01.i_xHV_ON" VarB="Channel 1^Input" AutoLink="true" Size="1"/>
@@ -1254,9 +1234,6 @@
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_04_EK0_EK1100^K4S8_DRL_04_E18_EL2794">
 				<Link VarA="PlcTask Outputs^GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.q_RunDO" VarB="Channel 1^Output" AutoLink="true" Size="1"/>
 				<Link VarA="PlcTask Outputs^GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.q_xReset" VarB="Channel 2^Output" AutoLink="true" Size="1"/>
-			</OwnerB>
-			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_04_EK0_EK1100^K4S8_DRL_04_E19_EL3052">
-				<Link VarA="PlcTask Inputs^GVL_FWM.fbCoilFlowMeter.iRaw" VarB="AI Standard Channel 1^Value" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_04_EK0_EK1100^K4S8_DRL_04_E1_EL1004">
 				<Link VarA="PlcTask Inputs^GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xClsLS" VarB="Channel 2^Input" AutoLink="true" Size="1"/>
