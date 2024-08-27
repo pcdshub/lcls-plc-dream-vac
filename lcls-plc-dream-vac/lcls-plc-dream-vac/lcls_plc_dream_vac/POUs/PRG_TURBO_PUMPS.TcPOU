@@ -3,9 +3,9 @@
   <POU Name="PRG_TURBO_PUMPS" Id="{fe28b3e0-a4e5-4589-97c5-cdcab876d63e}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_TURBO_PUMPS
 VAR
-    NC_PTM_ILK : BOOL;
-    DP_MC_PTM_ILK: BOOL;
-    CAT_PTM_ILK: BOOL;
+    bNC_PTM_ILK : BOOL;
+    bDP_MC_PTM_ILK: BOOL;
+    bCAT_PTM_ILK: BOOL;
 
     bTurboPumpRunning : BOOL;
     tTurboPumpDelayTime : TIME := T#30s;
@@ -14,35 +14,36 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//PTM Interlock evaluation
-NC_PTM_ILK := DREAM_ROUGH1_GPI_02.PG.rPRESS < fPTMBackingPressureILK AND DREAM_ROUGH1_GPI_02.PG.xPRESS_OK AND
-              DREAM_ROUGH1_VRC_01.M_IsOpen();
+// Add limit for fPTMBackingPressureILK, some checks if value is valid
+bNC_PTM_ILK := DREAM_ROUGH1_GPI_02.PG.rPRESS < fPTMBackingPressureILK AND DREAM_ROUGH1_GPI_02.PG.xPRESS_OK AND
+               DREAM_ROUGH1_VRC_01.M_IsOpen();
 
-DP_MC_PTM_ILK := DREAM_ROUGH2_GPI_02.PG.rPRESS < fPTMBackingPressureILK AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK AND
-                 DREAM_ROUGH2_VRC_01.M_IsOpen();
+bDP_MC_PTM_ILK := DREAM_ROUGH2_GPI_02.PG.rPRESS < fPTMBackingPressureILK AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK AND
+                  DREAM_ROUGH2_VRC_01.M_IsOpen();
 
-CAT_PTM_ILK := DREAM_ROUGH2_GPI_03.PG.rPRESS < fPTMBackingPressureILK AND DREAM_ROUGH2_GPI_03.PG.xPRESS_OK AND
-               DREAM_ROUGH2_VRC_02.M_IsOpen();
+bCAT_PTM_ILK := DREAM_ROUGH2_GPI_03.PG.rPRESS < fPTMBackingPressureILK AND DREAM_ROUGH2_GPI_03.PG.xPRESS_OK AND
+                DREAM_ROUGH2_VRC_02.M_IsOpen();
 
 (**Gas Injection Turbo pumps**)
-DREAM_NC_PTM_01(i_xExtIlkOK:= NC_PTM_ILK);
-DREAM_NC_PTM_02(i_xExtIlkOK:= NC_PTM_ILK);
+DREAM_NC_PTM_01(i_xExtIlkOK:= bNC_PTM_ILK);
+DREAM_NC_PTM_02(i_xExtIlkOK:= bNC_PTM_ILK);
 
 (**Differential pumping stations Turbo pumps**)
-DREAM_DP1_PTM_01(i_xExtIlkOK:= DP_MC_PTM_ILK);
-DREAM_DP2_PTM_01(i_xExtIlkOK:= DP_MC_PTM_ILK);
-DREAM_DP3_PTM_01(i_xExtIlkOK:= DP_MC_PTM_ILK);
+DREAM_DP1_PTM_01(i_xExtIlkOK:= bDP_MC_PTM_ILK);
+DREAM_DP2_PTM_01(i_xExtIlkOK:= bDP_MC_PTM_ILK);
+DREAM_DP3_PTM_01(i_xExtIlkOK:= bDP_MC_PTM_ILK);
 
 (**Main Chamber Turbo pumps**)
-DREAM_MC_PTM_01(i_xExtIlkOK:= DP_MC_PTM_ILK);
-DREAM_MC_PTM_02(i_xExtIlkOK:= DP_MC_PTM_ILK);
+DREAM_MC_PTM_01(i_xExtIlkOK:= bDP_MC_PTM_ILK);
+DREAM_MC_PTM_02(i_xExtIlkOK:= bDP_MC_PTM_ILK);
 
 (**Catcher Turbo pumps**)
-DREAM_CAT1_PTM_01(i_xExtIlkOK:= CAT_PTM_ILK);
-DREAM_CAT2_PTM_01(i_xExtIlkOK:= CAT_PTM_ILK);
+DREAM_CAT1_PTM_01(i_xExtIlkOK:= bCAT_PTM_ILK);
+DREAM_CAT2_PTM_01(i_xExtIlkOK:= bCAT_PTM_ILK);
 
 (**ROUGHING SECTION TURBO BOOSTER PUMPS**)
-DREAM_ROUGH2_PTM_01(i_xExtIlkOK:= DP_MC_PTM_ILK);
-DREAM_ROUGH2_PTM_02(i_xExtIlkOK:= DP_MC_PTM_ILK);
+DREAM_ROUGH2_PTM_01(i_xExtIlkOK:= bDP_MC_PTM_ILK);
+DREAM_ROUGH2_PTM_02(i_xExtIlkOK:= bDP_MC_PTM_ILK);
 
 (*
 bAllTurbosOn := (NOT (DREAM_NC_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_NC_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND

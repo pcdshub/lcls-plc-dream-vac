@@ -4,12 +4,13 @@
     <Declaration><![CDATA[PROGRAM PRG_VALVES
 VAR
     //Rough lines VRC external interlocks
-    ROUGH1_VRC_01_ILK : BOOL;
-    ROUGH2_VRC_01_ILK : BOOL;
-    ROUGH2_VRC_02_ILK : BOOL;
-    CAT1_VRC_01_ILK : BOOL;
-    DP1_VRC_01_ILK : BOOL;
-    DP1_VRC_02_ILK : BOOL;
+    bROUGH1_VRC_01_ILK : BOOL;
+    bROUGH2_VRC_01_ILK : BOOL;
+    bROUGH2_VRC_02_ILK : BOOL;
+    bCAT1_VRC_01_ILK : BOOL;
+    bDP1_VRC_01_ILK : BOOL;
+    bDP1_VRC_02_ILK : BOOL;
+    bCAT1_VRC_DP_OK : BOOL;
     dummy_FFFO : FB_HardwareFFOutput;
     dummy_fbArbiter1 : FB_Arbiter(1);
 END_VAR
@@ -17,36 +18,54 @@ END_VAR
     <Implementation>
       <ST><![CDATA[(**Gas Injection Valves**)
 //Interlock evaluation
-DP1_VRC_01_ILK := DREAM_NC_GCC_01.IG.rPRESS < 3E-5 AND DREAM_NC_GCC_01.IG.xPRESS_OK AND
-                  DREAM_DP1_GHC_01.IG.rPRESS < 3E-5 AND DREAM_DP1_GHC_01.IG.xPRESS_OK;
+bDP1_VRC_01_ILK := DREAM_NC_GCC_01.IG.rPRESS < 3E-5 AND DREAM_NC_GCC_01.IG.xPRESS_OK AND
+                   DREAM_DP1_GHC_01.IG.rPRESS < 3E-5 AND DREAM_DP1_GHC_01.IG.xPRESS_OK;
 
-DP1_VRC_02_ILK := NOT(DREAM_DP1_VRC_01.M_IsClosed() OR DREAM_CAT1_VRC_01.M_IsClosed());
+bDP1_VRC_02_ILK := NOT(DREAM_DP1_VRC_01.M_IsClosed() OR DREAM_CAT1_VRC_01.M_IsClosed());
 
-DREAM_DP1_VRC_01(i_xExtILK_OK := DP1_VRC_01_ILK, i_xOverrideMode := bSystemOverrideMode);
-DREAM_DP1_VRC_02(i_xExtILK_OK := DP1_VRC_02_ILK, i_xOverrideMode := bSystemOverrideMode); //Normally open valve
+DREAM_DP1_VRC_01(i_xExtILK_OK := bDP1_VRC_01_ILK, i_xOverrideMode := bSystemOverrideMode);
+DREAM_DP1_VRC_02(i_xExtILK_OK := bDP1_VRC_02_ILK, i_xOverrideMode := bSystemOverrideMode); //Normally open valve
 
 (**Catcher valve**)
 //Interlock evaluation
-CAT1_VRC_01_ILK := DREAM_MC_GHC.IG_CH1.rPRESS < 1E-5 AND DREAM_MC_GHC.IG_CH1.xPRESS_OK AND
-                   DREAM_CAT1_PTM_01.iq_stPtm.eState = E_PumpState.pumpRUNNING AND
-                   DREAM_CAT2_PTM_01.iq_stPtm.eState = E_PumpState.pumpRUNNING;
+IF DREAM_MC_GHC.M_IsCh1Selected() THEN
+    IF DREAM_CAT1_GHC_01.IG.rPRESS = 0 AND DREAM_MC_GHC.IG_CH1.rPRESS = 0 THEN
+        bCAT1_VRC_01_ILK := FALSE;
+    ELSE
+        bCAT1_VRC_DP_OK := DREAM_CAT1_GHC_01.IG.xPRESS_OK AND DREAM_MC_GHC.IG_CH1.xPRESS_OK AND
+                           ABS(DREAM_CAT1_GHC_01.IG.rPRESS - DREAM_MC_GHC.IG_CH1.rPRESS)/(DREAM_CAT1_GHC_01.IG.rPRESS + DREAM_MC_GHC.IG_CH1.rPRESS) < 0.01;
+    END_IF
+ELSIF DREAM_MC_GHC.M_IsCh2Selected() THEN
+    IF DREAM_CAT1_GHC_01.IG.rPRESS = 0 AND DREAM_MC_GHC.IG_CH2.rPRESS = 0 THEN
+        bCAT1_VRC_01_ILK := FALSE;
+    ELSE
+        bCAT1_VRC_DP_OK := DREAM_CAT1_GHC_01.IG.xPRESS_OK AND DREAM_MC_GHC.IG_CH2.xPRESS_OK AND
+                           ABS(DREAM_CAT1_GHC_01.IG.rPRESS - DREAM_MC_GHC.IG_CH2.rPRESS)/(DREAM_CAT1_GHC_01.IG.rPRESS + DREAM_MC_GHC.IG_CH2.rPRESS) < 0.01;
+    END_IF
+ELSE
+    bCAT1_VRC_01_ILK := FALSE;
+END_IF
 
-DREAM_CAT1_VRC_01(i_xExtILK_OK := CAT1_VRC_01_ILK, i_xOverrideMode := bSystemOverrideMode);
+bCAT1_VRC_01_ILK := bCAT1_VRC_DP_OK AND
+                    DREAM_CAT1_PTM_01.iq_stPtm.eState = E_PumpState.pumpRUNNING AND
+                    DREAM_CAT2_PTM_01.iq_stPtm.eState = E_PumpState.pumpRUNNING;
+
+DREAM_CAT1_VRC_01(i_xExtILK_OK := bCAT1_VRC_01_ILK, i_xOverrideMode := bSystemOverrideMode);
 
 (**Roughing Valves**)
 //VRC valves
 //Interlock evaluation
-ROUGH1_VRC_01_ILK := DREAM_ROUGH1_GPI_01.PG.rPRESS < 5E-3 AND DREAM_ROUGH1_GPI_01.PG.xPRESS_OK AND
-                     DREAM_ROUGH1_VFV_01.iq_stVFN.rReqPosition = 0.0 AND
-                     DREAM_ROUGH1_VFV_02.iq_stVFN.rReqPosition = 0.0;
+bROUGH1_VRC_01_ILK := DREAM_ROUGH1_GPI_01.PG.rPRESS < 5E-3 AND DREAM_ROUGH1_GPI_01.PG.xPRESS_OK AND
+                      DREAM_ROUGH1_VFV_01.iq_stVFN.rReqPosition = 0.0 AND
+                      DREAM_ROUGH1_VFV_02.iq_stVFN.rReqPosition = 0.0;
 
-ROUGH2_VRC_01_ILK := DREAM_ROUGH2_GPI_01.PG.rPRESS < 5E-3 AND DREAM_ROUGH2_GPI_01.PG.xPRESS_OK AND
-                     DREAM_ROUGH2_VFV_01.iq_stVFN.rReqPosition = 0.0 AND
-                     DREAM_ROUGH2_VFV_02.iq_stVFN.rReqPosition = 0.0;
+bROUGH2_VRC_01_ILK := DREAM_ROUGH2_GPI_01.PG.rPRESS < 5E-3 AND DREAM_ROUGH2_GPI_01.PG.xPRESS_OK AND
+                      DREAM_ROUGH2_VFV_01.iq_stVFN.rReqPosition = 0.0 AND
+                      DREAM_ROUGH2_VFV_02.iq_stVFN.rReqPosition = 0.0;
 
-ROUGH2_VRC_02_ILK := DREAM_ROUGH2_GPI_01.PG.rPRESS < 5E-3 AND DREAM_ROUGH2_GPI_01.PG.xPRESS_OK AND
-                     DREAM_ROUGH2_VFV_01.iq_stVFN.rReqPosition = 0.0 AND
-                     DREAM_ROUGH2_VFV_03.iq_stVFN.rReqPosition = 0.0;
+bROUGH2_VRC_02_ILK := DREAM_ROUGH2_GPI_01.PG.rPRESS < 5E-3 AND DREAM_ROUGH2_GPI_01.PG.xPRESS_OK AND
+                      DREAM_ROUGH2_VFV_01.iq_stVFN.rReqPosition = 0.0 AND
+                      DREAM_ROUGH2_VFV_03.iq_stVFN.rReqPosition = 0.0;
 
 DREAM_ROUGH1_VRC_01(i_stUSG := DREAM_ROUGH1_GPI_01.PG,
                     i_stDSG := DREAM_ROUGH1_GPI_02.PG,
@@ -54,7 +73,7 @@ DREAM_ROUGH1_VRC_01(i_stUSG := DREAM_ROUGH1_GPI_01.PG,
                     i_xEPS_OK := TRUE,
                     i_xPMPS_OK := TRUE,
                     i_xReset := FALSE,
-                    i_xExt_OK := ROUGH1_VRC_01_ILK,
+                    i_xExt_OK := bROUGH1_VRC_01_ILK,
                     i_xOverrideMode := bSystemOverrideMode,
                     io_fbFFHWO := dummy_FFFO,
                     fbArbiter := dummy_fbArbiter1,
@@ -66,7 +85,7 @@ DREAM_ROUGH2_VRC_01(i_stUSG := DREAM_ROUGH2_GPI_01.PG,
                     i_xEPS_OK := TRUE,
                     i_xPMPS_OK := TRUE,
                     i_xReset := FALSE,
-                    i_xExt_OK := ROUGH2_VRC_01_ILK,
+                    i_xExt_OK := bROUGH2_VRC_01_ILK,
                     i_xOverrideMode := bSystemOverrideMode,
                     io_fbFFHWO := dummy_FFFO,
                     fbArbiter := dummy_fbArbiter1,
@@ -78,7 +97,7 @@ DREAM_ROUGH2_VRC_02(i_stUSG := DREAM_ROUGH2_GPI_01.PG,
                     i_xEPS_OK := TRUE,
                     i_xPMPS_OK := TRUE,
                     i_xReset := FALSE,
-                    i_xExt_OK := ROUGH2_VRC_02_ILK,
+                    i_xExt_OK := bROUGH2_VRC_02_ILK,
                     i_xOverrideMode := bSystemOverrideMode,
                     io_fbFFHWO := dummy_FFFO,
                     fbArbiter := dummy_fbArbiter1,

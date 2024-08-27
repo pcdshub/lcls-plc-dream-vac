@@ -53,7 +53,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{1A00940F-AB5B-DFA7-868D-1817F724C89C}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{805777AD-1408-277A-5D3E-317240207227}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -460,15 +460,6 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
 					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.i_xOpnLS</Name>
 					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
@@ -484,6 +475,15 @@
 				</Var>
 				<Var>
 					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xClsLS</Name>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -530,10 +530,6 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_PLC_Interface.fDREAM_MAIN_rPRESS</Name>
-					<Type>REAL</Type>
-				</Var>
-				<Var>
 					<Name>GVL_PLC_Interface.bDREAM_HV_SAFETY_ENABLE</Name>
 					<Type>BOOL</Type>
 				</Var>
@@ -546,6 +542,10 @@
 					<Name>GVL_PLC_Interface.bCoilPS_ILK</Name>
 					<Comment><![CDATA[Interlock output to control COIL PS]]></Comment>
 					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.fDREAM_MAIN_rPRESS</Name>
+					<Type>REAL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_VAC_GAUGES.DREAM_NC_GCC_01.q_xHV_DIS</Name>
@@ -699,15 +699,15 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.q_xCLS_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
 					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.q_xOPN_DO</Name>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.q_xCLS_DO</Name>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>

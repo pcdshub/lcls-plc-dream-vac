@@ -8,11 +8,11 @@ END_VAR
     <Implementation>
       <ST><![CDATA[(*High Voltage Saftey Loop*)
 IF DREAM_MC_GHC.M_IsCh1Selected() THEN
-    bHighVoltageSafteyLoopEnable := (DREAM_MC_GHC.IG_CH1.rPRESS <= fHighVoltageMinPressure) AND (DREAM_MC_GHC.IG_CH1.xPRESS_OK = TRUE);
-END_IF
-
-IF DREAM_MC_GHC.M_IsCh2Selected() THEN
-    bHighVoltageSafteyLoopEnable := (DREAM_MC_GHC.IG_CH2.rPRESS <= fHighVoltageMinPressure) AND (DREAM_MC_GHC.IG_CH2.xPRESS_OK = TRUE);
+    bHighVoltageSafteyLoopEnable := (DREAM_MC_GHC.IG_CH1.rPRESS <= fHighVoltageMinPressure) AND DREAM_MC_GHC.IG_CH1.xPRESS_OK;
+ELSIF DREAM_MC_GHC.M_IsCh2Selected() THEN
+    bHighVoltageSafteyLoopEnable := (DREAM_MC_GHC.IG_CH2.rPRESS <= fHighVoltageMinPressure) AND DREAM_MC_GHC.IG_CH2.xPRESS_OK;
+ELSE
+    bHighVoltageSafteyLoopEnable := FALSE;
 END_IF]]></ST>
     </Implementation>
   </POU>
