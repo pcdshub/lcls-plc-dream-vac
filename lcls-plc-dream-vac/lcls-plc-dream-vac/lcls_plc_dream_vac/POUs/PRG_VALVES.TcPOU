@@ -18,10 +18,14 @@ END_VAR
     <Implementation>
       <ST><![CDATA[(**Gas Injection Valves**)
 //Interlock evaluation
-bDP1_VRC_01_ILK := DREAM_NC_GCC_01.IG.rPRESS < 3E-5 AND DREAM_NC_GCC_01.IG.xPRESS_OK AND
-                   DREAM_DP1_GHC_01.IG.rPRESS < 3E-5 AND DREAM_DP1_GHC_01.IG.xPRESS_OK;
+IF DREAM_NC_GCC_01.IG.rPRESS = 0 AND DREAM_DP1_GHC_01.IG.rPRESS = 0 THEN
+    bDP1_VRC_01_ILK := FALSE;
+ELSE
+    bDP1_VRC_01_ILK := DREAM_NC_GCC_01.IG.xPRESS_OK AND DREAM_DP1_GHC_01.IG.xPRESS_OK AND
+                       ABS(DREAM_NC_GCC_01.IG.rPRESS - DREAM_DP1_GHC_01.IG.rPRESS)/(DREAM_NC_GCC_01.IG.rPRESS + DREAM_DP1_GHC_01.IG.rPRESS) < 0.01;
+END_IF
 
-bDP1_VRC_02_ILK := NOT(DREAM_DP1_VRC_01.M_IsClosed() OR DREAM_CAT1_VRC_01.M_IsClosed());
+bDP1_VRC_02_ILK := NOT DREAM_DP1_VRC_01.M_IsClosed();
 
 DREAM_DP1_VRC_01(i_xExtILK_OK := bDP1_VRC_01_ILK, i_xOverrideMode := bSystemOverrideMode);
 DREAM_DP1_VRC_02(i_xExtILK_OK := bDP1_VRC_02_ILK, i_xOverrideMode := bSystemOverrideMode); //Normally open valve

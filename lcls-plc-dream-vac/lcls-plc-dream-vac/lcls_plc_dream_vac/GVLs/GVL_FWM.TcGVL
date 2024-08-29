@@ -3,22 +3,22 @@
   <GVL Name="GVL_FWM" Id="{f779eb75-52be-49f4-8215-82075f255b6e}">
     <Declaration><![CDATA[//{attribute 'qualified_only'}
 VAR_GLOBAL
-
+    (*
     {attribute 'pytmc' := 'pv: DREAM:COIL'}
     {attribute 'TcLinkTo' := '.iRaw := TIIB[K4S8_DRL_03_E21_EL3052]^AI Standard Channel 1^Value'}
     fbDreamCoilFlowMeter : FB_FDQ_FlowMeter;
+    *)
 
-    (*
     {attribute 'TcLinkTo' := '.iRaw	:=	TIIB[K4S8_DRL_03_E21_EL3052]^AI Standard Channel 1^Value'}
     fbCoilFlowMeter : FB_AnalogInput := (iTermBits:=15, fTermMax:=60, fTermMin:=0);
 
     {attribute 'pytmc' := '
-        pv: DREAM:COIL:FWM
+        pv: DREAM:COIL:FWM:VAL
         io: i
         field: EGU "lpm"
     '}
-    fCoilCoolantFlowMeterRBV : REAL;
-    *)
+    fCoilCoolantFlowMeterRBV : LREAL;
+
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
