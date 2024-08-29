@@ -4,8 +4,8 @@
 #         Project: lcls-plc-dream-vac.tsproj
 #        PLC name: lcls_plc_dream_vac (lcls_plc_dream_vac Instance)
 # Generated using: pytmc 2.16.0
-# Project version: 9490f81
-#    Project hash: 9490f81141303e967900de7666e22b69546557b3
+# Project version: 9966e3d
+#    Project hash: 9966e3da4c027990ae8ae52e2ca7a116827b6fc6
 #     PLC IP/host: 172.21.132.159
 #      PLC Net ID: 172.21.132.159.1.1
 #  ** Production mode IOC **
@@ -15,7 +15,6 @@
 #
 #   LCLS General: * -> 2.11.0 (SLAC)
 #   LCLS Vacuum: * -> 2.3.4 (SLAC - LCLS)
-#   lcls-twincat-common-components: * -> 3.7.0 (SLAC)
 #   LCLSVacuumSerialDriverLib: * -> 1.3.2 (SLAC - LCLS)
 #   PMPS: * -> 3.3.0 (SLAC - LCLS)
 #   Tc2_SerialCom: * -> 3.3.10.0 (Beckhoff Automation GmbH)
@@ -44,7 +43,7 @@ epicsEnvSet("ASYN_PORT",        "ASYN_PLC")
 epicsEnvSet("IPADDR",           "172.21.132.159")
 epicsEnvSet("AMSID",            "172.21.132.159.1.1")
 epicsEnvSet("AMS_PORT",         "851")
-epicsEnvSet("ADS_MAX_PARAMS",   "2061")
+epicsEnvSet("ADS_MAX_PARAMS",   "2052")
 epicsEnvSet("ADS_SAMPLE_MS",    "50")
 epicsEnvSet("ADS_MAX_DELAY_MS", "100")
 epicsEnvSet("ADS_TIMEOUT_MS",   "1000")
@@ -90,14 +89,12 @@ dbLoadRecords("TwinCAT_TaskInfo.db", "PORT=$(ASYN_PORT),PREFIX=PLC:lcls_plc_drea
 dbLoadRecords("TwinCAT_TaskInfo.db", "PORT=$(ASYN_PORT),PREFIX=PLC:lcls_plc_dream_vac,IDX=2,TASK_PORT=350")
 dbLoadRecords("TwinCAT_AppInfo.db", "PORT=$(ASYN_PORT), PREFIX=PLC:lcls_plc_dream_vac")
 
-dbLoadRecords("TwinCAT_Project.db", "PREFIX=PLC:lcls_plc_dream_vac,PROJECT=lcls-plc-dream-vac.tsproj,HASH=9490f81,VERSION=9490f81,PYTMC=2.16.0,PLC_HOST=172.21.132.159")
+dbLoadRecords("TwinCAT_Project.db", "PREFIX=PLC:lcls_plc_dream_vac,PROJECT=lcls-plc-dream-vac.tsproj,HASH=9966e3d,VERSION=9966e3d,PYTMC=2.16.0,PLC_HOST=172.21.132.159")
 
 #   LCLS General: * -> 2.11.0 (SLAC)
 dbLoadRecords("TwinCAT_Dependency.db", "PREFIX=PLC:lcls_plc_dream_vac,DEPENDENCY=LCLS_General,VERSION=2.11.0,VENDOR=SLAC")
 #   LCLS Vacuum: * -> 2.3.4 (SLAC - LCLS)
 dbLoadRecords("TwinCAT_Dependency.db", "PREFIX=PLC:lcls_plc_dream_vac,DEPENDENCY=LCLS_Vacuum,VERSION=2.3.4,VENDOR=SLAC - LCLS")
-#   lcls-twincat-common-components: * -> 3.7.0 (SLAC)
-dbLoadRecords("TwinCAT_Dependency.db", "PREFIX=PLC:lcls_plc_dream_vac,DEPENDENCY=lcls-twincat-common-components,VERSION=3.7.0,VENDOR=SLAC")
 #   LCLSVacuumSerialDriverLib: * -> 1.3.2 (SLAC - LCLS)
 dbLoadRecords("TwinCAT_Dependency.db", "PREFIX=PLC:lcls_plc_dream_vac,DEPENDENCY=LCLSVacuumSerialDriverLib,VERSION=1.3.2,VENDOR=SLAC - LCLS")
 #   PMPS: * -> 3.3.0 (SLAC - LCLS)
@@ -116,8 +113,8 @@ cd "$(IOC_TOP)"
 ## PLC Project Database files ##
 dbLoadRecords("lcls_plc_dream_vac.db", "PORT=$(ASYN_PORT),PREFIX=PLC:lcls_plc_dream_vac:,IOCNAME=$(IOC),IOC=$(IOC)")
 
-# Total records: 1061
-callbackSetQueueSize(4122)
+# Total records: 1052
+callbackSetQueueSize(4104)
 
 # Autosave and archive settings:
 save_restoreSet_status_prefix("PLC:lcls_plc_dream_vac:")

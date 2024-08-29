@@ -1,66 +1,13 @@
-record(ai, "DREAM:COIL:FWM:OFF_RBV") {
-  # GVL_FWM.fbDreamCoilFlowMeter.fbFlowMeter.fOffset
-  field(DESC, "GVL_FWM.fbDreamCoilF...FlowMeter.fOffset")
-  field(SCAN, "I/O Intr")
-  field(PINI, "1")
-  field(TSE, "-2")
-  field(DTYP, "asynFloat64")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_FWM.fbDreamCoilFlowMeter.fbFlowMeter.fOffset?")
-  field(PREC, "3")
-  field(EGU, "lpm")
-  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS")
-  info(archive, "VAL")
-}
-
-record(ao, "DREAM:COIL:FWM:OFF") {
-  # GVL_FWM.fbDreamCoilFlowMeter.fbFlowMeter.fOffset
-  field(DESC, "GVL_FWM.fbDreamCoilF...FlowMeter.fOffset")
-  field(DTYP, "asynFloat64")
-  field(UDFS, "0")
-  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_FWM.fbDreamCoilFlowMeter.fbFlowMeter.fOffset=")
-  field(PREC, "3")
-  field(EGU, "lpm")
-  info(autosaveFields_pass0, "DESC DISS DRVH DRVL HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS VAL")
-  info(archive, "VAL")
-}
-
 record(ai, "DREAM:COIL:FWM:VAL_RBV") {
-  # GVL_FWM.fbDreamCoilFlowMeter.fbFlowMeter.fReal
-  field(DESC, "GVL_FWM.fbDreamCoilF...fbFlowMeter.fReal")
+  field(DESC, "GVL_FWM.fCoilCoolantFlowMeterRBV")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynFloat64")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_FWM.fbDreamCoilFlowMeter.fbFlowMeter.fReal?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_FWM.fCoilCoolantFlowMeterRBV?")
   field(PREC, "3")
   field(EGU, "lpm")
   info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS")
-  info(archive, "VAL")
-}
-
-record(ai, "DREAM:COIL:FWM:RES_RBV") {
-  # GVL_FWM.fbDreamCoilFlowMeter.fbFlowMeter.fResolution
-  field(DESC, "GVL_FWM.fbDreamCoilF...Meter.fResolution")
-  field(SCAN, "I/O Intr")
-  field(PINI, "1")
-  field(TSE, "-2")
-  field(DTYP, "asynFloat64")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_FWM.fbDreamCoilFlowMeter.fbFlowMeter.fResolution?")
-  field(PREC, "3")
-  field(EGU, "lpm")
-  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS")
-  info(archive, "VAL")
-}
-
-record(ao, "DREAM:COIL:FWM:RES") {
-  # GVL_FWM.fbDreamCoilFlowMeter.fbFlowMeter.fResolution
-  field(DESC, "GVL_FWM.fbDreamCoilF...Meter.fResolution")
-  field(DTYP, "asynFloat64")
-  field(UDFS, "0")
-  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_FWM.fbDreamCoilFlowMeter.fbFlowMeter.fResolution=")
-  field(PREC, "3")
-  field(EGU, "lpm")
-  info(autosaveFields_pass0, "DESC DISS DRVH DRVL HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS VAL")
   info(archive, "VAL")
 }
 
@@ -13919,64 +13866,6 @@ record(ai, "PLC:DREAM:HV_MIN_PRESS_RBV") {
   field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_Variables.fHighVoltageMinPressure?")
   field(PREC, "3")
   info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS")
-  info(archive, "VAL")
-}
-
-record(ai, "PLC:DREAM:PTM_BACKING_PRESS_ILK_RBV") {
-  field(DESC, "GVL_Variables.fPTMBackingPressureILK")
-  field(SCAN, "I/O Intr")
-  field(PINI, "1")
-  field(TSE, "-2")
-  field(DTYP, "asynFloat64")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_Variables.fPTMBackingPressureILK?")
-  field(PREC, "3")
-  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS")
-  info(archive, "VAL")
-}
-
-record(ao, "PLC:DREAM:PTM_BACKING_PRESS_ILK") {
-  field(DESC, "GVL_Variables.fPTMBackingPressureILK")
-  field(DTYP, "asynFloat64")
-  field(UDFS, "0")
-  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_Variables.fPTMBackingPressureILK=")
-  field(PREC, "3")
-  info(autosaveFields_pass0, "DESC DISS DRVH DRVL HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS VAL")
-  info(archive, "VAL")
-}
-
-record(bi, "$(PREFIX)DB:REFRESH_RBV") {
-  field(DESC, "MOTION_GVL.fbStandardPMPSDB.bRefresh")
-  field(SCAN, "I/O Intr")
-  field(PINI, "1")
-  field(TSE, "-2")
-  field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/MOTION_GVL.fbStandardPMPSDB.bRefresh?")
-  field(ZNAM, "FALSE")
-  field(ONAM, "TRUE")
-  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
-  info(archive, "VAL")
-}
-
-record(bo, "$(PREFIX)DB:REFRESH") {
-  field(DESC, "MOTION_GVL.fbStandardPMPSDB.bRefresh")
-  field(DTYP, "asynInt32")
-  field(UDFS, "0")
-  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/MOTION_GVL.fbStandardPMPSDB.bRefresh=")
-  field(ZNAM, "FALSE")
-  field(ONAM, "TRUE")
-  info(autosaveFields_pass0, "COSV DESC DISS OSV SIMS UDFS VAL ZSV")
-  info(archive, "VAL")
-}
-
-record(longin, "$(PREFIX)DB:LAST_REFRESH_RBV") {
-  # MOTION_GVL.fbStandardPMPSDB.nLastRefreshTime
-  field(DESC, "MOTION_GVL.fbStandar....nLastRefreshTime")
-  field(SCAN, "I/O Intr")
-  field(PINI, "1")
-  field(TSE, "-2")
-  field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/MOTION_GVL.fbStandardPMPSDB.nLastRefreshTime?")
-  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV SIMS UDFS")
   info(archive, "VAL")
 }
 
