@@ -45,6 +45,9 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Functions\FB_TurboSpeedCheck.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Functions\F_TurboIlkLogic.TcPOU">
       <SubType>Code</SubType>
     </Compile>

@@ -11,8 +11,11 @@ VAR
     bDP1_VRC_01_ILK : BOOL;
     bDP1_VRC_02_ILK : BOOL;
     bCAT1_VRC_DP_OK : BOOL;
+    //dummy FF output to use in VGC_2S function
     dummy_FFFO : FB_HardwareFFOutput;
     dummy_fbArbiter1 : FB_Arbiter(1);
+    //Turbo speed check function
+    fbTurboSpeedCheck : FB_TurboSpeedCheck;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -106,16 +109,30 @@ DREAM_ROUGH2_VRC_02(i_stUSG := DREAM_ROUGH2_GPI_01.PG,
                     io_fbFFHWO := dummy_FFFO,
                     fbArbiter := dummy_fbArbiter1,
                     i_sDevName := 'DREAM-ROUGH2-VRC-02');
+
 //DREAM_ROUGH1_VRC_01(i_xExtILK_OK := ROUGH1_VRC_01_ILK, i_xOverrideMode := bSystemOverrideMode);
 //DREAM_ROUGH2_VRC_01(i_xExtILK_OK := ROUGH2_VRC_01_ILK, i_xOverrideMode := bSystemOverrideMode);
 //DREAM_ROUGH2_VRC_02(i_xExtILK_OK := ROUGH2_VRC_02_ILK, i_xOverrideMode := bSystemOverrideMode);
 
+//Turbo current speed evaluation
+fbTurboSpeedCheck(i_stNCTurbo1 := DREAM_NC_PTM_01.iq_stPTM,
+                  i_stNCTurbo2 := DREAM_NC_PTM_02.iq_stPTM,
+                  i_stDP1Turbo := DREAM_DP1_PTM_01.iq_stPTM,
+                  i_stDP2Turbo := DREAM_DP2_PTM_01.iq_stPtm,
+                  i_stDP3Turbo := DREAM_DP3_PTM_01.iq_stPtm,
+                  i_stMCTurbo1 := DREAM_MC_PTM_01.iq_stPtm,
+                  i_stMCTurbo2 := DREAM_MC_PTM_02.iq_stPtm,
+                  i_stCAT1Turbo := DREAM_CAT1_PTM_01.iq_stPtm,
+                  i_stCAT2Turbo := DREAM_CAT2_PTM_01.iq_stPtm,
+                  i_stRough2Turbo1 := DREAM_ROUGH2_PTM_01.iq_stPtm,
+                  i_stRough2Turbo2 := DREAM_ROUGH2_PTM_02.iq_stPTM);
+
 //Flow control valves
 DREAM_ROUGH1_VFV_01(i_xExtIlkOK := DREAM_ROUGH1_VRC_01.M_IsClosed());
-DREAM_ROUGH1_VFV_02(i_xExtIlkOK := DREAM_ROUGH1_VRC_01.M_IsClosed());
+DREAM_ROUGH1_VFV_02(i_xExtIlkOK := DREAM_ROUGH1_VRC_01.M_IsClosed() AND DREAM_DP1_VRC_01.M_IsClosed() AND fbTurboSpeedCheck.IsNozzleTurboSpeedBelow10Hz());
 DREAM_ROUGH2_VFV_01(i_xExtIlkOK := DREAM_ROUGH2_VRC_01.M_IsClosed() AND DREAM_ROUGH2_VRC_02.M_IsClosed());
-DREAM_ROUGH2_VFV_02(i_xExtIlkOK := DREAM_ROUGH2_VRC_01.M_IsClosed());
-DREAM_ROUGH2_VFV_03(i_xExtIlkOK := DREAM_ROUGH2_VRC_02.M_IsClosed());
+DREAM_ROUGH2_VFV_02(i_xExtIlkOK := DREAM_ROUGH2_VRC_01.M_IsClosed() AND fbTurboSpeedCheck.IsMainTurboSpeedBelow10Hz());
+DREAM_ROUGH2_VFV_03(i_xExtIlkOK := DREAM_ROUGH2_VRC_02.M_IsClosed() AND DREAM_CAT1_VRC_01.M_IsClosed() AND fbTurboSpeedCheck.IsCatTurboSpeedBelow10Hz());
 
 ]]></ST>
     </Implementation>

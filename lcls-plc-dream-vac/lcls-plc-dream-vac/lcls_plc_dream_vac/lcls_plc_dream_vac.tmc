@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{42D93E79-622A-FE76-7C89-95D5290EA20F}" GeneratedBy="TwinCAT XAE Plc">
+<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{A2CB7032-FF0A-D9F0-9C59-5B485DA29665}" GeneratedBy="TwinCAT XAE Plc">
   <DataTypes>
     <DataType>
       <Name Namespace="Tc2_SerialCom">ComBuffer</Name>
@@ -48211,6 +48211,174 @@ This function block also implements PMPS and EPS interlocks, as well as Fast MPS
         </Property>
       </Properties>
     </DataType>
+    <DataType>
+      <Name>FB_TurboSpeedCheck</Name>
+      <BitSize>4288</BitSize>
+      <SubItem>
+        <Name>i_stNCTurbo1</Name>
+        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
+        <Comment>Turbo pump 1</Comment>
+        <BitSize>384</BitSize>
+        <BitOffs>64</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_stNCTurbo2</Name>
+        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
+        <Comment>Turbo pump 1</Comment>
+        <BitSize>384</BitSize>
+        <BitOffs>448</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_stDP1Turbo</Name>
+        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
+        <Comment>Turbo pump 3</Comment>
+        <BitSize>384</BitSize>
+        <BitOffs>832</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_stDP2Turbo</Name>
+        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
+        <Comment>Turbo pump 4</Comment>
+        <BitSize>384</BitSize>
+        <BitOffs>1216</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_stDP3Turbo</Name>
+        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
+        <Comment>Turbo pump 5</Comment>
+        <BitSize>384</BitSize>
+        <BitOffs>1600</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_stMCTurbo1</Name>
+        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
+        <Comment>Turbo pump 6</Comment>
+        <BitSize>384</BitSize>
+        <BitOffs>1984</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_stMCTurbo2</Name>
+        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
+        <Comment>Turbo pump 7</Comment>
+        <BitSize>384</BitSize>
+        <BitOffs>2368</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_stCAT1Turbo</Name>
+        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
+        <Comment>Turbo pump 8</Comment>
+        <BitSize>384</BitSize>
+        <BitOffs>2752</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_stCAT2Turbo</Name>
+        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
+        <Comment>Turbo pump 9</Comment>
+        <BitSize>384</BitSize>
+        <BitOffs>3136</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_stRough2Turbo1</Name>
+        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
+        <Comment>Turbo pump 10</Comment>
+        <BitSize>384</BitSize>
+        <BitOffs>3520</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_stRough2Turbo2</Name>
+        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
+        <Comment>Turbo pump 11</Comment>
+        <BitSize>384</BitSize>
+        <BitOffs>3904</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <Method>
+        <Name>IsNozzleTurboSpeedBelow10Hz</Name>
+        <ReturnType>BOOL</ReturnType>
+        <ReturnBitSize>8</ReturnBitSize>
+      </Method>
+      <Method>
+        <Name>IsMainTurboSpeedBelow10Hz</Name>
+        <ReturnType>BOOL</ReturnType>
+        <ReturnBitSize>8</ReturnBitSize>
+      </Method>
+      <Method>
+        <Name>IsCatTurboSpeedBelow10Hz</Name>
+        <ReturnType>BOOL</ReturnType>
+        <ReturnBitSize>8</ReturnBitSize>
+      </Method>
+      <Properties>
+        <Property>
+          <Name>PouType</Name>
+          <Value>FunctionBlock</Value>
+        </Property>
+      </Properties>
+    </DataType>
   </DataTypes>
   <Modules>
     <Module GUID="{835D5B94-3E6E-4585-BD94-9F803EEB99C5}" TcSmClass="TComPlcObjDef" TargetPlatform="TwinCAT RT (x64)">
@@ -52298,19 +52466,6 @@ This function block also implements PMPS and EPS interlocks, as well as Fast MPS
             <BitOffs>647224136</BitOffs>
           </Symbol>
           <Symbol>
-            <Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.i_xOpnLS</Name>
-            <Comment>IO</Comment>
-            <BitSize>8</BitSize>
-            <BaseType>BOOL</BaseType>
-            <Properties>
-              <Property>
-                <Name>TcAddressType</Name>
-                <Value>Input</Value>
-              </Property>
-            </Properties>
-            <BitOffs>647408704</BitOffs>
-          </Symbol>
-          <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.i_xClsLS</Name>
             <BitSize>8</BitSize>
             <BaseType>BOOL</BaseType>
@@ -52346,6 +52501,19 @@ This function block also implements PMPS and EPS interlocks, as well as Fast MPS
               </Property>
             </Properties>
             <BitOffs>647593288</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.i_xOpnLS</Name>
+            <Comment>IO</Comment>
+            <BitSize>8</BitSize>
+            <BaseType>BOOL</BaseType>
+            <Properties>
+              <Property>
+                <Name>TcAddressType</Name>
+                <Value>Input</Value>
+              </Property>
+            </Properties>
+            <BitOffs>647408704</BitOffs>
           </Symbol>
         </DataArea>
         <DataArea>
@@ -52966,6 +53134,18 @@ This function block also implements PMPS and EPS interlocks, as well as Fast MPS
             <BitOffs>646860496</BitOffs>
           </Symbol>
           <Symbol>
+            <Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.q_xCLS_DO</Name>
+            <BitSize>8</BitSize>
+            <BaseType>BOOL</BaseType>
+            <Properties>
+              <Property>
+                <Name>TcAddressType</Name>
+                <Value>Output</Value>
+              </Property>
+            </Properties>
+            <BitOffs>646950096</BitOffs>
+          </Symbol>
+          <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.q_xOPN_DO</Name>
             <BitSize>8</BitSize>
             <BaseType>BOOL</BaseType>
@@ -52988,18 +53168,6 @@ This function block also implements PMPS and EPS interlocks, as well as Fast MPS
               </Property>
             </Properties>
             <BitOffs>647224144</BitOffs>
-          </Symbol>
-          <Symbol>
-            <Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.q_xCLS_DO</Name>
-            <BitSize>8</BitSize>
-            <BaseType>BOOL</BaseType>
-            <Properties>
-              <Property>
-                <Name>TcAddressType</Name>
-                <Value>Output</Value>
-              </Property>
-            </Properties>
-            <BitOffs>646950096</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.q_xOPN_DO</Name>
@@ -64020,6 +64188,12 @@ FLow Control valves MKS248</Comment>
             </Properties>
             <BitOffs>647655040</BitOffs>
           </Symbol>
+          <Symbol>
+            <Name>PRG_VALVES.fbTurboSpeedCheck</Name>
+            <BitSize>4288</BitSize>
+            <BaseType>FB_TurboSpeedCheck</BaseType>
+            <BitOffs>652556224</BitOffs>
+          </Symbol>
         </DataArea>
         <DataArea>
           <AreaNo AreaType="RetainSrc" CreateSymbols="true">20</AreaNo>
@@ -64105,7 +64279,7 @@ FLow Control valves MKS248</Comment>
         </Property>
         <Property>
           <Name>ChangeDate</Name>
-          <Value>2024-08-29T13:22:15</Value>
+          <Value>2024-08-30T12:01:51</Value>
         </Property>
         <Property>
           <Name>GeneratedCodeSize</Name>
