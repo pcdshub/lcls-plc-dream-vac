@@ -7,6 +7,7 @@ END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[(*Interlock logic for Coil PS based on reading from Flow meter*)
 fbCoilFlowMeter();
+fCoilCoolantFlowMeterRBV := fbCoilFlowMeter.fReal;
 
 //evaluate flow meter readback to Interlock interlock Coil PS
 bCoilPS_ILK := fbCoilFlowMeter.fReal > 3.0; //If flow meter reading is above XX is ok to turn ON output of the Coil PS. Units are lpm
