@@ -10,7 +10,7 @@ VAR
     bMainTurboPumpRunning : BOOL;
     tMainTurboPumpDelayTime : TIME := T#15m;
     tMainTurboPumpTOF : TOF;
-    ft : F_TRIG;
+    ftPumpsFailed : F_TRIG;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -64,7 +64,8 @@ bAllTurboPumpRunning := DREAM_NC_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNIN
 tAllTurboPumpTOF(IN := bAllTurboPumpRunning, PT := tAllTurboPumpDelayTime);
 bDREAM_TURBOS_ALL_AtSpd := tAllTurboPumpTOF.Q;
 
-//Check if any of the main chamber and DP turbo pumps fail
+(*// Will define when we will do automation
+//Check if any of the main chamber and DP turbo pumps fails
 bMainTurboPumpRunning := DREAM_DP1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
                          DREAM_DP2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
                          DREAM_DP3_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
@@ -73,9 +74,9 @@ bMainTurboPumpRunning := DREAM_DP1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNN
 
 tMainTurboPumpTOF(IN := bMainTurboPumpRunning, PT := tMainTurboPumpDelayTime);
 
-ft(CLK := tMainTurboPumpTOF.Q);
-(*
-IF ft.Q THEN
+ftPumpsFailed(CLK := tMainTurboPumpTOF.Q);
+
+IF ftPumpsFailed.Q THEN
     DREAM_DP1_PTM_01.M_Run(FALSE);
     DREAM_DP2_PTM_01.M_Run(FALSE);
     DREAM_DP3_PTM_01.M_Run(FALSE);
