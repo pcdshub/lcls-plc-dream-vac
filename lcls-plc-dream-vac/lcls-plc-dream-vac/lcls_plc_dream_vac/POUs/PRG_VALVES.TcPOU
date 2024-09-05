@@ -41,10 +41,10 @@ bDP1_VRC_01_ILK := DREAM_NC_GCC_01.IG.xPRESS_OK AND DREAM_NC_GCC_01.IG.rPRESS < 
 DREAM_DP1_VRC_01(i_xExtILK_OK := bDP1_VRC_01_ILK, i_xOverrideMode := bSystemOverrideMode);
 
 //DP1_VRC_02 Interlock evaluation NOTE: Normally OPEN Valve!!
-bDP1_VRC_02_ILK := DREAM_DP1_VRC_01.M_IsOpen();
+bDP1_VRC_02_ILK := DREAM_DP1_VRC_01.iq_stValve.i_xOpnLS;
 
 //Close DP1_VRC_02 if DP1_VRC_01 is opened
-IF DREAM_DP1_VRC_01.M_IsOpen() THEN
+IF DREAM_DP1_VRC_01.iq_stValve.i_xOpnLS THEN
     DREAM_DP1_VRC_02.M_Set_CLS_SW(TRUE);
 END_IF
 
@@ -172,11 +172,11 @@ fbTurboSpeedCheck(i_stNCTurbo1 := DREAM_NC_PTM_01.iq_stPTM,
 *)
 
 //Flow control valves
-DREAM_ROUGH1_VFV_01(i_xExtIlkOK := DREAM_ROUGH1_VRC_01.M_IsClosed());
-DREAM_ROUGH1_VFV_02(i_xExtIlkOK := DREAM_ROUGH1_VRC_01.M_IsClosed() AND DREAM_DP1_VRC_01.M_IsClosed());
-DREAM_ROUGH2_VFV_01(i_xExtIlkOK := DREAM_ROUGH2_VRC_01.M_IsClosed() AND DREAM_ROUGH2_VRC_02.M_IsClosed());
-DREAM_ROUGH2_VFV_02(i_xExtIlkOK := DREAM_ROUGH2_VRC_01.M_IsClosed());
-DREAM_ROUGH2_VFV_03(i_xExtIlkOK := DREAM_ROUGH2_VRC_02.M_IsClosed() AND DREAM_CAT1_VRC_01.M_IsClosed());
+DREAM_ROUGH1_VFV_01(i_xExtIlkOK := DREAM_ROUGH1_VRC_01.iq_stValve.i_xClsLS);
+DREAM_ROUGH1_VFV_02(i_xExtIlkOK := DREAM_ROUGH1_VRC_01.iq_stValve.i_xClsLS AND DREAM_DP1_VRC_01.iq_stValve.i_xClsLS);
+DREAM_ROUGH2_VFV_01(i_xExtIlkOK := DREAM_ROUGH2_VRC_01.iq_stValve.i_xClsLS AND DREAM_ROUGH2_VRC_02.iq_stValve.i_xClsLS);
+DREAM_ROUGH2_VFV_02(i_xExtIlkOK := DREAM_ROUGH2_VRC_01.iq_stValve.i_xClsLS);
+DREAM_ROUGH2_VFV_03(i_xExtIlkOK := DREAM_ROUGH2_VRC_02.iq_stValve.i_xClsLS AND DREAM_CAT1_VRC_01.iq_stValve.i_xClsLS);
 
 ]]></ST>
     </Implementation>
