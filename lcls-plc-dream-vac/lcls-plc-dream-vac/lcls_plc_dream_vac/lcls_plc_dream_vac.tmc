@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{9101B6AC-C6B5-7C04-D4FB-3F098BB9C3A8}" GeneratedBy="TwinCAT XAE Plc">
+<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{BE5FDD03-3B7C-6F72-1F8A-2AEEE6D6B2A4}" GeneratedBy="TwinCAT XAE Plc">
   <DataTypes>
     <DataType>
       <Name Namespace="Tc2_SerialCom">ComBuffer</Name>
@@ -46822,18 +46822,6 @@ In case VRC is normally open</Comment>
             <BitOffs>646198792</BitOffs>
           </Symbol>
           <Symbol>
-            <Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xClsLS</Name>
-            <BitSize>8</BitSize>
-            <BaseType>BOOL</BaseType>
-            <Properties>
-              <Property>
-                <Name>TcAddressType</Name>
-                <Value>Input</Value>
-              </Property>
-            </Properties>
-            <BitOffs>646288392</BitOffs>
-          </Symbol>
-          <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xOpnLS</Name>
             <Comment>IO</Comment>
             <BitSize>8</BitSize>
@@ -46845,6 +46833,18 @@ In case VRC is normally open</Comment>
               </Property>
             </Properties>
             <BitOffs>646288384</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xClsLS</Name>
+            <BitSize>8</BitSize>
+            <BaseType>BOOL</BaseType>
+            <Properties>
+              <Property>
+                <Name>TcAddressType</Name>
+                <Value>Input</Value>
+              </Property>
+            </Properties>
+            <BitOffs>646288392</BitOffs>
           </Symbol>
         </DataArea>
         <DataArea>
@@ -58580,7 +58580,7 @@ FLow Control valves MKS248</Comment>
         </Property>
         <Property>
           <Name>ChangeDate</Name>
-          <Value>2024-09-06T13:27:44</Value>
+          <Value>2024-09-09T08:52:29</Value>
         </Property>
         <Property>
           <Name>GeneratedCodeSize</Name>

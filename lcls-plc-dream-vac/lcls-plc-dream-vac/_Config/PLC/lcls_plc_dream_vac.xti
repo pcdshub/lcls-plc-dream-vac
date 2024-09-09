@@ -53,7 +53,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{9101B6AC-C6B5-7C04-D4FB-3F098BB9C3A8}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{BE5FDD03-3B7C-6F72-1F8A-2AEEE6D6B2A4}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -492,12 +492,12 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xClsLS</Name>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xClsLS</Name>
 					<Type>BOOL</Type>
 				</Var>
 			</Vars>
