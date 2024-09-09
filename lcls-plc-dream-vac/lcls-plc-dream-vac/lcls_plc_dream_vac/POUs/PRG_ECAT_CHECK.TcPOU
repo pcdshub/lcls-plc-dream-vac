@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PRG_ECAT_CHECK" Id="{bb9ee14c-2b7f-4217-99d3-afe5f426465b}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_ECAT_CHECK
+VAR
+    //EtherCAT bridge error
+    bEcatBridge_COM_ERROR : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*EtherCAT Bridge Status*)
+//bEcatBridge_COM_ERROR = TRUE means that there is an EtherCAT Bridge Communication Error.
+bEcatBridge_COM_ERROR := (bEcatBridge_TxPDO_state OR bEcatBridge_External_device_not_connected OR bEcatBridge_WcState);
+
+bOnBeamline := (bEcatBridge_COM_ERROR = FALSE) AND (sHUTCH_PLC_NAME = 'TMO');]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

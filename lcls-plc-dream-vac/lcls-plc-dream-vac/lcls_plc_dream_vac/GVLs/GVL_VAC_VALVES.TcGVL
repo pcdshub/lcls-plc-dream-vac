@@ -1,36 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <GVL Name="GVL_Roughing" Id="{47d41b70-7d46-4727-bde9-5efdc365ab41}">
+  <GVL Name="GVL_VAC_VALVES" Id="{a72cc40e-50ed-4944-b909-0cce3e1705dc}">
     <Declaration><![CDATA[//{attribute 'qualified_only'}
 VAR_GLOBAL
-(******************************************************************************************************)
-(*VRC VALVES*)
-(******************************************************************************************************)
+    (*DP1 ISOLATION VALVE*)
+    {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_03_E10_EL1004]^Channel 1^Input;
+                                 .i_xClsLS	:=	TIIB[K4S8_DRL_03_E10_EL1004]^Channel 2^Input;
+                                 .q_xOPN_DO	:=	TIIB[K4S8_DRL_03_E11_EL2004]^Channel 2^Output
+    '}
+    {attribute 'pytmc' :=' pv: DREAM:DP1:VRC:01'}
+    DREAM_DP1_VRC_01: FB_VRC;
+
+    {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_03_E10_EL1004]^Channel 3^Input;
+                                 .i_xClsLS	:=	TIIB[K4S8_DRL_03_E10_EL1004]^Channel 4^Input;
+                                 .q_xCLS_DO	:=	TIIB[K4S8_DRL_03_E11_EL2004]^Channel 1^Output
+    '}
+    {attribute 'pytmc' :=' pv: DREAM:DP1:VRC:02'}
+    DREAM_DP1_VRC_02: FB_VRC_NO;
+
+    (*CATCHER 1 ISOLATION VALVE*)
+    {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_04_E1_EL1004]^Channel 1^Input;
+                                 .i_xClsLS	:=	TIIB[K4S8_DRL_04_E1_EL1004]^Channel 2^Input;
+                                 .q_xOPN_DO	:=	TIIB[K4S8_DRL_04_E2_EL2004]^Channel 1^Output
+    '}
+    {attribute 'pytmc' :=' pv: DREAM:CAT1:VRC:01'}
+    DREAM_CAT1_VRC_01: FB_VRC;
+
+    (*ANGLE VALVES ROUGHING*)
     //Pneumatic valves
     {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_04_E9_EL1004]^Channel 1^Input;
                                  .i_xClsLS	:=	TIIB[K4S8_DRL_04_E9_EL1004]^Channel 2^Input;
                                  .q_xOPN_DO	:=	TIIB[K4S8_DRL_04_E11_EL2004]^Channel 1^Output
     '}
     {attribute 'pytmc' :=' pv: DREAM:ROUGH1:VRC:01'}
-    DREAM_ROUGH1_VRC_01: FB_VRC;
+    DREAM_ROUGH1_VRC_01: FB_VRC; //replacing with VRC function
 
     {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_04_E9_EL1004]^Channel 3^Input;
                                  .i_xClsLS	:=	TIIB[K4S8_DRL_04_E9_EL1004]^Channel 4^Input;
                                  .q_xOPN_DO	:=	TIIB[K4S8_DRL_04_E11_EL2004]^Channel 2^Output
     '}
     {attribute 'pytmc' :=' pv: DREAM:ROUGH2:VRC:01'}
-    DREAM_ROUGH2_VRC_01: FB_VRC;
+    DREAM_ROUGH2_VRC_01: FB_VRC; //replacing with VRC function
 
     {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_04_E10_EL1004]^Channel 1^Input;
                                  .i_xClsLS	:=	TIIB[K4S8_DRL_04_E10_EL1004]^Channel 2^Input;
                                  .q_xOPN_DO	:=	TIIB[K4S8_DRL_04_E11_EL2004]^Channel 3^Output
     '}
     {attribute 'pytmc' :=' pv: DREAM:ROUGH2:VRC:02'}
-    DREAM_ROUGH2_VRC_02: FB_VRC;
+    DREAM_ROUGH2_VRC_02: FB_VRC; //replacing with VRC function
 
-(******************************************************************************************************)
-(*Flow Control Valves*)
-(******************************************************************************************************)
+    (*VENT VALVES ROUGHING*)
     //FLow Control valves MKS248
     {attribute 'TcLinkTo' := 	'.q_iRawPosition	:=	TIIB[WALL_E_PPL_01_EP1_EP4374-0002]^AO Outputs Channel 3^Analog output'}
     {attribute 'pytmc' := 'pv: DREAM:ROUGH1:VFV:01'}
@@ -51,31 +70,6 @@ VAR_GLOBAL
     {attribute 'TcLinkTo' := 	'.q_iRawPosition	:=	TIIB[K4S8_DRL_04_EP2_EP4374-0002]^AO Outputs Channel 3^Analog output'}
     {attribute 'pytmc' := 'pv: DREAM:ROUGH2:VFV:03'}
     DREAM_ROUGH2_VFV_03 : FB_MKS248;
-
-
-(******************************************************************************************************)
-(*PIRANIs*)
-(******************************************************************************************************)
-    //Micro piranis 925
-    {attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[WALL_E_PPL_01_EP1_EP4374-0002]^AI Inputs Channel 1^Value'}
-    {attribute 'pytmc' := 'pv: DREAM:ROUGH1:GPI:01'}
-    DREAM_ROUGH1_GPI_01 : FB_9XX;
-
-    {attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[K4S8_DRL_04_EP1_EP4374-0002]^AI Inputs Channel 1^Value'}
-    {attribute 'pytmc' := 'pv: DREAM:ROUGH1:GPI:02'}
-    DREAM_ROUGH1_GPI_02 : FB_9XX;
-
-    {attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[WALL_E_PPL_01_EP1_EP4374-0002]^AI Inputs Channel 2^Value'}
-    {attribute 'pytmc' := 'pv: DREAM:ROUGH2:GPI:01'}
-    DREAM_ROUGH2_GPI_01 : FB_9XX;
-
-    {attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[K4S8_DRL_04_EP1_EP4374-0002]^AI Inputs Channel 2^Value'}
-    {attribute 'pytmc' := 'pv: DREAM:ROUGH2:GPI:02'}
-    DREAM_ROUGH2_GPI_02 : FB_9XX;
-
-    {attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[K4S8_DRL_04_EP2_EP4374-0002]^AI Inputs Channel 1^Value'}
-    {attribute 'pytmc' := 'pv: DREAM:ROUGH2:GPI:03'}
-    DREAM_ROUGH2_GPI_03 : FB_9XX;
 
 END_VAR]]></Declaration>
   </GVL>

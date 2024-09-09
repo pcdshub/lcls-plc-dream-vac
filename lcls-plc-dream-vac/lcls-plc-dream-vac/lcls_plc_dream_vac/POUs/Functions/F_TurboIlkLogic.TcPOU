@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="F_TurboIlkLogic" Id="{61006141-1ec2-4e8d-8cf4-25aa4effd79d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_TurboIlkLogic : BOOL
+VAR_INPUT
+    i_stTurbo : ST_PTM; //Turbo Pump
+    //i_stISG : ST_VG; //Gauge measuring inlet Pressure e.g Pirani
+    i_stBackingGauge : ST_VG; //Gauge measuring backing pressure
+    i_stRoughValve : ST_VRC; //Roughing Valve on the turbo pump backing line
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[F_TurboIlkLogic := i_stBackingGauge.rPRESS < i_stTurbo.rBackingPressureSP AND i_stBackingGauge.xPRESS_OK AND
+                   i_stRoughValve.i_xOpnLS;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

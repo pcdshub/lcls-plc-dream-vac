@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="FB_IE514" Id="{a97e2217-150d-4da1-935e-7cd0aee79bd0}" SpecialFunc="None">
     <Declaration><![CDATA[(*This function is for the IE514 connected to controller IM540*)
 (*This function provides ILK and Set Point Protection for the IE514*)
@@ -75,9 +75,6 @@ END_VAR
     <Implementation>
       <ST><![CDATA[(* 2-6-2023, Janez Govednik *)
 (* This function will read the pressure from an IE514 gauge on an IM540. *)
-
-(*Soft IO Linking*)
-IO();
 
 (*Select channel at the startup, according to input from the controller*)
 IF bInit THEN
@@ -415,6 +412,24 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[this^.IG_CH2.xHV_SW := (enable);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_IsCh1Selected" Id="{6d55c84d-b54c-4f51-bcc2-90e51f24cab4}">
+      <Declaration><![CDATA[METHOD M_IsCh1Selected : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[M_IsCh1Selected := NOT i_xCH2_SEL;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_IsCh2Selected" Id="{2f02a31d-e3cd-4ec2-8aba-24b46a8cc8de}">
+      <Declaration><![CDATA[METHOD M_IsCh2Selected : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[M_IsCh2Selected := i_xCH2_SEL;]]></ST>
       </Implementation>
     </Method>
     <Method Name="M_SetBits" Id="{d32833b4-0f03-4965-9023-0b701048176d}">

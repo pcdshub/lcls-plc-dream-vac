@@ -4,11 +4,11 @@
 		<Name>__FILENAME__</Name>
 		<AddressInfo>
 			<Ccat>
-				<Address>-41943040</Address>
+				<Address>-1855979520</Address>
 				<Offset>131072</Offset>
 				<Size>8192</Size>
 				<BaseAddr>0</BaseAddr>
-				<BusNo>1</BusNo>
+				<BusNo>3</BusNo>
 				<SlotNo>0</SlotNo>
 				<VendorId>5612</VendorId>
 				<DeviceId>20480</DeviceId>
@@ -21,7 +21,7 @@
 					<TxChn>1</TxChn>
 				</Dma>
 				<Identification>
-					<Value>1022134156</Value>
+					<Value>498694182</Value>
 					<Version>1</Version>
 					<Size>256</Size>
 				</Identification>
@@ -37,7 +37,7 @@
 			<EtherCAT PortABoxInfo="#x00ffffff"/>
 		</Box>
 		<EtherCAT EnableVirtualSwitch="true" MaxSwitchPorts="2" MaxSwitchFrames="120">
-			<Redundancy Mode="2" DeviceDesc="PCI\TcI8254x2" Miniport="PCI\TCI8254X2" IpAddress="#xa9fe8e0a" IpMask="#xa9fe8e0a" PreviousPort="16777231" Mac="00010556ae2d"/>
+			<Redundancy Mode="2" DeviceDesc="igb1 (TwinCAT Intel Ethernet Adapter)" Miniport="igb1" IpAddress="#xc0a8010a" IpMask="#xc0a8010a" PreviousPort="16777231" Mac="0001058fa53f"/>
 		</EtherCAT>
 	</Device>
 </TcSmItem>

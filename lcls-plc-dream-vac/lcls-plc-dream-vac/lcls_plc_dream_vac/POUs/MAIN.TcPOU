@@ -3,18 +3,23 @@
   <POU Name="MAIN" Id="{b66c7c96-5039-4af5-8cda-935a9b086c6f}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-    //fbLogHandler : FB_LogHandler;
+    fbLogHandler : FB_LogHandler;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
-PRG_Roughing();
+      <ST><![CDATA[fbLogHandler();
 
-PRG_Gas_Injection();
+PRG_ECAT_CHECK();
 
-PRG_Main_Chamber();
+PRG_GAUGES();
 
-//fbLogHandler();]]></ST>
+PRG_VALVES();
+
+PRG_TURBO_PUMPS();
+
+PRG_HV_ILK();
+
+PRG_COIL_PS_ILK();]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

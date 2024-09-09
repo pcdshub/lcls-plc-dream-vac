@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PRG_VALVES" Id="{03dcac03-cfad-4254-831b-855af8503ea4}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_VALVES
+VAR
+    //Rough lines VRC external interlocks
+    bROUGH1_VRC_01_ILK : BOOL;
+    bROUGH2_VRC_01_ILK : BOOL;
+    bROUGH2_VRC_02_ILK : BOOL;
+    bROUGH1_VRC_01_Override : BOOL;
+    bROUGH2_VRC_01_Override : BOOL;
+    bROUGH2_VRC_02_Override : BOOL;
+    bCAT1_VRC_01_ILK : BOOL;
+    bDP1_VRC_01_ILK : BOOL;
+    bDP1_VRC_02_ILK : BOOL;
+    (*
+    //dummy FF output to use in VGC_2S function
+    dummy_FFFO : FB_HardwareFFOutput;
+    dummy_fbArbiter1 : FB_Arbiter(1);
+    //Turbo speed check function
+    fbTurboSpeedCheck : FB_TurboSpeedCheck;
+    *)
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(**Gas Injection Valves**)
+//DP1_VRC_02 Interlock evaluation
+bDP1_VRC_01_ILK := DREAM_NC_GCC_01.IG.xPRESS_OK AND DREAM_NC_GCC_01.IG.rPRESS < 1.0E-5 AND
+                   DREAM_DP1_GHC_01.IG.xPRESS_OK AND DREAM_DP1_GHC_01.IG.rPRESS < 1.0E-5;
+
+DREAM_DP1_VRC_01(i_xExtILK_OK := bDP1_VRC_01_ILK, i_xOverrideMode := bSystemOverrideMode);
+
+//Close DP1_VRC_02 if DP1_VRC_01 is opened
+(*//Will remove for now. Will add back later if James request it.
+IF DREAM_DP1_VRC_01.iq_stValve.i_xOpnLS THEN
+    DREAM_DP1_VRC_02.M_Set_CLS_SW(TRUE);
+END_IF
+*)
+
+//DP1_VRC_02 Interlock evaluation NOTE: Normally OPEN Valve!!
+bDP1_VRC_02_ILK := DREAM_DP1_VRC_01.iq_stValve.i_xOpnLS AND
+                   DREAM_NC_GCC_01.IG.xPRESS_OK AND DREAM_DP1_GHC_01.IG.xPRESS_OK AND
+                   ABS(DREAM_NC_GCC_01.IG.rPRESS - DREAM_DP1_GHC_01.IG.rPRESS) < 1.0E-5;
+
+DREAM_DP1_VRC_02(i_xExtILK_OK := bDP1_VRC_02_ILK, i_xOverrideMode := bSystemOverrideMode); //Normally open valve
+
+(**Catcher valve**)
+//CAT1_VRC_01 Interlock evaluation
+IF DREAM_MC_GHC.M_IsCh1Selected() THEN
+    bCAT1_VRC_01_ILK := DREAM_CAT1_GHC_01.IG.xPRESS_OK AND DREAM_CAT1_GHC_01.IG.rPRESS < 1.0E-8 AND
+                        DREAM_MC_GHC.IG_CH1.xPRESS_OK AND DREAM_MC_GHC.IG_CH1.rPRESS < 1.0E-8 AND
+                        DREAM_CAT1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                        DREAM_CAT2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING;
+ELSIF DREAM_MC_GHC.M_IsCh2Selected() THEN
+    bCAT1_VRC_01_ILK := DREAM_CAT1_GHC_01.IG.xPRESS_OK AND DREAM_CAT1_GHC_01.IG.rPRESS < 1.0E-8 AND
+                        DREAM_MC_GHC.IG_CH2.xPRESS_OK AND DREAM_MC_GHC.IG_CH2.rPRESS < 1.0E-8 AND
+                        DREAM_CAT1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                        DREAM_CAT2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING;
+ELSE
+    bCAT1_VRC_01_ILK := FALSE;
+END_IF
+DREAM_CAT1_VRC_01(i_xExtILK_OK := bCAT1_VRC_01_ILK, i_xOverrideMode := bSystemOverrideMode);
+
+(**Roughing Valves**)
+//VRC valves
+//Interlock evaluation
+bROUGH1_VRC_01_ILK := DREAM_ROUGH1_GPI_01.PG.rPRESS < 5E-3 AND DREAM_ROUGH1_GPI_01.PG.xPRESS_OK AND
+                      DREAM_ROUGH1_VFV_01.iq_stVFN.rReqPosition = 0.0 AND
+                      DREAM_ROUGH1_VFV_02.iq_stVFN.rReqPosition = 0.0;
+
+bROUGH2_VRC_01_ILK := DREAM_ROUGH2_GPI_01.PG.rPRESS < 5E-3 AND DREAM_ROUGH2_GPI_01.PG.xPRESS_OK AND
+                      DREAM_ROUGH2_VFV_01.iq_stVFN.rReqPosition = 0.0 AND
+                      DREAM_ROUGH2_VFV_02.iq_stVFN.rReqPosition = 0.0;
+
+bROUGH2_VRC_02_ILK := DREAM_ROUGH2_GPI_01.PG.rPRESS < 5E-3 AND DREAM_ROUGH2_GPI_01.PG.xPRESS_OK AND
+                      DREAM_ROUGH2_VFV_01.iq_stVFN.rReqPosition = 0.0 AND
+                      DREAM_ROUGH2_VFV_03.iq_stVFN.rReqPosition = 0.0;
+
+bROUGH1_VRC_01_Override := bSystemOverrideMode AND
+                           DREAM_ROUGH1_VFV_01.iq_stVFN.rReqPosition = 0.0 AND
+                           DREAM_ROUGH1_VFV_02.iq_stVFN.rReqPosition = 0.0;
+
+bROUGH2_VRC_01_Override := bSystemOverrideMode AND
+                           DREAM_ROUGH2_VFV_01.iq_stVFN.rReqPosition = 0.0 AND
+                           DREAM_ROUGH2_VFV_02.iq_stVFN.rReqPosition = 0.0;
+
+bROUGH2_VRC_02_Override := bSystemOverrideMode AND
+                           DREAM_ROUGH2_VFV_01.iq_stVFN.rReqPosition = 0.0 AND
+                           DREAM_ROUGH2_VFV_03.iq_stVFN.rReqPosition = 0.0;
+
+(* //changing back to VRC function
+DREAM_ROUGH1_VRC_01(i_stUSG := DREAM_ROUGH1_GPI_01.PG,
+                    i_stDSG := DREAM_ROUGH1_GPI_02.PG,
+                    i_xDis_DPIlk := FALSE,
+                    i_xEPS_OK := TRUE,
+                    i_xPMPS_OK := TRUE,
+                    i_xReset := FALSE,
+                    i_xExt_OK := bROUGH1_VRC_01_ILK,
+                    i_xOverrideMode := bSystemOverrideMode,
+                    io_fbFFHWO := dummy_FFFO,
+                    fbArbiter := dummy_fbArbiter1,
+                    i_sDevName := 'DREAM-ROUGH1-VRC-01');
+
+DREAM_ROUGH2_VRC_01(i_stUSG := DREAM_ROUGH2_GPI_01.PG,
+                    i_stDSG := DREAM_ROUGH2_GPI_02.PG,
+                    i_xDis_DPIlk := FALSE,
+                    i_xEPS_OK := TRUE,
+                    i_xPMPS_OK := TRUE,
+                    i_xReset := FALSE,
+                    i_xExt_OK := bROUGH2_VRC_01_ILK,
+                    i_xOverrideMode := bSystemOverrideMode,
+                    io_fbFFHWO := dummy_FFFO,
+                    fbArbiter := dummy_fbArbiter1,
+                    i_sDevName := 'DREAM-ROUGH2-VRC-01');
+
+DREAM_ROUGH2_VRC_02(i_stUSG := DREAM_ROUGH2_GPI_01.PG,
+                    i_stDSG := DREAM_ROUGH2_GPI_03.PG,
+                    i_xDis_DPIlk := FALSE,
+                    i_xEPS_OK := TRUE,
+                    i_xPMPS_OK := TRUE,
+                    i_xReset := FALSE,
+                    i_xExt_OK := bROUGH2_VRC_02_ILK,
+                    i_xOverrideMode := bSystemOverrideMode,
+                    io_fbFFHWO := dummy_FFFO,
+                    fbArbiter := dummy_fbArbiter1,
+                    i_sDevName := 'DREAM-ROUGH2-VRC-02');
+*)
+
+DREAM_ROUGH1_VRC_01(i_xExtILK_OK := bROUGH1_VRC_01_ILK, i_xOverrideMode := bROUGH1_VRC_01_Override);
+DREAM_ROUGH2_VRC_01(i_xExtILK_OK := bROUGH2_VRC_01_ILK, i_xOverrideMode := bROUGH2_VRC_01_Override);
+DREAM_ROUGH2_VRC_02(i_xExtILK_OK := bROUGH2_VRC_02_ILK, i_xOverrideMode := bROUGH2_VRC_02_Override);
+
+(*//Turbo current speed evaluation//will not be used as an interlock as of right now
+fbTurboSpeedCheck(i_stNCTurbo1 := DREAM_NC_PTM_01.iq_stPTM,
+                  i_stNCTurbo2 := DREAM_NC_PTM_02.iq_stPTM,
+                  i_stDP1Turbo := DREAM_DP1_PTM_01.iq_stPTM,
+                  i_stDP2Turbo := DREAM_DP2_PTM_01.iq_stPtm,
+                  i_stDP3Turbo := DREAM_DP3_PTM_01.iq_stPtm,
+                  i_stMCTurbo1 := DREAM_MC_PTM_01.iq_stPtm,
+                  i_stMCTurbo2 := DREAM_MC_PTM_02.iq_stPtm,
+                  i_stCAT1Turbo := DREAM_CAT1_PTM_01.iq_stPtm,
+                  i_stCAT2Turbo := DREAM_CAT2_PTM_01.iq_stPtm,
+                  i_stRough2Turbo1 := DREAM_ROUGH2_PTM_01.iq_stPtm,
+                  i_stRough2Turbo2 := DREAM_ROUGH2_PTM_02.iq_stPTM);
+*)
+
+//Flow control valves
+DREAM_ROUGH1_VFV_01(i_xExtIlkOK := DREAM_ROUGH1_VRC_01.iq_stValve.i_xClsLS);
+
+DREAM_ROUGH1_VFV_02(i_xExtIlkOK := DREAM_ROUGH1_VRC_01.iq_stValve.i_xClsLS AND DREAM_DP1_VRC_01.iq_stValve.i_xClsLS AND
+                                   NOT DREAM_NC_PTM_01.iq_stPTM.i_xAtSpd AND
+                                   NOT DREAM_NC_PTM_02.iq_stPTM.i_xAtSpd);
+
+DREAM_ROUGH2_VFV_01(i_xExtIlkOK := DREAM_ROUGH2_VRC_01.iq_stValve.i_xClsLS AND DREAM_ROUGH2_VRC_02.iq_stValve.i_xClsLS);
+
+DREAM_ROUGH2_VFV_02(i_xExtIlkOK := DREAM_ROUGH2_VRC_01.iq_stValve.i_xClsLS AND
+                                   NOT DREAM_DP1_PTM_01.iq_stPTM.i_xAtSpd AND
+                                   NOT DREAM_DP2_PTM_01.iq_stPTM.i_xAtSpd AND
+                                   NOT DREAM_DP3_PTM_01.iq_stPTM.i_xAtSpd AND
+                                   NOT DREAM_MC_PTM_01.iq_stPTM.i_xAtSpd AND
+                                   NOT DREAM_MC_PTM_02.iq_stPTM.i_xAtSpd AND
+                                   NOT DREAM_ROUGH2_PTM_01.iq_stPTM.i_xAtSpd AND
+                                   NOT DREAM_ROUGH2_PTM_02.iq_stPTM.i_xAtSpd AND
+                                   NOT DREAM_CAT1_PTM_01.iq_stPTM.i_xAtSpd);
+
+DREAM_ROUGH2_VFV_03(i_xExtIlkOK := DREAM_ROUGH2_VRC_02.iq_stValve.i_xClsLS AND DREAM_CAT1_VRC_01.iq_stValve.i_xClsLS AND
+                                   NOT DREAM_CAT2_PTM_01.iq_stPtm.i_xAtSpd);
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
