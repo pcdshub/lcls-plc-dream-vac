@@ -53,7 +53,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{BE5FDD03-3B7C-6F72-1F8A-2AEEE6D6B2A4}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{B7B63E2A-C6EF-207A-8D25-56342AE6DBBB}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -180,11 +180,6 @@
 					<Type>STRING(8)</Type>
 				</Var>
 				<Var>
-					<Name>GVL_VAC_GAUGES.DREAM_NC_GCC_01.i_xHV_ON</Name>
-					<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
 					<Name>GVL_VAC_GAUGES.DREAM_NC_GPI_01.i_iPRESS_R</Name>
 					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
@@ -193,6 +188,11 @@
 					<Name>GVL_VAC_GAUGES.DREAM_NC_GCC_01.i_iPRESS_R</Name>
 					<Comment><![CDATA[ Controls and I/Os]]></Comment>
 					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_GAUGES.DREAM_NC_GCC_01.i_xHV_ON</Name>
+					<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
+					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_VAC_GAUGES.DREAM_DP1_GHC_01.i_iPRESS_R</Name>
@@ -504,6 +504,10 @@
 			<Vars VarGrpType="2" ContextId="1" AreaNo="17">
 				<Name>PlcTask Outputs</Name>
 				<Var>
+					<Name>PRG_VALVES.dummy_FFFO.q_xFastFaultOut</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
 					<Name>GVL_PLC_Interface.bDREAM_TURBOS_ALL_AtSpd</Name>
 					<Type>BOOL</Type>
 				</Var>
@@ -520,14 +524,14 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_PLC_Interface.bHighVoltageSafteyLoopEnable</Name>
-					<Comment><![CDATA[When Enables the High voltage Saftey loop is closed and HV can start.]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
 					<Name>GVL_PLC_Interface.sENDSTATION_PLC_NAME</Name>
 					<Comment><![CDATA[Outputs to TMO Beamline PLC]]></Comment>
 					<Type>STRING(8)</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bHighVoltageSafteyLoopEnable</Name>
+					<Comment><![CDATA[When Enables the High voltage Saftey loop is closed and HV can start.]]></Comment>
+					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_PLC_Interface.bCoilPS_ILK</Name>
@@ -549,16 +553,6 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.q_xHV_DIS_CH1</Name>
-					<Comment><![CDATA[ Enable Gauge High Voltage on CH1 when True // 'TcLinkTo' (EL2124) ^Output]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_GAUGES.DREAM_CAT2_GHC_01.q_xHV_DIS</Name>
-					<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EP2624) ^Output]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
 					<Name>GVL_VAC_GAUGES.DREAM_DP2_GHC_01.q_xHV_DIS</Name>
 					<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EP2624) ^Output]]></Comment>
 					<Type>BOOL</Type>
@@ -569,12 +563,22 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
+					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.q_xHV_DIS_CH1</Name>
+					<Comment><![CDATA[ Enable Gauge High Voltage on CH1 when True // 'TcLinkTo' (EL2124) ^Output]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
 					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.q_xHV_DIS_CH2</Name>
 					<Comment><![CDATA[ Enable Gauge High Voltage on CH2 when True // 'TcLinkTo' (EL2124) ^Output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_VAC_GAUGES.DREAM_CAT1_GHC_01.q_xHV_DIS</Name>
+					<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EP2624) ^Output]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_GAUGES.DREAM_CAT2_GHC_01.q_xHV_DIS</Name>
 					<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EP2624) ^Output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
