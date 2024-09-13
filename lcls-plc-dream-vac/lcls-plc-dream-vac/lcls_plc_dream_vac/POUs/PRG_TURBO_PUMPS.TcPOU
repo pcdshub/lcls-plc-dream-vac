@@ -15,17 +15,28 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[(**Gas Injection Turbo pumps**)
-DREAM_NC_PTM_01(i_xExtIlkOK := F_TurboIlkLogic(DREAM_NC_PTM_01.iq_stPTM, DREAM_ROUGH1_GPI_02.PG, DREAM_ROUGH1_VRC_01.iq_stValve));
-DREAM_NC_PTM_02(i_xExtIlkOK := F_TurboIlkLogic(DREAM_NC_PTM_02.iq_stPTM, DREAM_ROUGH1_GPI_02.PG, DREAM_ROUGH1_VRC_01.iq_stValve));
+DREAM_NC_PTM_01(i_xExtIlkOK := DREAM_ROUGH1_GPI_02.PG.rPRESS < DREAM_NC_PTM_01.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH1_GPI_02.PG.xPRESS_OK AND
+                               DREAM_ROUGH1_VRC_01.iq_stValve.i_xOpnLS);
+
+DREAM_NC_PTM_02(i_xExtIlkOK := DREAM_ROUGH1_GPI_02.PG.rPRESS < DREAM_NC_PTM_02.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH1_GPI_02.PG.xPRESS_OK AND
+                               DREAM_ROUGH1_VRC_01.iq_stValve.i_xOpnLS);
 
 (**Differential pumping stations Turbo pumps**)
-DREAM_DP1_PTM_01(i_xExtIlkOK := F_TurboIlkLogic(DREAM_DP1_PTM_01.iq_stPTM, DREAM_ROUGH2_GPI_02.PG, DREAM_ROUGH2_VRC_01.iq_stValve));
-DREAM_DP2_PTM_01(i_xExtIlkOK := F_TurboIlkLogic(DREAM_DP2_PTM_01.iq_stPTM, DREAM_ROUGH2_GPI_02.PG, DREAM_ROUGH2_VRC_01.iq_stValve));
-DREAM_DP3_PTM_01(i_xExtIlkOK := F_TurboIlkLogic(DREAM_DP3_PTM_01.iq_stPTM, DREAM_ROUGH2_GPI_02.PG, DREAM_ROUGH2_VRC_01.iq_stValve));
+DREAM_DP1_PTM_01(i_xExtIlkOK := DREAM_ROUGH2_GPI_02.PG.rPRESS < DREAM_DP1_PTM_01.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK AND
+                                DREAM_ROUGH2_VRC_01.iq_stValve.i_xOpnLS);
+
+DREAM_DP2_PTM_01(i_xExtIlkOK := DREAM_ROUGH2_GPI_02.PG.rPRESS < DREAM_DP2_PTM_01.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK AND
+                                DREAM_ROUGH2_VRC_01.iq_stValve.i_xOpnLS);
+
+DREAM_DP3_PTM_01(i_xExtIlkOK := DREAM_ROUGH2_GPI_02.PG.rPRESS < DREAM_DP3_PTM_01.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK AND
+                                DREAM_ROUGH2_VRC_01.iq_stValve.i_xOpnLS);
 
 (**Main Chamber Turbo pumps**)
-DREAM_MC_PTM_01(i_xExtIlkOK := F_TurboIlkLogic(DREAM_MC_PTM_01.iq_stPTM, DREAM_ROUGH2_GPI_02.PG, DREAM_ROUGH2_VRC_01.iq_stValve));
-DREAM_MC_PTM_02(i_xExtIlkOK := F_TurboIlkLogic(DREAM_MC_PTM_02.iq_stPTM, DREAM_ROUGH2_GPI_02.PG, DREAM_ROUGH2_VRC_01.iq_stValve));
+DREAM_MC_PTM_01(i_xExtIlkOK := DREAM_ROUGH2_GPI_02.PG.rPRESS < DREAM_MC_PTM_01.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK AND
+                               DREAM_ROUGH2_VRC_01.iq_stValve.i_xOpnLS);
+
+DREAM_MC_PTM_02(i_xExtIlkOK := DREAM_ROUGH2_GPI_02.PG.rPRESS < DREAM_MC_PTM_02.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK AND
+                               DREAM_ROUGH2_VRC_01.iq_stValve.i_xOpnLS);
 
 (**Catcher Turbo pumps**)
 //Special interlock due to manual valve between turbo pump and ROUGH2_GPI2
@@ -34,11 +45,15 @@ DREAM_CAT1_PTM_01(i_xExtIlkOK := DREAM_ROUGH2_GPI_02.PG.rPRESS < DREAM_CAT1_PTM_
                                  DREAM_ROUGH2_VRC_01.i_xOpnLS);
 
 
-DREAM_CAT2_PTM_01(i_xExtIlkOK := F_TurboIlkLogic(DREAM_CAT2_PTM_01.iq_stPTM, DREAM_ROUGH2_GPI_03.PG, DREAM_ROUGH2_VRC_02.iq_stValve));
+DREAM_CAT2_PTM_01(i_xExtIlkOK := DREAM_ROUGH2_GPI_03.PG.rPRESS < DREAM_CAT2_PTM_01.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH2_GPI_03.PG.xPRESS_OK AND
+                                 DREAM_ROUGH2_VRC_02.iq_stValve.i_xOpnLS);
 
 (**ROUGHING SECTION TURBO BOOSTER PUMPS**)
-DREAM_ROUGH2_PTM_01(i_xExtIlkOK := F_TurboIlkLogic(DREAM_ROUGH2_PTM_01.iq_stPTM, DREAM_ROUGH2_GPI_02.PG, DREAM_ROUGH2_VRC_01.iq_stValve));
-DREAM_ROUGH2_PTM_02(i_xExtIlkOK := F_TurboIlkLogic(DREAM_ROUGH2_PTM_02.iq_stPTM, DREAM_ROUGH2_GPI_02.PG, DREAM_ROUGH2_VRC_01.iq_stValve));
+DREAM_ROUGH2_PTM_01(i_xExtIlkOK := DREAM_ROUGH2_GPI_02.PG.rPRESS < DREAM_ROUGH2_PTM_01.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK AND
+                                   DREAM_ROUGH2_VRC_01.iq_stValve.i_xOpnLS);
+
+DREAM_ROUGH2_PTM_02(i_xExtIlkOK := DREAM_ROUGH2_GPI_02.PG.rPRESS < DREAM_ROUGH2_PTM_02.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK AND
+                                   DREAM_ROUGH2_VRC_01.iq_stValve.i_xOpnLS);
 
 (*
 bAllTurbosOn := (NOT (DREAM_NC_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_NC_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND

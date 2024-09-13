@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{C8F70948-3B4D-CCD0-DC57-2A4DECFED5BA}" GeneratedBy="TwinCAT XAE Plc">
+<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{ACC0FCDE-72DE-C589-2C64-FB64320AFF79}" GeneratedBy="TwinCAT XAE Plc">
   <DataTypes>
     <DataType>
       <Name Namespace="Tc2_SerialCom">ComBuffer</Name>
@@ -26151,538 +26151,6 @@ ELSE:
       </Properties>
     </DataType>
     <DataType>
-      <Name Namespace="LCLS_Vacuum">E_PumpState</Name>
-      <BitSize>16</BitSize>
-      <BaseType>INT</BaseType>
-      <EnumInfo>
-        <Text>pumpSTOPPED</Text>
-        <Enum>0</Enum>
-      </EnumInfo>
-      <EnumInfo>
-        <Text>pumpSTARTING</Text>
-        <Enum>1</Enum>
-      </EnumInfo>
-      <EnumInfo>
-        <Text>pumpRUNNING</Text>
-        <Enum>2</Enum>
-      </EnumInfo>
-      <EnumInfo>
-        <Text>pumpFAULT</Text>
-        <Enum>3</Enum>
-      </EnumInfo>
-      <EnumInfo>
-        <Text>pumpSTOPPING</Text>
-        <Enum>4</Enum>
-      </EnumInfo>
-    </DataType>
-    <DataType>
-      <Name Namespace="LCLS_Vacuum">ST_PTM</Name>
-      <BitSize>384</BitSize>
-      <SubItem>
-        <Name>xRunSW</Name>
-        <Type>BOOL</Type>
-        <Comment> General PTM Structure
-Each PTM might have a serial control structure, but all will have a general supervisory control structure
-
-NOTE: This is an archetype, use an extension of this structure for a specific pump (or make one).
-
-
- Controls </Comment>
-        <BitSize>8</BitSize>
-        <BitOffs>0</BitOffs>
-        <Properties>
-          <Property>
-            <Name>pytmc</Name>
-            <Value>
-	pv: RUN_SW;
-	field: ZNAM STOP; 
-	field: ONAM RUN;
-	io: io;
-	</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>xResetSW</Name>
-        <Type>BOOL</Type>
-        <Comment>For resetting faults</Comment>
-        <BitSize>8</BitSize>
-        <BitOffs>8</BitOffs>
-        <Properties>
-          <Property>
-            <Name>pytmc</Name>
-            <Value>
-	pv: RST_SW;
-	field: ZNAM FALSE; 
-	field: ONAM TRUE;
-	io: io;
-	</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>q_RunDO</Name>
-        <Type>BOOL</Type>
-        <BitSize>8</BitSize>
-        <BitOffs>16</BitOffs>
-        <Properties>
-          <Property>
-            <Name>pytmc</Name>
-            <Value>
-    pv: RUN_DO;
-	io: i;
-	</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>xExtRunOk</Name>
-        <Type>BOOL</Type>
-        <Comment> also a control </Comment>
-        <BitSize>8</BitSize>
-        <BitOffs>24</BitOffs>
-        <Properties>
-          <Property>
-            <Name>pytmc</Name>
-            <Value>
-	pv: ILK_OK;
-	field: ZNAM ILK ACTIVE;
-	field: ONAM ILK OK;
-	io: i;
-	</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>i_xAccel</Name>
-        <Type>BOOL</Type>
-        <BitSize>8</BitSize>
-        <BitOffs>32</BitOffs>
-        <Properties>
-          <Property>
-            <Name>pytmc</Name>
-            <Value>
-    pv: ACCEL;
-	field: ZNAM FALSE; 
-	field: ONAM TRUE;
-	io: i;
-	</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>i_xAtSpd</Name>
-        <Type>BOOL</Type>
-        <BitSize>8</BitSize>
-        <BitOffs>40</BitOffs>
-        <Properties>
-          <Property>
-            <Name>pytmc</Name>
-            <Value>
-    pv: AT_SPD;
-	field: ZNAM FALSE; 
-	field: ONAM AT SPEED;
-	io: i;
-	</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>i_diCurSpd</Name>
-        <Type>DINT</Type>
-        <BitSize>32</BitSize>
-        <BitOffs>64</BitOffs>
-        <Properties>
-          <Property>
-            <Name>pytmc</Name>
-            <Value>
-	pv: SPEED;
-	io: i;
-	field: EGU "Hz"
-	</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>xCommTimeout</Name>
-        <Type>BOOL</Type>
-        <Comment> Initialized true since we haven't talked to pump yet </Comment>
-        <BitSize>8</BitSize>
-        <BitOffs>96</BitOffs>
-        <Default>
-          <Bool>true</Bool>
-        </Default>
-      </SubItem>
-      <SubItem>
-        <Name>i_xFault</Name>
-        <Type>BOOL</Type>
-        <Comment>FAULT</Comment>
-        <BitSize>8</BitSize>
-        <BitOffs>104</BitOffs>
-        <Properties>
-          <Property>
-            <Name>pytmc</Name>
-            <Value>
-    pv: FAULT;
-	field: ZNAM FALSE; 
-	field: ONAM TRUE;
-	io: i;
-	</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>i_xWarn</Name>
-        <Type>BOOL</Type>
-        <Comment> warning </Comment>
-        <BitSize>8</BitSize>
-        <BitOffs>112</BitOffs>
-        <Properties>
-          <Property>
-            <Name>pytmc</Name>
-            <Value>
-    pv: WARN;
-	field: ZNAM FALSE; 
-	field: ONAM TRUE;
-	io: i;
-	</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>i_xALARM</Name>
-        <Type>BOOL</Type>
-        <Comment> ALARM </Comment>
-        <BitSize>8</BitSize>
-        <BitOffs>120</BitOffs>
-        <Properties>
-          <Property>
-            <Name>pytmc</Name>
-            <Value>
-    pv: ALARM;
-	field: ZNAM FALSE; 
-	field: ONAM TRUE;
-	io: i;
-	</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>xActive</Name>
-        <Type>BOOL</Type>
-        <Comment> this bit is set to add the pump to the system</Comment>
-        <BitSize>8</BitSize>
-        <BitOffs>128</BitOffs>
-      </SubItem>
-      <SubItem>
-        <Name>iPumpGrp</Name>
-        <Type>INT</Type>
-        <Comment> all members of a pump group start at the same time</Comment>
-        <BitSize>16</BitSize>
-        <BitOffs>144</BitOffs>
-      </SubItem>
-      <SubItem>
-        <Name>rForelineSP</Name>
-        <Type>REAL</Type>
-        <Comment> Operational Setpoints </Comment>
-        <BitSize>32</BitSize>
-        <BitOffs>160</BitOffs>
-        <Default>
-          <Value>0.5</Value>
-        </Default>
-      </SubItem>
-      <SubItem>
-        <Name>rBackingPressureSP</Name>
-        <Type>REAL</Type>
-        <BitSize>32</BitSize>
-        <BitOffs>192</BitOffs>
-        <Default>
-          <Value>0.01</Value>
-        </Default>
-        <Properties>
-          <Property>
-            <Name>pytmc</Name>
-            <Value>
-    pv: BP_SP;
-	io: io;
-	field: HOPR 1000
-	field: LOPR 0
-	field: PREC 2
-	field: EGU "TORR"
-	autosave_pass1: VAL DESC
-	</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>rInletPressureSP</Name>
-        <Type>REAL</Type>
-        <Comment>20mTorr</Comment>
-        <BitSize>32</BitSize>
-        <BitOffs>224</BitOffs>
-        <Default>
-          <Value>0.02</Value>
-        </Default>
-        <Properties>
-          <Property>
-            <Name>pytmc</Name>
-            <Value>
-    pv: IP_SP;
-	io: io;
-	field: HOPR 1000
-	field: LOPR 0
-	field: PREC 2
-	field: EGU "TORR"
-	autosave_pass1: VAL DESC
-	</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>eState</Name>
-        <Type Namespace="LCLS_Vacuum">E_PumpState</Type>
-        <Comment>State</Comment>
-        <BitSize>16</BitSize>
-        <BitOffs>256</BitOffs>
-        <Properties>
-          <Property>
-            <Name>pytmc</Name>
-            <Value>
-	pv: STATE;
-	field: ZRST STOPPED;
-	field: ONST STARTING;
-	field: TWST RUNNING;
-	field: THST FAULT;
-	field: FRST STOPPING;
-	io: i;
-	</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>i_rCurrentMon</Name>
-        <Type>REAL</Type>
-        <BitSize>32</BitSize>
-        <BitOffs>288</BitOffs>
-        <Properties>
-          <Property>
-            <Name>pytmc</Name>
-            <Value>
-	pv: CURR_MON;
-	io: i;
-	field: PREC 2
-	field: EGU "A";
-	</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>i_rTempMon</Name>
-        <Type>REAL</Type>
-        <BitSize>32</BitSize>
-        <BitOffs>320</BitOffs>
-        <Properties>
-          <Property>
-            <Name>pytmc</Name>
-            <Value>
-    pv: TEMP_MON;
-	io: i;
-	field: PREC 2;
-	field: EGU "C";
-	</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>xLog</Name>
-        <Type>BOOL</Type>
-        <BitSize>8</BitSize>
-        <BitOffs>352</BitOffs>
-        <Default>
-          <Bool>true</Bool>
-        </Default>
-        <Properties>
-          <Property>
-            <Name>pytmc</Name>
-            <Value>
-    pv: LOGGER;
-	io: i;
-	field: ZNAM OFF ;
-	field: ONAM ON ;
-    </Value>
-          </Property>
-        </Properties>
-      </SubItem>
-    </DataType>
-    <DataType>
-      <Name>FB_TurboSpeedCheck</Name>
-      <BitSize>4288</BitSize>
-      <SubItem>
-        <Name>i_stNCTurbo1</Name>
-        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
-        <Comment>Turbo pump 1</Comment>
-        <BitSize>384</BitSize>
-        <BitOffs>64</BitOffs>
-        <Properties>
-          <Property>
-            <Name>ItemType</Name>
-            <Value>Input</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>i_stNCTurbo2</Name>
-        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
-        <Comment>Turbo pump 1</Comment>
-        <BitSize>384</BitSize>
-        <BitOffs>448</BitOffs>
-        <Properties>
-          <Property>
-            <Name>ItemType</Name>
-            <Value>Input</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>i_stDP1Turbo</Name>
-        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
-        <Comment>Turbo pump 3</Comment>
-        <BitSize>384</BitSize>
-        <BitOffs>832</BitOffs>
-        <Properties>
-          <Property>
-            <Name>ItemType</Name>
-            <Value>Input</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>i_stDP2Turbo</Name>
-        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
-        <Comment>Turbo pump 4</Comment>
-        <BitSize>384</BitSize>
-        <BitOffs>1216</BitOffs>
-        <Properties>
-          <Property>
-            <Name>ItemType</Name>
-            <Value>Input</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>i_stDP3Turbo</Name>
-        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
-        <Comment>Turbo pump 5</Comment>
-        <BitSize>384</BitSize>
-        <BitOffs>1600</BitOffs>
-        <Properties>
-          <Property>
-            <Name>ItemType</Name>
-            <Value>Input</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>i_stMCTurbo1</Name>
-        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
-        <Comment>Turbo pump 6</Comment>
-        <BitSize>384</BitSize>
-        <BitOffs>1984</BitOffs>
-        <Properties>
-          <Property>
-            <Name>ItemType</Name>
-            <Value>Input</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>i_stMCTurbo2</Name>
-        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
-        <Comment>Turbo pump 7</Comment>
-        <BitSize>384</BitSize>
-        <BitOffs>2368</BitOffs>
-        <Properties>
-          <Property>
-            <Name>ItemType</Name>
-            <Value>Input</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>i_stCAT1Turbo</Name>
-        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
-        <Comment>Turbo pump 8</Comment>
-        <BitSize>384</BitSize>
-        <BitOffs>2752</BitOffs>
-        <Properties>
-          <Property>
-            <Name>ItemType</Name>
-            <Value>Input</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>i_stCAT2Turbo</Name>
-        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
-        <Comment>Turbo pump 9</Comment>
-        <BitSize>384</BitSize>
-        <BitOffs>3136</BitOffs>
-        <Properties>
-          <Property>
-            <Name>ItemType</Name>
-            <Value>Input</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>i_stRough2Turbo1</Name>
-        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
-        <Comment>Turbo pump 10</Comment>
-        <BitSize>384</BitSize>
-        <BitOffs>3520</BitOffs>
-        <Properties>
-          <Property>
-            <Name>ItemType</Name>
-            <Value>Input</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>i_stRough2Turbo2</Name>
-        <Type Namespace="LCLS_Vacuum">ST_PTM</Type>
-        <Comment>Turbo pump 11</Comment>
-        <BitSize>384</BitSize>
-        <BitOffs>3904</BitOffs>
-        <Properties>
-          <Property>
-            <Name>ItemType</Name>
-            <Value>Input</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <Method>
-        <Name>IsNozzleTurboSpeedBelow10Hz</Name>
-        <ReturnType>BOOL</ReturnType>
-        <ReturnBitSize>8</ReturnBitSize>
-      </Method>
-      <Method>
-        <Name>IsMainTurboSpeedBelow10Hz</Name>
-        <ReturnType>BOOL</ReturnType>
-        <ReturnBitSize>8</ReturnBitSize>
-      </Method>
-      <Method>
-        <Name>IsCatTurboSpeedBelow10Hz</Name>
-        <ReturnType>BOOL</ReturnType>
-        <ReturnBitSize>8</ReturnBitSize>
-      </Method>
-      <Properties>
-        <Property>
-          <Name>PouType</Name>
-          <Value>FunctionBlock</Value>
-        </Property>
-      </Properties>
-    </DataType>
-    <DataType>
       <Name Namespace="LCLS_General">FB_AnalogInput</Name>
       <BitSize>512</BitSize>
       <SubItem>
@@ -27831,464 +27299,6 @@ This function provides ILK and Set Point Protection for the hot Cathode.
       </Properties>
     </DataType>
     <DataType>
-      <Name>FB_IE514</Name>
-      <Comment>This function is for the IE514 connected to controller IM540
-This function provides ILK and Set Point Protection for the IE514</Comment>
-      <BitSize>94976</BitSize>
-      <ExtendsType Namespace="LCLS_Vacuum">FB_GaugeBase</ExtendsType>
-      <SubItem>
-        <Name>PG</Name>
-        <Type Namespace="LCLS_Vacuum">ST_VG</Type>
-        <BitSize>1056</BitSize>
-        <BitOffs>90112</BitOffs>
-        <Properties>
-          <Property>
-            <Name>ItemType</Name>
-            <Value>Input</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>IG_CH1</Name>
-        <Type Namespace="LCLS_Vacuum">ST_VG</Type>
-        <BitSize>1056</BitSize>
-        <BitOffs>91168</BitOffs>
-        <Properties>
-          <Property>
-            <Name>ItemType</Name>
-            <Value>Output</Value>
-          </Property>
-          <Property>
-            <Name>pytmc</Name>
-            <Value>
-        pv:01
-    </Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>IG_CH2</Name>
-        <Type Namespace="LCLS_Vacuum">ST_VG</Type>
-        <BitSize>1056</BitSize>
-        <BitOffs>92224</BitOffs>
-        <Properties>
-          <Property>
-            <Name>ItemType</Name>
-            <Value>Output</Value>
-          </Property>
-          <Property>
-            <Name>pytmc</Name>
-            <Value>
-        pv:02
-    </Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>rV</Name>
-        <Type>REAL</Type>
-        <Comment>Raw value in volts calculated from iTermBits</Comment>
-        <BitSize>32</BitSize>
-        <BitOffs>93280</BitOffs>
-      </SubItem>
-      <SubItem>
-        <Name>rPRESS</Name>
-        <Type>REAL</Type>
-        <Comment>Calculated pressure from raw voltage</Comment>
-        <BitSize>32</BitSize>
-        <BitOffs>93312</BitOffs>
-      </SubItem>
-      <SubItem>
-        <Name>tHvDis_CH1</Name>
-        <Type Namespace="Tc2_Standard">TON</Type>
-        <Comment>HV turn on timer</Comment>
-        <BitSize>256</BitSize>
-        <BitOffs>93376</BitOffs>
-        <Default>
-          <SubItem>
-            <Name>.PT</Name>
-            <DateTime>T#20S</DateTime>
-          </SubItem>
-        </Default>
-      </SubItem>
-      <SubItem>
-        <Name>tHvDis_CH2</Name>
-        <Type Namespace="Tc2_Standard">TON</Type>
-        <Comment>HV turn on timer</Comment>
-        <BitSize>256</BitSize>
-        <BitOffs>93632</BitOffs>
-        <Default>
-          <SubItem>
-            <Name>.PT</Name>
-            <DateTime>T#20S</DateTime>
-          </SubItem>
-        </Default>
-      </SubItem>
-      <SubItem>
-        <Name>rtHvSw_CH1</Name>
-        <Type Namespace="Tc2_Standard">R_TRIG</Type>
-        <BitSize>128</BitSize>
-        <BitOffs>93888</BitOffs>
-      </SubItem>
-      <SubItem>
-        <Name>rtHvSw_CH2</Name>
-        <Type Namespace="Tc2_Standard">R_TRIG</Type>
-        <BitSize>128</BitSize>
-        <BitOffs>94016</BitOffs>
-      </SubItem>
-      <SubItem>
-        <Name>tAction_CH1</Name>
-        <Type Namespace="Tc2_Standard">R_TRIG</Type>
-        <BitSize>128</BitSize>
-        <BitOffs>94144</BitOffs>
-      </SubItem>
-      <SubItem>
-        <Name>tAction_CH2</Name>
-        <Type Namespace="Tc2_Standard">R_TRIG</Type>
-        <BitSize>128</BitSize>
-        <BitOffs>94272</BitOffs>
-      </SubItem>
-      <SubItem>
-        <Name>bCh1Sel</Name>
-        <Type>BOOL</Type>
-        <BitSize>8</BitSize>
-        <BitOffs>94400</BitOffs>
-      </SubItem>
-      <SubItem>
-        <Name>bCh2Sel</Name>
-        <Type>BOOL</Type>
-        <BitSize>8</BitSize>
-        <BitOffs>94408</BitOffs>
-      </SubItem>
-      <SubItem>
-        <Name>ePrevStateIG_CH1</Name>
-        <Type Namespace="LCLS_Vacuum">E_PressureState</Type>
-        <BitSize>16</BitSize>
-        <BitOffs>94416</BitOffs>
-      </SubItem>
-      <SubItem>
-        <Name>ePrevStateIG_CH2</Name>
-        <Type Namespace="LCLS_Vacuum">E_PressureState</Type>
-        <BitSize>16</BitSize>
-        <BitOffs>94432</BitOffs>
-      </SubItem>
-      <SubItem>
-        <Name>iTermBits</Name>
-        <Type>UINT</Type>
-        <Comment> The terminal's maximum value in bits default el3174 as per vacuum architecture</Comment>
-        <BitSize>16</BitSize>
-        <BitOffs>94448</BitOffs>
-        <Default>
-          <Value>30518</Value>
-        </Default>
-      </SubItem>
-      <SubItem>
-        <Name>binit</Name>
-        <Type>BOOL</Type>
-        <Comment> Do something at startup</Comment>
-        <BitSize>8</BitSize>
-        <BitOffs>94464</BitOffs>
-        <Default>
-          <Bool>true</Bool>
-        </Default>
-      </SubItem>
-      <SubItem>
-        <Name>i_iPRESS_R</Name>
-        <Type>INT</Type>
-        <Comment> Controls and I/Os</Comment>
-        <BitSize>16</BitSize>
-        <BitOffs>94480</BitOffs>
-        <Properties>
-          <Property>
-            <Name>TcAddressType</Name>
-            <Value>Input</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>q_xHV_DIS_CH1</Name>
-        <Type>BOOL</Type>
-        <Comment> Enable Gauge High Voltage on CH1 when True // 'TcLinkTo' (EL2124) ^Output</Comment>
-        <BitSize>8</BitSize>
-        <BitOffs>94496</BitOffs>
-        <Properties>
-          <Property>
-            <Name>TcAddressType</Name>
-            <Value>Output</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>q_xHV_DIS_CH2</Name>
-        <Type>BOOL</Type>
-        <Comment> Enable Gauge High Voltage on CH2 when True // 'TcLinkTo' (EL2124) ^Output</Comment>
-        <BitSize>8</BitSize>
-        <BitOffs>94504</BitOffs>
-        <Properties>
-          <Property>
-            <Name>TcAddressType</Name>
-            <Value>Output</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>i_xHV_ON</Name>
-        <Type>BOOL</Type>
-        <Comment> True when EMI is on  // 'TcLinkTo' (EL1004 or EL1008) ^Input</Comment>
-        <BitSize>8</BitSize>
-        <BitOffs>94512</BitOffs>
-        <Properties>
-          <Property>
-            <Name>TcAddressType</Name>
-            <Value>Input</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>i_xERR_CH1</Name>
-        <Type>BOOL</Type>
-        <Comment> TRUE when NO error is present on assigned channel</Comment>
-        <BitSize>8</BitSize>
-        <BitOffs>94520</BitOffs>
-        <Properties>
-          <Property>
-            <Name>TcAddressType</Name>
-            <Value>Input</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>i_xERR_CH2</Name>
-        <Type>BOOL</Type>
-        <Comment> TRUE when NO error is present on assigned channel</Comment>
-        <BitSize>8</BitSize>
-        <BitOffs>94528</BitOffs>
-        <Properties>
-          <Property>
-            <Name>TcAddressType</Name>
-            <Value>Input</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>i_xCH2_SEL</Name>
-        <Type>BOOL</Type>
-        <Comment> TRUE when CH2 selected, FALSE when CH1 selected</Comment>
-        <BitSize>8</BitSize>
-        <BitOffs>94536</BitOffs>
-        <Properties>
-          <Property>
-            <Name>TcAddressType</Name>
-            <Value>Input</Value>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>cMaxPressure</Name>
-        <Type>REAL</Type>
-        <Comment>Torr</Comment>
-        <BitSize>32</BitSize>
-        <BitOffs>94560</BitOffs>
-        <Default>
-          <Value>7.5E-05</Value>
-        </Default>
-      </SubItem>
-      <SubItem>
-        <Name>cMinPressure</Name>
-        <Type>REAL</Type>
-        <Comment>Torr</Comment>
-        <BitSize>32</BitSize>
-        <BitOffs>94592</BitOffs>
-        <Default>
-          <Value>7.5E-14</Value>
-        </Default>
-      </SubItem>
-      <SubItem>
-        <Name>cGaugeMinVoltage</Name>
-        <Type>REAL</Type>
-        <Comment>minimum voltage corresponds to 7.5E-13 (7.498E-13)Torr which should be the minimum pressure IE514 can read.</Comment>
-        <BitSize>32</BitSize>
-        <BitOffs>94624</BitOffs>
-        <Default>
-          <Value>1.111</Value>
-        </Default>
-      </SubItem>
-      <SubItem>
-        <Name>cGaugeMaxVoltage</Name>
-        <Type>REAL</Type>
-        <Comment>maximum voltage corresponds 7.5E-5 Torr which should be the maximum pressure IE514 can read.</Comment>
-        <BitSize>32</BitSize>
-        <BitOffs>94656</BitOffs>
-        <Default>
-          <Value>10</Value>
-        </Default>
-      </SubItem>
-      <SubItem>
-        <Name>cGaugeDisconnected</Name>
-        <Type>REAL</Type>
-        <Comment>voltage when gauge is disconnected.</Comment>
-        <BitSize>32</BitSize>
-        <BitOffs>94688</BitOffs>
-        <Default>
-          <Value>10.2</Value>
-        </Default>
-      </SubItem>
-      <SubItem>
-        <Name>cGaugeOff</Name>
-        <Type>REAL</Type>
-        <Comment>voltage when gauge is turned off</Comment>
-        <BitSize>32</BitSize>
-        <BitOffs>94720</BitOffs>
-        <Default>
-          <Value>10.2</Value>
-        </Default>
-      </SubItem>
-      <SubItem>
-        <Name>cDeadband</Name>
-        <Type>REAL</Type>
-        <Comment>deadband in voltage</Comment>
-        <BitSize>32</BitSize>
-        <BitOffs>94752</BitOffs>
-        <Default>
-          <Value>0.05</Value>
-        </Default>
-      </SubItem>
-      <SubItem>
-        <Name>rVAC_SP_CH1</Name>
-        <Type>REAL</Type>
-        <Comment>Persistent variables for CH1</Comment>
-        <BitSize>32</BitSize>
-        <BitOffs>94784</BitOffs>
-        <Properties>
-          <Property>
-            <Name>TcPersistent</Name>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>rPRO_SP_CH1</Name>
-        <Type>REAL</Type>
-        <BitSize>32</BitSize>
-        <BitOffs>94816</BitOffs>
-        <Properties>
-          <Property>
-            <Name>TcPersistent</Name>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>rHYS_PR_CH1</Name>
-        <Type>REAL</Type>
-        <BitSize>32</BitSize>
-        <BitOffs>94848</BitOffs>
-        <Properties>
-          <Property>
-            <Name>TcPersistent</Name>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>rVAC_SP_CH2</Name>
-        <Type>REAL</Type>
-        <Comment>Persistent variables for CH2</Comment>
-        <BitSize>32</BitSize>
-        <BitOffs>94880</BitOffs>
-        <Properties>
-          <Property>
-            <Name>TcPersistent</Name>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>rPRO_SP_CH2</Name>
-        <Type>REAL</Type>
-        <BitSize>32</BitSize>
-        <BitOffs>94912</BitOffs>
-        <Properties>
-          <Property>
-            <Name>TcPersistent</Name>
-          </Property>
-        </Properties>
-      </SubItem>
-      <SubItem>
-        <Name>rHYS_PR_CH2</Name>
-        <Type>REAL</Type>
-        <BitSize>32</BitSize>
-        <BitOffs>94944</BitOffs>
-        <Properties>
-          <Property>
-            <Name>TcPersistent</Name>
-          </Property>
-        </Properties>
-      </SubItem>
-      <Action>
-        <Name>ACT_Logger</Name>
-      </Action>
-      <Action>
-        <Name>IO</Name>
-      </Action>
-      <Action>
-        <Name>ACT_Persistent</Name>
-      </Action>
-      <Method>
-        <Name>M_AutoOnCh2</Name>
-        <ReturnType>BOOL</ReturnType>
-        <ReturnBitSize>8</ReturnBitSize>
-      </Method>
-      <Method>
-        <Name>M_HVECh1</Name>
-        <ReturnType>BOOL</ReturnType>
-        <ReturnBitSize>8</ReturnBitSize>
-        <Parameter>
-          <Name>enable</Name>
-          <Comment> set to true to enable, false to disable;</Comment>
-          <Type>BOOL</Type>
-          <BitSize>8</BitSize>
-        </Parameter>
-      </Method>
-      <Method>
-        <Name>M_HVECh2</Name>
-        <ReturnType>BOOL</ReturnType>
-        <ReturnBitSize>8</ReturnBitSize>
-        <Parameter>
-          <Name>enable</Name>
-          <Comment> set to true to enable, false to disable;</Comment>
-          <Type>BOOL</Type>
-          <BitSize>8</BitSize>
-        </Parameter>
-      </Method>
-      <Method>
-        <Name>M_IsCh1Selected</Name>
-        <ReturnType>BOOL</ReturnType>
-        <ReturnBitSize>8</ReturnBitSize>
-      </Method>
-      <Method>
-        <Name>M_SetBits</Name>
-        <Parameter>
-          <Name>TermBits</Name>
-          <Comment> The beckhoff terminal's maximum value in bits</Comment>
-          <Type>UINT</Type>
-          <BitSize>16</BitSize>
-        </Parameter>
-      </Method>
-      <Method>
-        <Name>M_AutoOnCh1</Name>
-        <ReturnType>BOOL</ReturnType>
-        <ReturnBitSize>8</ReturnBitSize>
-      </Method>
-      <Method>
-        <Name>M_IsCh2Selected</Name>
-        <ReturnType>BOOL</ReturnType>
-        <ReturnBitSize>8</ReturnBitSize>
-      </Method>
-      <Properties>
-        <Property>
-          <Name>PouType</Name>
-          <Value>FunctionBlock</Value>
-        </Property>
-      </Properties>
-    </DataType>
-    <DataType>
       <Name Namespace="LCLS_Vacuum">FB_MKS275</Name>
       <Comment> This function block is used to provide protection and automatic turn on of ion gauges,
  it also manages the turn on of the AT_VAC boolean, and checks to make sure the pressure is good 
@@ -28683,6 +27693,31 @@ This function provides ILK and Set Point Protection for the IE514</Comment>
           <Value>FunctionBlock</Value>
         </Property>
       </Properties>
+    </DataType>
+    <DataType>
+      <Name Namespace="LCLS_Vacuum">E_PumpState</Name>
+      <BitSize>16</BitSize>
+      <BaseType>INT</BaseType>
+      <EnumInfo>
+        <Text>pumpSTOPPED</Text>
+        <Enum>0</Enum>
+      </EnumInfo>
+      <EnumInfo>
+        <Text>pumpSTARTING</Text>
+        <Enum>1</Enum>
+      </EnumInfo>
+      <EnumInfo>
+        <Text>pumpRUNNING</Text>
+        <Enum>2</Enum>
+      </EnumInfo>
+      <EnumInfo>
+        <Text>pumpFAULT</Text>
+        <Enum>3</Enum>
+      </EnumInfo>
+      <EnumInfo>
+        <Text>pumpSTOPPING</Text>
+        <Enum>4</Enum>
+      </EnumInfo>
     </DataType>
     <DataType>
       <Name Namespace="LCLS_Vacuum">FB_Pump</Name>
@@ -29243,6 +28278,345 @@ This function provides ILK and Set Point Protection for the IE514</Comment>
         <Type>BOOL</Type>
         <BitSize>8</BitSize>
         <BitOffs>144</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name Namespace="LCLS_Vacuum">ST_PTM</Name>
+      <BitSize>384</BitSize>
+      <SubItem>
+        <Name>xRunSW</Name>
+        <Type>BOOL</Type>
+        <Comment> General PTM Structure
+Each PTM might have a serial control structure, but all will have a general supervisory control structure
+
+NOTE: This is an archetype, use an extension of this structure for a specific pump (or make one).
+
+
+ Controls </Comment>
+        <BitSize>8</BitSize>
+        <BitOffs>0</BitOffs>
+        <Properties>
+          <Property>
+            <Name>pytmc</Name>
+            <Value>
+	pv: RUN_SW;
+	field: ZNAM STOP; 
+	field: ONAM RUN;
+	io: io;
+	</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>xResetSW</Name>
+        <Type>BOOL</Type>
+        <Comment>For resetting faults</Comment>
+        <BitSize>8</BitSize>
+        <BitOffs>8</BitOffs>
+        <Properties>
+          <Property>
+            <Name>pytmc</Name>
+            <Value>
+	pv: RST_SW;
+	field: ZNAM FALSE; 
+	field: ONAM TRUE;
+	io: io;
+	</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>q_RunDO</Name>
+        <Type>BOOL</Type>
+        <BitSize>8</BitSize>
+        <BitOffs>16</BitOffs>
+        <Properties>
+          <Property>
+            <Name>pytmc</Name>
+            <Value>
+    pv: RUN_DO;
+	io: i;
+	</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>xExtRunOk</Name>
+        <Type>BOOL</Type>
+        <Comment> also a control </Comment>
+        <BitSize>8</BitSize>
+        <BitOffs>24</BitOffs>
+        <Properties>
+          <Property>
+            <Name>pytmc</Name>
+            <Value>
+	pv: ILK_OK;
+	field: ZNAM ILK ACTIVE;
+	field: ONAM ILK OK;
+	io: i;
+	</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_xAccel</Name>
+        <Type>BOOL</Type>
+        <BitSize>8</BitSize>
+        <BitOffs>32</BitOffs>
+        <Properties>
+          <Property>
+            <Name>pytmc</Name>
+            <Value>
+    pv: ACCEL;
+	field: ZNAM FALSE; 
+	field: ONAM TRUE;
+	io: i;
+	</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_xAtSpd</Name>
+        <Type>BOOL</Type>
+        <BitSize>8</BitSize>
+        <BitOffs>40</BitOffs>
+        <Properties>
+          <Property>
+            <Name>pytmc</Name>
+            <Value>
+    pv: AT_SPD;
+	field: ZNAM FALSE; 
+	field: ONAM AT SPEED;
+	io: i;
+	</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_diCurSpd</Name>
+        <Type>DINT</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>64</BitOffs>
+        <Properties>
+          <Property>
+            <Name>pytmc</Name>
+            <Value>
+	pv: SPEED;
+	io: i;
+	field: EGU "Hz"
+	</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>xCommTimeout</Name>
+        <Type>BOOL</Type>
+        <Comment> Initialized true since we haven't talked to pump yet </Comment>
+        <BitSize>8</BitSize>
+        <BitOffs>96</BitOffs>
+        <Default>
+          <Bool>true</Bool>
+        </Default>
+      </SubItem>
+      <SubItem>
+        <Name>i_xFault</Name>
+        <Type>BOOL</Type>
+        <Comment>FAULT</Comment>
+        <BitSize>8</BitSize>
+        <BitOffs>104</BitOffs>
+        <Properties>
+          <Property>
+            <Name>pytmc</Name>
+            <Value>
+    pv: FAULT;
+	field: ZNAM FALSE; 
+	field: ONAM TRUE;
+	io: i;
+	</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_xWarn</Name>
+        <Type>BOOL</Type>
+        <Comment> warning </Comment>
+        <BitSize>8</BitSize>
+        <BitOffs>112</BitOffs>
+        <Properties>
+          <Property>
+            <Name>pytmc</Name>
+            <Value>
+    pv: WARN;
+	field: ZNAM FALSE; 
+	field: ONAM TRUE;
+	io: i;
+	</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_xALARM</Name>
+        <Type>BOOL</Type>
+        <Comment> ALARM </Comment>
+        <BitSize>8</BitSize>
+        <BitOffs>120</BitOffs>
+        <Properties>
+          <Property>
+            <Name>pytmc</Name>
+            <Value>
+    pv: ALARM;
+	field: ZNAM FALSE; 
+	field: ONAM TRUE;
+	io: i;
+	</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>xActive</Name>
+        <Type>BOOL</Type>
+        <Comment> this bit is set to add the pump to the system</Comment>
+        <BitSize>8</BitSize>
+        <BitOffs>128</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>iPumpGrp</Name>
+        <Type>INT</Type>
+        <Comment> all members of a pump group start at the same time</Comment>
+        <BitSize>16</BitSize>
+        <BitOffs>144</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>rForelineSP</Name>
+        <Type>REAL</Type>
+        <Comment> Operational Setpoints </Comment>
+        <BitSize>32</BitSize>
+        <BitOffs>160</BitOffs>
+        <Default>
+          <Value>0.5</Value>
+        </Default>
+      </SubItem>
+      <SubItem>
+        <Name>rBackingPressureSP</Name>
+        <Type>REAL</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>192</BitOffs>
+        <Default>
+          <Value>0.01</Value>
+        </Default>
+        <Properties>
+          <Property>
+            <Name>pytmc</Name>
+            <Value>
+    pv: BP_SP;
+	io: io;
+	field: HOPR 1000
+	field: LOPR 0
+	field: PREC 2
+	field: EGU "TORR"
+	autosave_pass1: VAL DESC
+	</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>rInletPressureSP</Name>
+        <Type>REAL</Type>
+        <Comment>20mTorr</Comment>
+        <BitSize>32</BitSize>
+        <BitOffs>224</BitOffs>
+        <Default>
+          <Value>0.02</Value>
+        </Default>
+        <Properties>
+          <Property>
+            <Name>pytmc</Name>
+            <Value>
+    pv: IP_SP;
+	io: io;
+	field: HOPR 1000
+	field: LOPR 0
+	field: PREC 2
+	field: EGU "TORR"
+	autosave_pass1: VAL DESC
+	</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>eState</Name>
+        <Type Namespace="LCLS_Vacuum">E_PumpState</Type>
+        <Comment>State</Comment>
+        <BitSize>16</BitSize>
+        <BitOffs>256</BitOffs>
+        <Properties>
+          <Property>
+            <Name>pytmc</Name>
+            <Value>
+	pv: STATE;
+	field: ZRST STOPPED;
+	field: ONST STARTING;
+	field: TWST RUNNING;
+	field: THST FAULT;
+	field: FRST STOPPING;
+	io: i;
+	</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_rCurrentMon</Name>
+        <Type>REAL</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>288</BitOffs>
+        <Properties>
+          <Property>
+            <Name>pytmc</Name>
+            <Value>
+	pv: CURR_MON;
+	io: i;
+	field: PREC 2
+	field: EGU "A";
+	</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_rTempMon</Name>
+        <Type>REAL</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>320</BitOffs>
+        <Properties>
+          <Property>
+            <Name>pytmc</Name>
+            <Value>
+    pv: TEMP_MON;
+	io: i;
+	field: PREC 2;
+	field: EGU "C";
+	</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>xLog</Name>
+        <Type>BOOL</Type>
+        <BitSize>8</BitSize>
+        <BitOffs>352</BitOffs>
+        <Default>
+          <Bool>true</Bool>
+        </Default>
+        <Properties>
+          <Property>
+            <Name>pytmc</Name>
+            <Value>
+    pv: LOGGER;
+	io: i;
+	field: ZNAM OFF ;
+	field: ONAM ON ;
+    </Value>
+          </Property>
+        </Properties>
       </SubItem>
     </DataType>
     <DataType>
@@ -48306,6 +47680,465 @@ This function block also implements PMPS and EPS interlocks, as well as Fast MPS
         </Property>
       </Properties>
     </DataType>
+    <DataType>
+      <Name>FB_IE514</Name>
+      <Comment>This function is for the IE514 connected to controller IM540
+This function provides ILK and Set Point Protection for the IE514</Comment>
+      <BitSize>94976</BitSize>
+      <ExtendsType Namespace="LCLS_Vacuum">FB_GaugeBase</ExtendsType>
+      <SubItem>
+        <Name>PG</Name>
+        <Type Namespace="LCLS_Vacuum">ST_VG</Type>
+        <BitSize>1056</BitSize>
+        <BitOffs>90112</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>IG_CH1</Name>
+        <Type Namespace="LCLS_Vacuum">ST_VG</Type>
+        <BitSize>1056</BitSize>
+        <BitOffs>91168</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Output</Value>
+          </Property>
+          <Property>
+            <Name>pytmc</Name>
+            <Value>
+        pv:01
+    </Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>IG_CH2</Name>
+        <Type Namespace="LCLS_Vacuum">ST_VG</Type>
+        <BitSize>1056</BitSize>
+        <BitOffs>92224</BitOffs>
+        <Properties>
+          <Property>
+            <Name>ItemType</Name>
+            <Value>Output</Value>
+          </Property>
+          <Property>
+            <Name>pytmc</Name>
+            <Value>
+        pv:02
+    </Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>rV_CH1</Name>
+        <Type>REAL</Type>
+        <Comment>Raw value in volts for CH1 calculated from iTermBits</Comment>
+        <BitSize>32</BitSize>
+        <BitOffs>93280</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>rV_CH2</Name>
+        <Type>REAL</Type>
+        <Comment>Raw value in volts for CH2 calculated from iTermBits</Comment>
+        <BitSize>32</BitSize>
+        <BitOffs>93312</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>tHvDis_CH1</Name>
+        <Type Namespace="Tc2_Standard">TON</Type>
+        <Comment>HV turn on timer</Comment>
+        <BitSize>256</BitSize>
+        <BitOffs>93376</BitOffs>
+        <Default>
+          <SubItem>
+            <Name>.PT</Name>
+            <DateTime>T#20S</DateTime>
+          </SubItem>
+        </Default>
+      </SubItem>
+      <SubItem>
+        <Name>tHvDis_CH2</Name>
+        <Type Namespace="Tc2_Standard">TON</Type>
+        <Comment>HV turn on timer</Comment>
+        <BitSize>256</BitSize>
+        <BitOffs>93632</BitOffs>
+        <Default>
+          <SubItem>
+            <Name>.PT</Name>
+            <DateTime>T#20S</DateTime>
+          </SubItem>
+        </Default>
+      </SubItem>
+      <SubItem>
+        <Name>rtHvSw_CH1</Name>
+        <Type Namespace="Tc2_Standard">R_TRIG</Type>
+        <BitSize>128</BitSize>
+        <BitOffs>93888</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>rtHvSw_CH2</Name>
+        <Type Namespace="Tc2_Standard">R_TRIG</Type>
+        <BitSize>128</BitSize>
+        <BitOffs>94016</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>tAction_CH1</Name>
+        <Type Namespace="Tc2_Standard">R_TRIG</Type>
+        <BitSize>128</BitSize>
+        <BitOffs>94144</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>tAction_CH2</Name>
+        <Type Namespace="Tc2_Standard">R_TRIG</Type>
+        <BitSize>128</BitSize>
+        <BitOffs>94272</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>ePrevStateIG_CH1</Name>
+        <Type Namespace="LCLS_Vacuum">E_PressureState</Type>
+        <BitSize>16</BitSize>
+        <BitOffs>94400</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>ePrevStateIG_CH2</Name>
+        <Type Namespace="LCLS_Vacuum">E_PressureState</Type>
+        <BitSize>16</BitSize>
+        <BitOffs>94416</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>iTermBits</Name>
+        <Type>UINT</Type>
+        <Comment> The terminal's maximum value in bits default el3174 as per vacuum architecture</Comment>
+        <BitSize>16</BitSize>
+        <BitOffs>94432</BitOffs>
+        <Default>
+          <Value>30518</Value>
+        </Default>
+      </SubItem>
+      <SubItem>
+        <Name>binit</Name>
+        <Type>BOOL</Type>
+        <Comment> Do something at startup</Comment>
+        <BitSize>8</BitSize>
+        <BitOffs>94448</BitOffs>
+        <Default>
+          <Bool>true</Bool>
+        </Default>
+      </SubItem>
+      <SubItem>
+        <Name>i_iPRESS_R_CH1</Name>
+        <Type>INT</Type>
+        <Comment> Controls and I/Os</Comment>
+        <BitSize>16</BitSize>
+        <BitOffs>94464</BitOffs>
+        <Properties>
+          <Property>
+            <Name>TcAddressType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_iPRESS_R_CH2</Name>
+        <Type>INT</Type>
+        <Comment> input raw pressure in bits CH2 (ADC) // 'TcLinkTo' (EL3174) ^Input</Comment>
+        <BitSize>16</BitSize>
+        <BitOffs>94480</BitOffs>
+        <Properties>
+          <Property>
+            <Name>TcAddressType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>q_xHV_DIS_CH1</Name>
+        <Type>BOOL</Type>
+        <Comment> Enable Gauge High Voltage on CH1 when True // 'TcLinkTo' (EL2124) ^Output</Comment>
+        <BitSize>8</BitSize>
+        <BitOffs>94496</BitOffs>
+        <Properties>
+          <Property>
+            <Name>TcAddressType</Name>
+            <Value>Output</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>q_xHV_DIS_CH2</Name>
+        <Type>BOOL</Type>
+        <Comment> Enable Gauge High Voltage on CH2 when True // 'TcLinkTo' (EL2124) ^Output</Comment>
+        <BitSize>8</BitSize>
+        <BitOffs>94504</BitOffs>
+        <Properties>
+          <Property>
+            <Name>TcAddressType</Name>
+            <Value>Output</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_xHV_ON</Name>
+        <Type>BOOL</Type>
+        <Comment> True when EMI is on  // 'TcLinkTo' (EL1004 or EL1008) ^Input</Comment>
+        <BitSize>8</BitSize>
+        <BitOffs>94512</BitOffs>
+        <Properties>
+          <Property>
+            <Name>TcAddressType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_xERR_CH1</Name>
+        <Type>BOOL</Type>
+        <Comment> TRUE when NO error is present on assigned channel</Comment>
+        <BitSize>8</BitSize>
+        <BitOffs>94520</BitOffs>
+        <Properties>
+          <Property>
+            <Name>TcAddressType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_xERR_CH2</Name>
+        <Type>BOOL</Type>
+        <Comment> TRUE when NO error is present on assigned channel</Comment>
+        <BitSize>8</BitSize>
+        <BitOffs>94528</BitOffs>
+        <Properties>
+          <Property>
+            <Name>TcAddressType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>i_xCH2_SEL</Name>
+        <Type>BOOL</Type>
+        <Comment> TRUE when CH2 selected, FALSE when CH1 selected</Comment>
+        <BitSize>8</BitSize>
+        <BitOffs>94536</BitOffs>
+        <Properties>
+          <Property>
+            <Name>TcAddressType</Name>
+            <Value>Input</Value>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>cMaxPressure</Name>
+        <Type>REAL</Type>
+        <Comment>Torr</Comment>
+        <BitSize>32</BitSize>
+        <BitOffs>94560</BitOffs>
+        <Default>
+          <Value>7.5E-05</Value>
+        </Default>
+      </SubItem>
+      <SubItem>
+        <Name>cMinPressure</Name>
+        <Type>REAL</Type>
+        <Comment>Torr</Comment>
+        <BitSize>32</BitSize>
+        <BitOffs>94592</BitOffs>
+        <Default>
+          <Value>7.5E-14</Value>
+        </Default>
+      </SubItem>
+      <SubItem>
+        <Name>cGaugeMinVoltage</Name>
+        <Type>REAL</Type>
+        <Comment>minimum voltage corresponds to 7.5E-13 (7.498E-13)Torr which should be the minimum pressure IE514 can read.</Comment>
+        <BitSize>32</BitSize>
+        <BitOffs>94624</BitOffs>
+        <Default>
+          <Value>1.111</Value>
+        </Default>
+      </SubItem>
+      <SubItem>
+        <Name>cGaugeMaxVoltage</Name>
+        <Type>REAL</Type>
+        <Comment>maximum voltage corresponds 7.5E-5 Torr which should be the maximum pressure IE514 can read.</Comment>
+        <BitSize>32</BitSize>
+        <BitOffs>94656</BitOffs>
+        <Default>
+          <Value>10</Value>
+        </Default>
+      </SubItem>
+      <SubItem>
+        <Name>cGaugeDisconnected</Name>
+        <Type>REAL</Type>
+        <Comment>voltage when gauge is disconnected.</Comment>
+        <BitSize>32</BitSize>
+        <BitOffs>94688</BitOffs>
+        <Default>
+          <Value>10.2</Value>
+        </Default>
+      </SubItem>
+      <SubItem>
+        <Name>cGaugeOff</Name>
+        <Type>REAL</Type>
+        <Comment>voltage when gauge is turned off</Comment>
+        <BitSize>32</BitSize>
+        <BitOffs>94720</BitOffs>
+        <Default>
+          <Value>10.2</Value>
+        </Default>
+      </SubItem>
+      <SubItem>
+        <Name>cDeadband</Name>
+        <Type>REAL</Type>
+        <Comment>deadband in voltage</Comment>
+        <BitSize>32</BitSize>
+        <BitOffs>94752</BitOffs>
+        <Default>
+          <Value>0.05</Value>
+        </Default>
+      </SubItem>
+      <SubItem>
+        <Name>rVAC_SP_CH1</Name>
+        <Type>REAL</Type>
+        <Comment>Persistent variables for CH1</Comment>
+        <BitSize>32</BitSize>
+        <BitOffs>94784</BitOffs>
+        <Properties>
+          <Property>
+            <Name>TcPersistent</Name>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>rPRO_SP_CH1</Name>
+        <Type>REAL</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>94816</BitOffs>
+        <Properties>
+          <Property>
+            <Name>TcPersistent</Name>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>rHYS_PR_CH1</Name>
+        <Type>REAL</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>94848</BitOffs>
+        <Properties>
+          <Property>
+            <Name>TcPersistent</Name>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>rVAC_SP_CH2</Name>
+        <Type>REAL</Type>
+        <Comment>Persistent variables for CH2</Comment>
+        <BitSize>32</BitSize>
+        <BitOffs>94880</BitOffs>
+        <Properties>
+          <Property>
+            <Name>TcPersistent</Name>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>rPRO_SP_CH2</Name>
+        <Type>REAL</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>94912</BitOffs>
+        <Properties>
+          <Property>
+            <Name>TcPersistent</Name>
+          </Property>
+        </Properties>
+      </SubItem>
+      <SubItem>
+        <Name>rHYS_PR_CH2</Name>
+        <Type>REAL</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>94944</BitOffs>
+        <Properties>
+          <Property>
+            <Name>TcPersistent</Name>
+          </Property>
+        </Properties>
+      </SubItem>
+      <Action>
+        <Name>ACT_Logger</Name>
+      </Action>
+      <Action>
+        <Name>IO</Name>
+      </Action>
+      <Action>
+        <Name>ACT_Persistent</Name>
+      </Action>
+      <Method>
+        <Name>M_AutoOnCh2</Name>
+        <ReturnType>BOOL</ReturnType>
+        <ReturnBitSize>8</ReturnBitSize>
+      </Method>
+      <Method>
+        <Name>M_HVECh1</Name>
+        <ReturnType>BOOL</ReturnType>
+        <ReturnBitSize>8</ReturnBitSize>
+        <Parameter>
+          <Name>enable</Name>
+          <Comment> set to true to enable, false to disable;</Comment>
+          <Type>BOOL</Type>
+          <BitSize>8</BitSize>
+        </Parameter>
+      </Method>
+      <Method>
+        <Name>M_HVECh2</Name>
+        <ReturnType>BOOL</ReturnType>
+        <ReturnBitSize>8</ReturnBitSize>
+        <Parameter>
+          <Name>enable</Name>
+          <Comment> set to true to enable, false to disable;</Comment>
+          <Type>BOOL</Type>
+          <BitSize>8</BitSize>
+        </Parameter>
+      </Method>
+      <Method>
+        <Name>M_IsCh1Selected</Name>
+        <ReturnType>BOOL</ReturnType>
+        <ReturnBitSize>8</ReturnBitSize>
+      </Method>
+      <Method>
+        <Name>M_SetBits</Name>
+        <Parameter>
+          <Name>TermBits</Name>
+          <Comment> The beckhoff terminal's maximum value in bits</Comment>
+          <Type>UINT</Type>
+          <BitSize>16</BitSize>
+        </Parameter>
+      </Method>
+      <Method>
+        <Name>M_AutoOnCh1</Name>
+        <ReturnType>BOOL</ReturnType>
+        <ReturnBitSize>8</ReturnBitSize>
+      </Method>
+      <Method>
+        <Name>M_IsCh2Selected</Name>
+        <ReturnType>BOOL</ReturnType>
+        <ReturnBitSize>8</ReturnBitSize>
+      </Method>
+      <Properties>
+        <Property>
+          <Name>PouType</Name>
+          <Value>FunctionBlock</Value>
+        </Property>
+      </Properties>
+    </DataType>
   </DataTypes>
   <Modules>
     <Module GUID="{835D5B94-3E6E-4585-BD94-9F803EEB99C5}" TcSmClass="TComPlcObjDef" TargetPlatform="TwinCAT RT (x64)">
@@ -51716,71 +51549,6 @@ This function block also implements PMPS and EPS interlocks, as well as Fast MPS
             <BitOffs>641299880</BitOffs>
           </Symbol>
           <Symbol>
-            <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_iPRESS_R</Name>
-            <Comment> Controls and I/Os</Comment>
-            <BitSize>16</BitSize>
-            <BaseType>INT</BaseType>
-            <Properties>
-              <Property>
-                <Name>TcAddressType</Name>
-                <Value>Input</Value>
-              </Property>
-            </Properties>
-            <BitOffs>641394640</BitOffs>
-          </Symbol>
-          <Symbol>
-            <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xHV_ON</Name>
-            <Comment> True when EMI is on  // 'TcLinkTo' (EL1004 or EL1008) ^Input</Comment>
-            <BitSize>8</BitSize>
-            <BaseType>BOOL</BaseType>
-            <Properties>
-              <Property>
-                <Name>TcAddressType</Name>
-                <Value>Input</Value>
-              </Property>
-            </Properties>
-            <BitOffs>641394672</BitOffs>
-          </Symbol>
-          <Symbol>
-            <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xERR_CH1</Name>
-            <Comment> TRUE when NO error is present on assigned channel</Comment>
-            <BitSize>8</BitSize>
-            <BaseType>BOOL</BaseType>
-            <Properties>
-              <Property>
-                <Name>TcAddressType</Name>
-                <Value>Input</Value>
-              </Property>
-            </Properties>
-            <BitOffs>641394680</BitOffs>
-          </Symbol>
-          <Symbol>
-            <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xERR_CH2</Name>
-            <Comment> TRUE when NO error is present on assigned channel</Comment>
-            <BitSize>8</BitSize>
-            <BaseType>BOOL</BaseType>
-            <Properties>
-              <Property>
-                <Name>TcAddressType</Name>
-                <Value>Input</Value>
-              </Property>
-            </Properties>
-            <BitOffs>641394688</BitOffs>
-          </Symbol>
-          <Symbol>
-            <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xCH2_SEL</Name>
-            <Comment> TRUE when CH2 selected, FALSE when CH1 selected</Comment>
-            <BitSize>8</BitSize>
-            <BaseType>BOOL</BaseType>
-            <Properties>
-              <Property>
-                <Name>TcAddressType</Name>
-                <Value>Input</Value>
-              </Property>
-            </Properties>
-            <BitOffs>641394696</BitOffs>
-          </Symbol>
-          <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_MC_GPI_01.i_iPRESS_R</Name>
             <Comment> input Pressure // Link to analog Input</Comment>
             <BitSize>16</BitSize>
@@ -52442,6 +52210,84 @@ This function block also implements PMPS and EPS interlocks, as well as Fast MPS
             </Properties>
             <BitOffs>647597704</BitOffs>
           </Symbol>
+          <Symbol>
+            <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_iPRESS_R_CH1</Name>
+            <Comment> Controls and I/Os</Comment>
+            <BitSize>16</BitSize>
+            <BaseType>INT</BaseType>
+            <Properties>
+              <Property>
+                <Name>TcAddressType</Name>
+                <Value>Input</Value>
+              </Property>
+            </Properties>
+            <BitOffs>653360960</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_iPRESS_R_CH2</Name>
+            <Comment> input raw pressure in bits CH2 (ADC) // 'TcLinkTo' (EL3174) ^Input</Comment>
+            <BitSize>16</BitSize>
+            <BaseType>INT</BaseType>
+            <Properties>
+              <Property>
+                <Name>TcAddressType</Name>
+                <Value>Input</Value>
+              </Property>
+            </Properties>
+            <BitOffs>653360976</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xHV_ON</Name>
+            <Comment> True when EMI is on  // 'TcLinkTo' (EL1004 or EL1008) ^Input</Comment>
+            <BitSize>8</BitSize>
+            <BaseType>BOOL</BaseType>
+            <Properties>
+              <Property>
+                <Name>TcAddressType</Name>
+                <Value>Input</Value>
+              </Property>
+            </Properties>
+            <BitOffs>653361008</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xERR_CH1</Name>
+            <Comment> TRUE when NO error is present on assigned channel</Comment>
+            <BitSize>8</BitSize>
+            <BaseType>BOOL</BaseType>
+            <Properties>
+              <Property>
+                <Name>TcAddressType</Name>
+                <Value>Input</Value>
+              </Property>
+            </Properties>
+            <BitOffs>653361016</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xERR_CH2</Name>
+            <Comment> TRUE when NO error is present on assigned channel</Comment>
+            <BitSize>8</BitSize>
+            <BaseType>BOOL</BaseType>
+            <Properties>
+              <Property>
+                <Name>TcAddressType</Name>
+                <Value>Input</Value>
+              </Property>
+            </Properties>
+            <BitOffs>653361024</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xCH2_SEL</Name>
+            <Comment> TRUE when CH2 selected, FALSE when CH1 selected</Comment>
+            <BitSize>8</BitSize>
+            <BaseType>BOOL</BaseType>
+            <Properties>
+              <Property>
+                <Name>TcAddressType</Name>
+                <Value>Input</Value>
+              </Property>
+            </Properties>
+            <BitOffs>653361032</BitOffs>
+          </Symbol>
         </DataArea>
         <DataArea>
           <AreaNo AreaType="OutputSrc" CreateSymbols="true">17</AreaNo>
@@ -52704,32 +52550,6 @@ This function block also implements PMPS and EPS interlocks, as well as Fast MPS
               </Property>
             </Properties>
             <BitOffs>641299872</BitOffs>
-          </Symbol>
-          <Symbol>
-            <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.q_xHV_DIS_CH1</Name>
-            <Comment> Enable Gauge High Voltage on CH1 when True // 'TcLinkTo' (EL2124) ^Output</Comment>
-            <BitSize>8</BitSize>
-            <BaseType>BOOL</BaseType>
-            <Properties>
-              <Property>
-                <Name>TcAddressType</Name>
-                <Value>Output</Value>
-              </Property>
-            </Properties>
-            <BitOffs>641394656</BitOffs>
-          </Symbol>
-          <Symbol>
-            <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.q_xHV_DIS_CH2</Name>
-            <Comment> Enable Gauge High Voltage on CH2 when True // 'TcLinkTo' (EL2124) ^Output</Comment>
-            <BitSize>8</BitSize>
-            <BaseType>BOOL</BaseType>
-            <Properties>
-              <Property>
-                <Name>TcAddressType</Name>
-                <Value>Output</Value>
-              </Property>
-            </Properties>
-            <BitOffs>641394664</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_CAT1_GHC_01.q_xHV_DIS</Name>
@@ -53184,6 +53004,32 @@ This function block also implements PMPS and EPS interlocks, as well as Fast MPS
               </Property>
             </Properties>
             <BitOffs>647600992</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.q_xHV_DIS_CH1</Name>
+            <Comment> Enable Gauge High Voltage on CH1 when True // 'TcLinkTo' (EL2124) ^Output</Comment>
+            <BitSize>8</BitSize>
+            <BaseType>BOOL</BaseType>
+            <Properties>
+              <Property>
+                <Name>TcAddressType</Name>
+                <Value>Output</Value>
+              </Property>
+            </Properties>
+            <BitOffs>653360992</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.q_xHV_DIS_CH2</Name>
+            <Comment> Enable Gauge High Voltage on CH2 when True // 'TcLinkTo' (EL2124) ^Output</Comment>
+            <BitSize>8</BitSize>
+            <BaseType>BOOL</BaseType>
+            <Properties>
+              <Property>
+                <Name>TcAddressType</Name>
+                <Value>Output</Value>
+              </Property>
+            </Properties>
+            <BitOffs>653361000</BitOffs>
           </Symbol>
         </DataArea>
         <DataArea>
@@ -61992,13 +61838,6 @@ This function block also implements PMPS and EPS interlocks, as well as Fast MPS
             <BitOffs>640063936</BitOffs>
           </Symbol>
           <Symbol>
-            <Name>PRG_VALVES.fbTurboSpeedCheck</Name>
-            <Comment>Turbo speed check function</Comment>
-            <BitSize>4288</BitSize>
-            <BaseType>FB_TurboSpeedCheck</BaseType>
-            <BitOffs>640559680</BitOffs>
-          </Symbol>
-          <Symbol>
             <Name>PRG_TURBO_PUMPS.tAllTurboPumpDelayTime</Name>
             <BitSize>32</BitSize>
             <BaseType>TIME</BaseType>
@@ -62246,33 +62085,6 @@ This function block also implements PMPS and EPS interlocks, as well as Fast MPS
               </Property>
             </Properties>
             <BitOffs>641207040</BitOffs>
-          </Symbol>
-          <Symbol>
-            <Name>GVL_VAC_GAUGES.DREAM_MC_GHC</Name>
-            <Comment>MC HOT CATHODE GUAGE</Comment>
-            <BitSize>94976</BitSize>
-            <BaseType>FB_IE514</BaseType>
-            <Properties>
-              <Property>
-                <Name>TcLinkTo</Name>
-                <Value>.i_iPRESS_R		:=	TIIB[R03_DRL_01_E3_EL3174-0002]^AI Standard Channel 1^Value;
-                                 .i_xHV_ON			:=	TIIB[R03_DRL_01_E1_EL1004]^Channel 1^Input;
-                                 .i_xCH2_SEL		:=	TIIB[R03_DRL_01_E1_EL1004]^Channel 2^Input;
-                                 .i_xERR_CH1		:=	TIIB[R03_DRL_01_E1_EL1004]^Channel 3^Input;
-                                 .i_xERR_CH2		:=	TIIB[R03_DRL_01_E1_EL1004]^Channel 4^Input;
-                                 .q_xHV_DIS_CH1		:=	TIIB[R03_DRL_01_E2_EL2624]^Channel 1^Output;
-                                 .q_xHV_DIS_CH2		:=	TIIB[R03_DRL_01_E2_EL2624]^Channel 2^Output
-    </Value>
-              </Property>
-              <Property>
-                <Name>pytmc</Name>
-                <Value> pv: DREAM:MC:GHC</Value>
-              </Property>
-              <Property>
-                <Name>TcVarGlobal</Name>
-              </Property>
-            </Properties>
-            <BitOffs>641300160</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_MC_GPI_01</Name>
@@ -64135,6 +63947,34 @@ FLow Control valves MKS248</Comment>
             </Properties>
             <BitOffs>647659136</BitOffs>
           </Symbol>
+          <Symbol>
+            <Name>GVL_VAC_GAUGES.DREAM_MC_GHC</Name>
+            <Comment>MC HOT CATHODE GUAGE</Comment>
+            <BitSize>94976</BitSize>
+            <BaseType>FB_IE514</BaseType>
+            <Properties>
+              <Property>
+                <Name>TcLinkTo</Name>
+                <Value>.i_iPRESS_R_CH1	:=	TIIB[R03_DRL_01_E3_EL3174-0002]^AI Standard Channel 1^Value;
+	                             .i_iPRESS_R_CH2	:=	TIIB[R03_DRL_01_E3_EL3174-0002]^AI Standard Channel 2^Value;
+                                 .i_xHV_ON			:=	TIIB[R03_DRL_01_E1_EL1004]^Channel 1^Input;
+                                 .i_xCH2_SEL		:=	TIIB[R03_DRL_01_E1_EL1004]^Channel 2^Input;
+                                 .i_xERR_CH1		:=	TIIB[R03_DRL_01_E1_EL1004]^Channel 3^Input;
+                                 .i_xERR_CH2		:=	TIIB[R03_DRL_01_E1_EL1004]^Channel 4^Input;
+                                 .q_xHV_DIS_CH1		:=	TIIB[R03_DRL_01_E2_EL2624]^Channel 1^Output;
+                                 .q_xHV_DIS_CH2		:=	TIIB[R03_DRL_01_E2_EL2624]^Channel 2^Output
+    </Value>
+              </Property>
+              <Property>
+                <Name>pytmc</Name>
+                <Value> pv: DREAM:MC:GHC</Value>
+              </Property>
+              <Property>
+                <Name>TcVarGlobal</Name>
+              </Property>
+            </Properties>
+            <BitOffs>653266496</BitOffs>
+          </Symbol>
         </DataArea>
         <DataArea>
           <AreaNo AreaType="RetainSrc" CreateSymbols="true">20</AreaNo>
@@ -64220,7 +64060,7 @@ FLow Control valves MKS248</Comment>
         </Property>
         <Property>
           <Name>ChangeDate</Name>
-          <Value>2024-09-12T14:19:45</Value>
+          <Value>2024-09-12T22:31:26</Value>
         </Property>
         <Property>
           <Name>GeneratedCodeSize</Name>
