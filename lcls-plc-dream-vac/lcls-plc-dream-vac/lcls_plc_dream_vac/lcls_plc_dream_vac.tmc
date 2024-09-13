@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{ACC0FCDE-72DE-C589-2C64-FB64320AFF79}" GeneratedBy="TwinCAT XAE Plc">
+<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{A60B080B-4F6F-2401-CCDE-290227F49B71}" GeneratedBy="TwinCAT XAE Plc">
   <DataTypes>
     <DataType>
       <Name Namespace="Tc2_SerialCom">ComBuffer</Name>
@@ -63956,7 +63956,7 @@ FLow Control valves MKS248</Comment>
               <Property>
                 <Name>TcLinkTo</Name>
                 <Value>.i_iPRESS_R_CH1	:=	TIIB[R03_DRL_01_E3_EL3174-0002]^AI Standard Channel 1^Value;
-	                             .i_iPRESS_R_CH2	:=	TIIB[R03_DRL_01_E3_EL3174-0002]^AI Standard Channel 2^Value;
+                                 .i_iPRESS_R_CH2	:=	TIIB[R03_DRL_01_E3_EL3174-0002]^AI Standard Channel 2^Value;
                                  .i_xHV_ON			:=	TIIB[R03_DRL_01_E1_EL1004]^Channel 1^Input;
                                  .i_xCH2_SEL		:=	TIIB[R03_DRL_01_E1_EL1004]^Channel 2^Input;
                                  .i_xERR_CH1		:=	TIIB[R03_DRL_01_E1_EL1004]^Channel 3^Input;
@@ -64060,7 +64060,7 @@ FLow Control valves MKS248</Comment>
         </Property>
         <Property>
           <Name>ChangeDate</Name>
-          <Value>2024-09-12T22:31:26</Value>
+          <Value>2024-09-13T10:26:28</Value>
         </Property>
         <Property>
           <Name>GeneratedCodeSize</Name>
