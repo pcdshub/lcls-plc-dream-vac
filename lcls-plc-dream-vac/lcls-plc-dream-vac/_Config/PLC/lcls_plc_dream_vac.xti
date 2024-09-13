@@ -53,7 +53,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{B7B63E2A-C6EF-207A-8D25-56342AE6DBBB}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{C8F70948-3B4D-CCD0-DC57-2A4DECFED5BA}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">

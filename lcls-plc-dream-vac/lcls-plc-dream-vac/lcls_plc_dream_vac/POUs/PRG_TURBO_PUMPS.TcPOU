@@ -28,7 +28,12 @@ DREAM_MC_PTM_01(i_xExtIlkOK := F_TurboIlkLogic(DREAM_MC_PTM_01.iq_stPTM, DREAM_R
 DREAM_MC_PTM_02(i_xExtIlkOK := F_TurboIlkLogic(DREAM_MC_PTM_02.iq_stPTM, DREAM_ROUGH2_GPI_02.PG, DREAM_ROUGH2_VRC_01.iq_stValve));
 
 (**Catcher Turbo pumps**)
-DREAM_CAT1_PTM_01(i_xExtIlkOK := F_TurboIlkLogic(DREAM_CAT1_PTM_01.iq_stPTM, DREAM_ROUGH2_GPI_02.PG, DREAM_ROUGH2_VRC_01.iq_stValve));
+//Special interlock due to manual valve between turbo pump and ROUGH2_GPI2
+DREAM_CAT1_PTM_01(i_xExtIlkOK := DREAM_ROUGH2_GPI_02.PG.rPRESS < DREAM_CAT1_PTM_01.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK AND
+                                 DREAM_ROUGH2_GPI_03.PG.rPRESS < DREAM_CAT1_PTM_01.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH2_GPI_03.PG.xPRESS_OK AND
+                                 DREAM_ROUGH2_VRC_01.i_xOpnLS);
+
+
 DREAM_CAT2_PTM_01(i_xExtIlkOK := F_TurboIlkLogic(DREAM_CAT2_PTM_01.iq_stPTM, DREAM_ROUGH2_GPI_03.PG, DREAM_ROUGH2_VRC_02.iq_stValve));
 
 (**ROUGHING SECTION TURBO BOOSTER PUMPS**)
