@@ -134,16 +134,16 @@ IF i_xCH2_SEL AND IG_CH2.xHV_SW THEN
     IF NOT i_xERR_CH2 THEN
         IG_CH2.eState := GaugeDisconnected;
         IG_CH2.rPRESS := 0;
-    ELSIF rV_CH1 <= cGaugeMaxVoltage AND rV_CH1 >= cGaugeMinVoltage AND IG_CH2.i_xHV_ON THEN
+    ELSIF rV_CH2 <= cGaugeMaxVoltage AND rV_CH2 >= cGaugeMinVoltage AND IG_CH2.i_xHV_ON THEN
         IG_CH2.eState := Valid; // NORMAL
-    ELSIF rV_CH1 >= 0.0 AND rV_CH1 < cGaugeMinVoltage AND IG_CH2.i_xHV_ON THEN
+    ELSIF rV_CH2 >= 0.0 AND rV_CH2 < cGaugeMinVoltage AND IG_CH2.i_xHV_ON THEN
         IG_CH2.eState := OoR; //Out of range according to manual
-    ELSIF rV_CH1 > cGaugeMaxVoltage AND rV_CH1 < (cGaugeMaxVoltage + cDeadband) AND IG_CH2.i_xHV_ON THEN
+    ELSIF rV_CH2 > cGaugeMaxVoltage AND rV_CH2 < (cGaugeMaxVoltage + cDeadband) AND IG_CH2.i_xHV_ON THEN
         IG_CH2.eState := OoR; //Out of range according to manual
-    ELSIF rV_CH1 > (cGaugeMaxVoltage + cDeadband) AND tHvDis_CH2.Q THEN
+    ELSIF rV_CH2 > (cGaugeMaxVoltage + cDeadband) AND tHvDis_CH2.Q THEN
         IG_CH2.eState := GaugeDisconnected; //gauge disconnected
         IG_CH2.rPRESS := 0;
-    ELSIF rV_CH1 > (cGaugeMaxVoltage + cDeadband) AND NOT tHvDis_CH2.Q THEN
+    ELSIF rV_CH2 > (cGaugeMaxVoltage + cDeadband) AND NOT tHvDis_CH2.Q THEN
         IG_CH2.eState := Starting; //gauge is starting
         IG_CH2.rPRESS := 0;
     ELSE
