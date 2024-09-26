@@ -9754,13 +9754,13 @@ record(bo, "DREAM:ROUGH2:PTM:01:RUN_SW") {
 }
 
 record(mbbi, "DREAM:ROUGH2:PTM:02:STATE_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.eState
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...2.iq_stPTM.eState")
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.eState
+  field(DESC, "GVL_VAC_PUMPS.DREAM_...2.iq_stPtm.eState")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.eState?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.eState?")
   field(ZRVL, "0")
   field(ONVL, "1")
   field(TWVL, "2")
@@ -9776,144 +9776,41 @@ record(mbbi, "DREAM:ROUGH2:PTM:02:STATE_RBV") {
   field(ASG, "NO_WRITE")
 }
 
-record(longin, "DREAM:ROUGH2:PTM:02:SET_SPEED_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_dSetSpd
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...q_stPTM.i_dSetSpd")
-  field(SCAN, "I/O Intr")
-  field(PINI, "1")
-  field(TSE, "-2")
-  field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_dSetSpd?")
-  field(EGU, "Hz")
-  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV SIMS UDFS")
-  info(archive, "VAL")
-  field(ASG, "NO_WRITE")
-}
-
-record(longout, "DREAM:ROUGH2:PTM:02:SET_SPEED") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_dSetSpd
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...q_stPTM.i_dSetSpd")
-  field(DTYP, "asynInt32")
-  field(UDFS, "0")
-  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_dSetSpd=")
-  field(EGU, "Hz")
-  info(autosaveFields_pass0, "DESC DISS DRVH DRVL HHSV HIGH HIHI HSV LLSV LOLO LOW LSV SIMS UDFS VAL")
-  info(archive, "VAL")
-}
-
-record(longin, "DREAM:ROUGH2:PTM:02:TempBearing_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_diBrngTemp
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...tPTM.i_diBrngTemp")
-  field(SCAN, "I/O Intr")
-  field(PINI, "1")
-  field(TSE, "-2")
-  field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_diBrngTemp?")
-  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV SIMS UDFS")
-  info(archive, "VAL")
-  field(ASG, "NO_WRITE")
-}
-
-record(longin, "DREAM:ROUGH2:PTM:02:TempPump_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_diBtmTemp
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...stPTM.i_diBtmTemp")
-  field(SCAN, "I/O Intr")
-  field(PINI, "1")
-  field(TSE, "-2")
-  field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_diBtmTemp?")
-  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV SIMS UDFS")
-  info(archive, "VAL")
-  field(ASG, "NO_WRITE")
-}
-
 record(longin, "DREAM:ROUGH2:PTM:02:SPEED_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_diCurSpd
-  field(DESC, "GVL_VAC_PUMPS.DREAM_..._stPTM.i_diCurSpd")
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_diCurSpd
+  field(DESC, "GVL_VAC_PUMPS.DREAM_..._stPtm.i_diCurSpd")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_diCurSpd?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_diCurSpd?")
   field(EGU, "Hz")
-  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV SIMS UDFS")
-  info(archive, "VAL")
-  field(ASG, "NO_WRITE")
-}
-
-record(longin, "DREAM:ROUGH2:PTM:02:TempElec_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_diElecTemp
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...tPTM.i_diElecTemp")
-  field(SCAN, "I/O Intr")
-  field(PINI, "1")
-  field(TSE, "-2")
-  field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_diElecTemp?")
-  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV SIMS UDFS")
-  info(archive, "VAL")
-  field(ASG, "NO_WRITE")
-}
-
-record(longin, "DREAM:ROUGH2:PTM:02:TempMotor_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_diMtrTemp
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...stPTM.i_diMtrTemp")
-  field(SCAN, "I/O Intr")
-  field(PINI, "1")
-  field(TSE, "-2")
-  field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_diMtrTemp?")
   info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV SIMS UDFS")
   info(archive, "VAL")
   field(ASG, "NO_WRITE")
 }
 
 record(longin, "DREAM:ROUGH2:PTM:02:PWR_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_diPwr
-  field(DESC, "GVL_VAC_PUMPS.DREAM_....iq_stPTM.i_diPwr")
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_diPwr
+  field(DESC, "GVL_VAC_PUMPS.DREAM_....iq_stPtm.i_diPwr")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_diPwr?")
-  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV SIMS UDFS")
-  info(archive, "VAL")
-  field(ASG, "NO_WRITE")
-}
-
-record(longin, "DREAM:ROUGH2:PTM:02:ErrorCode_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_iErrorCode
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...tPTM.i_iErrorCode")
-  field(SCAN, "I/O Intr")
-  field(PINI, "1")
-  field(TSE, "-2")
-  field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_iErrorCode?")
-  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV SIMS UDFS")
-  info(archive, "VAL")
-  field(ASG, "NO_WRITE")
-}
-
-record(longin, "DREAM:ROUGH2:PTM:02:WarningCode_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_iWarningCode
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...TM.i_iWarningCode")
-  field(SCAN, "I/O Intr")
-  field(PINI, "1")
-  field(TSE, "-2")
-  field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_iWarningCode?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_diPwr?")
   info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV SIMS UDFS")
   info(archive, "VAL")
   field(ASG, "NO_WRITE")
 }
 
 record(ai, "DREAM:ROUGH2:PTM:02:CURR_MON_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_rCurrentMon
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...PTM.i_rCurrentMon")
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_rCurrentMon
+  field(DESC, "GVL_VAC_PUMPS.DREAM_...Ptm.i_rCurrentMon")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynFloat64")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_rCurrentMon?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_rCurrentMon?")
   field(PREC, "2")
   field(EGU, "A")
   info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS")
@@ -9922,13 +9819,13 @@ record(ai, "DREAM:ROUGH2:PTM:02:CURR_MON_RBV") {
 }
 
 record(ai, "DREAM:ROUGH2:PTM:02:TEMP_MON_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_rTempMon
-  field(DESC, "GVL_VAC_PUMPS.DREAM_..._stPTM.i_rTempMon")
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_rTempMon
+  field(DESC, "GVL_VAC_PUMPS.DREAM_..._stPtm.i_rTempMon")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynFloat64")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_rTempMon?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_rTempMon?")
   field(PREC, "2")
   field(EGU, "C")
   info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS")
@@ -9936,27 +9833,14 @@ record(ai, "DREAM:ROUGH2:PTM:02:TEMP_MON_RBV") {
   field(ASG, "NO_WRITE")
 }
 
-record(longin, "DREAM:ROUGH2:PTM:02:Power_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_uiPowerPctRbk
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...M.i_uiPowerPctRbk")
-  field(SCAN, "I/O Intr")
-  field(PINI, "1")
-  field(TSE, "-2")
-  field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_uiPowerPctRbk?")
-  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV SIMS UDFS")
-  info(archive, "VAL")
-  field(ASG, "NO_WRITE")
-}
-
 record(bi, "DREAM:ROUGH2:PTM:02:ALARM_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_xALARM
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...iq_stPTM.i_xALARM")
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_xALARM
+  field(DESC, "GVL_VAC_PUMPS.DREAM_...iq_stPtm.i_xALARM")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_xALARM?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_xALARM?")
   field(ZNAM, "FALSE")
   field(ONAM, "TRUE")
   info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
@@ -9965,13 +9849,13 @@ record(bi, "DREAM:ROUGH2:PTM:02:ALARM_RBV") {
 }
 
 record(bi, "DREAM:ROUGH2:PTM:02:ACCEL_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_xAccel
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...iq_stPTM.i_xAccel")
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_xAccel
+  field(DESC, "GVL_VAC_PUMPS.DREAM_...iq_stPtm.i_xAccel")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_xAccel?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_xAccel?")
   field(ZNAM, "FALSE")
   field(ONAM, "TRUE")
   info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
@@ -9980,13 +9864,13 @@ record(bi, "DREAM:ROUGH2:PTM:02:ACCEL_RBV") {
 }
 
 record(bi, "DREAM:ROUGH2:PTM:02:AT_SPD_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_xAtSpd
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...iq_stPTM.i_xAtSpd")
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_xAtSpd
+  field(DESC, "GVL_VAC_PUMPS.DREAM_...iq_stPtm.i_xAtSpd")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_xAtSpd?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_xAtSpd?")
   field(ZNAM, "FALSE")
   field(ONAM, "AT SPEED")
   info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
@@ -9994,14 +9878,14 @@ record(bi, "DREAM:ROUGH2:PTM:02:AT_SPD_RBV") {
   field(ASG, "NO_WRITE")
 }
 
-record(bi, "DREAM:ROUGH2:PTM:02:FAULT_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_xFault
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...iq_stPTM.i_xFault")
+record(bi, "DREAM:ROUGH2:PTM:02:DECEL_RBV") {
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_xDecel
+  field(DESC, "GVL_VAC_PUMPS.DREAM_...iq_stPtm.i_xDecel")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_xFault?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_xDecel?")
   field(ZNAM, "FALSE")
   field(ONAM, "TRUE")
   info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
@@ -10009,14 +9893,29 @@ record(bi, "DREAM:ROUGH2:PTM:02:FAULT_RBV") {
   field(ASG, "NO_WRITE")
 }
 
-record(bi, "DREAM:ROUGH2:PTM:02:TempFault_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_xTempFault
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...tPTM.i_xTempFault")
+record(bi, "DREAM:ROUGH2:PTM:02:FAULT_RBV") {
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_xFault
+  field(DESC, "GVL_VAC_PUMPS.DREAM_...iq_stPtm.i_xFault")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_xTempFault?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_xFault?")
+  field(ZNAM, "FALSE")
+  field(ONAM, "TRUE")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bi, "DREAM:ROUGH2:PTM:02:OVR_TEMP_RBV") {
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_xTempFault
+  field(DESC, "GVL_VAC_PUMPS.DREAM_...tPtm.i_xTempFault")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_xTempFault?")
   field(ZNAM, "FALSE")
   field(ONAM, "TRUE")
   info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
@@ -10025,13 +9924,13 @@ record(bi, "DREAM:ROUGH2:PTM:02:TempFault_RBV") {
 }
 
 record(bi, "DREAM:ROUGH2:PTM:02:WARN_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_xWarn
-  field(DESC, "GVL_VAC_PUMPS.DREAM_....iq_stPTM.i_xWarn")
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_xWarn
+  field(DESC, "GVL_VAC_PUMPS.DREAM_....iq_stPtm.i_xWarn")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.i_xWarn?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.i_xWarn?")
   field(ZNAM, "FALSE")
   field(ONAM, "TRUE")
   info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
@@ -10040,13 +9939,13 @@ record(bi, "DREAM:ROUGH2:PTM:02:WARN_RBV") {
 }
 
 record(bi, "DREAM:ROUGH2:PTM:02:RUN_DO_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.q_RunDO
-  field(DESC, "GVL_VAC_PUMPS.DREAM_....iq_stPTM.q_RunDO")
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.q_RunDO
+  field(DESC, "GVL_VAC_PUMPS.DREAM_....iq_stPtm.q_RunDO")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.q_RunDO?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.q_RunDO?")
   field(ZNAM, "FALSE")
   field(ONAM, "TRUE")
   info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
@@ -10054,14 +9953,14 @@ record(bi, "DREAM:ROUGH2:PTM:02:RUN_DO_RBV") {
   field(ASG, "NO_WRITE")
 }
 
-record(bi, "DREAM:ROUGH2:PTM:02:SET_SPEED_MODE_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.q_bSetSpd
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...q_stPTM.q_bSetSpd")
+record(bi, "DREAM:ROUGH2:PTM:02:REMOTE_RBV") {
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.q_xRemote
+  field(DESC, "GVL_VAC_PUMPS.DREAM_...q_stPtm.q_xRemote")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.q_bSetSpd?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.q_xRemote?")
   field(ZNAM, "FALSE")
   field(ONAM, "TRUE")
   info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
@@ -10069,41 +9968,26 @@ record(bi, "DREAM:ROUGH2:PTM:02:SET_SPEED_MODE_RBV") {
   field(ASG, "NO_WRITE")
 }
 
-record(bo, "DREAM:ROUGH2:PTM:02:SET_SPEED_MODE") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.q_bSetSpd
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...q_stPTM.q_bSetSpd")
+record(bo, "DREAM:ROUGH2:PTM:02:REMOTE") {
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.q_xRemote
+  field(DESC, "GVL_VAC_PUMPS.DREAM_...q_stPtm.q_xRemote")
   field(DTYP, "asynInt32")
   field(UDFS, "0")
-  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.q_bSetSpd=")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.q_xRemote=")
   field(ZNAM, "FALSE")
   field(ONAM, "TRUE")
   info(autosaveFields_pass0, "COSV DESC DISS OSV SIMS UDFS VAL ZSV")
   info(archive, "VAL")
 }
 
-record(bi, "DREAM:ROUGH2:PTM:02:RESET_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.q_xReset
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...iq_stPTM.q_xReset")
-  field(SCAN, "I/O Intr")
-  field(PINI, "1")
-  field(TSE, "-2")
-  field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.q_xReset?")
-  field(ZNAM, "FALSE")
-  field(ONAM, "TRUE")
-  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
-  info(archive, "VAL")
-  field(ASG, "NO_WRITE")
-}
-
 record(ai, "DREAM:ROUGH2:PTM:02:BP_SP_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.rBackingPressureSP
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.rBackingPressureSP
   field(DESC, "GVL_VAC_PUMPS.DREAM_...BackingPressureSP")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynFloat64")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.rBackingPressureSP?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.rBackingPressureSP?")
   field(PREC, "2")
   field(EGU, "TORR")
   field(HOPR, "1000")
@@ -10115,12 +9999,12 @@ record(ai, "DREAM:ROUGH2:PTM:02:BP_SP_RBV") {
 }
 
 record(ao, "DREAM:ROUGH2:PTM:02:BP_SP") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.rBackingPressureSP
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.rBackingPressureSP
   field(DESC, "GVL_VAC_PUMPS.DREAM_...BackingPressureSP")
   field(PINI, "1")
   field(DTYP, "asynFloat64")
   field(UDFS, "0")
-  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.rBackingPressureSP=")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.rBackingPressureSP=")
   field(PREC, "2")
   field(EGU, "TORR")
   field(HOPR, "1000")
@@ -10131,13 +10015,13 @@ record(ao, "DREAM:ROUGH2:PTM:02:BP_SP") {
 }
 
 record(ai, "DREAM:ROUGH2:PTM:02:IP_SP_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.rInletPressureSP
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.rInletPressureSP
   field(DESC, "GVL_VAC_PUMPS.DREAM_....rInletPressureSP")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynFloat64")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.rInletPressureSP?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.rInletPressureSP?")
   field(PREC, "2")
   field(EGU, "TORR")
   field(HOPR, "1000")
@@ -10149,12 +10033,12 @@ record(ai, "DREAM:ROUGH2:PTM:02:IP_SP_RBV") {
 }
 
 record(ao, "DREAM:ROUGH2:PTM:02:IP_SP") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.rInletPressureSP
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.rInletPressureSP
   field(DESC, "GVL_VAC_PUMPS.DREAM_....rInletPressureSP")
   field(PINI, "1")
   field(DTYP, "asynFloat64")
   field(UDFS, "0")
-  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.rInletPressureSP=")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.rInletPressureSP=")
   field(PREC, "2")
   field(EGU, "TORR")
   field(HOPR, "1000")
@@ -10165,13 +10049,13 @@ record(ao, "DREAM:ROUGH2:PTM:02:IP_SP") {
 }
 
 record(bi, "DREAM:ROUGH2:PTM:02:ILK_OK_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.xExtRunOk
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...q_stPTM.xExtRunOk")
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.xExtRunOk
+  field(DESC, "GVL_VAC_PUMPS.DREAM_...q_stPtm.xExtRunOk")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.xExtRunOk?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.xExtRunOk?")
   field(ZNAM, "ILK ACTIVE")
   field(ONAM, "ILK OK")
   info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
@@ -10180,13 +10064,13 @@ record(bi, "DREAM:ROUGH2:PTM:02:ILK_OK_RBV") {
 }
 
 record(bi, "DREAM:ROUGH2:PTM:02:LOGGER_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.xLog
-  field(DESC, "GVL_VAC_PUMPS.DREAM_..._02.iq_stPTM.xLog")
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.xLog
+  field(DESC, "GVL_VAC_PUMPS.DREAM_..._02.iq_stPtm.xLog")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.xLog?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.xLog?")
   field(ZNAM, "OFF")
   field(ONAM, "ON")
   info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
@@ -10195,13 +10079,13 @@ record(bi, "DREAM:ROUGH2:PTM:02:LOGGER_RBV") {
 }
 
 record(bi, "DREAM:ROUGH2:PTM:02:RST_SW_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.xResetSW
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...iq_stPTM.xResetSW")
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.xResetSW
+  field(DESC, "GVL_VAC_PUMPS.DREAM_...iq_stPtm.xResetSW")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.xResetSW?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.xResetSW?")
   field(ZNAM, "FALSE")
   field(ONAM, "TRUE")
   info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
@@ -10210,11 +10094,11 @@ record(bi, "DREAM:ROUGH2:PTM:02:RST_SW_RBV") {
 }
 
 record(bo, "DREAM:ROUGH2:PTM:02:RST_SW") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.xResetSW
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...iq_stPTM.xResetSW")
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.xResetSW
+  field(DESC, "GVL_VAC_PUMPS.DREAM_...iq_stPtm.xResetSW")
   field(DTYP, "asynInt32")
   field(UDFS, "0")
-  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.xResetSW=")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.xResetSW=")
   field(ZNAM, "FALSE")
   field(ONAM, "TRUE")
   info(autosaveFields_pass0, "COSV DESC DISS OSV SIMS UDFS VAL ZSV")
@@ -10222,13 +10106,13 @@ record(bo, "DREAM:ROUGH2:PTM:02:RST_SW") {
 }
 
 record(bi, "DREAM:ROUGH2:PTM:02:RUN_SW_RBV") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.xRunSW
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...2.iq_stPTM.xRunSW")
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.xRunSW
+  field(DESC, "GVL_VAC_PUMPS.DREAM_...2.iq_stPtm.xRunSW")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.xRunSW?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.xRunSW?")
   field(ZNAM, "STOP")
   field(ONAM, "RUN")
   info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
@@ -10237,11 +10121,11 @@ record(bi, "DREAM:ROUGH2:PTM:02:RUN_SW_RBV") {
 }
 
 record(bo, "DREAM:ROUGH2:PTM:02:RUN_SW") {
-  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.xRunSW
-  field(DESC, "GVL_VAC_PUMPS.DREAM_...2.iq_stPTM.xRunSW")
+  # GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.xRunSW
+  field(DESC, "GVL_VAC_PUMPS.DREAM_...2.iq_stPtm.xRunSW")
   field(DTYP, "asynInt32")
   field(UDFS, "0")
-  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPTM.xRunSW=")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.iq_stPtm.xRunSW=")
   field(ZNAM, "STOP")
   field(ONAM, "RUN")
   info(autosaveFields_pass0, "COSV DESC DISS OSV SIMS UDFS VAL ZSV")
