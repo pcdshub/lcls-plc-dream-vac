@@ -75,13 +75,12 @@ VAR_GLOBAL
     {attribute 'pytmc' :=' pv: DREAM:ROUGH2:PTM:01'}
     DREAM_ROUGH2_PTM_01 : FB_PTM_TurboDrive;
 
-    {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_04_E10_EL1004]^Channel 3^Input;
-                                 .i_xFaultNC		:=	TIIB[K4S8_DRL_04_E10_EL1004]^Channel 4^Input;
-                                 .q_RunDO			:=	TIIB[K4S8_DRL_04_E18_EL2794]^Channel 1^Output;
-                                 .q_xReset 			:=	TIIB[K4S8_DRL_04_E18_EL2794]^Channel 2^Output
+    {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_04_E4_EL1004]^Channel 4^Input;
+                                 .i_xFaultNC		:=	TIIB[K4S8_DRL_04_E4_EL1004]^Channel 3^Input;
+                                 .q_RunDO			:=	TIIB[K4S8_DRL_04_E5_EL2794]^Channel 4^Output
     '}
     {attribute 'pytmc' :=' pv: DREAM:ROUGH2:PTM:02'}
-    DREAM_ROUGH2_PTM_02 : FB_PTM_Pfeiffer;
+    DREAM_ROUGH2_PTM_02 : FB_PTM_TurboDrive;
 
     (*CATCHER 1*)
     {attribute 'TcLinkTo' := 	'.i_xAtSpd			:=	TIIB[K4S8_DRL_04_E3_EL1004]^Channel 4^Input;
@@ -143,10 +142,10 @@ VAR_GLOBAL
     fbTD400Com_DREAM_ROUGH2_PTM_01   : FB_OERLIKON_TD400_COM;
     fbTD400SerialIO_DREAM_ROUGH2_PTM_01: FB_OERLIKON_TD400_TO_PTM;
 
-    (*Pfeiffer TC110 serial*)
-    stPfeiffer_CTRL_DREAM_ROUGH2_PTM_02 : ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferControl;
-    stPfeiffer_RBK_DREAM_ROUGH2_PTM_02	: ARRAY[1..gcMaxPfeifferPumps] OF ST_PfeifferStatus;
-    fbPfeifferCom_DREAM_ROUGH2_PTM_02   : FB_PFEIFFER_COM;
+    stTD400_RBK_DREAM_ROUGH2_PTM_02  : ST_TD400Status;
+    stTD400_CTRL_DREAM_ROUGH2_PTM_02 : ST_TD400Control;
+    fbTD400Com_DREAM_ROUGH2_PTM_02   : FB_OERLIKON_TD400_COM;
+    fbTD400SerialIO_DREAM_ROUGH2_PTM_02: FB_OERLIKON_TD400_TO_PTM;
 
 END_VAR]]></Declaration>
   </GVL>

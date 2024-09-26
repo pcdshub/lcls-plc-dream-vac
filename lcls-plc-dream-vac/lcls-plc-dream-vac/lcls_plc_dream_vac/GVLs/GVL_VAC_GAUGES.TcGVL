@@ -47,7 +47,8 @@ VAR_GLOBAL
     DREAM_DP3_GHC_01 : FB_IMG401;
 
     (*MC HOT CATHODE GUAGE*)
-    {attribute 'TcLinkTo' := 	'.i_iPRESS_R		:=	TIIB[R03_DRL_01_E3_EL3174-0002]^AI Standard Channel 1^Value;
+    {attribute 'TcLinkTo' := 	'.i_iPRESS_R_CH1	:=	TIIB[R03_DRL_01_E3_EL3174-0002]^AI Standard Channel 1^Value;
+                                 .i_iPRESS_R_CH2	:=	TIIB[R03_DRL_01_E3_EL3174-0002]^AI Standard Channel 2^Value;
                                  .i_xHV_ON			:=	TIIB[R03_DRL_01_E1_EL1004]^Channel 1^Input;
                                  .i_xCH2_SEL		:=	TIIB[R03_DRL_01_E1_EL1004]^Channel 2^Input;
                                  .i_xERR_CH1		:=	TIIB[R03_DRL_01_E1_EL1004]^Channel 3^Input;

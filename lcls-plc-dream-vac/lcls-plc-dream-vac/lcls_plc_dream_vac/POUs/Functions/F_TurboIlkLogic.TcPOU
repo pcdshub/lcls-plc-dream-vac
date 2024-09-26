@@ -6,7 +6,7 @@ VAR_INPUT
     i_stTurbo : ST_PTM; //Turbo Pump
     //i_stISG : ST_VG; //Gauge measuring inlet Pressure e.g Pirani
     i_stBackingGauge : ST_VG; //Gauge measuring backing pressure
-    i_stRoughValve : ST_VRC; //Roughing Valve on the turbo pump backing line
+    i_stRoughValve : ST_VGC; //Roughing Valve on the turbo pump backing line
 END_VAR
 VAR
 END_VAR

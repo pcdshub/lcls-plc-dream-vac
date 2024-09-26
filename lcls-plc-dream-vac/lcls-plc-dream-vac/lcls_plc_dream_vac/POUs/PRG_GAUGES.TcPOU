@@ -19,11 +19,11 @@ DREAM_NC_GCC_01(PG:= DREAM_NC_GPI_01.PG);
 
 //Hot Cathode Guages
 DREAM_DP1_GHC_01.M_SetBits(30518);
-DREAM_DP1_GHC_01(PG:= DREAM_NC_GPI_01.PG, IG=>);
+DREAM_DP1_GHC_01(PG:= DREAM_DP1_GPI_01.PG, IG=>);
 DREAM_DP2_GHC_01.M_SetBits(30518);
-DREAM_DP2_GHC_01(PG:= DREAM_NC_GPI_01.PG, IG=>);
+DREAM_DP2_GHC_01(PG:= DREAM_DP1_GPI_01.PG, IG=>);
 DREAM_DP3_GHC_01.M_SetBits(30518);
-DREAM_DP3_GHC_01(PG:= DREAM_NC_GPI_01.PG, IG=>);
+DREAM_DP3_GHC_01(PG:= DREAM_DP1_GPI_01.PG, IG=>);
 
 (**Main Chmamber Gauges**)
 //Pirani Gauges
@@ -32,14 +32,15 @@ DREAM_MC_GPI_01();
 
 //Hot Cathode gauge IE514
 DREAM_MC_GHC.M_SetBits(30518);
-DREAM_MC_GHC(PG:= DREAM_MC_GPI_01.PG); //This fb reads statuses and control two gauges DREAM:MC:GHC:01 and DREAM:MC:GHC:02
+//Using DP3:GHC to interlock main chamber gauge because protetion setpoint for the gauge has to be set to 1e-6 - 1E-5
+DREAM_MC_GHC(PG:= DREAM_DP3_GHC_01.IG); //This fb reads statuses and control two gauges DREAM:MC:GHC:01 and DREAM:MC:GHC:02
 
-//Send gauge data to TMO Beamline Vacuum PLC
-IF DREAM_MC_GHC.M_IsCh1Selected() THEN
+//Send main chamber gauge data to TMO Beamline Vacuum PLC
+IF DREAM_MC_GHC.IG_CH1.xPRESS_OK THEN
     bDREAM_MAIN_xAT_VAC := DREAM_MC_GHC.IG_CH1.xAT_VAC;
     bDREAM_MAIN_xPRESS_OK := DREAM_MC_GHC.IG_CH1.xPRESS_OK;
     fDREAM_MAIN_rPRESS := DREAM_MC_GHC.IG_CH1.rPRESS;
-ELSIF DREAM_MC_GHC.M_IsCh2Selected() THEN
+ELSIF DREAM_MC_GHC.IG_CH2.xPRESS_OK THEN
     bDREAM_MAIN_xAT_VAC := DREAM_MC_GHC.IG_CH2.xAT_VAC;
     bDREAM_MAIN_xPRESS_OK := DREAM_MC_GHC.IG_CH2.xPRESS_OK;
     fDREAM_MAIN_rPRESS := DREAM_MC_GHC.IG_CH2.rPRESS;
@@ -49,12 +50,13 @@ ELSE
     fDREAM_MAIN_rPRESS := 0;
 END_IF
 
+
 (**Catcher Gauges**)
 //Hot Cathode Guages
 DREAM_CAT1_GHC_01.M_SetBits(30518);
-DREAM_CAT1_GHC_01(PG:= DREAM_MC_GPI_01.PG);
+DREAM_CAT1_GHC_01(PG:= DREAM_ROUGH2_GPI_03.PG);
 DREAM_CAT2_GHC_01.M_SetBits(30518);
-DREAM_CAT2_GHC_01(PG:= DREAM_MC_GPI_01.PG);
+DREAM_CAT2_GHC_01(PG:= DREAM_ROUGH2_GPI_03.PG);
 
 (**Roughing Section Gauges**)
 DREAM_ROUGH1_GPI_01.M_SetBits(32767);
