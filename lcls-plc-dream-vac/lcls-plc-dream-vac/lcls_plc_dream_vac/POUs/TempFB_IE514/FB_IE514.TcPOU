@@ -170,7 +170,7 @@ ELSIF IG_CH1.q_xHV_DIS AND tHvDis_CH1.Q THEN
         IG_CH1.xHV_SW := FALSE;
     END_IF
     //Adding this line because in case of interlocking gauge with another GCC or GHC PG.rPRESS value become 0 when turning it off
-    IF PG.rPRESS = 0 THEN
+    IF PG.rPRESS = 0 AND NOT PG.xPRESS_OK THEN
         IG_CH1.q_xHV_DIS := FALSE;
         IG_CH1.xHV_SW := FALSE;
     END_IF
@@ -190,7 +190,7 @@ ELSIF IG_CH2.q_xHV_DIS AND tHvDis_CH2.Q THEN
         IG_CH2.xHV_SW := FALSE;
     END_IF
     //Adding this line because in case of interlocking gauge with another GCC or GHC PG.rPRESS value become 0 when turning it off
-    IF PG.rPRESS = 0 THEN
+    IF PG.rPRESS = 0 AND NOT PG.xPRESS_OK THEN
         IG_CH2.q_xHV_DIS := FALSE;
         IG_CH2.xHV_SW := FALSE;
     END_IF
