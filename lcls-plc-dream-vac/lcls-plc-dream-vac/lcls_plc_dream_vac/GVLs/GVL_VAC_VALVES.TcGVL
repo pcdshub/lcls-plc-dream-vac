@@ -33,21 +33,21 @@ VAR_GLOBAL
                                  .q_xOPN_DO	:=	TIIB[K4S8_DRL_04_E11_EL2004]^Channel 1^Output
     '}
     {attribute 'pytmc' :=' pv: DREAM:ROUGH1:VRC:01'}
-    DREAM_ROUGH1_VRC_01: FB_VRC; //replacing with VRC function
+    DREAM_ROUGH1_VRC_01: FB_VGC;
 
     {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_04_E9_EL1004]^Channel 3^Input;
                                  .i_xClsLS	:=	TIIB[K4S8_DRL_04_E9_EL1004]^Channel 4^Input;
                                  .q_xOPN_DO	:=	TIIB[K4S8_DRL_04_E11_EL2004]^Channel 2^Output
     '}
     {attribute 'pytmc' :=' pv: DREAM:ROUGH2:VRC:01'}
-    DREAM_ROUGH2_VRC_01: FB_VRC; //replacing with VRC function
+    DREAM_ROUGH2_VRC_01: FB_VGC;
 
     {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_04_E10_EL1004]^Channel 1^Input;
                                  .i_xClsLS	:=	TIIB[K4S8_DRL_04_E10_EL1004]^Channel 2^Input;
                                  .q_xOPN_DO	:=	TIIB[K4S8_DRL_04_E11_EL2004]^Channel 3^Output
     '}
     {attribute 'pytmc' :=' pv: DREAM:ROUGH2:VRC:02'}
-    DREAM_ROUGH2_VRC_02: FB_VRC; //replacing with VRC function
+    DREAM_ROUGH2_VRC_02: FB_VGC;
 
     (*VENT VALVES ROUGHING*)
     //FLow Control valves MKS248

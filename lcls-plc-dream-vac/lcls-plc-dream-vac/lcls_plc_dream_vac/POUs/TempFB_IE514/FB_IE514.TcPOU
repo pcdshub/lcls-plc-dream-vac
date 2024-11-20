@@ -20,8 +20,9 @@ VAR_OUTPUT
     IG_CH2 : ST_VG;
 END_VAR
 VAR
-    rV : REAL; //Raw value in volts calculated from iTermBits
-    rPRESS : REAL; //Calculated pressure from raw voltage
+    rV_CH1 : REAL; //Raw value in volts for CH1 calculated from iTermBits
+    rV_CH2 : REAL; //Raw value in volts for CH2 calculated from iTermBits
+
     tHvDis_CH1 : TON := (PT := T#20S); //HV turn on timer
     tHvDis_CH2 : TON := (PT := T#20S); //HV turn on timer
 
@@ -30,9 +31,6 @@ VAR
 
     tAction_CH1 : R_TRIG;
     tAction_CH2 : R_TRIG;
-
-    bCh1Sel : BOOL;
-    bCh2Sel : BOOL;
 
     ePrevStateIG_CH1 : E_PressureState;
     ePrevStateIG_CH2 : E_PressureState;
@@ -44,7 +42,8 @@ VAR
 
     (*IOs to be linked*)
     /// Controls and I/Os
-    i_iPRESS_R AT %I* : INT; // input raw pressure in bits (ADC) // 'TcLinkTo' (EL3174) ^Input
+    i_iPRESS_R_CH1 AT %I* : INT; // input raw pressure in bits CH1 (ADC) // 'TcLinkTo' (EL3174) ^Input
+    i_iPRESS_R_CH2 AT %I* : INT; // input raw pressure in bits CH2 (ADC) // 'TcLinkTo' (EL3174) ^Input
     q_xHV_DIS_CH1 AT %Q* : BOOL; // Enable Gauge High Voltage on CH1 when True // 'TcLinkTo' (EL2124) ^Output
     q_xHV_DIS_CH2 AT %Q* : BOOL; // Enable Gauge High Voltage on CH2 when True // 'TcLinkTo' (EL2124) ^Output
     i_xHV_ON AT %I*	: BOOL; // True when EMI is on  // 'TcLinkTo' (EL1004 or EL1008) ^Input
@@ -76,33 +75,17 @@ END_VAR
       <ST><![CDATA[(* 2-6-2023, Janez Govednik *)
 (* This function will read the pressure from an IE514 gauge on an IM540. *)
 
-(*Select channel at the startup, according to input from the controller*)
-IF bInit THEN
-    IF NOT i_xCH2_SEL THEN
-        bCh1Sel := TRUE;
-        bCh2Sel := FALSE;
-    ELSE
-        bCh1Sel := FALSE;
-        bCh2Sel := TRUE;
-    END_IF
-    bInit := FALSE;
-END_IF
-
 (*Only ONE channel can be turned ON at the same time*)
 rtHvSw_CH1(CLK := IG_CH1.xHV_SW);
 rtHvSw_CH2(CLK := IG_CH2.xHV_SW);
 IF rtHvSw_CH1.Q THEN
     IG_CH2.xHV_SW := FALSE;
     IG_CH2.q_xHV_DIS := FALSE;
-    bCh1Sel := TRUE;
-    bCh2Sel := FALSE;
 END_IF
 
 IF rtHvSw_CH2.Q THEN
     IG_CH1.xHV_SW := FALSE;
     IG_CH1.q_xHV_DIS := FALSE;
-    bCh1Sel := FALSE;
-    bCh2Sel := TRUE;
 END_IF
 
 //Start timers when HV ON signal triggered
@@ -112,34 +95,29 @@ tHvDis_CH2(IN := IG_CH2.q_xHV_DIS, Q => IG_CH2.xTurnOnTime);
 (*Raw voltage conversion*)
 //check no div by zero
 IF (iTermBits = 0) THEN iTermBits := 30518; END_IF
-rV := 10*INT_TO_REAL(i_iPRESS_R)/iTermBits;
+rV_CH1 := 10*INT_TO_REAL(i_iPRESS_R_CH1)/iTermBits;
+rV_CH2 := 10*INT_TO_REAL(i_iPRESS_R_CH2)/iTermBits;
 
 (*RAW voltage to Pressure conversion*)
-rPRESS := LREAL_TO_REAL(EXPT(10, rV/10*LOG(cMaxPressure/cMinPressure) + LOG(cMinPressure))); //manual page 70 IM540 (Mode Full), (Scale) = Log
-IF NOT i_xCH2_SEL THEN
-    IG_CH1.rPRESS := rPRESS;
-    IG_CH2.rPRESS := 0;
-ELSE
-    IG_CH2.rPRESS := rPRESS;
-    IG_CH1.rPRESS := 0;
-END_IF
+IG_CH1.rPRESS := LREAL_TO_REAL(EXPT(10, rV_CH1/10*LOG(cMaxPressure/cMinPressure) + LOG(cMinPressure))); //manual page 70 IM540 (Mode Full), (Scale) = Log
+IG_CH2.rPRESS := LREAL_TO_REAL(EXPT(10, rV_CH2/10*LOG(cMaxPressure/cMinPressure) + LOG(cMinPressure))); //manual page 70 IM540 (Mode Full), (Scale) = Log
 
 (*Pressure gauge State checks*)
 //CH1
-IF bCh1Sel AND IG_CH1.xHV_SW THEN
+IF NOT i_xCH2_SEL AND IG_CH1.xHV_SW THEN
     IF NOT i_xERR_CH1 THEN
         IG_CH1.eState := GaugeDisconnected;
         IG_CH1.rPRESS := 0;
-    ELSIF rV <= cGaugeMaxVoltage AND rV >= cGaugeMinVoltage AND IG_CH1.i_xHV_ON THEN
+    ELSIF rV_CH1 <= cGaugeMaxVoltage AND rV_CH1 >= cGaugeMinVoltage AND IG_CH1.i_xHV_ON THEN
         IG_CH1.eState := Valid; // NORMAL
-    ELSIF rV >= 0.0 AND rV < cGaugeMinVoltage AND IG_CH1.i_xHV_ON THEN
+    ELSIF rV_CH1 >= 0.0 AND rV_CH1 < cGaugeMinVoltage AND IG_CH1.i_xHV_ON THEN
         IG_CH1.eState := OoR; //Out of range according to manual
-    ELSIF rV > cGaugeMaxVoltage AND rV < (cGaugeMaxVoltage + cDeadband) AND IG_CH1.i_xHV_ON THEN
+    ELSIF rV_CH1 > cGaugeMaxVoltage AND rV_CH1 < (cGaugeMaxVoltage + cDeadband) AND IG_CH1.i_xHV_ON THEN
         IG_CH1.eState := OoR; //Out of range according to manual
-    ELSIF rV > (cGaugeMaxVoltage + cDeadband) AND tHvDis_CH1.Q THEN
+    ELSIF rV_CH1 > (cGaugeMaxVoltage + cDeadband) AND tHvDis_CH1.Q THEN
         IG_CH1.eState := GaugeDisconnected; //gauge disconnected
         IG_CH1.rPRESS := 0;
-    ELSIF rV > (cGaugeMaxVoltage + cDeadband) AND NOT tHvDis_CH1.Q THEN
+    ELSIF rV_CH1 > (cGaugeMaxVoltage + cDeadband) AND NOT tHvDis_CH1.Q THEN
         IG_CH1.eState := Starting; //gauge is starting
         IG_CH1.rPRESS := 0;
     ELSE
@@ -152,20 +130,20 @@ ELSE
 END_IF
 
 //CH2
-IF bCh2Sel AND IG_CH2.xHV_SW THEN
+IF i_xCH2_SEL AND IG_CH2.xHV_SW THEN
     IF NOT i_xERR_CH2 THEN
         IG_CH2.eState := GaugeDisconnected;
         IG_CH2.rPRESS := 0;
-    ELSIF rV <= cGaugeMaxVoltage AND rV >= cGaugeMinVoltage AND IG_CH2.i_xHV_ON THEN
+    ELSIF rV_CH2 <= cGaugeMaxVoltage AND rV_CH2 >= cGaugeMinVoltage AND IG_CH2.i_xHV_ON THEN
         IG_CH2.eState := Valid; // NORMAL
-    ELSIF rV >= 0.0 AND rV < cGaugeMinVoltage AND IG_CH2.i_xHV_ON THEN
+    ELSIF rV_CH2 >= 0.0 AND rV_CH2 < cGaugeMinVoltage AND IG_CH2.i_xHV_ON THEN
         IG_CH2.eState := OoR; //Out of range according to manual
-    ELSIF rV > cGaugeMaxVoltage AND rV < (cGaugeMaxVoltage + cDeadband) AND IG_CH2.i_xHV_ON THEN
+    ELSIF rV_CH2 > cGaugeMaxVoltage AND rV_CH2 < (cGaugeMaxVoltage + cDeadband) AND IG_CH2.i_xHV_ON THEN
         IG_CH2.eState := OoR; //Out of range according to manual
-    ELSIF rV > (cGaugeMaxVoltage + cDeadband) AND tHvDis_CH2.Q THEN
+    ELSIF rV_CH2 > (cGaugeMaxVoltage + cDeadband) AND tHvDis_CH2.Q THEN
         IG_CH2.eState := GaugeDisconnected; //gauge disconnected
         IG_CH2.rPRESS := 0;
-    ELSIF rV > (cGaugeMaxVoltage + cDeadband) AND NOT tHvDis_CH2.Q THEN
+    ELSIF rV_CH2 > (cGaugeMaxVoltage + cDeadband) AND NOT tHvDis_CH2.Q THEN
         IG_CH2.eState := Starting; //gauge is starting
         IG_CH2.rPRESS := 0;
     ELSE
@@ -191,6 +169,11 @@ ELSIF IG_CH1.q_xHV_DIS AND tHvDis_CH1.Q THEN
         IG_CH1.q_xHV_DIS := FALSE;
         IG_CH1.xHV_SW := FALSE;
     END_IF
+    //Adding this line because in case of interlocking gauge with another GCC or GHC PG.rPRESS value become 0 when turning it off
+    IF PG.rPRESS = 0 AND NOT PG.xPRESS_OK THEN
+        IG_CH1.q_xHV_DIS := FALSE;
+        IG_CH1.xHV_SW := FALSE;
+    END_IF
 ELSE
     IG_CH1.q_xHV_DIS := FALSE;
     IG_CH1.xHV_SW := FALSE;
@@ -203,6 +186,11 @@ IF (PG.rPRESS <= IG_CH2.rPRO_SP) AND PG.xPRESS_OK THEN
     IG_CH2.xILKOk := TRUE;
 ELSIF IG_CH2.q_xHV_DIS AND tHvDis_CH2.Q THEN
     IF IG_CH2.rPRESS > (IG_CH2.rPRO_SP + IG_CH2.rHYS_PR) OR PG.rPRESS > (IG_CH2.rPRO_SP + IG_CH2.rHYS_PR) THEN
+        IG_CH2.q_xHV_DIS := FALSE;
+        IG_CH2.xHV_SW := FALSE;
+    END_IF
+    //Adding this line because in case of interlocking gauge with another GCC or GHC PG.rPRESS value become 0 when turning it off
+    IF PG.rPRESS = 0 AND NOT PG.xPRESS_OK THEN
         IG_CH2.q_xHV_DIS := FALSE;
         IG_CH2.xHV_SW := FALSE;
     END_IF
@@ -357,16 +345,15 @@ END_IF;]]></ST>
       <Implementation>
         <ST><![CDATA[(*soft link inputs*)
 IF NOT i_xCH2_SEL THEN
-    IG_CH1.i_iPRESS_R := i_iPRESS_R;
     IG_CH1.i_xHV_ON := i_xHV_ON;
-    IG_CH2.i_iPRESS_R := 0;
     IG_CH2.i_xHV_ON := FALSE;
 ELSE
-    IG_CH2.i_iPRESS_R := i_iPRESS_R;
-    IG_CH2.i_xHV_ON := i_xHV_ON;
-    IG_CH1.i_iPRESS_R := 0;
     IG_CH1.i_xHV_ON := FALSE;
+    IG_CH2.i_xHV_ON := i_xHV_ON;
 END_IF
+
+IG_CH1.i_iPRESS_R := i_iPRESS_R_CH1;
+IG_CH2.i_iPRESS_R := i_iPRESS_R_CH2;
 
 (*soft link outputs*)
 q_xHV_DIS_CH1 := IG_CH1.q_xHV_DIS;
