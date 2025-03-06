@@ -53,7 +53,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{2DA8A846-5347-D24E-DC23-F6E9253BB316}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{15001BFE-C476-325E-4C9F-1B044E8AF8FC}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -230,36 +230,6 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_iPRESS_R_CH1</Name>
-					<Comment><![CDATA[ Controls and I/Os]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_iPRESS_R_CH2</Name>
-					<Comment><![CDATA[ input raw pressure in bits CH2 (ADC) // 'TcLinkTo' (EL3174) ^Input]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xHV_ON</Name>
-					<Comment><![CDATA[ True when EMI is on  // 'TcLinkTo' (EL1004 or EL1008) ^Input]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xERR_CH1</Name>
-					<Comment><![CDATA[ TRUE when NO error is present on assigned channel]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xERR_CH2</Name>
-					<Comment><![CDATA[ TRUE when NO error is present on assigned channel]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xCH2_SEL</Name>
-					<Comment><![CDATA[ TRUE when CH2 selected, FALSE when CH1 selected]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
 					<Name>GVL_VAC_GAUGES.DREAM_MC_GPI_01.i_iPRESS_R</Name>
 					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
@@ -308,60 +278,6 @@
 					<Name>GVL_VAC_GAUGES.DREAM_ROUGH2_GPI_03.i_iPRESS_R</Name>
 					<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.i_xClsLS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xOpnLS</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xClsLS</Name>
-					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_VAC_PUMPS.DREAM_NC_PTM_01.i_xAtSpd</Name>
@@ -497,12 +413,101 @@
 					<Comment><![CDATA[ Error Active when no Error is present]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_iPRESS_R_CH1</Name>
+					<Comment><![CDATA[ Controls and I/Os]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_iPRESS_R_CH2</Name>
+					<Comment><![CDATA[ input raw pressure in bits CH2 (ADC) // 'TcLinkTo' (EL3174) ^Input]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xHV_ON</Name>
+					<Comment><![CDATA[ True when EMI is on  // 'TcLinkTo' (EL1004 or EL1008) ^Input]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xERR_CH1</Name>
+					<Comment><![CDATA[ TRUE when NO error is present on assigned channel]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xERR_CH2</Name>
+					<Comment><![CDATA[ TRUE when NO error is present on assigned channel]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xCH2_SEL</Name>
+					<Comment><![CDATA[ TRUE when CH2 selected, FALSE when CH1 selected]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
 			</Vars>
 			<Vars VarGrpType="2" ContextId="1" AreaNo="17">
 				<Name>PlcTask Outputs</Name>
 				<Var>
 					<Name>PRG_VALVES.dummy_FFFO.q_xFastFaultOut</Name>
 					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.sENDSTATION_PLC_NAME</Name>
+					<Comment><![CDATA[Outputs to TMO Beamline PLC]]></Comment>
+					<Type>STRING(8)</Type>
 				</Var>
 				<Var>
 					<Name>GVL_PLC_Interface.bDREAM_TURBOS_ALL_AtSpd</Name>
@@ -519,11 +524,6 @@
 				<Var>
 					<Name>GVL_PLC_Interface.bDREAM_HV_SAFETY_ENABLE</Name>
 					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.sENDSTATION_PLC_NAME</Name>
-					<Comment><![CDATA[Outputs to TMO Beamline PLC]]></Comment>
-					<Type>STRING(8)</Type>
 				</Var>
 				<Var>
 					<Name>GVL_PLC_Interface.bHighVoltageSafteyLoopEnable</Name>
@@ -560,16 +560,6 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.q_xHV_DIS_CH1</Name>
-					<Comment><![CDATA[ Enable Gauge High Voltage on CH1 when True // 'TcLinkTo' (EL2124) ^Output]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.q_xHV_DIS_CH2</Name>
-					<Comment><![CDATA[ Enable Gauge High Voltage on CH2 when True // 'TcLinkTo' (EL2124) ^Output]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
 					<Name>GVL_VAC_GAUGES.DREAM_CAT1_GHC_01.q_xHV_DIS</Name>
 					<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EP2624) ^Output]]></Comment>
 					<Type>BOOL</Type>
@@ -578,55 +568,6 @@
 					<Name>GVL_VAC_GAUGES.DREAM_CAT2_GHC_01.q_xHV_DIS</Name>
 					<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EP2624) ^Output]]></Comment>
 					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.q_xOPN_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.q_xCLS_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.q_xOPN_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.q_xOPN_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.q_xOPN_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.q_xOPN_DO</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VFV_01.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VFV_02.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_01.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_02.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_03.q_iRawPosition</Name>
-					<Comment><![CDATA[IO]]></Comment>
-					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_VAC_PUMPS.DREAM_NC_PTM_01.q_RunDO</Name>
@@ -720,6 +661,65 @@
 				<Var>
 					<Name>GVL_VAC_PUMPS.DREAM_CAT2_PTM_01.q_RunDO</Name>
 					<Comment><![CDATA[ Start/Stop]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.q_xCLS_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VFV_01.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VFV_02.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_01.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_02.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_03.q_iRawPosition</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.q_xHV_DIS_CH1</Name>
+					<Comment><![CDATA[ Enable Gauge High Voltage on CH1 when True // 'TcLinkTo' (EL2124) ^Output]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.q_xHV_DIS_CH2</Name>
+					<Comment><![CDATA[ Enable Gauge High Voltage on CH2 when True // 'TcLinkTo' (EL2124) ^Output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 			</Vars>

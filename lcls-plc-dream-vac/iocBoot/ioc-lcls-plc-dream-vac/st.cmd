@@ -4,8 +4,8 @@
 #         Project: lcls-plc-dream-vac.tsproj
 #        PLC name: lcls_plc_dream_vac (lcls_plc_dream_vac Instance)
 # Generated using: pytmc 2.17.0
-# Project version: e058740
-#    Project hash: e05874041ec42824bb3b5c85e448a2321e1d19b1
+# Project version: 682f492
+#    Project hash: 682f492f0bf34d02191b4065c57c3c92b9787831
 #     PLC IP/host: 172.21.132.159
 #      PLC Net ID: 172.21.132.159.1.1
 #  ** Production mode IOC **
@@ -14,8 +14,8 @@
 # Libraries:
 #
 #   LCLS General: * -> 2.11.0 (SLAC)
-#   LCLS Vacuum: * -> 2.3.4 (SLAC - LCLS)
-#   LCLSVacuumSerialDriverLib: * -> 1.3.2 (SLAC - LCLS)
+#   LCLS Vacuum: * -> 2.4.0 (SLAC - LCLS)
+#   LCLSVacuumSerialDriverLib: * -> 1.3.3 (SLAC - LCLS)
 #   PMPS: * -> 3.3.0 (SLAC - LCLS)
 #   Tc2_SerialCom: * -> 3.3.10.0 (Beckhoff Automation GmbH)
 #   Tc2_Standard: * -> 3.3.3.0 (Beckhoff Automation GmbH)
@@ -89,14 +89,14 @@ dbLoadRecords("TwinCAT_TaskInfo.db", "PORT=$(ASYN_PORT),PREFIX=PLC:lcls_plc_drea
 dbLoadRecords("TwinCAT_TaskInfo.db", "PORT=$(ASYN_PORT),PREFIX=PLC:lcls_plc_dream_vac,IDX=2,TASK_PORT=350")
 dbLoadRecords("TwinCAT_AppInfo.db", "PORT=$(ASYN_PORT), PREFIX=PLC:lcls_plc_dream_vac")
 
-dbLoadRecords("TwinCAT_Project.db", "PREFIX=PLC:lcls_plc_dream_vac,PROJECT=lcls-plc-dream-vac.tsproj,HASH=e058740,VERSION=e058740,PYTMC=2.17.0,PLC_HOST=172.21.132.159")
+dbLoadRecords("TwinCAT_Project.db", "PREFIX=PLC:lcls_plc_dream_vac,PROJECT=lcls-plc-dream-vac.tsproj,HASH=682f492,VERSION=682f492,PYTMC=2.17.0,PLC_HOST=172.21.132.159")
 
 #   LCLS General: * -> 2.11.0 (SLAC)
 dbLoadRecords("TwinCAT_Dependency.db", "PREFIX=PLC:lcls_plc_dream_vac,DEPENDENCY=LCLS_General,VERSION=2.11.0,VENDOR=SLAC")
-#   LCLS Vacuum: * -> 2.3.4 (SLAC - LCLS)
-dbLoadRecords("TwinCAT_Dependency.db", "PREFIX=PLC:lcls_plc_dream_vac,DEPENDENCY=LCLS_Vacuum,VERSION=2.3.4,VENDOR=SLAC - LCLS")
-#   LCLSVacuumSerialDriverLib: * -> 1.3.2 (SLAC - LCLS)
-dbLoadRecords("TwinCAT_Dependency.db", "PREFIX=PLC:lcls_plc_dream_vac,DEPENDENCY=LCLSVacuumSerialDriverLib,VERSION=1.3.2,VENDOR=SLAC - LCLS")
+#   LCLS Vacuum: * -> 2.4.0 (SLAC - LCLS)
+dbLoadRecords("TwinCAT_Dependency.db", "PREFIX=PLC:lcls_plc_dream_vac,DEPENDENCY=LCLS_Vacuum,VERSION=2.4.0,VENDOR=SLAC - LCLS")
+#   LCLSVacuumSerialDriverLib: * -> 1.3.3 (SLAC - LCLS)
+dbLoadRecords("TwinCAT_Dependency.db", "PREFIX=PLC:lcls_plc_dream_vac,DEPENDENCY=LCLSVacuumSerialDriverLib,VERSION=1.3.3,VENDOR=SLAC - LCLS")
 #   PMPS: * -> 3.3.0 (SLAC - LCLS)
 dbLoadRecords("TwinCAT_Dependency.db", "PREFIX=PLC:lcls_plc_dream_vac,DEPENDENCY=PMPS,VERSION=3.3.0,VENDOR=SLAC - LCLS")
 #   Tc2_SerialCom: * -> 3.3.10.0 (Beckhoff Automation GmbH)
