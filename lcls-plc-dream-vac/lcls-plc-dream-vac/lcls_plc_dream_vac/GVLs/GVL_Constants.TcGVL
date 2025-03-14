@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="GVL_Constants" Id="{c8d4c41c-8044-499d-a59f-4fe751b725c7}">
+    <Declaration><![CDATA[VAR_GLOBAL CONSTANT
+    EPICS_STRING_SIZE : INT := 40;
+
+    ATM_PRESS : INT := 760; // Atmospheric pressure in Torr
+    ATM_PRESS_ERR_RNG : INT := 10; // Error range that is still considered atmospheric pressure
+
+    PTM_INTERLOCK_SP : REAL := 1E-2;
+
+    STATUS_CHECK_TIMEOUT : TIME := T#30S; // How long the system tries setting the desired state before failing
+    VALVE_TIMEOUT : TIME := T#10S; // How long system tries to open or close valve before failing
+    ROUGH_CHAMBER_TIMEOUT : TIME := T#5M; // How long to try rough pumping before failing
+    TURBO_CHAMBER_TIMEOUT : TIME := T#10M; // How long to try turbo pumping before failing
+    PUMP_TIMEOUT : TIME := T#20S; // How long to try to turn on or off pump before failing
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

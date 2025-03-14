@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="E_OpStep" Id="{ce69dd75-aa4c-4341-9202-8a10c8eccf28}">
+    <Declaration><![CDATA[TYPE E_OpStep :
+(
+    IDLE := 0,
+    START := 1,
+
+    (* Vent Full System steps *)
+    VFS_CLOSE_BEAMLINE_VALVES,
+    VFS_OPEN_NOZZLE_VALVE,
+    VFS_OPEN_CAT_VALVE,
+    VFS_CHECK_VALVE_STATUSES,
+    VFS_STOP_TURBO_PUMPS,
+    VFS_CLOSE_ROUGH_VALVES,
+    VFS_STOP_GAUGES,
+    VFS_WAIT_FOR_TURBO_PUMPS_SPIN_DOWN,
+    VFS_VENTING,
+    VFS_FINISH
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -21,6 +21,17 @@ VAR_GLOBAL
     sHUTCH_PLC_NAME AT %I* : STRING(8);
 
 
+    bTMO_MR5K4_VWC_CLOSED_LS AT %I* : BOOL;
+
+
+    bTMO_TM2K4_VWC_CLOSED_LS AT %I* : BOOL;
+
+
+    bTMO_MR5K4_VWC_OPEN_LS AT %I* : BOOL;
+
+
+    bTMO_TM2K4_VWC_OPEN_LS AT %I* : BOOL;
+
     (*Outputs to TMO Beamline PLC*)
     {attribute 'TcLinkTo' :=   'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^ENDSTATION_PLC_NAME'}
     sENDSTATION_PLC_NAME AT %Q* : STRING(8):= 'DREAM';
@@ -43,6 +54,12 @@ VAR_GLOBAL
 
     {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_HV_SAFETY_ENABLE'}
     bDREAM_HV_SAFETY_ENABLE AT %Q* : BOOL;
+
+
+    bCLOSE_TMO_MR5K4_VWC AT %Q* : BOOL;
+
+
+    bCLOSE_TMO_TM2K4_VWC AT %Q* : BOOL;
 
     (*ISEG HV Crate Safety Loop*)
     {attribute 'TcLInkTo' :=  'TIIB[K4S8_DRL_04_E14_EL2624]^Channel 4^Output'}

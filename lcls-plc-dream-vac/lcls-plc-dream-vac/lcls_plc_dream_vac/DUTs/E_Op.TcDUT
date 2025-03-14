@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="E_Op" Id="{dac9e9d2-1806-42d1-a04b-01a01da6455d}">
+    <Declaration><![CDATA[TYPE E_Op :
+(
+    INIT := 0,  //Initialize system
+    IDLE := 1,  //State Machine IDLE, no operation
+    STANDBY := 2, //Monitoring IF full system under vacuum
+    PUMP_ALL := 3, //Full system pump down
+    PUMP_NC := 4, //Only Nozzle chamber pump down
+    AT_VACUUM := 5, //Monitor Vacuum status
+    VENT_ALL := 6, //Vent full system
+    VENT_NC := 7, //Vent nozzle chamber only
+    VENT_MC_CAT := 8, //Vent Main Chamber + cather
+    VENT_CAT := 9, //Vent cather only
+    ERROR := 10 //Error state
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

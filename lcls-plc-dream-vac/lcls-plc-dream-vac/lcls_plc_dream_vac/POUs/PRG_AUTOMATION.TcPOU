@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PRG_AUTOMATION" Id="{67e5e02e-e373-477c-b4d1-15c0b4bff073}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_AUTOMATION
+VAR
+    eCurrOp : E_Op := E_Op.INIT; // The currently running operation
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(* Run operations, but don't start any new operations if another operation is still running *)
+
+// Only start new operations if the system is NOT busy with another operation!
+IF NOT GVL_Automation.q_bBusy THEN
+    eCurrOp := GVL_Automation.iq_eOperation;
+END_IF
+
+// Execute selected operation
+CASE eCurrOp OF
+E_Op.INIT: //State Machine INIT
+    GVL_Automation.q_bBusy := FALSE;
+
+E_Op.IDLE: //State Machine IDLE, no operation
+    GVL_Automation.q_bBusy := FALSE;
+
+E_Op.STANDBY: //Monitoring IF full system under vacuum - this state should be removed once PUMP_ALL procedure implemented
+    ; //Implement checking if pressure reach below AT VAC SP and all pump at_spd and move to AT_VACUUM state
+
+E_Op.PUMP_ALL: //Full system pump down
+    ; //do nothing for now, will be implemented later. When pumping down procedure ends go to AT_VACUUM state
+
+E_Op.PUMP_NC: //Only Nozzle chamber pump down
+    ; //do nothing for now, will be implemented later. When pumping down procedure of NC only ends go back to IDLE state
+
+E_Op.AT_VACUUM: //Monitor Vacuum status
+    ; //Implement Monitoring, if vaccum event occurs go to VENT_ALL state
+
+E_Op.VENT_ALL: //Vent full system
+    ; //Implement Vent FULL SYSTEM
+
+E_Op.VENT_NC: //Vent nozzle chamber only
+    ; //do nothing for now, will be implemented later
+
+E_Op.VENT_MC_CAT: //Vent Main Chamber + cather
+    ; //do nothing for now, will be implemented later
+
+E_Op.VENT_CAT: //Vent cather only
+    ; //do nothing for now, will be implemented later
+
+E_Op.ERROR: //Error state
+    HandleError();
+
+ELSE //Selected unimplemented operation
+    GVL_Automation.q_sMessage := 'Unimplemented operation';
+    GVL_Automation.q_bBusy := FALSE;
+    GVL_Automation.q_bError := TRUE;
+END_CASE
+
+// If all operation have finished then set operation back to none
+IF NOT GVL_Automation.q_bBusy THEN
+    eCurrOp := E_Op.STANDBY;
+END_IF
+
+// Set output operation to whatever is ACTAULLY currently running
+GVL_Automation.iq_eOperation := eCurrOp;
+GVL_Automation.i_bCancel := FALSE; // Reset cancel flag]]></ST>
+    </Implementation>
+    <Action Name="HandleError" Id="{da44cdf4-e29d-4f3e-a0bc-b99e33c4feca}">
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Action>
+  </POU>
+</TcPlcObject>
