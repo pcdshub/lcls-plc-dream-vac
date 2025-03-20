@@ -4,16 +4,25 @@
     <Declaration><![CDATA[VAR_GLOBAL CONSTANT
     EPICS_STRING_SIZE : INT := 40;
 
-    ATM_PRESS : INT := 760; // Atmospheric pressure in Torr
-    ATM_PRESS_ERR_RNG : INT := 10; // Error range that is still considered atmospheric pressure
+    ATM_PRESS : REAL := 760.0; // Atmospheric pressure in Torr
+    ATM_PRESS_INTERLOCK_SP : INT := 800; // Interlock pressure SP for valves
+    ATM_PRESS_ERR_RNG : INT := 10; // Error range that is still considered atmospheric pressure //update while testing these values
 
-    PTM_INTERLOCK_SP : REAL := 1E-2;
+    PTM_INTERLOCK_SP : REAL := 1E-2; //Turbo pumps interlock backing pressure SP
+    VALVE_INTERLOCK_SP : REAL := 5E-3; // Roughing valve interlock pressure SP
+
+    AT_VAC_SP : REAL := 1E-6; // Setpoint for at vacuum condition
 
     STATUS_CHECK_TIMEOUT : TIME := T#30S; // How long the system tries setting the desired state before failing
     VALVE_TIMEOUT : TIME := T#10S; // How long system tries to open or close valve before failing
-    ROUGH_CHAMBER_TIMEOUT : TIME := T#5M; // How long to try rough pumping before failing
-    TURBO_CHAMBER_TIMEOUT : TIME := T#10M; // How long to try turbo pumping before failing
-    PUMP_TIMEOUT : TIME := T#20S; // How long to try to turn on or off pump before failing
+    TURBOS_NOT_RUNNING_TIMEOUT : TIME := T#10M; // How long to try turbo pumping before failing
+    TURBOS_SPINDOWN_TIMEOUT : TIME := T#30M; // How long for turbos to spin down
+
+    //Vent valves initial leaking position in %
+    VENTING_CYCLE : TIME := T#2M;
+    ROUGH2_VFV_02_INITIAL_POSITION : INT := 50;
+    ROUGH2_VFV_03_INITIAL_POSITION : INT := 40;
+
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

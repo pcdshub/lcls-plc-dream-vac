@@ -11,18 +11,18 @@
 
     {attribute 'pytmc' := '
         pv: PLC:DREAM:OPERATION:CANCEL
-        io: o
+        io: io
     '}
     i_bCancel : BOOL;
 
     {attribute 'pytmc' := '
         pv: PLC:DREAM:OPERATION:RESET_ERROR
-        io: o
+        io: io
     '}
     i_bResetError : BOOL;
 
     {attribute 'pytmc' := '
-        pv: PPLC:DREAM:OPERATION:BUSY
+        pv: PLC:DREAM:OPERATION:BUSY
         io: i
         field: ZNAM NOT_BUSY
         field: ONAM BUSY

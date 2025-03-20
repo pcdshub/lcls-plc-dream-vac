@@ -4,16 +4,15 @@
     <Declaration><![CDATA[TYPE E_Op :
 (
     INIT := 0,  //Initialize system
-    IDLE := 1,  //State Machine IDLE, no operation
-    STANDBY := 2, //Monitoring IF full system under vacuum
-    PUMP_ALL := 3, //Full system pump down
-    PUMP_NC := 4, //Only Nozzle chamber pump down
-    AT_VACUUM := 5, //Monitor Vacuum status
-    VENT_ALL := 6, //Vent full system
-    VENT_NC := 7, //Vent nozzle chamber only
-    VENT_MC_CAT := 8, //Vent Main Chamber + cather
-    VENT_CAT := 9, //Vent cather only
-    ERROR := 10 //Error state
+    //IDLE := 1,  //State Machine IDLE, no operation
+    STANDBY := 1, //Monitoring IF full system under vacuum
+    PUMP_ALL := 2, //Full system pump down
+    PUMP_NC := 3, //Only Nozzle chamber pump down
+    AT_VACUUM := 4, //Monitor Vacuum status
+    VENT_ALL := 5, //Vent full system
+    VENT_NC := 6, //Vent nozzle chamber only
+    VENT_MC_CAT := 7, //Vent Main Chamber + cather
+    VENT_CAT := 8 //Vent cather only
 );
 END_TYPE
 ]]></Declaration>

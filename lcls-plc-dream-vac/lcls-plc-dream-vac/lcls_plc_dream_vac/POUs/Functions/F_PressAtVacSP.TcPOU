@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="F_PressAtVacSP" Id="{d799ff72-808d-4ce9-b24c-7aac3b16009f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_PressAtVacSP : BOOL
+VAR_INPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[F_PressAtVacSP := //DREAM_NC_GCC_01.IG.rPRESS < ATVAC_INTERLOCK_SP AND DREAM_NC_GCC_01.IG.xPRESS_OK AND
+                  //DREAM_DP1_GHC_01.IG.rPRESS < ATVAC_INTERLOCK_SP AND DREAM_DP1_GHC_01.IG.xPRESS_OK AND
+                  //DREAM_DP2_GHC_01.IG.rPRESS < ATVAC_INTERLOCK_SP AND DREAM_DP2_GHC_01.IG.xPRESS_OK AND
+                  //DREAM_DP3_GHC_01.IG.rPRESS < ATVAC_INTERLOCK_SP AND DREAM_DP3_GHC_01.IG.xPRESS_OK AND
+                  //DREAM_CAT1_GHC_01.IG.rPRESS < ATVAC_INTERLOCK_SP AND DREAM_CAT1_GHC_01.IG.xPRESS_OK AND
+                  //DREAM_CAT2_GHC_01.IG.rPRESS < ATVAC_INTERLOCK_SP AND DREAM_CAT2_GHC_01.IG.xPRESS_OK AND
+                  ((DREAM_MC_GHC.IG_CH1.rPRESS < AT_VAC_SP AND DREAM_MC_GHC.IG_CH1.xPRESS_OK)
+                    OR (DREAM_MC_GHC.IG_CH2.rPRESS < AT_VAC_SP AND DREAM_MC_GHC.IG_CH2.xPRESS_OK));]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

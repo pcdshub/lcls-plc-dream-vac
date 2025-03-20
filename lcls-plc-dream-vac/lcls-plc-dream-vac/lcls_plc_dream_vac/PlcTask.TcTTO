@@ -7,9 +7,6 @@
     <PouCall>
       <Name>MAIN</Name>
     </PouCall>
-    <PouCall>
-      <Name>PRG_AUTOMATION</Name>
-    </PouCall>
     <TaskFBGuid>{cb09faff-48b7-435c-a17b-daae14d2f263}</TaskFBGuid>
     <Fb_init>{5dfd0bdf-3c22-4b7b-a43e-5ed874063923}</Fb_init>
     <Fb_exit>{e56d0aa7-e435-4772-a421-d1661c8b8431}</Fb_exit>

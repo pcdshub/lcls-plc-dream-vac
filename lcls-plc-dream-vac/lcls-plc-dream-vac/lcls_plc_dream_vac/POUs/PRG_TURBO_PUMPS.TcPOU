@@ -55,19 +55,6 @@ DREAM_ROUGH2_PTM_01(i_xExtIlkOK := DREAM_ROUGH2_GPI_02.PG.rPRESS < DREAM_ROUGH2_
 DREAM_ROUGH2_PTM_02(i_xExtIlkOK := DREAM_ROUGH2_GPI_02.PG.rPRESS < DREAM_ROUGH2_PTM_02.iq_stPTM.rBackingPressureSP AND DREAM_ROUGH2_GPI_02.PG.xPRESS_OK AND
                                    DREAM_ROUGH2_VRC_01.iq_stValve.i_xOpnLS);
 
-(*
-bAllTurbosOn := (NOT (DREAM_NC_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_NC_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
-                 NOT (DREAM_NC_PTM_02.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_NC_PTM_02.iq_stPTM.eState = pumpSTOPPED) AND
-                 NOT (DREAM_DP1_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_DP1_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
-                 NOT (DREAM_DP2_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_DP2_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
-                 NOT (DREAM_DP3_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_DP3_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
-                 NOT (DREAM_MC_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_MC_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
-                 NOT (DREAM_MC_PTM_02.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_MC_PTM_02.iq_stPTM.eState = pumpSTOPPED) AND
-                 NOT (DREAM_CAT1_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_CAT1_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
-                 NOT (DREAM_CAT2_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_CAT2_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
-                 NOT (DREAM_ROUGH2_PTM_01.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_ROUGH2_PTM_01.iq_stPTM.eState = pumpSTOPPED) AND
-                 NOT (DREAM_ROUGH2_PTM_02.iq_stPTM.eState = pumpFAULT) AND NOT(DREAM_ROUGH2_PTM_02.iq_stPTM.eState = pumpSTOPPED));
-*)
 
 bAllTurboPumpRunning := DREAM_NC_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
                         DREAM_NC_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
@@ -83,28 +70,6 @@ bAllTurboPumpRunning := DREAM_NC_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNIN
 
 tAllTurboPumpTOF(IN := bAllTurboPumpRunning, PT := tAllTurboPumpDelayTime);
 bDREAM_TURBOS_ALL_AtSpd := tAllTurboPumpTOF.Q;
-
-(*// Will define when we will do automation
-//Check if any of the main chamber and DP turbo pumps fails
-bMainTurboPumpRunning := DREAM_DP1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
-                         DREAM_DP2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
-                         DREAM_DP3_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
-                         DREAM_MC_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
-                         DREAM_MC_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING;
-
-tMainTurboPumpTOF(IN := bMainTurboPumpRunning, PT := tMainTurboPumpDelayTime);
-
-ftPumpsFailed(CLK := tMainTurboPumpTOF.Q);
-
-IF ftPumpsFailed.Q THEN
-    DREAM_DP1_PTM_01.M_Run(FALSE);
-    DREAM_DP2_PTM_01.M_Run(FALSE);
-    DREAM_DP3_PTM_01.M_Run(FALSE);
-    DREAM_MC_PTM_01.M_Run(FALSE);
-    DREAM_MC_PTM_02.M_Run(FALSE);
-    DREAM_ROUGH2_VRC_02.M_Set_OPN_SW(FALSE); //Close ROUGH2:VRC:02
-END_IF
-*)
 
 (*********SERIAL COMMUNICATION**********)
 

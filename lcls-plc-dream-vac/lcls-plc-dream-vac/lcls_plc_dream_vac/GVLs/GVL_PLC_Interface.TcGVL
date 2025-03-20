@@ -20,16 +20,16 @@ VAR_GLOBAL
     {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Inputs^HUTCH_PLC_NAME'}
     sHUTCH_PLC_NAME AT %I* : STRING(8);
 
-
+    {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Inputs^TMO_MR5K4_VWC_CLOSED_LS'}
     bTMO_MR5K4_VWC_CLOSED_LS AT %I* : BOOL;
 
-
+    {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Inputs^TMO_TM2K4_VWC_CLOSED_LS'}
     bTMO_TM2K4_VWC_CLOSED_LS AT %I* : BOOL;
 
-
+    {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Inputs^TMO_MR5K4_VWC_OPEN_LS'}
     bTMO_MR5K4_VWC_OPEN_LS AT %I* : BOOL;
 
-
+    {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Inputs^TMO_TM2K4_VWC_OPEN_LS'}
     bTMO_TM2K4_VWC_OPEN_LS AT %I* : BOOL;
 
     (*Outputs to TMO Beamline PLC*)
@@ -55,10 +55,10 @@ VAR_GLOBAL
     {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_HV_SAFETY_ENABLE'}
     bDREAM_HV_SAFETY_ENABLE AT %Q* : BOOL;
 
-
+    {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^CLOSE_TMO_MR5K4_VWC'}
     bCLOSE_TMO_MR5K4_VWC AT %Q* : BOOL;
 
-
+    {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^CLOSE_TMO_TM2K4_VWC'}
     bCLOSE_TMO_TM2K4_VWC AT %Q* : BOOL;
 
     (*ISEG HV Crate Safety Loop*)

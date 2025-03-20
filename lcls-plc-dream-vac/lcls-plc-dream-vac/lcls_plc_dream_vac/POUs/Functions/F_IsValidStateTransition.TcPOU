@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="F_IsValidStateTransition" Id="{4eaca95a-f9fb-4bbd-af94-71b0fde77643}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_IsValidStateTransition : BOOL
+VAR_INPUT
+    eCurrentState : E_Op;
+    eNextState : E_Op;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE eCurrentState OF
+
+E_Op.INIT:
+    F_IsValidStateTransition := (eNextState = E_Op.STANDBY);
+
+E_Op.STANDBY:
+    F_IsValidStateTransition := (eNextState = E_Op.AT_VACUUM) OR
+                                //(eNextState = E_Op.PUMP_ALL) OR
+                                //(eNextState = E_Op.PUMP_NC) OR
+                                (eNextState = E_Op.VENT_MC_CAT); // OR
+                                //(eNextState = E_Op.VENT_ALL) OR
+                                //(eNextState = E_Op.VENT_NC) OR
+                                //(eNextState = E_Op.VENT_CAT);
+                                //un-comment after procedures implemented
+E_Op.PUMP_ALL:
+    F_IsValidStateTransition := (eNextState = E_Op.AT_VACUUM) OR
+                                (eNextState = E_Op.STANDBY);
+
+E_Op.PUMP_NC:
+    F_IsValidStateTransition := (eNextState = E_Op.STANDBY);
+
+E_Op.AT_VACUUM:
+    F_IsValidStateTransition := (eNextState = E_Op.VENT_MC_CAT) OR
+                                (eNextState = E_Op.VENT_ALL) OR
+                                (eNextState = E_Op.VENT_NC) OR
+                                (eNextState = E_Op.VENT_CAT);
+
+E_Op.VENT_ALL:
+    F_IsValidStateTransition := (eNextState = E_Op.STANDBY);
+
+E_Op.VENT_NC:
+    F_IsValidStateTransition := (eNextState = E_Op.STANDBY);
+
+E_Op.VENT_MC_CAT:
+    F_IsValidStateTransition := (eNextState = E_Op.STANDBY);
+
+E_Op.VENT_CAT:
+    F_IsValidStateTransition := (eNextState = E_Op.STANDBY);
+
+ELSE
+    F_IsValidStateTransition := FALSE;
+END_CASE;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

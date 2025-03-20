@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_Operation" Id="{7bebcb02-e5f0-42cb-9fa3-7eab5c0ec210}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Operation
+VAR_INPUT
+    i_bExecute : BOOL; // Flag that indicates the operation should be ran
+    i_bCancel : BOOL; // Cancel operation input signal
+END_VAR
+VAR_IN_OUT
+    iq_sMessageBuffer : STRING(EPICS_STRING_SIZE); // Human readable description of the current step
+END_VAR
+VAR_OUTPUT
+    q_bError : BOOL; // Whether a fatal error was encountered
+    q_bBusy : BOOL; // Whether the current operation is executing
+END_VAR
+VAR
+    bCancel : BOOL; // Saved cancel operation signal
+    bDeferCancel : BOOL; // Setting to True prevents operation from being immediatly cancelled with i_bCancel. Resets to FALSE after operation finishes
+    eStep : E_OpStep := E_OpStep.IDLE; // The current operation step
+    fbTimeoutTimer : TON; // Timer used for tracking operation timeouts
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF eStep = E_OpStep.IDLE AND i_bExecute = TRUE THEN
+    // Start operation
+    eStep := E_OpStep.START;
+    q_bBusy := TRUE;
+    M_ResetError();
+END_IF
+
+(* Save the input i_bCancel signal since cancelling can take multiple cycles *)
+IF i_bCancel THEN
+    bCancel := TRUE;
+END_IF
+
+(* Allow operation to be cancelled from an input signal.
+ The cancel input signal can be deferred by the operation if the
+ operation is not at a good point to finish cancelling. *)
+IF eStep <> E_OpStep.IDLE AND NOT bDeferCancel AND bCancel THEN
+    M_Cancel();
+END_IF
+
+IF M_TimeoutExpired() THEN // If a timeout has expired, trigger a fatal error
+    M_FatalError('Timeout expired');
+END_IF]]></ST>
+    </Implementation>
+    <Method Name="M_Cancel" Id="{4984ef68-0fce-4a9f-893b-50f33db2265e}">
+      <Declaration><![CDATA[METHOD PROTECTED M_Cancel
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[M_ResetTimeoutTimer();
+M_SetMessage('Operation canceled');
+eStep := E_OpStep.IDLE;
+q_bBusy := FALSE;
+bCancel := FALSE;
+M_DeferCancel(FALSE);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_DeferCancel" Id="{581ed4e7-1395-4b89-91a2-889a6a4e43d6}">
+      <Declaration><![CDATA[// Defer cancel signals until a later time
+METHOD PROTECTED M_DeferCancel
+VAR_INPUT
+    i_bDefer : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bDeferCancel := i_bDefer;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_FatalError" Id="{a177b920-2cb8-41f7-84df-488170be3cce}">
+      <Declaration><![CDATA[METHOD PROTECTED M_FatalError
+VAR_INPUT
+    i_ErrorMessage : STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[M_ResetTimeoutTimer();
+M_SetMessage(i_ErrorMessage);
+eStep := E_OpStep.IDLE;
+q_bError := TRUE;
+q_bBusy := FALSE;
+bCancel := FALSE;
+M_DeferCancel(FALSE);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Finish" Id="{f985c92b-5bec-404f-bb76-1793c2741fe1}">
+      <Declaration><![CDATA[METHOD PROTECTED M_Finish
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[M_ResetTimeoutTimer();
+M_SetMessage('Operation finished');
+eStep := E_OpStep.IDLE;
+q_bBusy := FALSE;
+bCancel := FALSE;
+M_DeferCancel(FALSE);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_ResetError" Id="{9ddb48a4-0484-4dd3-8a04-ca80b770436a}">
+      <Declaration><![CDATA[METHOD PROTECTED M_ResetError
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[q_bError := FALSE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_ResetTimeoutTimer" Id="{1ba3141d-503f-4e9f-9e1e-00d341f98624}">
+      <Declaration><![CDATA[METHOD PROTECTED M_ResetTimeoutTimer
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbTimeoutTimer(IN := FALSE);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_RunTimeoutTimer" Id="{0b76ca50-321b-4d54-8d73-3f826a5445a3}">
+      <Declaration><![CDATA[METHOD PROTECTED M_RunTimeoutTimer
+VAR_INPUT
+    i_tTime : TIME; // How long the timer should run before signalling a timeout
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbTimeoutTimer(IN := TRUE, PT := i_tTime);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_SetMessage" Id="{d6fe8b12-b829-4907-9ca0-9dc8387b31c4}">
+      <Declaration><![CDATA[METHOD PROTECTED M_SetMessage
+VAR_INPUT
+    i_sMessage : STRING(EPICS_STRING_SIZE);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[iq_sMessageBuffer := i_sMessage;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_TimeoutExpired" Id="{c262673f-be96-4a17-bb32-cc899ad5bf1b}">
+      <Declaration><![CDATA[METHOD PROTECTED M_TimeoutExpired : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbTimeoutTimer(); // Advance timer
+M_TimeoutExpired := fbTimeoutTimer.Q;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
