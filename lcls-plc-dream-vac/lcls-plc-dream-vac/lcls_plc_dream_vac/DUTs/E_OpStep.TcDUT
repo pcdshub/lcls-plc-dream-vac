@@ -14,6 +14,7 @@
     VMCAS_WAIT_FOR_TURBO_PUMPS_SPIN_DOWN,
     VMCAS_VENTING,
     VMCAS_FINISH
+    (* Add new states for other procedures *)
 );
 END_TYPE
 ]]></Declaration>

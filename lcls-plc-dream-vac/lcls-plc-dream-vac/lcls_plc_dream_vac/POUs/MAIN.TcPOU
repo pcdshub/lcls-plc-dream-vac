@@ -19,7 +19,9 @@ PRG_TURBO_PUMPS();
 
 PRG_HV_ILK();
 
-PRG_COIL_PS_ILK();]]></ST>
+PRG_COIL_PS_ILK();
+
+PRG_TC();]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

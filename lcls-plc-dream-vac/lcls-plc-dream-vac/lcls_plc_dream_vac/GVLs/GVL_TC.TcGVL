@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="GVL_TC" Id="{773a1820-f6d7-4fdc-986c-55270e1ee48b}">
+    <Declaration><![CDATA[VAR_GLOBAL
+    {attribute 'TcLinkTo' := 	'.iRaw 			:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 1^Value;
+                                 .bError  		:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 1^Status^Error;
+                                 .bUnderrange 	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 1^Status^Underrange;
+                                 .bOverrange  	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 1^Status^Overrange
+    '}
+    {attribute 'pytmc' := ' pv: DREAM:STC:01'}
+    TC_01 : FB_TempSensor;
+
+    {attribute 'TcLinkTo' := 	'.iRaw 			:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 2^Value;
+                                 .bError  		:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 2^Status^Error;
+                                 .bUnderrange 	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 2^Status^Underrange;
+                                 .bOverrange  	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 2^Status^Overrange
+    '}
+    {attribute 'pytmc' := ' pv: DREAM:STC:02'}
+    TC_02 : FB_TempSensor;
+
+    {attribute 'TcLinkTo' := 	'.iRaw 			:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 3^Value;
+                                 .bError  		:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 3^Status^Error;
+                                 .bUnderrange 	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 3^Status^Underrange;
+                                 .bOverrange  	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 3^Status^Overrange
+    '}
+    {attribute 'pytmc' := ' pv: DREAM:STC:03'}
+    TC_03 : FB_TempSensor;
+
+    {attribute 'TcLinkTo' := 	'.iRaw 			:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 4^Value;
+                                 .bError  		:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 4^Status^Error;
+                                 .bUnderrange 	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 4^Status^Underrange;
+                                 .bOverrange  	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 4^Status^Overrange
+    '}
+    {attribute 'pytmc' := ' pv: DREAM:STC:04'}
+    TC_04 : FB_TempSensor;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>
