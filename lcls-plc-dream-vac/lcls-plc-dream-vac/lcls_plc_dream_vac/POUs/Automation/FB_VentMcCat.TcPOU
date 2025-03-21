@@ -22,19 +22,19 @@ E_OpStep.IDLE: // Do nothing
 
 E_OpStep.START: // Close beamline window valves //Defer cancel if this procedure should not be cancelled from user!
     //Close window beamline valves
-    bCLOSE_TMO_MR5K4_VWC := TRUE;
-    bCLOSE_TMO_TM2K4_VWC := TRUE;
+    GVL_PLC_Interface.bCLOSE_TMO_MR5K4_VWC := TRUE;
+    GVL_PLC_Interface.bCLOSE_TMO_TM2K4_VWC := TRUE;
     M_SetMessage('Closing TMO window valves');
     M_RunTimeoutTimer(VALVE_TIMEOUT);
 
-    IF (bTMO_MR5K4_VWC_CLOSED_LS AND bTMO_TM2K4_VWC_CLOSED_LS) THEN
+    IF (GVL_PLC_Interface.bTMO_MR5K4_VWC_CLOSED_LS AND GVL_PLC_Interface.bTMO_TM2K4_VWC_CLOSED_LS) THEN
         M_SetMessage('Window valves closed');
         M_ResetTimeoutTimer();
-        E_OpStep := E_OpStep.VMCAS_CLOSE_ISOLATION_VALVES;
+        eStep := E_OpStep.VMCAS_CLOSE_ISOLATION_VALVES;
     ELSIF M_TimeoutExpired() THEN
         M_SetMessage('Closing window valve - timeout');
         M_ResetTimeoutTimer();
-        E_OpStep := E_OpStep.VMCAS_CLOSE_ISOLATION_VALVES;
+        eStep := E_OpStep.VMCAS_CLOSE_ISOLATION_VALVES;
     END_IF
 
 E_OpStep.VMCAS_CLOSE_ISOLATION_VALVES: // Close isolation valves (DP1:VRC:01, CAT1:VRC:01), Bypas valve DP1:VRC:01 shall open
@@ -46,7 +46,7 @@ E_OpStep.VMCAS_CLOSE_ISOLATION_VALVES: // Close isolation valves (DP1:VRC:01, CA
     IF DREAM_DP1_VRC_01.iq_stValve.i_xClsLS AND DREAM_CAT1_VRC_01.iq_stValve.i_xClsLS AND DREAM_DP1_VRC_02.iq_stValve.i_xOpnLS THEN
         M_SetMessage('Isolation valves closed, bypass open');
         M_ResetTimeoutTimer();
-        E_OpStep := E_OpStep.VMCAS_STOP_TURBO_PUMPS;
+        eStep := E_OpStep.VMCAS_STOP_TURBO_PUMPS;
     ELSIF M_TimeoutExpired() THEN
         M_FatalError('Moving isolation,bypass valves-timeout');
     END_IF
@@ -63,7 +63,7 @@ E_OpStep.VMCAS_STOP_TURBO_PUMPS: // Stop MC and CAT Turbo pumps
     DREAM_ROUGH2_PTM_02.M_Run(FALSE);
 
     M_SetMessage('Stopping MC and CAT turbos');
-    E_OpStep := E_OpStep.VMCAS_CLOSE_ROUGH_VALVES;
+    eStep := E_OpStep.VMCAS_CLOSE_ROUGH_VALVES;
 
 E_OpStep.VMCAS_CLOSE_ROUGH_VALVES: // Close roughing valves
     DREAM_ROUGH2_VRC_01.M_Set_OPN_SW(FALSE);
@@ -74,7 +74,7 @@ E_OpStep.VMCAS_CLOSE_ROUGH_VALVES: // Close roughing valves
     IF DREAM_ROUGH2_VRC_01.iq_stValve.i_xClsLS AND DREAM_ROUGH2_VRC_02.iq_stValve.i_xClsLS THEN
         M_SetMessage('Roughing valves closed');
         M_ResetTimeoutTimer();
-        E_OpStep := E_OpStep.VMCAS_STOP_GAUGES;
+        eStep := E_OpStep.VMCAS_STOP_GAUGES;
     ELSIF M_TimeoutExpired() THEN
         M_FatalError('Moving roughing valves-timeout');
     END_IF
@@ -89,7 +89,7 @@ E_OpStep.VMCAS_STOP_GAUGES: // Turn off gauges
     DREAM_CAT2_GHC_01.M_HVE(FALSE);
 
     M_SetMessage('Turning OFF MC and CAT Gauges');
-    E_OpStep := E_OpStep.VMCAS_WAIT_FOR_TURBO_PUMPS_SPIN_DOWN;
+    eStep := E_OpStep.VMCAS_WAIT_FOR_TURBO_PUMPS_SPIN_DOWN;
 
 E_OpStep.VMCAS_WAIT_FOR_TURBO_PUMPS_SPIN_DOWN: // Turbos need to spin down to below 100 before start venting procedure
     M_RunTimeoutTimer(TURBOS_SPINDOWN_TIMEOUT);
@@ -108,7 +108,7 @@ E_OpStep.VMCAS_WAIT_FOR_TURBO_PUMPS_SPIN_DOWN: // Turbos need to spin down to be
     THEN
         M_SetMessage('Pumps below 100 Hz, start venting');
         M_ResetTimeoutTimer();
-        E_OpStep := E_OpStep.VMCAS_VENTING;
+        eStep := E_OpStep.VMCAS_VENTING;
     ELSIF M_TimeoutExpired()
         AND NOT DREAM_DP1_PTM_01.iq_stPTM.i_xAtSpd
         AND NOT DREAM_DP2_PTM_01.iq_stPTM.i_xAtSpd
@@ -122,7 +122,7 @@ E_OpStep.VMCAS_WAIT_FOR_TURBO_PUMPS_SPIN_DOWN: // Turbos need to spin down to be
     THEN (*if serial communication doesn't work and not at speed*)
         M_SetMessage('Pumps spindown-timeout, start venting');
         M_ResetTimeoutTimer();
-        E_OpStep := E_OpStep.VMCAS_VENTING;
+        eStep := E_OpStep.VMCAS_VENTING;
     ELSE
         ; //should we add that statemachine goes to error if the pumps didn't start spinning down?
     END_IF
@@ -178,15 +178,15 @@ E_OpStep.VMCAS_VENTING: // Venting, increase opening by X% every 2 miniutes, unt
     ELSE
         M_SetMessage('Venting completed');
         M_ResetTimeoutTimer();
-        E_OpStep := E_OpStep.VMCAS_FINISH;
+        eStep := E_OpStep.VMCAS_FINISH;
     END_IF
 
 E_OpStep.VMCAS_FINISH: // Finish procedure, close venting valves, reset set points for all valves, pumps etc.
     DREAM_ROUGH2_VFV_02.M_SetControlMode(E_VCN.CloseValve);
     DREAM_ROUGH2_VFV_03.M_SetControlMode(E_VCN.CloseValve);
-    //reset vent valve postions for next time
-    fRough2VFV2Position := ROUGH2_VFV_02_INITIAL_POSITION;
-    fRough2VFV3Position := ROUGH2_VFV_03_INITIAL_POSITION;
+    //reset vent valve postions
+    fRough2VFV2Position := 0;
+    fRough2VFV3Position := 0;
 
     DREAM_ROUGH2_VRC_01.M_SetAtVacSP(VALVE_INTERLOCK_SP);
     DREAM_ROUGH2_VRC_02.M_SetAtVacSP(VALVE_INTERLOCK_SP);
@@ -200,6 +200,10 @@ E_OpStep.VMCAS_FINISH: // Finish procedure, close venting valves, reset set poin
     DREAM_CAT2_PTM_01.M_SetBackingSP(PTM_INTERLOCK_SP);
     DREAM_ROUGH2_PTM_01.M_SetBackingSP(PTM_INTERLOCK_SP);
     DREAM_ROUGH2_PTM_02.M_SetBackingSP(PTM_INTERLOCK_SP);
+
+    //Remove command to close beamline window valves
+    GVL_PLC_Interface.bCLOSE_TMO_MR5K4_VWC := FALSE;
+    GVL_PLC_Interface.bCLOSE_TMO_TM2K4_VWC := FALSE;
 
     M_Finish();
 

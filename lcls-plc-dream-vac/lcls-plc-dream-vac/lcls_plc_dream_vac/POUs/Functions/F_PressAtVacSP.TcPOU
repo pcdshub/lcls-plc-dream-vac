@@ -14,8 +14,9 @@ END_VAR
                   //DREAM_DP3_GHC_01.IG.rPRESS < ATVAC_INTERLOCK_SP AND DREAM_DP3_GHC_01.IG.xPRESS_OK AND
                   //DREAM_CAT1_GHC_01.IG.rPRESS < ATVAC_INTERLOCK_SP AND DREAM_CAT1_GHC_01.IG.xPRESS_OK AND
                   //DREAM_CAT2_GHC_01.IG.rPRESS < ATVAC_INTERLOCK_SP AND DREAM_CAT2_GHC_01.IG.xPRESS_OK AND
-                  ((DREAM_MC_GHC.IG_CH1.rPRESS < AT_VAC_SP AND DREAM_MC_GHC.IG_CH1.xPRESS_OK)
-                    OR (DREAM_MC_GHC.IG_CH2.rPRESS < AT_VAC_SP AND DREAM_MC_GHC.IG_CH2.xPRESS_OK));]]></ST>
+                  GVL_VAC_GAUGES.stDREAM_MC_GHC.rPRESS < AT_VAC_SP AND GVL_VAC_GAUGES.stDREAM_MC_GHC.xPRESS_OK;
+                  //GVL_VAC_GAUGES.stDREAM_MC_GHC.xAT_VAC;
+                  //we could also be checking ST_VG.xAT_VAC flag and make this value changeable?]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

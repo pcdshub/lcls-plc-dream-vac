@@ -763,7 +763,7 @@
 				<Entry Name="CLOSE_TMO_MR5K4_VWC" Index="#x7000" Sub="#x07">
 					<Type>BOOL</Type>
 				</Entry>
-				<Entry Name="CLOSE_TMO_TM2K4_VWC " Index="#x7000" Sub="#x08">
+				<Entry Name="CLOSE_TMO_TM2K4_VWC" Index="#x7000" Sub="#x08">
 					<Type>BOOL</Type>
 				</Entry>
 			</Pdo>

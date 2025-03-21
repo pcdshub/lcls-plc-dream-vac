@@ -67,7 +67,7 @@ VAR_GLOBAL
         pv: TMO:PLC:DREAM:VAC:HV_SAFETY_ENABLE
         io:i
     '}
-    bHighVoltageSafteyLoopEnable AT %Q* : BOOL := FALSE; (*When Enables the High voltage Saftey loop is closed and HV can start.*)
+    bHVSafteyLoopEnable AT %Q* : BOOL := FALSE; (*When Enables the High voltage Saftey loop is closed and HV can start.*)
 
     (*Interlock output to control COIL PS*)
     {attribute 'TcLInkTo' :=  'TIIB[K4S8_DRL_04_E14_EL2624]^Channel 3^Output'}

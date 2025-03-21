@@ -53,7 +53,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{8878C08A-A5D5-7F12-4EAC-A4CB461544F7}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{72754C8C-BE93-803E-87CE-F0FB8919DAAC}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -165,23 +165,23 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_PLC_Interface.bEcatBridge_WcState</Name>
-					<Comment><![CDATA[0 = Data valid, 1 = Data invalid]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.bTMO_MR5K4_VWC_CLOSED_LS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
 					<Name>GVL_FWM.fbCoilFlowMeter.iRaw</Name>
 					<Comment><![CDATA[ Connect this input to the terminal]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
+					<Name>GVL_PLC_Interface.bEcatBridge_WcState</Name>
+					<Comment><![CDATA[0 = Data valid, 1 = Data invalid]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
 					<Name>GVL_PLC_Interface.sHUTCH_PLC_NAME</Name>
 					<Comment><![CDATA[Inputs from TMO Beamline]]></Comment>
 					<Type>STRING(8)</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bTMO_MR5K4_VWC_CLOSED_LS</Name>
+					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_PLC_Interface.bTMO_TM2K4_VWC_CLOSED_LS</Name>
@@ -538,10 +538,6 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_PLC_Interface.fDREAM_MAIN_rPRESS</Name>
-					<Type>REAL</Type>
-				</Var>
-				<Var>
 					<Name>GVL_PLC_Interface.bDREAM_HV_SAFETY_ENABLE</Name>
 					<Type>BOOL</Type>
 				</Var>
@@ -550,12 +546,11 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_PLC_Interface.bCLOSE_TMO_TM2K4_VWC</Name>
-					<Type>BOOL</Type>
+					<Name>GVL_PLC_Interface.fDREAM_MAIN_rPRESS</Name>
+					<Type>REAL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_PLC_Interface.bHighVoltageSafteyLoopEnable</Name>
-					<Comment><![CDATA[When Enables the High voltage Saftey loop is closed and HV can start.]]></Comment>
+					<Name>GVL_PLC_Interface.bCLOSE_TMO_TM2K4_VWC</Name>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -745,6 +740,11 @@
 					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_03.q_iRawPosition</Name>
 					<Comment><![CDATA[IO]]></Comment>
 					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bHVSafteyLoopEnable</Name>
+					<Comment><![CDATA[When Enables the High voltage Saftey loop is closed and HV can start.]]></Comment>
+					<Type>BOOL</Type>
 				</Var>
 			</Vars>
 			<Vars VarGrpType="8" ContextId="1" AreaNo="20">
@@ -949,6 +949,7 @@
 				<Link VarA="PlcTask Inputs^GVL_PLC_Interface.bTMO_TM2K4_VWC_OPEN_LS" VarB="IO Inputs^TMO_TM2K4_VWC_OPEN_LS" AutoLink="true"/>
 				<Link VarA="PlcTask Inputs^GVL_PLC_Interface.sHUTCH_PLC_NAME" VarB="IO Inputs^HUTCH_PLC_NAME" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.bCLOSE_TMO_MR5K4_VWC" VarB="IO Outputs^CLOSE_TMO_MR5K4_VWC" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.bCLOSE_TMO_TM2K4_VWC" VarB="IO Outputs^CLOSE_TMO_TM2K4_VWC" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.bDREAM_HV_SAFETY_ENABLE" VarB="IO Outputs^DREAM_HV_SAFETY_ENABLE" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.bDREAM_MAIN_xAT_VAC" VarB="IO Outputs^DREAM_MAIN_xAT_VAC" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK" VarB="IO Outputs^DREAM_MAIN_xPRESS_OK" AutoLink="true"/>
@@ -1176,7 +1177,7 @@
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_04_EK0_EK1100^K4S8_DRL_04_E14_EL2624">
 				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.bCoilPS_ILK" VarB="Channel 3^Output" AutoLink="true" Size="1"/>
-				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.bHighVoltageSafteyLoopEnable" VarB="Channel 4^Output" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.bHVSafteyLoopEnable" VarB="Channel 4^Output" AutoLink="true" Size="1"/>
 				<Link VarA="PlcTask Outputs^GVL_VAC_GAUGES.DREAM_CAT1_GHC_01.q_xHV_DIS" VarB="Channel 1^Output" AutoLink="true" Size="1"/>
 				<Link VarA="PlcTask Outputs^GVL_VAC_GAUGES.DREAM_CAT2_GHC_01.q_xHV_DIS" VarB="Channel 2^Output" AutoLink="true" Size="1"/>
 			</OwnerB>
