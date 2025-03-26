@@ -9,14 +9,14 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[(* Run operations, but don't start any new operations if another operation is still running *)
+      <ST><![CDATA[(* Run operations, but don't start any new operations if another operation is still running or error is present *)
 // Reset error
 IF GVL_Automation.i_bResetError THEN
     GVL_Automation.q_bError := FALSE;
     GVL_Automation.i_bResetError := FALSE;
 END_IF
 
-// Only start new operations if the system is NOT busy with another operation and transtion to new state is valid
+// Only start new operations if the system is NOT busy with another operation and transtion to new state is valid and no error present
 IF NOT GVL_Automation.q_bBusy AND NOT GVL_Automation.q_bError THEN
     IF F_IsValidStateTransition(eCurrOp, GVL_Automation.iq_eOperation) THEN
         eCurrOp := GVL_Automation.iq_eOperation;
@@ -54,7 +54,7 @@ E_Op.AT_VACUUM: // Monitor if system is At Vacuum (pumps running and pressure be
         q_bBusy => GVL_Automation.q_bBusy,
         q_bError => GVL_Automation.q_bError
     );
-    IF GVL_Automation.q_bError THEN // Vent MC and CAT IF Vacuum fault on main chamber detectedS
+    IF GVL_Automation.q_bError THEN // Vent MC and CAT IF Vacuum fault on main chamber detected
         eCurrOp := E_Op.VENT_MC_CAT;
         GVL_Automation.q_bBusy := TRUE; // Extend for one cycle so the eCurrOp doesn't get overried
     END_IF

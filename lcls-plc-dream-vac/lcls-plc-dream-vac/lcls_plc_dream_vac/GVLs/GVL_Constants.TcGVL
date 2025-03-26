@@ -6,23 +6,22 @@
 
     ATM_PRESS : REAL := 760.0; // Atmospheric pressure in Torr
     ATM_PRESS_INTERLOCK_SP : INT := 800; // Interlock pressure SP for valves
-    ATM_PRESS_ERR_RNG : INT := 10; // Error range that is still considered atmospheric pressure //update while testing these values
+    ATM_PRESS_ERR_RNG : INT := 10; // Error range that is still considered atmospheric pressure // update while testing these values
 
-    PTM_INTERLOCK_SP : REAL := 1E-2; //Turbo pumps interlock backing pressure SP
+    PTM_INTERLOCK_SP : REAL := 1E-2; // Turbo pumps interlock backing pressure SP
     VALVE_INTERLOCK_SP : REAL := 5E-3; // Roughing valve interlock pressure SP
 
-    AT_VAC_SP : REAL := 1E-6; // Setpoint for at vacuum condition
+    AT_VAC_SP : REAL := 1E-6; // Setpoint for at vacuum condition // update based on James and Jing input
 
-    STATUS_CHECK_TIMEOUT : TIME := T#30S; // How long the system tries setting the desired state before failing
     VALVE_TIMEOUT : TIME := T#10S; // How long system tries to open or close valve before failing
     TURBOS_NOT_RUNNING_TIMEOUT : TIME := T#10M; // How long to try turbo pumping before failing
-    TURBOS_SPINDOWN_TIMEOUT : TIME := T#30M; // How long for turbos to spin down
+    TURBOS_SPINDOWN_TIMEOUT : TIME := T#60M; // How long for turbos to spin down
 
-    //Vent valves initial leaking position in %
-    VENTING_CYCLE : TIME := T#2M;
-    ROUGH2_VFV_02_INITIAL_POSITION : INT := 50;
-    ROUGH2_VFV_03_INITIAL_POSITION : INT := 40;
-
+    //Vent Valves
+    VENTING_CYCLE : TIME := T#2M; // Increase open position every 2 min
+    VFV_POSITION_STEP : INT := 1; // Position increase step
+    ROUGH2_VFV_02_INITIAL_POSITION : INT := 50; // Initial postion in % for ROUGH2_VFV_02 valve
+    ROUGH2_VFV_03_INITIAL_POSITION : INT := 40; // Initial postion in % for ROUGH2_VFV_03 valve
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

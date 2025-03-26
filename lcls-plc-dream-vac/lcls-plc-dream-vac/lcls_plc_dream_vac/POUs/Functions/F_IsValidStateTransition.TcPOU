@@ -23,19 +23,19 @@ E_Op.STANDBY:
                                 //(eNextState = E_Op.VENT_ALL) OR
                                 //(eNextState = E_Op.VENT_NC) OR
                                 //(eNextState = E_Op.VENT_CAT);
-                                //un-comment after procedures implemented
+                                //uncomment after procedures implemented
 E_Op.PUMP_ALL:
-    F_IsValidStateTransition := (eNextState = E_Op.AT_VACUUM) OR
-                                (eNextState = E_Op.STANDBY);
+    F_IsValidStateTransition := (eNextState = E_Op.STANDBY);
 
 E_Op.PUMP_NC:
     F_IsValidStateTransition := (eNextState = E_Op.STANDBY);
 
 E_Op.AT_VACUUM:
-    F_IsValidStateTransition := (eNextState = E_Op.VENT_MC_CAT) OR
-                                (eNextState = E_Op.VENT_ALL) OR
-                                (eNextState = E_Op.VENT_NC) OR
-                                (eNextState = E_Op.VENT_CAT);
+    F_IsValidStateTransition := (eNextState = E_Op.VENT_MC_CAT); //OR
+                                //(eNextState = E_Op.VENT_ALL) OR
+                                //(eNextState = E_Op.VENT_NC) OR
+                                //(eNextState = E_Op.VENT_CAT);
+                                //uncomment after procedures implemented
 
 E_Op.VENT_ALL:
     F_IsValidStateTransition := (eNextState = E_Op.STANDBY);
