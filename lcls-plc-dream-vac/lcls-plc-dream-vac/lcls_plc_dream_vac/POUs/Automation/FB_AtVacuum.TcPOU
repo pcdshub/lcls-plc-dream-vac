@@ -16,7 +16,7 @@ CASE eStep OF
 E_OpStep.IDLE: // Do nothing
 
 E_OpStep.START: // Start monitoring main chamber vacuum
-    IF NOT (F_AllPumpsRunning() AND F_PressAtVacSP()) THEN
+    IF NOT (F_AllPumpsRunning() AND F_PressAtVacSP()) THEN // add case if already vented to just cancel operation
         M_RunTimeoutTimer(TURBOS_NOT_RUNNING_TIMEOUT);
         M_SetMessage('Vacuum lost, 10 min timer started');
         IF M_TimeoutExpired() THEN

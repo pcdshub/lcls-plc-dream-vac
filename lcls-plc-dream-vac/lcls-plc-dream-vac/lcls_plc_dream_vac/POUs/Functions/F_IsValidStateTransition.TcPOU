@@ -16,7 +16,7 @@ E_Op.INIT:
     F_IsValidStateTransition := (eNextState = E_Op.STANDBY);
 
 E_Op.STANDBY:
-    F_IsValidStateTransition := (eNextState = E_Op.AT_VACUUM) OR
+    F_IsValidStateTransition := (eNextState = E_Op.STANDBY) OR
                                 //(eNextState = E_Op.PUMP_ALL) OR
                                 //(eNextState = E_Op.PUMP_NC) OR
                                 (eNextState = E_Op.VENT_MC_CAT); // OR

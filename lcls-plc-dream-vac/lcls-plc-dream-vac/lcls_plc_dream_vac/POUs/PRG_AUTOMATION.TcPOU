@@ -16,15 +16,15 @@ IF GVL_Automation.i_bResetError THEN
     GVL_Automation.i_bResetError := FALSE;
 END_IF
 
-(*// Only start new operations if the system is NOT busy with another operation and transtion to new state is valid and no error present
+// Only start new operations if the system is NOT busy with another operation and transtion to new state is valid and no error present
 IF NOT GVL_Automation.q_bBusy AND NOT GVL_Automation.q_bError THEN
     IF F_IsValidStateTransition(eCurrOp, GVL_Automation.iq_eOperation) THEN
         eCurrOp := GVL_Automation.iq_eOperation;
     ELSE
         GVL_Automation.q_sMessage := 'Invalid state transition';
-        GVL_Automation.q_bError := TRUE;
+        //GVL_Automation.q_bError := TRUE;
     END_IF
-END_IF*)
+END_IF
 
 // Execute selected operation
 CASE eCurrOp OF
@@ -66,13 +66,14 @@ E_Op.VENT_NC: // Vent nozzle chamber only
     GVL_Automation.q_bBusy := FALSE; // do nothing for now, will be implemented later
 
 E_Op.VENT_MC_CAT: // Vent Main Chamber + Catcher
-    fbVentMcCat(
+    (*fbVentMcCat(
         i_bExecute := TRUE,
         i_bCancel := GVL_Automation.i_bCancel,
         iq_sMessageBuffer := GVL_Automation.q_sMessage,
         q_bBusy => GVL_Automation.q_bBusy,
         q_bError => GVL_Automation.q_bError
-    );
+    );*)
+    GVL_Automation.q_bBusy := FALSE; //temporary before enabling code above
 
 E_Op.VENT_CAT: // Vent catcher only
     GVL_Automation.q_bBusy := FALSE; // do nothing for now, will be implemented later
