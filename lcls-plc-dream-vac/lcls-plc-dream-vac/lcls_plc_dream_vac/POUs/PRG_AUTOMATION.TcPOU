@@ -16,7 +16,7 @@ IF GVL_Automation.i_bResetError THEN
     GVL_Automation.i_bResetError := FALSE;
 END_IF
 
-// Only start new operations if the system is NOT busy with another operation and transtion to new state is valid and no error present
+(*// Only start new operations if the system is NOT busy with another operation and transtion to new state is valid and no error present
 IF NOT GVL_Automation.q_bBusy AND NOT GVL_Automation.q_bError THEN
     IF F_IsValidStateTransition(eCurrOp, GVL_Automation.iq_eOperation) THEN
         eCurrOp := GVL_Automation.iq_eOperation;
@@ -24,7 +24,7 @@ IF NOT GVL_Automation.q_bBusy AND NOT GVL_Automation.q_bError THEN
         GVL_Automation.q_sMessage := 'Invalid state transition';
         GVL_Automation.q_bError := TRUE;
     END_IF
-END_IF
+END_IF*)
 
 // Execute selected operation
 CASE eCurrOp OF
@@ -34,11 +34,11 @@ E_Op.INIT: // State Machine INIT // do nothing for now, can be used in the futur
 
 E_Op.STANDBY: // Monitoring IF full system under vacuum
     GVL_Automation.q_bBusy := FALSE;
-    IF F_AllPumpsRunning() AND F_PressAtVacSP() AND NOT GVL_Automation.q_bError THEN // clear the error before start monitoring again
+    (*IF F_AllPumpsRunning() AND F_PressAtVacSP() AND NOT GVL_Automation.q_bError THEN // clear the error before start monitoring again
         eCurrOp := E_Op.AT_VACUUM;
         GVL_Automation.q_bBusy := TRUE; // Extend for one cycle so the state doesn't get overrired
         GVL_Automation.q_sMessage := 'MC At Vacuum';
-    END_IF
+    END_IF*)
 
 E_Op.PUMP_ALL: // Full system pump down
     GVL_Automation.q_bBusy := FALSE; //do nothing for now, will be implemented later. When pumping down procedure ends go to xxxxxx state

@@ -36,6 +36,9 @@ VAR_GLOBAL
     {attribute 'TcLinkTo' :=   'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^ENDSTATION_PLC_NAME'}
     sENDSTATION_PLC_NAME AT %Q* : STRING(8):= 'DREAM';
 
+    {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_HV_SAFETY_ENABLE'}
+    bDREAM_HV_SAFETY_ENABLE AT %Q* : BOOL;
+
     {attribute 'TcLInkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_TURBOS_ALL_AtSpd'}
     {attribute 'pytmc' := '
         pv: PLC:DREAM:VAC:TURBOS_ALL_ATSPD
@@ -51,9 +54,6 @@ VAR_GLOBAL
 
     {attribute 'TcLINKTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_MAIN_rPRESS'}
     fDREAM_MAIN_rPRESS AT %Q* : REAL;
-
-    {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^DREAM_HV_SAFETY_ENABLE'}
-    bDREAM_HV_SAFETY_ENABLE AT %Q* : BOOL;
 
     {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Outputs^CLOSE_TMO_MR5K4_VWC'}
     bCLOSE_TMO_MR5K4_VWC AT %Q* : BOOL;

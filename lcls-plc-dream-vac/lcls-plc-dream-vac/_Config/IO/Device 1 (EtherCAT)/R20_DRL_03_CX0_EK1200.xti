@@ -46,11 +46,11 @@
 		<Box File="R20_DRL_03_E13_EL9505.xti" Id="13">
 			<EtherCAT PortABoxInfo="#x0100000c"/>
 		</Box>
-		<Box File="R20_DRL_03_E14_EL6695.xti" Id="14">
+		<Box File="R20_DRL_03_E14_EL6695.xti" Id="77">
 			<EtherCAT PortABoxInfo="#x0100000d"/>
 		</Box>
 		<Box File="R20_DRL_03_E15_EL1122.xti" Id="15">
-			<EtherCAT PortABoxInfo="#x0100000e"/>
+			<EtherCAT PortABoxInfo="#x0100004d"/>
 		</Box>
 	</Box>
 </TcSmItem>

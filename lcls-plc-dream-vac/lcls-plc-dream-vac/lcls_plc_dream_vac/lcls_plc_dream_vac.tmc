@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{C63AE280-0E43-B79E-C6E4-95DAD8BC8C99}" GeneratedBy="TwinCAT XAE Plc">
+<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{17724402-1920-FB21-44B0-F96ED533B7CF}" GeneratedBy="TwinCAT XAE Plc">
   <DataTypes>
     <DataType>
       <Name Namespace="Tc2_SerialCom">ComBuffer</Name>
@@ -1132,31 +1132,31 @@
         <Name>bBusy</Name>
         <Type>BOOL</Type>
         <BitSize>8</BitSize>
-        <GetCodeOffs>80896720</GetCodeOffs>
+        <GetCodeOffs>80896712</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>bError</Name>
         <Type>BOOL</Type>
         <BitSize>8</BitSize>
-        <GetCodeOffs>80896792</GetCodeOffs>
+        <GetCodeOffs>80896784</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>hrErrorCode</Name>
         <Type GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</Type>
         <BitSize>32</BitSize>
-        <GetCodeOffs>80896808</GetCodeOffs>
+        <GetCodeOffs>80896800</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>nStringSize</Name>
         <Type>UDINT</Type>
         <BitSize>32</BitSize>
-        <GetCodeOffs>80896768</GetCodeOffs>
+        <GetCodeOffs>80896760</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>sResult</Name>
         <Type>STRING(255)</Type>
         <BitSize>2048</BitSize>
-        <GetCodeOffs>80896800</GetCodeOffs>
+        <GetCodeOffs>80896792</GetCodeOffs>
         <Properties>
           <Property>
             <Name>TcEncoding</Name>
@@ -2408,15 +2408,15 @@
         <Name>nId</Name>
         <Type>UDINT</Type>
         <BitSize>32</BitSize>
-        <GetCodeOffs>80896592</GetCodeOffs>
-        <SetCodeOffs>80896640</SetCodeOffs>
+        <GetCodeOffs>80896584</GetCodeOffs>
+        <SetCodeOffs>80896632</SetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>sName</Name>
         <Type>STRING(255)</Type>
         <BitSize>2048</BitSize>
-        <GetCodeOffs>80896672</GetCodeOffs>
-        <SetCodeOffs>80896696</SetCodeOffs>
+        <GetCodeOffs>80896664</GetCodeOffs>
+        <SetCodeOffs>80896688</SetCodeOffs>
         <Properties>
           <Property>
             <Name>TcEncoding</Name>
@@ -2657,31 +2657,31 @@
         <Name>eSeverity</Name>
         <Type GUID="{B57D3F4A-0836-49B0-81C3-BED5F4817EC9}">TcEventSeverity</Type>
         <BitSize>16</BitSize>
-        <GetCodeOffs>80896904</GetCodeOffs>
+        <GetCodeOffs>80896896</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>ipSourceInfo</Name>
         <Type Namespace="LCLS_General.Tc3_EventLogger">I_TcSourceInfo</Type>
         <BitSize>64</BitSize>
-        <GetCodeOffs>80896864</GetCodeOffs>
+        <GetCodeOffs>80896856</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>nEventId</Name>
         <Type>UDINT</Type>
         <BitSize>32</BitSize>
-        <GetCodeOffs>80897040</GetCodeOffs>
+        <GetCodeOffs>80897032</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>nUniqueId</Name>
         <Type>UDINT</Type>
         <BitSize>32</BitSize>
-        <GetCodeOffs>80897048</GetCodeOffs>
+        <GetCodeOffs>80897040</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>sEventClassName</Name>
         <Type>STRING(255)</Type>
         <BitSize>2048</BitSize>
-        <GetCodeOffs>80896960</GetCodeOffs>
+        <GetCodeOffs>80896952</GetCodeOffs>
         <Properties>
           <Property>
             <Name>TcEncoding</Name>
@@ -2693,7 +2693,7 @@
         <Name>sEventText</Name>
         <Type>STRING(255)</Type>
         <BitSize>2048</BitSize>
-        <GetCodeOffs>80897056</GetCodeOffs>
+        <GetCodeOffs>80897048</GetCodeOffs>
         <Properties>
           <Property>
             <Name>TcEncoding</Name>
@@ -3286,7 +3286,7 @@
         <Name>nTimeSent</Name>
         <Type>ULINT</Type>
         <BitSize>64</BitSize>
-        <GetCodeOffs>80897112</GetCodeOffs>
+        <GetCodeOffs>80897104</GetCodeOffs>
         <Properties>
           <Property>
             <Name>TcDisplayTypeGUID</Name>
@@ -16556,7 +16556,7 @@ These features aren't disabled, they just aren't used, think child/parent classe
         <Name>nTimestamp</Name>
         <Type>ULINT</Type>
         <BitSize>64</BitSize>
-        <GetCodeOffs>80908752</GetCodeOffs>
+        <GetCodeOffs>80908744</GetCodeOffs>
         <Properties>
           <Property>
             <Name>TcDisplayTypeGUID</Name>
@@ -18502,31 +18502,31 @@ These features aren't disabled, they just aren't used, think child/parent classe
         <Name>bBusy</Name>
         <Type>BOOL</Type>
         <BitSize>8</BitSize>
-        <GetCodeOffs>80907856</GetCodeOffs>
+        <GetCodeOffs>80907848</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>bError</Name>
         <Type>BOOL</Type>
         <BitSize>8</BitSize>
-        <GetCodeOffs>80907944</GetCodeOffs>
+        <GetCodeOffs>80907936</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>hrErrorCode</Name>
         <Type GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</Type>
         <BitSize>32</BitSize>
-        <GetCodeOffs>80907872</GetCodeOffs>
+        <GetCodeOffs>80907864</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>nStringSize</Name>
         <Type>UDINT</Type>
         <BitSize>32</BitSize>
-        <GetCodeOffs>80907920</GetCodeOffs>
+        <GetCodeOffs>80907912</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>sEventText</Name>
         <Type>STRING(255)</Type>
         <BitSize>2048</BitSize>
-        <GetCodeOffs>80907960</GetCodeOffs>
+        <GetCodeOffs>80907952</GetCodeOffs>
         <Properties>
           <Property>
             <Name>TcEncoding</Name>
@@ -62481,10 +62481,10 @@ In case VRC is normally open</Comment>
             <Properties>
               <Property>
                 <Name>TcLinkTo</Name>
-                <Value>.iRaw 			:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 1^Value;
-                                 .bError  		:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 1^Status^Error;
-                                 .bUnderrange 	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 1^Status^Underrange;
-                                 .bOverrange  	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 1^Status^Overrange
+                <Value>.iRaw 			:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 1^Value;
+                                 .bError  		:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 1^Error;
+                                 .bUnderrange 	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 1^Underrange;
+                                 .bOverrange  	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 1^Overrange
     </Value>
               </Property>
               <Property>
@@ -62504,10 +62504,10 @@ In case VRC is normally open</Comment>
             <Properties>
               <Property>
                 <Name>TcLinkTo</Name>
-                <Value>.iRaw 			:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 2^Value;
-                                 .bError  		:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 2^Status^Error;
-                                 .bUnderrange 	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 2^Status^Underrange;
-                                 .bOverrange  	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 2^Status^Overrange
+                <Value>.iRaw 			:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 2^Value;
+                                 .bError  		:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 2^Status^Error;
+                                 .bUnderrange 	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 2^Status^Underrange;
+                                 .bOverrange  	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 2^Status^Overrange
     </Value>
               </Property>
               <Property>
@@ -62527,10 +62527,10 @@ In case VRC is normally open</Comment>
             <Properties>
               <Property>
                 <Name>TcLinkTo</Name>
-                <Value>.iRaw 			:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 3^Value;
-                                 .bError  		:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 3^Status^Error;
-                                 .bUnderrange 	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 3^Status^Underrange;
-                                 .bOverrange  	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 3^Status^Overrange
+                <Value>.iRaw 			:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 3^Value;
+                                 .bError  		:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 3^Status^Error;
+                                 .bUnderrange 	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 3^Status^Underrange;
+                                 .bOverrange  	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 3^Status^Overrange
     </Value>
               </Property>
               <Property>
@@ -62550,10 +62550,10 @@ In case VRC is normally open</Comment>
             <Properties>
               <Property>
                 <Name>TcLinkTo</Name>
-                <Value>.iRaw 			:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 4^Value;
-                                 .bError  		:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 4^Status^Error;
-                                 .bUnderrange 	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 4^Status^Underrange;
-                                 .bOverrange  	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Channel 4^Status^Overrange
+                <Value>.iRaw 			:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 4^Value;
+                                 .bError  		:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 4^Status^Error;
+                                 .bUnderrange 	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 4^Status^Underrange;
+                                 .bOverrange  	:=	TIIB[K4S8_DRL_03_E22_EL3314]^TC Inputs Channel 4^Status^Overrange
     </Value>
               </Property>
               <Property>
@@ -64663,7 +64663,7 @@ FLow Control valves MKS248</Comment>
         </Property>
         <Property>
           <Name>ChangeDate</Name>
-          <Value>2025-03-26T13:55:47</Value>
+          <Value>2025-03-27T10:29:04</Value>
         </Property>
         <Property>
           <Name>GeneratedCodeSize</Name>

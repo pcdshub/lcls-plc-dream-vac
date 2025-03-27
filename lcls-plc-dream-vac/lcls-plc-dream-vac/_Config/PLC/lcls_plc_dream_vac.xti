@@ -53,7 +53,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{C63AE280-0E43-B79E-C6E4-95DAD8BC8C99}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{17724402-1920-FB21-44B0-F96ED533B7CF}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -1213,6 +1213,24 @@
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_03_EK0_EK1100^K4S8_DRL_03_E21_EL3052">
 				<Link VarA="PlcTask Inputs^GVL_FWM.fbCoilFlowMeter.iRaw" VarB="AI Standard Channel 1^Value" AutoLink="true" Size="16"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_03_EK0_EK1100^K4S8_DRL_03_E22_EL3314">
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_01.bError" VarB="TC Inputs Channel 1^Status^Error" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_01.bOverrange" VarB="TC Inputs Channel 1^Status^Overrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_01.bUnderrange" VarB="TC Inputs Channel 1^Status^Underrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_01.iRaw" VarB="TC Inputs Channel 1^Value" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_02.bError" VarB="TC Inputs Channel 2^Status^Error" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_02.bOverrange" VarB="TC Inputs Channel 2^Status^Overrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_02.bUnderrange" VarB="TC Inputs Channel 2^Status^Underrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_02.iRaw" VarB="TC Inputs Channel 2^Value" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_03.bError" VarB="TC Inputs Channel 3^Status^Error" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_03.bOverrange" VarB="TC Inputs Channel 3^Status^Overrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_03.bUnderrange" VarB="TC Inputs Channel 3^Status^Underrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_03.iRaw" VarB="TC Inputs Channel 3^Value" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_04.bError" VarB="TC Inputs Channel 4^Status^Error" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_04.bOverrange" VarB="TC Inputs Channel 4^Status^Overrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_04.bUnderrange" VarB="TC Inputs Channel 4^Status^Underrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_04.iRaw" VarB="TC Inputs Channel 4^Value" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_03_EK0_EK1100^K4S8_DRL_03_E4_EL1084">
 				<Link VarA="PlcTask Inputs^GVL_VAC_GAUGES.DREAM_DP1_GHC_01.i_xHV_ON" VarB="Channel 4^Input" AutoLink="true" Size="1"/>
