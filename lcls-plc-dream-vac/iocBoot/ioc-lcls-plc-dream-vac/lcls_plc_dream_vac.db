@@ -1,3 +1,156 @@
+record(bi, "PLC:DREAM:OPERATION:CANCEL_RBV") {
+  field(DESC, "GVL_Automation.i_bCancel")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_Automation.i_bCancel?")
+  field(ZNAM, "FALSE")
+  field(ONAM, "TRUE")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bo, "PLC:DREAM:OPERATION:CANCEL") {
+  field(DESC, "GVL_Automation.i_bCancel")
+  field(DTYP, "asynInt32")
+  field(UDFS, "0")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_Automation.i_bCancel=")
+  field(ZNAM, "FALSE")
+  field(ONAM, "TRUE")
+  info(autosaveFields_pass0, "COSV DESC DISS OSV SIMS UDFS VAL ZSV")
+  info(archive, "VAL")
+}
+
+record(bi, "PLC:DREAM:OPERATION:RESET_ERROR_RBV") {
+  field(DESC, "GVL_Automation.i_bResetError")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_Automation.i_bResetError?")
+  field(ZNAM, "FALSE")
+  field(ONAM, "TRUE")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bo, "PLC:DREAM:OPERATION:RESET_ERROR") {
+  field(DESC, "GVL_Automation.i_bResetError")
+  field(DTYP, "asynInt32")
+  field(UDFS, "0")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_Automation.i_bResetError=")
+  field(ZNAM, "FALSE")
+  field(ONAM, "TRUE")
+  info(autosaveFields_pass0, "COSV DESC DISS OSV SIMS UDFS VAL ZSV")
+  info(archive, "VAL")
+}
+
+record(mbbi, "PLC:DREAM:OPERATION_RBV") {
+  field(DESC, "GVL_Automation.iq_eOperation")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_Automation.iq_eOperation?")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(TWVL, "2")
+  field(THVL, "3")
+  field(FRVL, "4")
+  field(FVVL, "5")
+  field(SXVL, "6")
+  field(SVVL, "7")
+  field(EIVL, "8")
+  field(ZRST, "INIT")
+  field(ONST, "STANDBY")
+  field(TWST, "PUMP_ALL")
+  field(THST, "PUMP_NC")
+  field(FRST, "AT_VACUUM")
+  field(FVST, "VENT_ALL")
+  field(SXST, "VENT_NC")
+  field(SVST, "VENT_MC_CAT")
+  field(EIST, "VENT_CAT")
+  info(autosaveFields_pass0, "DESC DISS EISV ELSV FFSV FRSV FTSV FVSV NISV ONSV SIMS SVSV SXSV TESV THSV TTSV TVSV TWSV UDFS UNSV ZRSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(mbbo, "PLC:DREAM:OPERATION") {
+  field(DESC, "GVL_Automation.iq_eOperation")
+  field(DTYP, "asynInt32")
+  field(UDFS, "0")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(TWVL, "2")
+  field(THVL, "3")
+  field(FRVL, "4")
+  field(FVVL, "5")
+  field(SXVL, "6")
+  field(SVVL, "7")
+  field(EIVL, "8")
+  field(ZRST, "INIT")
+  field(ONST, "STANDBY")
+  field(TWST, "PUMP_ALL")
+  field(THST, "PUMP_NC")
+  field(FRST, "AT_VACUUM")
+  field(FVST, "VENT_ALL")
+  field(SXST, "VENT_NC")
+  field(SVST, "VENT_MC_CAT")
+  field(EIST, "VENT_CAT")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_Automation.iq_eOperation=")
+  info(autosaveFields_pass0, "COSV DESC DISS EISV ELSV FFSV FRSV FTSV FVSV NISV ONSV SIMS SVSV SXSV TESV THSV TTSV TVSV TWSV UDFS UNSV VAL ZRSV")
+  info(archive, "VAL")
+}
+
+record(bi, "PLC:DREAM:OPERATION:BUSY_RBV") {
+  field(DESC, "GVL_Automation.q_bBusy")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_Automation.q_bBusy?")
+  field(ZNAM, "NOT_BUSY")
+  field(ONAM, "BUSY")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bi, "PLC:DREAM:OPERATION:ERROR_RBV") {
+  field(DESC, "GVL_Automation.q_bError")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_Automation.q_bError?")
+  field(ZSV, "NO_ALARM")
+  field(OSV, "MAJOR")
+  field(ZNAM, "OK")
+  field(ONAM, "ERROR")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(waveform, "PLC:DREAM:OPERATION:MESSAGE_RBV") {
+  field(DESC, "GVL_Automation.q_sMessage")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt8ArrayIn")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_Automation.q_sMessage?")
+  field(FTVL, "CHAR")
+  field(NELM, "40")
+  field(MPST, "On Change")
+  field(APST, "On Change")
+  info(autosaveFields_pass0, "DESC DISS SIMS UDFS")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
 record(ai, "DREAM:COIL:FWM:VAL_RBV") {
   field(DESC, "GVL_FWM.fCoilCoolantFlowMeterRBV")
   field(SCAN, "I/O Intr")
@@ -118,16 +271,183 @@ record(bi, "PLC:DREAM:VAC:TURBOS_ALL_ATSPD_RBV") {
 }
 
 record(bi, "TMO:PLC:DREAM:VAC:HV_SAFETY_ENABLE_RBV") {
-  # GVL_PLC_Interface.bHighVoltageSafteyLoopEnable
-  field(DESC, "GVL_PLC_Interface.bH...eSafteyLoopEnable")
+  field(DESC, "GVL_PLC_Interface.bHVSafteyLoopEnable")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_PLC_Interface.bHighVoltageSafteyLoopEnable?")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_PLC_Interface.bHVSafteyLoopEnable?")
   field(ZNAM, "FALSE")
   field(ONAM, "TRUE")
   info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bi, "DREAM:STC:01:CONN_RBV") {
+  field(DESC, "GVL_TC.TC_01.bConnected")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_TC.TC_01.bConnected?")
+  field(ZNAM, "Disconnected")
+  field(ONAM, "Connected")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bi, "DREAM:STC:01:ERR_RBV") {
+  field(DESC, "GVL_TC.TC_01.bError")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_TC.TC_01.bError?")
+  field(ZNAM, "False")
+  field(ONAM, "True")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(ai, "DREAM:STC:01:TEMP_RBV") {
+  field(DESC, "GVL_TC.TC_01.fTemp")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynFloat64")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_TC.TC_01.fTemp?")
+  field(PREC, "2")
+  field(EGU, "C")
+  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bi, "DREAM:STC:02:CONN_RBV") {
+  field(DESC, "GVL_TC.TC_02.bConnected")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_TC.TC_02.bConnected?")
+  field(ZNAM, "Disconnected")
+  field(ONAM, "Connected")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bi, "DREAM:STC:02:ERR_RBV") {
+  field(DESC, "GVL_TC.TC_02.bError")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_TC.TC_02.bError?")
+  field(ZNAM, "False")
+  field(ONAM, "True")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(ai, "DREAM:STC:02:TEMP_RBV") {
+  field(DESC, "GVL_TC.TC_02.fTemp")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynFloat64")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_TC.TC_02.fTemp?")
+  field(PREC, "2")
+  field(EGU, "C")
+  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bi, "DREAM:STC:03:CONN_RBV") {
+  field(DESC, "GVL_TC.TC_03.bConnected")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_TC.TC_03.bConnected?")
+  field(ZNAM, "Disconnected")
+  field(ONAM, "Connected")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bi, "DREAM:STC:03:ERR_RBV") {
+  field(DESC, "GVL_TC.TC_03.bError")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_TC.TC_03.bError?")
+  field(ZNAM, "False")
+  field(ONAM, "True")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(ai, "DREAM:STC:03:TEMP_RBV") {
+  field(DESC, "GVL_TC.TC_03.fTemp")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynFloat64")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_TC.TC_03.fTemp?")
+  field(PREC, "2")
+  field(EGU, "C")
+  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bi, "DREAM:STC:04:CONN_RBV") {
+  field(DESC, "GVL_TC.TC_04.bConnected")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_TC.TC_04.bConnected?")
+  field(ZNAM, "Disconnected")
+  field(ONAM, "Connected")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bi, "DREAM:STC:04:ERR_RBV") {
+  field(DESC, "GVL_TC.TC_04.bError")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_TC.TC_04.bError?")
+  field(ZNAM, "False")
+  field(ONAM, "True")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(ai, "DREAM:STC:04:TEMP_RBV") {
+  field(DESC, "GVL_TC.TC_04.fTemp")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynFloat64")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_TC.TC_04.fTemp?")
+  field(PREC, "2")
+  field(EGU, "C")
+  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS")
   info(archive, "VAL")
   field(ASG, "NO_WRITE")
 }
@@ -10132,6 +10452,87 @@ record(bo, "DREAM:ROUGH2:PTM:02:RUN_SW") {
   info(archive, "VAL")
 }
 
+record(bi, "DREAM:CAT1:VRC:01:Dis_DPIlk_RBV") {
+  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xDis_DPIlk
+  field(DESC, "GVL_VAC_VALVES.DREAM...C_01.i_xDis_DPIlk")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xDis_DPIlk?")
+  field(ZNAM, "FALSE")
+  field(ONAM, "TRUE")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bo, "DREAM:CAT1:VRC:01:Dis_DPIlk") {
+  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xDis_DPIlk
+  field(DESC, "GVL_VAC_VALVES.DREAM...C_01.i_xDis_DPIlk")
+  field(DTYP, "asynInt32")
+  field(UDFS, "0")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xDis_DPIlk=")
+  field(ZNAM, "FALSE")
+  field(ONAM, "TRUE")
+  info(autosaveFields_pass0, "COSV DESC DISS OSV SIMS UDFS VAL ZSV")
+  info(archive, "VAL")
+}
+
+record(bi, "DREAM:CAT1:VRC:01:EPS_OK_RBV") {
+  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xEPS_OK
+  field(DESC, "GVL_VAC_VALVES.DREAM..._VRC_01.i_xEPS_OK")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xEPS_OK?")
+  field(ZNAM, "FALSE")
+  field(ONAM, "TRUE")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bo, "DREAM:CAT1:VRC:01:EPS_OK") {
+  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xEPS_OK
+  field(DESC, "GVL_VAC_VALVES.DREAM..._VRC_01.i_xEPS_OK")
+  field(DTYP, "asynInt32")
+  field(UDFS, "0")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xEPS_OK=")
+  field(ZNAM, "FALSE")
+  field(ONAM, "TRUE")
+  info(autosaveFields_pass0, "COSV DESC DISS OSV SIMS UDFS VAL ZSV")
+  info(archive, "VAL")
+}
+
+record(bi, "DREAM:CAT1:VRC:01:FF_Reset_RBV") {
+  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xReset
+  field(DESC, "GVL_VAC_VALVES.DREAM...1_VRC_01.i_xReset")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xReset?")
+  field(ZNAM, "FALSE")
+  field(ONAM, "TRUE")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bo, "DREAM:CAT1:VRC:01:FF_Reset") {
+  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xReset
+  field(DESC, "GVL_VAC_VALVES.DREAM...1_VRC_01.i_xReset")
+  field(DTYP, "asynInt32")
+  field(UDFS, "0")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xReset=")
+  field(ZNAM, "FALSE")
+  field(ONAM, "TRUE")
+  info(autosaveFields_pass0, "COSV DESC DISS OSV SIMS UDFS VAL ZSV")
+  info(archive, "VAL")
+}
+
 record(bi, "DREAM:CAT1:VRC:01:ERROR_RBV") {
   # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.bErrorPresent
   field(DESC, "GVL_VAC_VALVES.DREAM...lve.bErrorPresent")
@@ -10341,6 +10742,102 @@ record(bi, "DREAM:CAT1:VRC:01:OPN_DO_RBV") {
   field(ASG, "NO_WRITE")
 }
 
+record(ai, "DREAM:CAT1:VRC:01:AT_VAC_HYS_RBV") {
+  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.rAT_VAC_HYS
+  field(DESC, "GVL_VAC_VALVES.DREAM...Valve.rAT_VAC_HYS")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynFloat64")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.rAT_VAC_HYS?")
+  field(PREC, "2")
+  field(EGU, "TORR")
+  field(HOPR, "1000")
+  field(LOPR, "0")
+  info(autosaveFields, "DESC VAL")
+  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(ao, "DREAM:CAT1:VRC:01:AT_VAC_HYS") {
+  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.rAT_VAC_HYS
+  field(DESC, "GVL_VAC_VALVES.DREAM...Valve.rAT_VAC_HYS")
+  field(PINI, "1")
+  field(DTYP, "asynFloat64")
+  field(UDFS, "0")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.rAT_VAC_HYS=")
+  field(PREC, "2")
+  field(EGU, "TORR")
+  field(HOPR, "1000")
+  field(LOPR, "0")
+  info(autosaveFields, "DESC VAL")
+  info(autosaveFields_pass0, "DESC DISS DRVH DRVL HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS VAL")
+  info(archive, "VAL")
+}
+
+record(ai, "DREAM:CAT1:VRC:01:AT_VAC_SP_RBV") {
+  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.rAT_VAC_SP
+  field(DESC, "GVL_VAC_VALVES.DREAM...tValve.rAT_VAC_SP")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynFloat64")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.rAT_VAC_SP?")
+  field(PREC, "2")
+  field(EGU, "TORR")
+  field(HOPR, "1000")
+  field(LOPR, "0")
+  info(autosaveFields, "DESC VAL")
+  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(ao, "DREAM:CAT1:VRC:01:AT_VAC_SP") {
+  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.rAT_VAC_SP
+  field(DESC, "GVL_VAC_VALVES.DREAM...tValve.rAT_VAC_SP")
+  field(PINI, "1")
+  field(DTYP, "asynFloat64")
+  field(UDFS, "0")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.rAT_VAC_SP=")
+  field(PREC, "2")
+  field(EGU, "TORR")
+  field(HOPR, "1000")
+  field(LOPR, "0")
+  info(autosaveFields, "DESC VAL")
+  info(autosaveFields_pass0, "DESC DISS DRVH DRVL HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS VAL")
+  info(archive, "VAL")
+}
+
+record(ai, "DREAM:CAT1:VRC:01:HYST_PERC_RBV") {
+  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.rHYST_PERC
+  field(DESC, "GVL_VAC_VALVES.DREAM...tValve.rHYST_PERC")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynFloat64")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.rHYST_PERC?")
+  field(PREC, "3")
+  info(autosaveFields, "DESC VAL")
+  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(ao, "DREAM:CAT1:VRC:01:HYST_PERC") {
+  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.rHYST_PERC
+  field(DESC, "GVL_VAC_VALVES.DREAM...tValve.rHYST_PERC")
+  field(PINI, "1")
+  field(DTYP, "asynFloat64")
+  field(UDFS, "0")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.rHYST_PERC=")
+  field(PREC, "3")
+  info(autosaveFields, "DESC VAL")
+  info(autosaveFields_pass0, "DESC DISS DRVH DRVL HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS VAL")
+  info(archive, "VAL")
+}
+
 record(waveform, "DREAM:CAT1:VRC:01:ErrMsg_RBV") {
   # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.sErrorMessage
   field(DESC, "GVL_VAC_VALVES.DREAM...lve.sErrorMessage")
@@ -10372,16 +10869,110 @@ record(waveform, "DREAM:CAT1:VRC:01:ErrMsg") {
   info(archive, "VAL")
 }
 
-record(bi, "DREAM:CAT1:VRC:01:CLS_OK_RBV") {
-  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.xCLS_OK
-  field(DESC, "GVL_VAC_VALVES.DREAM...q_stValve.xCLS_OK")
+record(waveform, "DREAM:CAT1:VRC:01:ILK_DEVICE_DS_RBV") {
+  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.sIlkDSDeviceName
+  field(DESC, "GVL_VAC_VALVES.DREAM....sIlkDSDeviceName")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt8ArrayIn")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.sIlkDSDeviceName?")
+  field(FTVL, "CHAR")
+  field(NELM, "80")
+  field(MPST, "On Change")
+  field(APST, "On Change")
+  info(autosaveFields_pass0, "DESC DISS SIMS UDFS")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(waveform, "DREAM:CAT1:VRC:01:ILK_DEVICE_US_RBV") {
+  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.sIlkUSDeviceName
+  field(DESC, "GVL_VAC_VALVES.DREAM....sIlkUSDeviceName")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt8ArrayIn")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.sIlkUSDeviceName?")
+  field(FTVL, "CHAR")
+  field(NELM, "80")
+  field(MPST, "On Change")
+  field(APST, "On Change")
+  info(autosaveFields_pass0, "DESC DISS SIMS UDFS")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bi, "DREAM:CAT1:VRC:01:AT_VAC_RBV") {
+  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.xAT_VAC
+  field(DESC, "GVL_VAC_VALVES.DREAM...q_stValve.xAT_VAC")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.xCLS_OK?")
-  field(ZNAM, "FALSE")
-  field(ONAM, "TRUE")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.xAT_VAC?")
+  field(ZNAM, "NOT AT VAC")
+  field(ONAM, "AT VAC")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bi, "DREAM:CAT1:VRC:01:DP_OK_RBV") {
+  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.xDP_OK
+  field(DESC, "GVL_VAC_VALVES.DREAM...iq_stValve.xDP_OK")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.xDP_OK?")
+  field(ZNAM, "DP NOT OK")
+  field(ONAM, "DP OK")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bi, "DREAM:CAT1:VRC:01:ERR_DifPres_RBV") {
+  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.xERR_DifPres
+  field(DESC, "GVL_VAC_VALVES.DREAM...alve.xERR_DifPres")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.xERR_DifPres?")
+  field(ZNAM, "NO ERROR")
+  field(ONAM, "Diffrential error present")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bi, "DREAM:CAT1:VRC:01:ERR_Ext_RBV") {
+  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.xERR_ExtFault
+  field(DESC, "GVL_VAC_VALVES.DREAM...lve.xERR_ExtFault")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.xERR_ExtFault?")
+  field(ZNAM, "NO ERROR")
+  field(ONAM, "External error present")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bi, "DREAM:CAT1:VRC:01:ERR_SP_RBV") {
+  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.xERR_SP
+  field(DESC, "GVL_VAC_VALVES.DREAM...q_stValve.xERR_SP")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.xERR_SP?")
+  field(ZNAM, "NO ERROR")
+  field(ONAM, "Setpoint error present")
   info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
   info(archive, "VAL")
   field(ASG, "NO_WRITE")
@@ -10467,6 +11058,137 @@ record(bo, "DREAM:CAT1:VRC:01:OVRD_ON") {
   field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.iq_stValve.xOverrideMode=")
   field(ZNAM, "Override OFF")
   field(ONAM, "Override ON")
+  info(autosaveFields_pass0, "COSV DESC DISS OSV SIMS UDFS VAL ZSV")
+  info(archive, "VAL")
+}
+
+record(bi, "DREAM:CAT1:VRC:01:MPS_FAULT_OK_RBV") {
+  field(DESC, "GVL_VAC_VALVES.DREAM_CAT1_VRC_01.xMPS_OK")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.xMPS_OK?")
+  field(ZNAM, "MPS FAULT")
+  field(ONAM, "MPS OK")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bo, "DREAM:CAT1:VRC:01:MPS_FAULT_OK") {
+  field(DESC, "GVL_VAC_VALVES.DREAM_CAT1_VRC_01.xMPS_OK")
+  field(DTYP, "asynInt32")
+  field(UDFS, "0")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.xMPS_OK=")
+  field(ZNAM, "MPS FAULT")
+  field(ONAM, "MPS OK")
+  info(autosaveFields_pass0, "COSV DESC DISS OSV SIMS UDFS VAL ZSV")
+  info(archive, "VAL")
+}
+
+record(bi, "DREAM:CAT1:VRC:01:MPS_OK_RBV") {
+  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.xPMPS_OK
+  field(DESC, "GVL_VAC_VALVES.DREAM...1_VRC_01.xPMPS_OK")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.xPMPS_OK?")
+  field(ZNAM, "FALSE")
+  field(ONAM, "TRUE")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bo, "DREAM:CAT1:VRC:01:MPS_OK") {
+  # GVL_VAC_VALVES.DREAM_CAT1_VRC_01.xPMPS_OK
+  field(DESC, "GVL_VAC_VALVES.DREAM...1_VRC_01.xPMPS_OK")
+  field(DTYP, "asynInt32")
+  field(UDFS, "0")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_VALVES.DREAM_CAT1_VRC_01.xPMPS_OK=")
+  field(ZNAM, "FALSE")
+  field(ONAM, "TRUE")
+  info(autosaveFields_pass0, "COSV DESC DISS OSV SIMS UDFS VAL ZSV")
+  info(archive, "VAL")
+}
+
+record(bi, "DREAM:DP1:VRC:01:Dis_DPIlk_RBV") {
+  # GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xDis_DPIlk
+  field(DESC, "GVL_VAC_VALVES.DREAM...C_01.i_xDis_DPIlk")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xDis_DPIlk?")
+  field(ZNAM, "FALSE")
+  field(ONAM, "TRUE")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bo, "DREAM:DP1:VRC:01:Dis_DPIlk") {
+  # GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xDis_DPIlk
+  field(DESC, "GVL_VAC_VALVES.DREAM...C_01.i_xDis_DPIlk")
+  field(DTYP, "asynInt32")
+  field(UDFS, "0")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xDis_DPIlk=")
+  field(ZNAM, "FALSE")
+  field(ONAM, "TRUE")
+  info(autosaveFields_pass0, "COSV DESC DISS OSV SIMS UDFS VAL ZSV")
+  info(archive, "VAL")
+}
+
+record(bi, "DREAM:DP1:VRC:01:EPS_OK_RBV") {
+  # GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xEPS_OK
+  field(DESC, "GVL_VAC_VALVES.DREAM..._VRC_01.i_xEPS_OK")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xEPS_OK?")
+  field(ZNAM, "FALSE")
+  field(ONAM, "TRUE")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bo, "DREAM:DP1:VRC:01:EPS_OK") {
+  # GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xEPS_OK
+  field(DESC, "GVL_VAC_VALVES.DREAM..._VRC_01.i_xEPS_OK")
+  field(DTYP, "asynInt32")
+  field(UDFS, "0")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xEPS_OK=")
+  field(ZNAM, "FALSE")
+  field(ONAM, "TRUE")
+  info(autosaveFields_pass0, "COSV DESC DISS OSV SIMS UDFS VAL ZSV")
+  info(archive, "VAL")
+}
+
+record(bi, "DREAM:DP1:VRC:01:FF_Reset_RBV") {
+  field(DESC, "GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xReset")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xReset?")
+  field(ZNAM, "FALSE")
+  field(ONAM, "TRUE")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bo, "DREAM:DP1:VRC:01:FF_Reset") {
+  field(DESC, "GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xReset")
+  field(DTYP, "asynInt32")
+  field(UDFS, "0")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xReset=")
+  field(ZNAM, "FALSE")
+  field(ONAM, "TRUE")
   info(autosaveFields_pass0, "COSV DESC DISS OSV SIMS UDFS VAL ZSV")
   info(archive, "VAL")
 }
@@ -10680,6 +11402,102 @@ record(bi, "DREAM:DP1:VRC:01:OPN_DO_RBV") {
   field(ASG, "NO_WRITE")
 }
 
+record(ai, "DREAM:DP1:VRC:01:AT_VAC_HYS_RBV") {
+  # GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.rAT_VAC_HYS
+  field(DESC, "GVL_VAC_VALVES.DREAM...Valve.rAT_VAC_HYS")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynFloat64")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.rAT_VAC_HYS?")
+  field(PREC, "2")
+  field(EGU, "TORR")
+  field(HOPR, "1000")
+  field(LOPR, "0")
+  info(autosaveFields, "DESC VAL")
+  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(ao, "DREAM:DP1:VRC:01:AT_VAC_HYS") {
+  # GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.rAT_VAC_HYS
+  field(DESC, "GVL_VAC_VALVES.DREAM...Valve.rAT_VAC_HYS")
+  field(PINI, "1")
+  field(DTYP, "asynFloat64")
+  field(UDFS, "0")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.rAT_VAC_HYS=")
+  field(PREC, "2")
+  field(EGU, "TORR")
+  field(HOPR, "1000")
+  field(LOPR, "0")
+  info(autosaveFields, "DESC VAL")
+  info(autosaveFields_pass0, "DESC DISS DRVH DRVL HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS VAL")
+  info(archive, "VAL")
+}
+
+record(ai, "DREAM:DP1:VRC:01:AT_VAC_SP_RBV") {
+  # GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.rAT_VAC_SP
+  field(DESC, "GVL_VAC_VALVES.DREAM...tValve.rAT_VAC_SP")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynFloat64")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.rAT_VAC_SP?")
+  field(PREC, "2")
+  field(EGU, "TORR")
+  field(HOPR, "1000")
+  field(LOPR, "0")
+  info(autosaveFields, "DESC VAL")
+  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(ao, "DREAM:DP1:VRC:01:AT_VAC_SP") {
+  # GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.rAT_VAC_SP
+  field(DESC, "GVL_VAC_VALVES.DREAM...tValve.rAT_VAC_SP")
+  field(PINI, "1")
+  field(DTYP, "asynFloat64")
+  field(UDFS, "0")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.rAT_VAC_SP=")
+  field(PREC, "2")
+  field(EGU, "TORR")
+  field(HOPR, "1000")
+  field(LOPR, "0")
+  info(autosaveFields, "DESC VAL")
+  info(autosaveFields_pass0, "DESC DISS DRVH DRVL HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS VAL")
+  info(archive, "VAL")
+}
+
+record(ai, "DREAM:DP1:VRC:01:HYST_PERC_RBV") {
+  # GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.rHYST_PERC
+  field(DESC, "GVL_VAC_VALVES.DREAM...tValve.rHYST_PERC")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynFloat64")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.rHYST_PERC?")
+  field(PREC, "3")
+  info(autosaveFields, "DESC VAL")
+  info(autosaveFields_pass0, "DESC DISS HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(ao, "DREAM:DP1:VRC:01:HYST_PERC") {
+  # GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.rHYST_PERC
+  field(DESC, "GVL_VAC_VALVES.DREAM...tValve.rHYST_PERC")
+  field(PINI, "1")
+  field(DTYP, "asynFloat64")
+  field(UDFS, "0")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.rHYST_PERC=")
+  field(PREC, "3")
+  info(autosaveFields, "DESC VAL")
+  info(autosaveFields_pass0, "DESC DISS DRVH DRVL HHSV HIGH HIHI HSV LLSV LOLO LOW LSV PREC SIMS UDFS VAL")
+  info(archive, "VAL")
+}
+
 record(waveform, "DREAM:DP1:VRC:01:ErrMsg_RBV") {
   # GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.sErrorMessage
   field(DESC, "GVL_VAC_VALVES.DREAM...lve.sErrorMessage")
@@ -10711,16 +11529,110 @@ record(waveform, "DREAM:DP1:VRC:01:ErrMsg") {
   info(archive, "VAL")
 }
 
-record(bi, "DREAM:DP1:VRC:01:CLS_OK_RBV") {
-  # GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.xCLS_OK
-  field(DESC, "GVL_VAC_VALVES.DREAM...q_stValve.xCLS_OK")
+record(waveform, "DREAM:DP1:VRC:01:ILK_DEVICE_DS_RBV") {
+  # GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.sIlkDSDeviceName
+  field(DESC, "GVL_VAC_VALVES.DREAM....sIlkDSDeviceName")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt8ArrayIn")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.sIlkDSDeviceName?")
+  field(FTVL, "CHAR")
+  field(NELM, "80")
+  field(MPST, "On Change")
+  field(APST, "On Change")
+  info(autosaveFields_pass0, "DESC DISS SIMS UDFS")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(waveform, "DREAM:DP1:VRC:01:ILK_DEVICE_US_RBV") {
+  # GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.sIlkUSDeviceName
+  field(DESC, "GVL_VAC_VALVES.DREAM....sIlkUSDeviceName")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt8ArrayIn")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.sIlkUSDeviceName?")
+  field(FTVL, "CHAR")
+  field(NELM, "80")
+  field(MPST, "On Change")
+  field(APST, "On Change")
+  info(autosaveFields_pass0, "DESC DISS SIMS UDFS")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bi, "DREAM:DP1:VRC:01:AT_VAC_RBV") {
+  # GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.xAT_VAC
+  field(DESC, "GVL_VAC_VALVES.DREAM...q_stValve.xAT_VAC")
   field(SCAN, "I/O Intr")
   field(PINI, "1")
   field(TSE, "-2")
   field(DTYP, "asynInt32")
-  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.xCLS_OK?")
-  field(ZNAM, "FALSE")
-  field(ONAM, "TRUE")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.xAT_VAC?")
+  field(ZNAM, "NOT AT VAC")
+  field(ONAM, "AT VAC")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bi, "DREAM:DP1:VRC:01:DP_OK_RBV") {
+  # GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.xDP_OK
+  field(DESC, "GVL_VAC_VALVES.DREAM...iq_stValve.xDP_OK")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.xDP_OK?")
+  field(ZNAM, "DP NOT OK")
+  field(ONAM, "DP OK")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bi, "DREAM:DP1:VRC:01:ERR_DifPres_RBV") {
+  # GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.xERR_DifPres
+  field(DESC, "GVL_VAC_VALVES.DREAM...alve.xERR_DifPres")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.xERR_DifPres?")
+  field(ZNAM, "NO ERROR")
+  field(ONAM, "Diffrential error present")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bi, "DREAM:DP1:VRC:01:ERR_Ext_RBV") {
+  # GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.xERR_ExtFault
+  field(DESC, "GVL_VAC_VALVES.DREAM...lve.xERR_ExtFault")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.xERR_ExtFault?")
+  field(ZNAM, "NO ERROR")
+  field(ONAM, "External error present")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bi, "DREAM:DP1:VRC:01:ERR_SP_RBV") {
+  # GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.xERR_SP
+  field(DESC, "GVL_VAC_VALVES.DREAM...q_stValve.xERR_SP")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.xERR_SP?")
+  field(ZNAM, "NO ERROR")
+  field(ONAM, "Setpoint error present")
   info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
   info(archive, "VAL")
   field(ASG, "NO_WRITE")
@@ -10806,6 +11718,56 @@ record(bo, "DREAM:DP1:VRC:01:OVRD_ON") {
   field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_VALVES.DREAM_DP1_VRC_01.iq_stValve.xOverrideMode=")
   field(ZNAM, "Override OFF")
   field(ONAM, "Override ON")
+  info(autosaveFields_pass0, "COSV DESC DISS OSV SIMS UDFS VAL ZSV")
+  info(archive, "VAL")
+}
+
+record(bi, "DREAM:DP1:VRC:01:MPS_FAULT_OK_RBV") {
+  field(DESC, "GVL_VAC_VALVES.DREAM_DP1_VRC_01.xMPS_OK")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_DP1_VRC_01.xMPS_OK?")
+  field(ZNAM, "MPS FAULT")
+  field(ONAM, "MPS OK")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bo, "DREAM:DP1:VRC:01:MPS_FAULT_OK") {
+  field(DESC, "GVL_VAC_VALVES.DREAM_DP1_VRC_01.xMPS_OK")
+  field(DTYP, "asynInt32")
+  field(UDFS, "0")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_VALVES.DREAM_DP1_VRC_01.xMPS_OK=")
+  field(ZNAM, "MPS FAULT")
+  field(ONAM, "MPS OK")
+  info(autosaveFields_pass0, "COSV DESC DISS OSV SIMS UDFS VAL ZSV")
+  info(archive, "VAL")
+}
+
+record(bi, "DREAM:DP1:VRC:01:MPS_OK_RBV") {
+  field(DESC, "GVL_VAC_VALVES.DREAM_DP1_VRC_01.xPMPS_OK")
+  field(SCAN, "I/O Intr")
+  field(PINI, "1")
+  field(TSE, "-2")
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT),0,1)ADSPORT=851/POLL_RATE=1/GVL_VAC_VALVES.DREAM_DP1_VRC_01.xPMPS_OK?")
+  field(ZNAM, "FALSE")
+  field(ONAM, "TRUE")
+  info(autosaveFields_pass0, "DESC DISS OSV SIMS UDFS ZSV")
+  info(archive, "VAL")
+  field(ASG, "NO_WRITE")
+}
+
+record(bo, "DREAM:DP1:VRC:01:MPS_OK") {
+  field(DESC, "GVL_VAC_VALVES.DREAM_DP1_VRC_01.xPMPS_OK")
+  field(DTYP, "asynInt32")
+  field(UDFS, "0")
+  field(OUT, "@asyn($(PORT),0,1)ADSPORT=851/GVL_VAC_VALVES.DREAM_DP1_VRC_01.xPMPS_OK=")
+  field(ZNAM, "FALSE")
+  field(ONAM, "TRUE")
   info(autosaveFields_pass0, "COSV DESC DISS OSV SIMS UDFS VAL ZSV")
   info(archive, "VAL")
 }
