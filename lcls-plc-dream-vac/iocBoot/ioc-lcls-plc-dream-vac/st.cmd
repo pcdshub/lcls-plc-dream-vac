@@ -1,11 +1,11 @@
-#!/reg/g/pcds/epics/ioc/common/ads-ioc/R0.8.0/bin/rhel7-x86_64/adsIoc
+#!/reg/g/pcds/epics/ioc/common/ads-ioc/R1.0.0/bin/rhel7-x86_64/adsIoc
 ################### AUTO-GENERATED DO NOT EDIT ###################
 #
 #         Project: lcls-plc-dream-vac.tsproj
 #        PLC name: lcls_plc_dream_vac (lcls_plc_dream_vac Instance)
 # Generated using: pytmc 2.17.0
-# Project version: 1457964
-#    Project hash: 1457964beb1a780a1ae013181cd03dc5abefcffe
+# Project version: f1ce32c
+#    Project hash: f1ce32c7dbc0ec70492f5c1361a42414cfcfce84
 #     PLC IP/host: 172.21.132.159
 #      PLC Net ID: 172.21.132.159.1.1
 #  ** Production mode IOC **
@@ -23,6 +23,8 @@
 #   Tc3_Module: * -> 3.3.21.0 (Beckhoff Automation GmbH)
 #
 ################### AUTO-GENERATED DO NOT EDIT ###################
+# Run common startup commands for linux soft IOC's
+< $(IOC_COMMON)/All/pre_linux.cmd
 < envPaths
 
 epicsEnvSet("ADS_IOC_TOP", "$(TOP)" )
@@ -89,7 +91,7 @@ dbLoadRecords("TwinCAT_TaskInfo.db", "PORT=$(ASYN_PORT),PREFIX=PLC:lcls_plc_drea
 dbLoadRecords("TwinCAT_TaskInfo.db", "PORT=$(ASYN_PORT),PREFIX=PLC:lcls_plc_dream_vac,IDX=2,TASK_PORT=350")
 dbLoadRecords("TwinCAT_AppInfo.db", "PORT=$(ASYN_PORT), PREFIX=PLC:lcls_plc_dream_vac")
 
-dbLoadRecords("TwinCAT_Project.db", "PREFIX=PLC:lcls_plc_dream_vac,PROJECT=lcls-plc-dream-vac.tsproj,HASH=1457964,VERSION=1457964,PYTMC=2.17.0,PLC_HOST=172.21.132.159")
+dbLoadRecords("TwinCAT_Project.db", "PREFIX=PLC:lcls_plc_dream_vac,PROJECT=lcls-plc-dream-vac.tsproj,HASH=f1ce32c,VERSION=f1ce32c,PYTMC=2.17.0,PLC_HOST=172.21.132.159")
 
 #   LCLS General: * -> 2.12.0 (SLAC)
 dbLoadRecords("TwinCAT_Dependency.db", "PREFIX=PLC:lcls_plc_dream_vac,DEPENDENCY=LCLS_General,VERSION=2.12.0,VENDOR=SLAC")
