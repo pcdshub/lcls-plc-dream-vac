@@ -49,6 +49,14 @@ VAR_GLOBAL
     {attribute 'pytmc' :=' pv: DREAM:ROUGH2:VRC:02'}
     DREAM_ROUGH2_VRC_02: FB_VGC;
 
+    //Manifold roughing valve
+    {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[WALL_E_PPL_01_EP2_EP2338-0002]^Channel 1^Input;
+                                 .i_xClsLS	:=	TIIB[WALL_E_PPL_01_EP2_EP2338-0002]^Channel 2^Input;
+                                 .q_xOPN_DO	:=	TIIB[WALL_E_PPL_01_EP2_EP2338-0002]^Channel 11^Output
+    '}
+    {attribute 'pytmc' :=' pv: DREAM:ROUGH1:VRC:10'}
+    DREAM_ROUGH1_VRC_10: FB_VRC;
+
     (*VENT VALVES ROUGHING*)
     //FLow Control valves MKS248
     {attribute 'TcLinkTo' := 	'.q_iRawPosition	:=	TIIB[WALL_E_PPL_01_EP1_EP4374-0002]^AO Outputs Channel 3^Analog output'}

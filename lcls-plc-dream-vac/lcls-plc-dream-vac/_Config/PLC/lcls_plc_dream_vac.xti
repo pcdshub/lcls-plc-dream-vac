@@ -53,7 +53,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{BE5D7BF7-AB58-DDE2-34E2-110D15B7C175}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{3D63BEA0-C05D-6C08-E097-C513C501C444}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -178,10 +178,6 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_PLC_Interface.bTMO_MR5K4_VWC_OPEN_LS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
 					<Name>GVL_FWM.fbCoilFlowMeter.iRaw</Name>
 					<Comment><![CDATA[ Connect this input to the terminal]]></Comment>
 					<Type>DINT</Type>
@@ -192,8 +188,140 @@
 					<Type>STRING(8)</Type>
 				</Var>
 				<Var>
+					<Name>GVL_PLC_Interface.bTMO_MR5K4_VWC_OPEN_LS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
 					<Name>GVL_PLC_Interface.bTMO_TM2K4_VWC_OPEN_LS</Name>
 					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_01.bError</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_01.bUnderrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_01.bOverrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_01.iRaw</Name>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_02.bError</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_02.bUnderrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_02.bOverrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_02.iRaw</Name>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_03.bError</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_03.bUnderrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_03.bOverrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_03.iRaw</Name>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_04.bError</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_04.bUnderrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_04.bOverrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_04.iRaw</Name>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_05.bError</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_05.bUnderrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_05.bOverrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_05.iRaw</Name>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_06.bError</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_06.bUnderrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_06.bOverrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_06.iRaw</Name>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_07.bError</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_07.bUnderrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_07.bOverrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_07.iRaw</Name>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_08.bError</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_08.bUnderrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_08.bOverrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_08.iRaw</Name>
+					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_VAC_GAUGES.DREAM_NC_GPI_01.i_iPRESS_R</Name>
@@ -420,16 +548,6 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_VAC_PUMPS.DREAM_CAT1_PTM_01.i_xAtSpd</Name>
-					<Comment><![CDATA[ Normaml operation when true]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_PUMPS.DREAM_CAT2_PTM_01.i_xFaultNC</Name>
-					<Comment><![CDATA[ Error Active when no Error is present]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
 					<Name>GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_01.i_xAtSpd</Name>
 					<Comment><![CDATA[ Normaml operation when true]]></Comment>
 					<Type>BOOL</Type>
@@ -450,6 +568,11 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
+					<Name>GVL_VAC_PUMPS.DREAM_CAT1_PTM_01.i_xAtSpd</Name>
+					<Comment><![CDATA[ Normaml operation when true]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
 					<Name>GVL_VAC_PUMPS.DREAM_CAT1_PTM_01.i_xFaultNC</Name>
 					<Comment><![CDATA[ Error Active when no Error is present]]></Comment>
 					<Type>BOOL</Type>
@@ -457,6 +580,11 @@
 				<Var>
 					<Name>GVL_VAC_PUMPS.DREAM_CAT2_PTM_01.i_xAtSpd</Name>
 					<Comment><![CDATA[ Normaml operation when true]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_PUMPS.DREAM_CAT2_PTM_01.i_xFaultNC</Name>
+					<Comment><![CDATA[ Error Active when no Error is present]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -514,132 +642,13 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_TC.TC_01.bError</Name>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_10.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_TC.TC_01.bUnderrange</Name>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_10.i_xClsLS</Name>
 					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_01.bOverrange</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_01.iRaw</Name>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_02.bError</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_02.bUnderrange</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_02.bOverrange</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_02.iRaw</Name>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_03.bError</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_03.bUnderrange</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_03.bOverrange</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_03.iRaw</Name>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_04.bError</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_04.bUnderrange</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_04.bOverrange</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_04.iRaw</Name>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_05.bError</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_05.bUnderrange</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_05.bOverrange</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_05.iRaw</Name>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_06.bError</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_06.bUnderrange</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_06.bOverrange</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_06.iRaw</Name>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_07.bError</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_07.bUnderrange</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_07.bOverrange</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_07.iRaw</Name>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_08.bError</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_08.bUnderrange</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_08.bOverrange</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_TC.TC_08.iRaw</Name>
-					<Type>INT</Type>
 				</Var>
 			</Vars>
 			<Vars VarGrpType="2" ContextId="1" AreaNo="17">
@@ -670,12 +679,12 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_PLC_Interface.bCLOSE_TMO_MR5K4_VWC</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
 					<Name>GVL_PLC_Interface.fDREAM_MAIN_rPRESS</Name>
 					<Type>REAL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bCLOSE_TMO_MR5K4_VWC</Name>
+					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_PLC_Interface.bCLOSE_TMO_TM2K4_VWC</Name>
@@ -847,6 +856,10 @@
 				</Var>
 				<Var>
 					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_10.q_xOPN_DO</Name>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
