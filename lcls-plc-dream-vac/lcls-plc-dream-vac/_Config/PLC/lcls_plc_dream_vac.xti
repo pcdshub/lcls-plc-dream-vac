@@ -53,7 +53,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{3D63BEA0-C05D-6C08-E097-C513C501C444}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{F2EC8356-4A6B-3344-7ECF-9B097F373428}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -178,6 +178,10 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
+					<Name>GVL_PLC_Interface.bTMO_MR5K4_VWC_OPEN_LS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
 					<Name>GVL_FWM.fbCoilFlowMeter.iRaw</Name>
 					<Comment><![CDATA[ Connect this input to the terminal]]></Comment>
 					<Type>DINT</Type>
@@ -186,10 +190,6 @@
 					<Name>GVL_PLC_Interface.sHUTCH_PLC_NAME</Name>
 					<Comment><![CDATA[Inputs from TMO Beamline]]></Comment>
 					<Type>STRING(8)</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.bTMO_MR5K4_VWC_OPEN_LS</Name>
-					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_PLC_Interface.bTMO_TM2K4_VWC_OPEN_LS</Name>
@@ -679,12 +679,12 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_PLC_Interface.fDREAM_MAIN_rPRESS</Name>
-					<Type>REAL</Type>
-				</Var>
-				<Var>
 					<Name>GVL_PLC_Interface.bCLOSE_TMO_MR5K4_VWC</Name>
 					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.fDREAM_MAIN_rPRESS</Name>
+					<Type>REAL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_PLC_Interface.bCLOSE_TMO_TM2K4_VWC</Name>
@@ -1619,6 +1619,11 @@
 				<Link VarA="PlcTask Inputs^GVL_VAC_GAUGES.DREAM_ROUGH2_GPI_01.i_iPRESS_R" VarB="AI Inputs Channel 2^Value" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_VAC_VALVES.DREAM_ROUGH1_VFV_01.q_iRawPosition" VarB="AO Outputs Channel 3^Analog output" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_VAC_VALVES.DREAM_ROUGH2_VFV_01.q_iRawPosition" VarB="AO Outputs Channel 4^Analog output" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^WALL_E_PPL_01_EP2_EP2338-0002">
+				<Link VarA="PlcTask Inputs^GVL_VAC_VALVES.DREAM_ROUGH1_VRC_10.i_xClsLS" VarB="Channel 2^Input" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_VAC_VALVES.DREAM_ROUGH1_VRC_10.i_xOpnLS" VarB="Channel 1^Input" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_VAC_VALVES.DREAM_ROUGH1_VRC_10.q_xOPN_DO" VarB="Channel 11^Output" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E4_EL1004">
 				<Link VarA="PlcTask Inputs^GVL_VAC_PUMPS.DREAM_DP2_PTM_01.i_xAtSpd" VarB="Channel 2^Input" AutoLink="true" Size="1"/>

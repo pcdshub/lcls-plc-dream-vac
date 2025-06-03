@@ -25,5 +25,8 @@
 		<Box File="WALL_E_PPL_01_EP1_EP4374-0002.xti" Id="40">
 			<EtherCAT PortABoxInfo="#x02000029"/>
 		</Box>
+		<Box File="WALL_E_PPL_01_EP2_EP2338-0002.xti" Id="130">
+			<EtherCAT PortABoxInfo="#x01000028"/>
+		</Box>
 	</Box>
 </TcSmItem>
