@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="E_OpStep" Id="{ce69dd75-aa4c-4341-9202-8a10c8eccf28}">
+    <Declaration><![CDATA[TYPE E_OpStep :
+(
+    IDLE := 0,
+    START := 1,
+
+    (* Vent MC and CAT System steps *)
+    VMCAS_CLOSE_ISOLATION_VALVES,
+    VMCAS_STOP_TURBO_PUMPS,
+    VMCAS_CLOSE_ROUGH_VALVES,
+    VMCAS_STOP_GAUGES,
+    VMCAS_WAIT_FOR_TURBO_PUMPS_SPIN_DOWN,
+    VMCAS_VENTING,
+    VMCAS_FINISH
+    (* Add new states for other procedures *)
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

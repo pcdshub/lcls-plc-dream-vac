@@ -7,8 +7,7 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[(*High Voltage Saftey Loop*)
-bHighVoltageSafteyLoopEnable := (DREAM_MC_GHC.IG_CH1.rPRESS <= fHighVoltageMinPressure AND DREAM_MC_GHC.IG_CH1.xPRESS_OK) OR
-                                (DREAM_MC_GHC.IG_CH2.rPRESS <= fHighVoltageMinPressure AND DREAM_MC_GHC.IG_CH2.xPRESS_OK);]]></ST>
+GVL_PLC_Interface.bHVSafteyLoopEnable := (GVL_VAC_GAUGES.stDREAM_MC_GHC.rPRESS <= fHighVoltageMinPressure AND GVL_VAC_GAUGES.stDREAM_MC_GHC.xPRESS_OK);]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

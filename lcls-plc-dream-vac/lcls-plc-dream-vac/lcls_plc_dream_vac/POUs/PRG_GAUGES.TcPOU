@@ -33,21 +33,22 @@ DREAM_MC_GPI_01();
 //Hot Cathode gauge IE514
 DREAM_MC_GHC.M_SetBits(30518);
 //Using DP3:GHC to interlock main chamber gauge because protetion setpoint for the gauge has to be set to 1e-6 - 1E-5
-DREAM_MC_GHC(PG:= DREAM_DP3_GHC_01.IG); //This fb reads statuses and control two gauges DREAM:MC:GHC:01 and DREAM:MC:GHC:02
+//Changing back to interlock MC HC gauge with MC pirani gauge, becasue when coil is ON it can turn OFF DP3 gauge which then affect interlocks for the beamline valves and catcher valve
+DREAM_MC_GHC(PG:= DREAM_MC_GPI_01.PG); //This fb reads statuses and control two gauges DREAM:MC:GHC:01 and DREAM:MC:GHC:02
 
-//Send main chamber gauge data to TMO Beamline Vacuum PLC
-IF DREAM_MC_GHC.IG_CH1.xPRESS_OK THEN
-    bDREAM_MAIN_xAT_VAC := DREAM_MC_GHC.IG_CH1.xAT_VAC;
-    bDREAM_MAIN_xPRESS_OK := DREAM_MC_GHC.IG_CH1.xPRESS_OK;
-    fDREAM_MAIN_rPRESS := DREAM_MC_GHC.IG_CH1.rPRESS;
-ELSIF DREAM_MC_GHC.IG_CH2.xPRESS_OK THEN
-    bDREAM_MAIN_xAT_VAC := DREAM_MC_GHC.IG_CH2.xAT_VAC;
-    bDREAM_MAIN_xPRESS_OK := DREAM_MC_GHC.IG_CH2.xPRESS_OK;
-    fDREAM_MAIN_rPRESS := DREAM_MC_GHC.IG_CH2.rPRESS;
-ELSE
-    bDREAM_MAIN_xAT_VAC := FALSE;
-    bDREAM_MAIN_xPRESS_OK := FALSE;
-    fDREAM_MAIN_rPRESS := 0;
+//Update stDREAM_MC_GHC structure based on CH selected by controller and data to TMO Beamline Vacuum PLC
+IF DREAM_MC_GHC.M_IsCh1Selected() THEN
+    GVL_VAC_GAUGES.stDREAM_MC_GHC := DREAM_MC_GHC.IG_CH1;
+
+    GVL_PLC_Interface.bDREAM_MAIN_xAT_VAC := DREAM_MC_GHC.IG_CH1.xAT_VAC;
+    GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK := DREAM_MC_GHC.IG_CH1.xPRESS_OK;
+    GVL_PLC_Interface.fDREAM_MAIN_rPRESS := DREAM_MC_GHC.IG_CH1.rPRESS;
+ELSIF DREAM_MC_GHC.M_IsCh2Selected() THEN
+    GVL_VAC_GAUGES.stDREAM_MC_GHC := DREAM_MC_GHC.IG_CH2;
+
+    GVL_PLC_Interface.bDREAM_MAIN_xAT_VAC := DREAM_MC_GHC.IG_CH2.xAT_VAC;
+    GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK := DREAM_MC_GHC.IG_CH2.xPRESS_OK;
+    GVL_PLC_Interface.fDREAM_MAIN_rPRESS := DREAM_MC_GHC.IG_CH2.rPRESS;
 END_IF
 
 

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <Task Name="PlcTask" Id="{82b15b62-0d55-4c91-be05-63bce79ad0ff}">
     <!--CycleTime in micro seconds.-->
     <CycleTime>10000</CycleTime>
@@ -7,11 +7,13 @@
     <PouCall>
       <Name>MAIN</Name>
     </PouCall>
+    <PouCall>
+      <Name>PRG_AUTOMATION</Name>
+    </PouCall>
     <TaskFBGuid>{cb09faff-48b7-435c-a17b-daae14d2f263}</TaskFBGuid>
     <Fb_init>{5dfd0bdf-3c22-4b7b-a43e-5ed874063923}</Fb_init>
     <Fb_exit>{e56d0aa7-e435-4772-a421-d1661c8b8431}</Fb_exit>
     <CycleUpdate>{6a31f23a-4091-432d-bef7-7d9748cd485a}</CycleUpdate>
     <PostCycleUpdate>{83f961ca-644c-4e5f-b432-33f7af50364b}</PostCycleUpdate>
-    <ObjectProperties />
   </Task>
 </TcPlcObject>

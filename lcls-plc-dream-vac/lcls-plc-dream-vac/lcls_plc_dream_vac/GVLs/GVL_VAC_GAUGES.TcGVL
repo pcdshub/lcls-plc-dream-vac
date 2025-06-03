@@ -58,6 +58,8 @@ VAR_GLOBAL
     '}
     {attribute 'pytmc' :=' pv: DREAM:MC:GHC'}
     DREAM_MC_GHC : FB_IE514;
+    //main chamber hot cathode gauge structure - updated based on which channel selected
+    stDREAM_MC_GHC : ST_VG;
 
     (*MC GPI*)
     {attribute 'TcLinkTo' := 	'.i_iPRESS_R	:=	TIIB[K4S8_DRL_04_E16_EL3174-0002]^AI Standard Channel 1^Value'}

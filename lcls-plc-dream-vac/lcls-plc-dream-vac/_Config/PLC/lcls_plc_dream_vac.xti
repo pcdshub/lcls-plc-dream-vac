@@ -53,7 +53,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{15001BFE-C476-325E-4C9F-1B044E8AF8FC}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{F2EC8356-4A6B-3344-7ECF-9B097F373428}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -170,14 +170,158 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
+					<Name>GVL_PLC_Interface.bTMO_MR5K4_VWC_CLOSED_LS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bTMO_TM2K4_VWC_CLOSED_LS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bTMO_MR5K4_VWC_OPEN_LS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
 					<Name>GVL_FWM.fbCoilFlowMeter.iRaw</Name>
 					<Comment><![CDATA[ Connect this input to the terminal]]></Comment>
-					<Type>INT</Type>
+					<Type>DINT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_PLC_Interface.sHUTCH_PLC_NAME</Name>
 					<Comment><![CDATA[Inputs from TMO Beamline]]></Comment>
 					<Type>STRING(8)</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bTMO_TM2K4_VWC_OPEN_LS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_01.bError</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_01.bUnderrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_01.bOverrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_01.iRaw</Name>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_02.bError</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_02.bUnderrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_02.bOverrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_02.iRaw</Name>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_03.bError</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_03.bUnderrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_03.bOverrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_03.iRaw</Name>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_04.bError</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_04.bUnderrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_04.bOverrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_04.iRaw</Name>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_05.bError</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_05.bUnderrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_05.bOverrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_05.iRaw</Name>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_06.bError</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_06.bUnderrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_06.bOverrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_06.iRaw</Name>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_07.bError</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_07.bUnderrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_07.bOverrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_07.iRaw</Name>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_08.bError</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_08.bUnderrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_08.bOverrange</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_TC.TC_08.iRaw</Name>
+					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_VAC_GAUGES.DREAM_NC_GPI_01.i_iPRESS_R</Name>
@@ -227,6 +371,36 @@
 				<Var>
 					<Name>GVL_VAC_GAUGES.DREAM_DP3_GHC_01.i_xHV_ON</Name>
 					<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1084) ^Input]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_iPRESS_R_CH1</Name>
+					<Comment><![CDATA[ Controls and I/Os]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_iPRESS_R_CH2</Name>
+					<Comment><![CDATA[ input raw pressure in bits CH2 (ADC) // 'TcLinkTo' (EL3174) ^Input]]></Comment>
+					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xHV_ON</Name>
+					<Comment><![CDATA[ True when EMI is on  // 'TcLinkTo' (EL1004 or EL1008) ^Input]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xERR_CH1</Name>
+					<Comment><![CDATA[ TRUE when NO error is present on assigned channel]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xERR_CH2</Name>
+					<Comment><![CDATA[ TRUE when NO error is present on assigned channel]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xCH2_SEL</Name>
+					<Comment><![CDATA[ TRUE when CH2 selected, FALSE when CH1 selected]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -468,33 +642,12 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_iPRESS_R_CH1</Name>
-					<Comment><![CDATA[ Controls and I/Os]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_iPRESS_R_CH2</Name>
-					<Comment><![CDATA[ input raw pressure in bits CH2 (ADC) // 'TcLinkTo' (EL3174) ^Input]]></Comment>
-					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xHV_ON</Name>
-					<Comment><![CDATA[ True when EMI is on  // 'TcLinkTo' (EL1004 or EL1008) ^Input]]></Comment>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_10.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xERR_CH1</Name>
-					<Comment><![CDATA[ TRUE when NO error is present on assigned channel]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xERR_CH2</Name>
-					<Comment><![CDATA[ TRUE when NO error is present on assigned channel]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xCH2_SEL</Name>
-					<Comment><![CDATA[ TRUE when CH2 selected, FALSE when CH1 selected]]></Comment>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_10.i_xClsLS</Name>
 					<Type>BOOL</Type>
 				</Var>
 			</Vars>
@@ -510,6 +663,10 @@
 					<Type>STRING(8)</Type>
 				</Var>
 				<Var>
+					<Name>GVL_PLC_Interface.bDREAM_HV_SAFETY_ENABLE</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
 					<Name>GVL_PLC_Interface.bDREAM_TURBOS_ALL_AtSpd</Name>
 					<Type>BOOL</Type>
 				</Var>
@@ -522,11 +679,19 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_PLC_Interface.bDREAM_HV_SAFETY_ENABLE</Name>
+					<Name>GVL_PLC_Interface.bCLOSE_TMO_MR5K4_VWC</Name>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_PLC_Interface.bHighVoltageSafteyLoopEnable</Name>
+					<Name>GVL_PLC_Interface.fDREAM_MAIN_rPRESS</Name>
+					<Type>REAL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bCLOSE_TMO_TM2K4_VWC</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bHVSafteyLoopEnable</Name>
 					<Comment><![CDATA[When Enables the High voltage Saftey loop is closed and HV can start.]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
@@ -534,10 +699,6 @@
 					<Name>GVL_PLC_Interface.bCoilPS_ILK</Name>
 					<Comment><![CDATA[Interlock output to control COIL PS]]></Comment>
 					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.fDREAM_MAIN_rPRESS</Name>
-					<Type>REAL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_VAC_GAUGES.DREAM_NC_GCC_01.q_xHV_DIS</Name>
@@ -557,6 +718,16 @@
 				<Var>
 					<Name>GVL_VAC_GAUGES.DREAM_DP3_GHC_01.q_xHV_DIS</Name>
 					<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EP2624) ^Output]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.q_xHV_DIS_CH1</Name>
+					<Comment><![CDATA[ Enable Gauge High Voltage on CH1 when True // 'TcLinkTo' (EL2124) ^Output]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.q_xHV_DIS_CH2</Name>
+					<Comment><![CDATA[ Enable Gauge High Voltage on CH2 when True // 'TcLinkTo' (EL2124) ^Output]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -688,6 +859,10 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_10.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
 					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VFV_01.q_iRawPosition</Name>
 					<Comment><![CDATA[IO]]></Comment>
 					<Type>INT</Type>
@@ -711,16 +886,6 @@
 					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_03.q_iRawPosition</Name>
 					<Comment><![CDATA[IO]]></Comment>
 					<Type>INT</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.q_xHV_DIS_CH1</Name>
-					<Comment><![CDATA[ Enable Gauge High Voltage on CH1 when True // 'TcLinkTo' (EL2124) ^Output]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_GAUGES.DREAM_MC_GHC.q_xHV_DIS_CH2</Name>
-					<Comment><![CDATA[ Enable Gauge High Voltage on CH2 when True // 'TcLinkTo' (EL2124) ^Output]]></Comment>
-					<Type>BOOL</Type>
 				</Var>
 			</Vars>
 			<Vars VarGrpType="8" ContextId="1" AreaNo="20">
@@ -919,7 +1084,13 @@
 				<Link VarA="PlcTask Inputs^GVL_PLC_Interface.bEcatBridge_External_device_not_connected" VarB="SYNC Inputs^External device not connected" AutoLink="true" Size="1"/>
 				<Link VarA="PlcTask Inputs^GVL_PLC_Interface.bEcatBridge_TxPDO_state" VarB="SYNC Inputs^TxPDO state" AutoLink="true" Size="1"/>
 				<Link VarA="PlcTask Inputs^GVL_PLC_Interface.bEcatBridge_WcState" VarB="WcState^WcStateIn" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_PLC_Interface.bTMO_MR5K4_VWC_CLOSED_LS" VarB="IO Inputs^TMO_MR5K4_VWC_CLOSED_LS" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_PLC_Interface.bTMO_MR5K4_VWC_OPEN_LS" VarB="IO Inputs^TMO_MR5K4_VWC_OPEN_LS" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_PLC_Interface.bTMO_TM2K4_VWC_CLOSED_LS" VarB="IO Inputs^TMO_TM2K4_VWC_CLOSED_LS" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_PLC_Interface.bTMO_TM2K4_VWC_OPEN_LS" VarB="IO Inputs^TMO_TM2K4_VWC_OPEN_LS" AutoLink="true"/>
 				<Link VarA="PlcTask Inputs^GVL_PLC_Interface.sHUTCH_PLC_NAME" VarB="IO Inputs^HUTCH_PLC_NAME" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.bCLOSE_TMO_MR5K4_VWC" VarB="IO Outputs^CLOSE_TMO_MR5K4_VWC" AutoLink="true"/>
+				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.bCLOSE_TMO_TM2K4_VWC" VarB="IO Outputs^CLOSE_TMO_TM2K4_VWC" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.bDREAM_HV_SAFETY_ENABLE" VarB="IO Outputs^DREAM_HV_SAFETY_ENABLE" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.bDREAM_MAIN_xAT_VAC" VarB="IO Outputs^DREAM_MAIN_xAT_VAC" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK" VarB="IO Outputs^DREAM_MAIN_xPRESS_OK" AutoLink="true"/>
@@ -1118,7 +1289,43 @@
 				<Link VarA="PlcTask Outputs^GVL_VAC_PUMPS.DREAM_DP1_PTM_01.q_xRemote" VarB="Channel 2^Output" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_03_EK0_EK1100^K4S8_DRL_03_E21_EL3052">
-				<Link VarA="PlcTask Inputs^GVL_FWM.fbCoilFlowMeter.iRaw" VarB="AI Standard Channel 1^Value" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_FWM.fbCoilFlowMeter.iRaw" VarB="AI Standard Channel 1^Value" AutoLink="true" Size="16"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_03_EK0_EK1100^K4S8_DRL_03_E22_EL3314">
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_01.bError" VarB="TC Inputs Channel 1^Status^Error" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_01.bOverrange" VarB="TC Inputs Channel 1^Status^Overrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_01.bUnderrange" VarB="TC Inputs Channel 1^Status^Underrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_01.iRaw" VarB="TC Inputs Channel 1^Value" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_02.bError" VarB="TC Inputs Channel 2^Status^Error" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_02.bOverrange" VarB="TC Inputs Channel 2^Status^Overrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_02.bUnderrange" VarB="TC Inputs Channel 2^Status^Underrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_02.iRaw" VarB="TC Inputs Channel 2^Value" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_03.bError" VarB="TC Inputs Channel 3^Status^Error" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_03.bOverrange" VarB="TC Inputs Channel 3^Status^Overrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_03.bUnderrange" VarB="TC Inputs Channel 3^Status^Underrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_03.iRaw" VarB="TC Inputs Channel 3^Value" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_04.bError" VarB="TC Inputs Channel 4^Status^Error" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_04.bOverrange" VarB="TC Inputs Channel 4^Status^Overrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_04.bUnderrange" VarB="TC Inputs Channel 4^Status^Underrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_04.iRaw" VarB="TC Inputs Channel 4^Value" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_03_EK0_EK1100^K4S8_DRL_03_E23_EL3314">
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_05.bError" VarB="TC Inputs Channel 1^Status^Error" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_05.bOverrange" VarB="TC Inputs Channel 1^Status^Overrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_05.bUnderrange" VarB="TC Inputs Channel 1^Status^Underrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_05.iRaw" VarB="TC Inputs Channel 1^Value" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_06.bError" VarB="TC Inputs Channel 2^Status^Error" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_06.bOverrange" VarB="TC Inputs Channel 2^Status^Overrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_06.bUnderrange" VarB="TC Inputs Channel 2^Status^Underrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_06.iRaw" VarB="TC Inputs Channel 2^Value" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_07.bError" VarB="TC Inputs Channel 3^Status^Error" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_07.bOverrange" VarB="TC Inputs Channel 3^Status^Overrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_07.bUnderrange" VarB="TC Inputs Channel 3^Status^Underrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_07.iRaw" VarB="TC Inputs Channel 3^Value" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_08.bError" VarB="TC Inputs Channel 4^Status^Error" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_08.bOverrange" VarB="TC Inputs Channel 4^Status^Overrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_08.bUnderrange" VarB="TC Inputs Channel 4^Status^Underrange" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_TC.TC_08.iRaw" VarB="TC Inputs Channel 4^Value" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_03_EK0_EK1100^K4S8_DRL_03_E4_EL1084">
 				<Link VarA="PlcTask Inputs^GVL_VAC_GAUGES.DREAM_DP1_GHC_01.i_xHV_ON" VarB="Channel 4^Input" AutoLink="true" Size="1"/>
@@ -1147,7 +1354,7 @@
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_04_EK0_EK1100^K4S8_DRL_04_E14_EL2624">
 				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.bCoilPS_ILK" VarB="Channel 3^Output" AutoLink="true" Size="1"/>
-				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.bHighVoltageSafteyLoopEnable" VarB="Channel 4^Output" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_PLC_Interface.bHVSafteyLoopEnable" VarB="Channel 4^Output" AutoLink="true" Size="1"/>
 				<Link VarA="PlcTask Outputs^GVL_VAC_GAUGES.DREAM_CAT1_GHC_01.q_xHV_DIS" VarB="Channel 1^Output" AutoLink="true" Size="1"/>
 				<Link VarA="PlcTask Outputs^GVL_VAC_GAUGES.DREAM_CAT2_GHC_01.q_xHV_DIS" VarB="Channel 2^Output" AutoLink="true" Size="1"/>
 			</OwnerB>
@@ -1412,6 +1619,11 @@
 				<Link VarA="PlcTask Inputs^GVL_VAC_GAUGES.DREAM_ROUGH2_GPI_01.i_iPRESS_R" VarB="AI Inputs Channel 2^Value" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_VAC_VALVES.DREAM_ROUGH1_VFV_01.q_iRawPosition" VarB="AO Outputs Channel 3^Analog output" AutoLink="true"/>
 				<Link VarA="PlcTask Outputs^GVL_VAC_VALVES.DREAM_ROUGH2_VFV_01.q_iRawPosition" VarB="AO Outputs Channel 4^Analog output" AutoLink="true"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^WALL_E_PPL_01_EP2_EP2338-0002">
+				<Link VarA="PlcTask Inputs^GVL_VAC_VALVES.DREAM_ROUGH1_VRC_10.i_xClsLS" VarB="Channel 2^Input" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_VAC_VALVES.DREAM_ROUGH1_VRC_10.i_xOpnLS" VarB="Channel 1^Input" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_VAC_VALVES.DREAM_ROUGH1_VRC_10.q_xOPN_DO" VarB="Channel 11^Output" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E4_EL1004">
 				<Link VarA="PlcTask Inputs^GVL_VAC_PUMPS.DREAM_DP2_PTM_01.i_xAtSpd" VarB="Channel 2^Input" AutoLink="true" Size="1"/>

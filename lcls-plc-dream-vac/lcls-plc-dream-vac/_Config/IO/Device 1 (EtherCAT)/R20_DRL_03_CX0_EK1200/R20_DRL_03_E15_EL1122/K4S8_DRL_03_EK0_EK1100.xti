@@ -70,8 +70,14 @@
 		<Box File="K4S8_DRL_03_E21_EL3052.xti" Id="99">
 			<EtherCAT PortABoxInfo="#x01000022"/>
 		</Box>
-		<Box File="K4S8_DRL_03_E22_EL9011.xti" Id="35">
+		<Box File="K4S8_DRL_03_E22_EL3314.xti" Id="101">
 			<EtherCAT PortABoxInfo="#x01000063"/>
+		</Box>
+		<Box File="K4S8_DRL_03_E23_EL3314.xti" Id="103">
+			<EtherCAT PortABoxInfo="#x01000065"/>
+		</Box>
+		<Box File="K4S8_DRL_03_E24_EL9011.xti" Id="35">
+			<EtherCAT PortABoxInfo="#x01000067"/>
 		</Box>
 	</Box>
 </TcSmItem>

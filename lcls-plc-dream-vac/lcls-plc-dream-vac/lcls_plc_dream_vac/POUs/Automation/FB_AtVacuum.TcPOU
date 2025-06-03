@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_AtVacuum" Id="{5effbc83-b295-4962-9d00-510ae0b8f3a2}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_AtVacuum EXTENDS FB_Operation
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[SUPER^(iq_sMessageBuffer := iq_sMessageBuffer);
+
+CASE eStep OF
+E_OpStep.IDLE: // Do nothing
+
+E_OpStep.START: // Start monitoring main chamber vacuum
+    IF NOT (F_AllPumpsRunning() AND F_PressAtVacSP()) THEN // add case if already vented to just cancel operation
+        M_RunTimeoutTimer(TURBOS_NOT_RUNNING_TIMEOUT);
+        M_SetMessage('Vacuum lost, 10 min timer started');
+        IF M_TimeoutExpired() THEN
+            M_FatalError('Vacuum not restored, venting started');
+        END_IF
+    ELSE
+        M_ResetTimeoutTimer(); //reset timer if pump restarted or gauge restarted and vaccum ok
+        M_SetMessage('MC Vacuum OK');
+    END_IF
+
+ELSE
+    M_FatalError('Operation is in invalid state');
+END_CASE]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

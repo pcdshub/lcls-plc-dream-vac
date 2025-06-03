@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="F_AllPumpsRunning" Id="{a2f42b86-a675-4651-93e4-940bdb1954f5}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_AllPumpsRunning : BOOL
+VAR_INPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Pump running state verifys that iq_stPtm.i_xAtSpd AND iq_stPtm.q_RunDO are TRUE
+F_AllPumpsRunning := //DREAM_NC_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                     //DREAM_NC_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                     DREAM_DP1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                     DREAM_DP2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                     DREAM_DP3_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                     DREAM_MC_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                     DREAM_MC_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                     DREAM_CAT1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                     DREAM_CAT2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                     DREAM_ROUGH2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                     DREAM_ROUGH2_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

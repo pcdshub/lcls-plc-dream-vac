@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="PRG_AUTOMATION" Id="{67e5e02e-e373-477c-b4d1-15c0b4bff073}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_AUTOMATION
+VAR
+    eCurrOp : E_Op; // Currently running operation
+    fbVentMcCat : FB_VentMcCat;
+    fbAtVacuum : FB_AtVacuum;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(* Run operations, but don't start any new operations if another operation is still running or error is present *)
+// Reset error
+IF GVL_Automation.i_bResetError THEN
+    GVL_Automation.q_bError := FALSE;
+    GVL_Automation.i_bResetError := FALSE;
+END_IF
+
+// Only start new operations if the system is NOT busy with another operation and transtion to new state is valid and no error present
+IF NOT GVL_Automation.q_bBusy AND NOT GVL_Automation.q_bError THEN
+    IF F_IsValidStateTransition(eCurrOp, GVL_Automation.iq_eOperation) THEN
+        eCurrOp := GVL_Automation.iq_eOperation;
+    ELSE
+        GVL_Automation.q_sMessage := 'Invalid state transition';
+        //GVL_Automation.q_bError := TRUE;
+    END_IF
+END_IF
+
+// Execute selected operation
+CASE eCurrOp OF
+E_Op.INIT: // State Machine INIT // do nothing for now, can be used in the future if needed
+    eCurrOp := E_Op.STANDBY;
+    GVL_Automation.q_sMessage := 'Initialization completed';
+
+E_Op.STANDBY: // Monitoring IF full system under vacuum
+    GVL_Automation.q_bBusy := FALSE;
+    (*IF F_AllPumpsRunning() AND F_PressAtVacSP() AND NOT GVL_Automation.q_bError THEN // clear the error before start monitoring again
+        eCurrOp := E_Op.AT_VACUUM;
+        GVL_Automation.q_bBusy := TRUE; // Extend for one cycle so the state doesn't get overrired
+        GVL_Automation.q_sMessage := 'MC At Vacuum';
+    END_IF*)
+
+E_Op.PUMP_ALL: // Full system pump down
+    GVL_Automation.q_bBusy := FALSE; //do nothing for now, will be implemented later. When pumping down procedure ends go to xxxxxx state
+
+E_Op.PUMP_NC: // Only Nozzle chamber pump down
+    GVL_Automation.q_bBusy := FALSE; // do nothing for now, will be implemented later. When pumping down procedure of NC only ends go back to Standby state
+
+E_Op.AT_VACUUM: // Monitor if system is At Vacuum (pumps running and pressure below SP), if vaccum event occurs vent full system
+    fbAtVacuum(
+        i_bExecute := TRUE,
+        i_bCancel := GVL_Automation.i_bCancel,
+        iq_sMessageBuffer := GVL_Automation.q_sMessage,
+        q_bBusy => GVL_Automation.q_bBusy,
+        q_bError => GVL_Automation.q_bError
+    );
+    IF GVL_Automation.q_bError THEN // Vent MC and CAT IF Vacuum fault on main chamber detected
+        eCurrOp := E_Op.VENT_MC_CAT;
+        GVL_Automation.q_bBusy := TRUE; // Extend for one cycle so the eCurrOp doesn't get overried
+    END_IF
+
+E_Op.VENT_ALL: // Vent full system
+    GVL_Automation.q_bBusy := FALSE; // do nothing for now, will be implemented later
+
+E_Op.VENT_NC: // Vent nozzle chamber only
+    GVL_Automation.q_bBusy := FALSE; // do nothing for now, will be implemented later
+
+E_Op.VENT_MC_CAT: // Vent Main Chamber + Catcher
+    (*fbVentMcCat(
+        i_bExecute := TRUE,
+        i_bCancel := GVL_Automation.i_bCancel,
+        iq_sMessageBuffer := GVL_Automation.q_sMessage,
+        q_bBusy => GVL_Automation.q_bBusy,
+        q_bError => GVL_Automation.q_bError
+    );*)
+    GVL_Automation.q_bBusy := FALSE; //temporary before enabling code above
+
+E_Op.VENT_CAT: // Vent catcher only
+    GVL_Automation.q_bBusy := FALSE; // do nothing for now, will be implemented later
+
+ELSE // Selected unimplemented operation
+    GVL_Automation.q_sMessage := 'Unimplemented operation';
+    GVL_Automation.q_bBusy := FALSE;
+    GVL_Automation.q_bError := TRUE;
+END_CASE
+
+// If all operation have finished then go back to standby
+IF NOT GVL_Automation.q_bBusy THEN
+    eCurrOp := E_Op.STANDBY;
+END_IF
+
+// Set output operation to whatever is ACTAULLY currently running
+GVL_Automation.iq_eOperation := eCurrOp;
+GVL_Automation.i_bCancel := FALSE; // Reset cancel flag]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
