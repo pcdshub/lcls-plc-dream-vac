@@ -4,8 +4,8 @@
 #         Project: lcls-plc-dream-vac.tsproj
 #        PLC name: lcls_plc_dream_vac (lcls_plc_dream_vac Instance)
 # Generated using: pytmc 2.17.0
-# Project version: e1d2851
-#    Project hash: e1d2851ba77035c02c9cdeabaf651ce686999f03
+# Project version: 9eb265c
+#    Project hash: 9eb265cc0d01c57d30dfcc11234dfc5b38bfda8d
 #     PLC IP/host: 172.21.132.159
 #      PLC Net ID: 172.21.132.159.1.1
 #  ** Production mode IOC **
@@ -45,7 +45,7 @@ epicsEnvSet("ASYN_PORT",        "ASYN_PLC")
 epicsEnvSet("IPADDR",           "172.21.132.159")
 epicsEnvSet("AMSID",            "172.21.132.159.1.1")
 epicsEnvSet("AMS_PORT",         "851")
-epicsEnvSet("ADS_MAX_PARAMS",   "2108")
+epicsEnvSet("ADS_MAX_PARAMS",   "2130")
 epicsEnvSet("ADS_SAMPLE_MS",    "50")
 epicsEnvSet("ADS_MAX_DELAY_MS", "100")
 epicsEnvSet("ADS_TIMEOUT_MS",   "1000")
@@ -91,7 +91,7 @@ dbLoadRecords("TwinCAT_TaskInfo.db", "PORT=$(ASYN_PORT),PREFIX=PLC:lcls_plc_drea
 dbLoadRecords("TwinCAT_TaskInfo.db", "PORT=$(ASYN_PORT),PREFIX=PLC:lcls_plc_dream_vac,IDX=2,TASK_PORT=350")
 dbLoadRecords("TwinCAT_AppInfo.db", "PORT=$(ASYN_PORT), PREFIX=PLC:lcls_plc_dream_vac")
 
-dbLoadRecords("TwinCAT_Project.db", "PREFIX=PLC:lcls_plc_dream_vac,PROJECT=lcls-plc-dream-vac.tsproj,HASH=e1d2851,VERSION=e1d2851,PYTMC=2.17.0,PLC_HOST=172.21.132.159")
+dbLoadRecords("TwinCAT_Project.db", "PREFIX=PLC:lcls_plc_dream_vac,PROJECT=lcls-plc-dream-vac.tsproj,HASH=9eb265c,VERSION=9eb265c,PYTMC=2.17.0,PLC_HOST=172.21.132.159")
 
 #   LCLS General: * -> 2.12.0 (SLAC)
 dbLoadRecords("TwinCAT_Dependency.db", "PREFIX=PLC:lcls_plc_dream_vac,DEPENDENCY=LCLS_General,VERSION=2.12.0,VENDOR=SLAC")
@@ -115,8 +115,8 @@ cd "$(IOC_TOP)"
 ## PLC Project Database files ##
 dbLoadRecords("lcls_plc_dream_vac.db", "PORT=$(ASYN_PORT),PREFIX=PLC:lcls_plc_dream_vac:,IOCNAME=$(IOC),IOC=$(IOC)")
 
-# Total records: 1108
-callbackSetQueueSize(4216)
+# Total records: 1130
+callbackSetQueueSize(4260)
 
 # Autosave and archive settings:
 save_restoreSet_status_prefix("PLC:lcls_plc_dream_vac:")
