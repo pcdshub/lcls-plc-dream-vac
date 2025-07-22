@@ -19,7 +19,7 @@ VAR_GLOBAL
         pv: PLC:DREAM:HV_MIN_PRESS
         io: i
     '}
-    fHighVoltageMinPressure : REAL := 1e-05; (*Hard coded High voltage Minimum Enable Pressure*)
+    fHighVoltageMinPressure : REAL := 5e-04; (*Hard coded High voltage Minimum Enable Pressure*) //this was changed to be able to have HV on while MC pirani serves as interlock device
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

@@ -19,6 +19,17 @@ VAR_GLOBAL
     '}
     fCoilCoolantFlowMeterRBV : LREAL;
 
+    //Coil PS Current Monitoring
+    {attribute 'TcLinkTo' := '.iRaw	:=	TIIB[K4S8_DRL_04_E16_EL3174-0002]^AI Standard Channel 4^Value'}
+    fbCoilCurrentMonitoring : FB_AnalogInput := (iTermBits:=15, fTermMax:=310, fTermMin:=0);
+
+    {attribute 'pytmc' := '
+        pv: DREAM:COIL:CURRENT:VAL
+        io: i
+        field: EGU "A"
+        field: PREC "2"
+    '}
+    fCoilCurrentRBV : LREAL;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

@@ -7,7 +7,16 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[(*High Voltage Saftey Loop*)
-GVL_PLC_Interface.bHVSafteyLoopEnable := (GVL_VAC_GAUGES.stDREAM_MC_GHC.rPRESS <= fHighVoltageMinPressure AND GVL_VAC_GAUGES.stDREAM_MC_GHC.xPRESS_OK);]]></ST>
+GVL_PLC_Interface.bHVSafteyLoopEnable := (GVL_VAC_GAUGES.stDREAM_MC_GAUGE.rPRESS <= fHighVoltageMinPressure AND GVL_VAC_GAUGES.stDREAM_MC_GAUGE.xPRESS_OK) AND
+                                         (DREAM_DP1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                                          DREAM_DP2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                                          DREAM_DP3_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                                          DREAM_MC_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                                          DREAM_MC_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                                          DREAM_CAT1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                                          DREAM_CAT2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                                          DREAM_ROUGH2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                                          DREAM_ROUGH2_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING);]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{F2EC8356-4A6B-3344-7ECF-9B097F373428}" GeneratedBy="TwinCAT XAE Plc">
+<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{C80A049D-5C9D-6E5C-06C3-D4B0F7005058}" GeneratedBy="TwinCAT XAE Plc">
   <DataTypes>
     <DataType>
       <Name Namespace="Tc2_SerialCom">ComBuffer</Name>
@@ -1132,31 +1132,31 @@
         <Name>bBusy</Name>
         <Type>BOOL</Type>
         <BitSize>8</BitSize>
-        <GetCodeOffs>80908048</GetCodeOffs>
+        <GetCodeOffs>80908248</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>bError</Name>
         <Type>BOOL</Type>
         <BitSize>8</BitSize>
-        <GetCodeOffs>80908120</GetCodeOffs>
+        <GetCodeOffs>80908320</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>hrErrorCode</Name>
         <Type GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</Type>
         <BitSize>32</BitSize>
-        <GetCodeOffs>80908136</GetCodeOffs>
+        <GetCodeOffs>80908336</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>nStringSize</Name>
         <Type>UDINT</Type>
         <BitSize>32</BitSize>
-        <GetCodeOffs>80908096</GetCodeOffs>
+        <GetCodeOffs>80908296</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>sResult</Name>
         <Type>STRING(255)</Type>
         <BitSize>2048</BitSize>
-        <GetCodeOffs>80908128</GetCodeOffs>
+        <GetCodeOffs>80908328</GetCodeOffs>
         <Properties>
           <Property>
             <Name>TcEncoding</Name>
@@ -2408,15 +2408,15 @@
         <Name>nId</Name>
         <Type>UDINT</Type>
         <BitSize>32</BitSize>
-        <GetCodeOffs>80907920</GetCodeOffs>
-        <SetCodeOffs>80907968</SetCodeOffs>
+        <GetCodeOffs>80908120</GetCodeOffs>
+        <SetCodeOffs>80908168</SetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>sName</Name>
         <Type>STRING(255)</Type>
         <BitSize>2048</BitSize>
-        <GetCodeOffs>80908000</GetCodeOffs>
-        <SetCodeOffs>80908024</SetCodeOffs>
+        <GetCodeOffs>80908200</GetCodeOffs>
+        <SetCodeOffs>80908224</SetCodeOffs>
         <Properties>
           <Property>
             <Name>TcEncoding</Name>
@@ -2657,31 +2657,31 @@
         <Name>eSeverity</Name>
         <Type GUID="{B57D3F4A-0836-49B0-81C3-BED5F4817EC9}">TcEventSeverity</Type>
         <BitSize>16</BitSize>
-        <GetCodeOffs>80908232</GetCodeOffs>
+        <GetCodeOffs>80908432</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>ipSourceInfo</Name>
         <Type Namespace="LCLS_General.Tc3_EventLogger">I_TcSourceInfo</Type>
         <BitSize>64</BitSize>
-        <GetCodeOffs>80908192</GetCodeOffs>
+        <GetCodeOffs>80908392</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>nEventId</Name>
         <Type>UDINT</Type>
         <BitSize>32</BitSize>
-        <GetCodeOffs>80908368</GetCodeOffs>
+        <GetCodeOffs>80908568</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>nUniqueId</Name>
         <Type>UDINT</Type>
         <BitSize>32</BitSize>
-        <GetCodeOffs>80908376</GetCodeOffs>
+        <GetCodeOffs>80908576</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>sEventClassName</Name>
         <Type>STRING(255)</Type>
         <BitSize>2048</BitSize>
-        <GetCodeOffs>80908288</GetCodeOffs>
+        <GetCodeOffs>80908488</GetCodeOffs>
         <Properties>
           <Property>
             <Name>TcEncoding</Name>
@@ -2693,7 +2693,7 @@
         <Name>sEventText</Name>
         <Type>STRING(255)</Type>
         <BitSize>2048</BitSize>
-        <GetCodeOffs>80908384</GetCodeOffs>
+        <GetCodeOffs>80908584</GetCodeOffs>
         <Properties>
           <Property>
             <Name>TcEncoding</Name>
@@ -3286,7 +3286,7 @@
         <Name>nTimeSent</Name>
         <Type>ULINT</Type>
         <BitSize>64</BitSize>
-        <GetCodeOffs>80908440</GetCodeOffs>
+        <GetCodeOffs>80908640</GetCodeOffs>
         <Properties>
           <Property>
             <Name>TcDisplayTypeGUID</Name>
@@ -16556,7 +16556,7 @@ These features aren't disabled, they just aren't used, think child/parent classe
         <Name>nTimestamp</Name>
         <Type>ULINT</Type>
         <BitSize>64</BitSize>
-        <GetCodeOffs>80920080</GetCodeOffs>
+        <GetCodeOffs>80920280</GetCodeOffs>
         <Properties>
           <Property>
             <Name>TcDisplayTypeGUID</Name>
@@ -18502,31 +18502,31 @@ These features aren't disabled, they just aren't used, think child/parent classe
         <Name>bBusy</Name>
         <Type>BOOL</Type>
         <BitSize>8</BitSize>
-        <GetCodeOffs>80919184</GetCodeOffs>
+        <GetCodeOffs>80919384</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>bError</Name>
         <Type>BOOL</Type>
         <BitSize>8</BitSize>
-        <GetCodeOffs>80919272</GetCodeOffs>
+        <GetCodeOffs>80919472</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>hrErrorCode</Name>
         <Type GUID="{18071995-0000-0000-0000-000000000019}">HRESULT</Type>
         <BitSize>32</BitSize>
-        <GetCodeOffs>80919200</GetCodeOffs>
+        <GetCodeOffs>80919400</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>nStringSize</Name>
         <Type>UDINT</Type>
         <BitSize>32</BitSize>
-        <GetCodeOffs>80919248</GetCodeOffs>
+        <GetCodeOffs>80919448</GetCodeOffs>
       </PropertyItem>
       <PropertyItem>
         <Name>sEventText</Name>
         <Type>STRING(255)</Type>
         <BitSize>2048</BitSize>
-        <GetCodeOffs>80919288</GetCodeOffs>
+        <GetCodeOffs>80919488</GetCodeOffs>
         <Properties>
           <Property>
             <Name>TcEncoding</Name>
@@ -50122,7 +50122,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640740864</BitOffs>
+            <BitOffs>640741440</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.stComIn_DREAM_NC_PTM_02</Name>
@@ -50164,7 +50164,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640741248</BitOffs>
+            <BitOffs>640741824</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.stComIn_DREAM_DP1_PTM_01</Name>
@@ -50206,7 +50206,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640741632</BitOffs>
+            <BitOffs>640742208</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.stComIn_DREAM_DP2_PTM_01</Name>
@@ -50248,7 +50248,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640742016</BitOffs>
+            <BitOffs>640742592</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.stComIn_DREAM_DP3_PTM_01</Name>
@@ -50290,7 +50290,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640742400</BitOffs>
+            <BitOffs>640742976</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.stComIn_DREAM_MC_PTM_01</Name>
@@ -50332,7 +50332,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640742784</BitOffs>
+            <BitOffs>640743360</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.stComIn_DREAM_MC_PTM_02</Name>
@@ -50374,7 +50374,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640743168</BitOffs>
+            <BitOffs>640743744</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.stComIn_DREAM_CAT1_PTM_01</Name>
@@ -50416,7 +50416,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640743552</BitOffs>
+            <BitOffs>640744128</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.stComIn_DREAM_CAT2_PTM_01</Name>
@@ -50458,7 +50458,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640743936</BitOffs>
+            <BitOffs>640744512</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.stComIn_DREAM_ROUGH2_PTM_01</Name>
@@ -50500,7 +50500,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640744320</BitOffs>
+            <BitOffs>640744896</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.stComIn_DREAM_ROUGH2_PTM_02</Name>
@@ -50542,7 +50542,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640744704</BitOffs>
+            <BitOffs>640745280</BitOffs>
           </Symbol>
         </DataArea>
         <DataArea>
@@ -50590,7 +50590,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640741056</BitOffs>
+            <BitOffs>640741632</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.stComOut_DREAM_NC_PTM_02</Name>
@@ -50632,7 +50632,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640741440</BitOffs>
+            <BitOffs>640742016</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.stComOut_DREAM_DP1_PTM_01</Name>
@@ -50674,7 +50674,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640741824</BitOffs>
+            <BitOffs>640742400</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.stComOut_DREAM_DP2_PTM_01</Name>
@@ -50716,7 +50716,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640742208</BitOffs>
+            <BitOffs>640742784</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.stComOut_DREAM_DP3_PTM_01</Name>
@@ -50758,7 +50758,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640742592</BitOffs>
+            <BitOffs>640743168</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.stComOut_DREAM_MC_PTM_01</Name>
@@ -50800,7 +50800,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640742976</BitOffs>
+            <BitOffs>640743552</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.stComOut_DREAM_MC_PTM_02</Name>
@@ -50842,7 +50842,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640743360</BitOffs>
+            <BitOffs>640743936</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.stComOut_DREAM_CAT1_PTM_01</Name>
@@ -50884,7 +50884,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640743744</BitOffs>
+            <BitOffs>640744320</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.stComOut_DREAM_CAT2_PTM_01</Name>
@@ -50926,7 +50926,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640744128</BitOffs>
+            <BitOffs>640744704</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.stComOut_DREAM_ROUGH2_PTM_01</Name>
@@ -50968,7 +50968,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640744512</BitOffs>
+            <BitOffs>640745088</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.stComOut_DREAM_ROUGH2_PTM_02</Name>
@@ -51010,7 +51010,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640744896</BitOffs>
+            <BitOffs>640745472</BitOffs>
           </Symbol>
         </DataArea>
         <DataArea>
@@ -51028,7 +51028,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640567296</BitOffs>
+            <BitOffs>640567872</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.SerialTXBuffer_DREAM_NC_PTM_01</Name>
@@ -51039,7 +51039,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640569808</BitOffs>
+            <BitOffs>640570384</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.SerialRXBuffer_DREAM_NC_PTM_02</Name>
@@ -51050,7 +51050,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640572320</BitOffs>
+            <BitOffs>640572896</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.SerialTXBuffer_DREAM_NC_PTM_02</Name>
@@ -51061,7 +51061,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640574832</BitOffs>
+            <BitOffs>640575408</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.SerialRXBuffer_DREAM_DP1_PTM_01</Name>
@@ -51072,7 +51072,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640577344</BitOffs>
+            <BitOffs>640577920</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.SerialTXBuffer_DREAM_DP1_PTM_01</Name>
@@ -51083,7 +51083,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640579856</BitOffs>
+            <BitOffs>640580432</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.SerialRXBuffer_DREAM_DP2_PTM_01</Name>
@@ -51094,7 +51094,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640582368</BitOffs>
+            <BitOffs>640582944</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.SerialTXBuffer_DREAM_DP2_PTM_01</Name>
@@ -51105,7 +51105,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640584880</BitOffs>
+            <BitOffs>640585456</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.SerialRXBuffer_DREAM_DP3_PTM_01</Name>
@@ -51116,7 +51116,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640587392</BitOffs>
+            <BitOffs>640587968</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.SerialTXBuffer_DREAM_DP3_PTM_01</Name>
@@ -51127,7 +51127,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640589904</BitOffs>
+            <BitOffs>640590480</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.SerialRXBuffer_DREAM_MC_PTM_01</Name>
@@ -51138,7 +51138,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640592416</BitOffs>
+            <BitOffs>640592992</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.SerialTXBuffer_DREAM_MC_PTM_01</Name>
@@ -51149,7 +51149,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640594928</BitOffs>
+            <BitOffs>640595504</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.SerialRXBuffer_DREAM_MC_PTM_02</Name>
@@ -51160,7 +51160,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640597440</BitOffs>
+            <BitOffs>640598016</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.SerialTXBuffer_DREAM_MC_PTM_02</Name>
@@ -51171,7 +51171,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640599952</BitOffs>
+            <BitOffs>640600528</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.SerialRXBuffer_DREAM_CAT1_PTM_01</Name>
@@ -51182,7 +51182,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640602464</BitOffs>
+            <BitOffs>640603040</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.SerialTXBuffer_DREAM_CAT1_PTM_01</Name>
@@ -51193,7 +51193,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640604976</BitOffs>
+            <BitOffs>640605552</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.SerialRXBuffer_DREAM_CAT2_PTM_01</Name>
@@ -51204,7 +51204,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640607488</BitOffs>
+            <BitOffs>640608064</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.SerialTXBuffer_DREAM_CAT2_PTM_01</Name>
@@ -51215,7 +51215,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640610000</BitOffs>
+            <BitOffs>640610576</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.SerialRXBuffer_DREAM_ROUGH2_PTM_01</Name>
@@ -51226,7 +51226,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640612512</BitOffs>
+            <BitOffs>640613088</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.SerialTXBuffer_DREAM_ROUGH2_PTM_01</Name>
@@ -51237,7 +51237,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640615024</BitOffs>
+            <BitOffs>640615600</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.SerialRXBuffer_DREAM_ROUGH2_PTM_02</Name>
@@ -51248,7 +51248,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640617536</BitOffs>
+            <BitOffs>640618112</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.SerialTXBuffer_DREAM_ROUGH2_PTM_02</Name>
@@ -51259,7 +51259,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640620048</BitOffs>
+            <BitOffs>640620624</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.fbSerialLineControl_DREAM_NC_PTM_01</Name>
@@ -51271,7 +51271,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640622592</BitOffs>
+            <BitOffs>640623168</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.fbSerialLineControl_DREAM_NC_PTM_02</Name>
@@ -51282,7 +51282,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640633344</BitOffs>
+            <BitOffs>640633920</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.fbSerialLineControl_DREAM_DP1_PTM_01</Name>
@@ -51293,7 +51293,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640644096</BitOffs>
+            <BitOffs>640644672</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.fbSerialLineControl_DREAM_DP2_PTM_01</Name>
@@ -51304,7 +51304,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640654848</BitOffs>
+            <BitOffs>640655424</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.fbSerialLineControl_DREAM_DP3_PTM_01</Name>
@@ -51315,7 +51315,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640665600</BitOffs>
+            <BitOffs>640666176</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.fbSerialLineControl_DREAM_MC_PTM_01</Name>
@@ -51326,7 +51326,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640676352</BitOffs>
+            <BitOffs>640676928</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.fbSerialLineControl_DREAM_MC_PTM_02</Name>
@@ -51337,7 +51337,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640687104</BitOffs>
+            <BitOffs>640687680</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.fbSerialLineControl_DREAM_CAT1_PTM_01</Name>
@@ -51348,7 +51348,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640697856</BitOffs>
+            <BitOffs>640698432</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.fbSerialLineControl_DREAM_CAT2_PTM_01</Name>
@@ -51359,7 +51359,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640708608</BitOffs>
+            <BitOffs>640709184</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.fbSerialLineControl_DREAM_ROUGH2_PTM_01</Name>
@@ -51370,7 +51370,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640719360</BitOffs>
+            <BitOffs>640719936</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Serial_Com.fbSerialLineControl_DREAM_ROUGH2_PTM_02</Name>
@@ -51381,21 +51381,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640730112</BitOffs>
-          </Symbol>
-          <Symbol>
-            <Name>TwinCAT_SystemInfoVarList._AppInfo</Name>
-            <BitSize>2048</BitSize>
-            <BaseType GUID="{941FDF6E-37CE-4C30-AA23-3236AFA461E2}">PlcAppSystemInfo</BaseType>
-            <Properties>
-              <Property>
-                <Name>no_init</Name>
-              </Property>
-              <Property>
-                <Name>TcVarGlobal</Name>
-              </Property>
-            </Properties>
-            <BitOffs>647022848</BitOffs>
+            <BitOffs>640730688</BitOffs>
           </Symbol>
           <Symbol>
             <Name>TwinCAT_SystemInfoVarList._TaskPouOid_Serial_COM</Name>
@@ -51409,7 +51395,21 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647026944</BitOffs>
+            <BitOffs>647024480</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>TwinCAT_SystemInfoVarList._AppInfo</Name>
+            <BitSize>2048</BitSize>
+            <BaseType GUID="{941FDF6E-37CE-4C30-AA23-3236AFA461E2}">PlcAppSystemInfo</BaseType>
+            <Properties>
+              <Property>
+                <Name>no_init</Name>
+              </Property>
+              <Property>
+                <Name>TcVarGlobal</Name>
+              </Property>
+            </Properties>
+            <BitOffs>647024512</BitOffs>
           </Symbol>
           <Symbol>
             <Name>TwinCAT_SystemInfoVarList._TaskOid_Serial_COM</Name>
@@ -51423,7 +51423,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647026976</BitOffs>
+            <BitOffs>647028608</BitOffs>
           </Symbol>
           <Symbol>
             <Name>TwinCAT_SystemInfoVarList.__Serial_COM</Name>
@@ -51444,7 +51444,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647027072</BitOffs>
+            <BitOffs>647028736</BitOffs>
           </Symbol>
         </DataArea>
         <DataArea>
@@ -51584,6 +51584,19 @@ interlocking logic outside this function block.
             <BitOffs>640566528</BitOffs>
           </Symbol>
           <Symbol>
+            <Name>GVL_FWM.fbCoilCurrentMonitoring.iRaw</Name>
+            <Comment> Connect this input to the terminal</Comment>
+            <BitSize>32</BitSize>
+            <BaseType>DINT</BaseType>
+            <Properties>
+              <Property>
+                <Name>TcAddressType</Name>
+                <Value>Input</Value>
+              </Property>
+            </Properties>
+            <BitOffs>640567104</BitOffs>
+          </Symbol>
+          <Symbol>
             <Name>GVL_PLC_Interface.sHUTCH_PLC_NAME</Name>
             <Comment>Inputs from TMO Beamline</Comment>
             <BitSize>72</BitSize>
@@ -51601,7 +51614,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640567040</BitOffs>
+            <BitOffs>640567616</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_PLC_Interface.bTMO_TM2K4_VWC_OPEN_LS</Name>
@@ -51620,7 +51633,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640567112</BitOffs>
+            <BitOffs>640567688</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_01.bError</Name>
@@ -51644,7 +51657,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640745288</BitOffs>
+            <BitOffs>640745864</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_01.bUnderrange</Name>
@@ -51656,7 +51669,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640745296</BitOffs>
+            <BitOffs>640745872</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_01.bOverrange</Name>
@@ -51668,7 +51681,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640745304</BitOffs>
+            <BitOffs>640745880</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_01.iRaw</Name>
@@ -51680,7 +51693,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640745312</BitOffs>
+            <BitOffs>640745888</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_02.bError</Name>
@@ -51704,7 +51717,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640745544</BitOffs>
+            <BitOffs>640746120</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_02.bUnderrange</Name>
@@ -51716,7 +51729,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640745552</BitOffs>
+            <BitOffs>640746128</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_02.bOverrange</Name>
@@ -51728,7 +51741,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640745560</BitOffs>
+            <BitOffs>640746136</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_02.iRaw</Name>
@@ -51740,7 +51753,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640745568</BitOffs>
+            <BitOffs>640746144</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_03.bError</Name>
@@ -51764,7 +51777,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640745800</BitOffs>
+            <BitOffs>640746376</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_03.bUnderrange</Name>
@@ -51776,7 +51789,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640745808</BitOffs>
+            <BitOffs>640746384</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_03.bOverrange</Name>
@@ -51788,7 +51801,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640745816</BitOffs>
+            <BitOffs>640746392</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_03.iRaw</Name>
@@ -51800,7 +51813,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640745824</BitOffs>
+            <BitOffs>640746400</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_04.bError</Name>
@@ -51824,7 +51837,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640746056</BitOffs>
+            <BitOffs>640746632</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_04.bUnderrange</Name>
@@ -51836,7 +51849,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640746064</BitOffs>
+            <BitOffs>640746640</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_04.bOverrange</Name>
@@ -51848,7 +51861,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640746072</BitOffs>
+            <BitOffs>640746648</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_04.iRaw</Name>
@@ -51860,7 +51873,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640746080</BitOffs>
+            <BitOffs>640746656</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_05.bError</Name>
@@ -51884,7 +51897,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640746312</BitOffs>
+            <BitOffs>640746888</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_05.bUnderrange</Name>
@@ -51896,7 +51909,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640746320</BitOffs>
+            <BitOffs>640746896</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_05.bOverrange</Name>
@@ -51908,7 +51921,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640746328</BitOffs>
+            <BitOffs>640746904</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_05.iRaw</Name>
@@ -51920,7 +51933,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640746336</BitOffs>
+            <BitOffs>640746912</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_06.bError</Name>
@@ -51944,7 +51957,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640746568</BitOffs>
+            <BitOffs>640747144</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_06.bUnderrange</Name>
@@ -51956,7 +51969,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640746576</BitOffs>
+            <BitOffs>640747152</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_06.bOverrange</Name>
@@ -51968,7 +51981,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640746584</BitOffs>
+            <BitOffs>640747160</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_06.iRaw</Name>
@@ -51980,7 +51993,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640746592</BitOffs>
+            <BitOffs>640747168</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_07.bError</Name>
@@ -52004,7 +52017,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640746824</BitOffs>
+            <BitOffs>640747400</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_07.bUnderrange</Name>
@@ -52016,7 +52029,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640746832</BitOffs>
+            <BitOffs>640747408</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_07.bOverrange</Name>
@@ -52028,7 +52041,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640746840</BitOffs>
+            <BitOffs>640747416</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_07.iRaw</Name>
@@ -52040,7 +52053,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640746848</BitOffs>
+            <BitOffs>640747424</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_08.bError</Name>
@@ -52064,7 +52077,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640747080</BitOffs>
+            <BitOffs>640747656</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_08.bUnderrange</Name>
@@ -52076,7 +52089,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640747088</BitOffs>
+            <BitOffs>640747664</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_08.bOverrange</Name>
@@ -52088,7 +52101,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640747096</BitOffs>
+            <BitOffs>640747672</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_08.iRaw</Name>
@@ -52100,7 +52113,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640747104</BitOffs>
+            <BitOffs>640747680</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_NC_GPI_01.i_iPRESS_R</Name>
@@ -52113,7 +52126,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640838400</BitOffs>
+            <BitOffs>640838976</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_NC_GCC_01.i_iPRESS_R</Name>
@@ -52126,7 +52139,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640931472</BitOffs>
+            <BitOffs>640932048</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_NC_GCC_01.i_xHV_ON</Name>
@@ -52139,7 +52152,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>640931496</BitOffs>
+            <BitOffs>640932072</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_DP1_GHC_01.i_iPRESS_R</Name>
@@ -52152,7 +52165,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>641024592</BitOffs>
+            <BitOffs>641025168</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_DP1_GHC_01.i_xHV_ON</Name>
@@ -52165,7 +52178,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>641024616</BitOffs>
+            <BitOffs>641025192</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_DP1_GPI_01.i_iPRESS_R</Name>
@@ -52178,7 +52191,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>641116160</BitOffs>
+            <BitOffs>641116736</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_DP2_GHC_01.i_iPRESS_R</Name>
@@ -52191,7 +52204,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>641209232</BitOffs>
+            <BitOffs>641209808</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_DP2_GHC_01.i_xHV_ON</Name>
@@ -52204,7 +52217,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>641209256</BitOffs>
+            <BitOffs>641209832</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_DP3_GHC_01.i_iPRESS_R</Name>
@@ -52217,7 +52230,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>641302352</BitOffs>
+            <BitOffs>641302928</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_DP3_GHC_01.i_xHV_ON</Name>
@@ -52230,7 +52243,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>641302376</BitOffs>
+            <BitOffs>641302952</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_iPRESS_R_CH1</Name>
@@ -52243,7 +52256,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>641397120</BitOffs>
+            <BitOffs>641397696</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_iPRESS_R_CH2</Name>
@@ -52256,7 +52269,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>641397136</BitOffs>
+            <BitOffs>641397712</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xHV_ON</Name>
@@ -52269,7 +52282,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>641397168</BitOffs>
+            <BitOffs>641397744</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xERR_CH1</Name>
@@ -52282,7 +52295,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>641397176</BitOffs>
+            <BitOffs>641397752</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xERR_CH2</Name>
@@ -52295,7 +52308,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>641397184</BitOffs>
+            <BitOffs>641397760</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.i_xCH2_SEL</Name>
@@ -52308,7 +52321,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>641397192</BitOffs>
+            <BitOffs>641397768</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_MC_GPI_01.i_iPRESS_R</Name>
@@ -52321,7 +52334,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>641489984</BitOffs>
+            <BitOffs>641491584</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_CAT1_GHC_01.i_iPRESS_R</Name>
@@ -52334,7 +52347,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>641583056</BitOffs>
+            <BitOffs>641584656</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_CAT1_GHC_01.i_xHV_ON</Name>
@@ -52347,7 +52360,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>641583080</BitOffs>
+            <BitOffs>641584680</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_CAT2_GHC_01.i_iPRESS_R</Name>
@@ -52360,7 +52373,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>641676176</BitOffs>
+            <BitOffs>641677776</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_CAT2_GHC_01.i_xHV_ON</Name>
@@ -52373,7 +52386,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>641676200</BitOffs>
+            <BitOffs>641677800</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_ROUGH1_GPI_01.i_iPRESS_R</Name>
@@ -52386,7 +52399,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>641768432</BitOffs>
+            <BitOffs>641770032</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_ROUGH1_GPI_02.i_iPRESS_R</Name>
@@ -52399,7 +52412,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>641860464</BitOffs>
+            <BitOffs>641862064</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_ROUGH2_GPI_01.i_iPRESS_R</Name>
@@ -52412,7 +52425,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>641952496</BitOffs>
+            <BitOffs>641954096</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_ROUGH2_GPI_02.i_iPRESS_R</Name>
@@ -52425,7 +52438,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642044528</BitOffs>
+            <BitOffs>642046128</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_ROUGH2_GPI_03.i_iPRESS_R</Name>
@@ -52438,7 +52451,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642136560</BitOffs>
+            <BitOffs>642138160</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_NC_PTM_01.i_xAtSpd</Name>
@@ -52451,7 +52464,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642224640</BitOffs>
+            <BitOffs>642226240</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_NC_PTM_01.i_xFaultNC</Name>
@@ -52464,7 +52477,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642224648</BitOffs>
+            <BitOffs>642226248</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_NC_PTM_01.i_xWarn</Name>
@@ -52476,7 +52489,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642224656</BitOffs>
+            <BitOffs>642226256</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_NC_PTM_01.i_xRemote</Name>
@@ -52488,7 +52501,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642224664</BitOffs>
+            <BitOffs>642226264</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_NC_PTM_02.i_xAtSpd</Name>
@@ -52501,7 +52514,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642312704</BitOffs>
+            <BitOffs>642314304</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_NC_PTM_02.i_xFaultNC</Name>
@@ -52514,7 +52527,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642312712</BitOffs>
+            <BitOffs>642314312</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_NC_PTM_02.i_xWarn</Name>
@@ -52526,7 +52539,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642312720</BitOffs>
+            <BitOffs>642314320</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_NC_PTM_02.i_xRemote</Name>
@@ -52538,7 +52551,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642312728</BitOffs>
+            <BitOffs>642314328</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_DP1_PTM_01.i_xAtSpd</Name>
@@ -52551,7 +52564,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642400768</BitOffs>
+            <BitOffs>642402368</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_DP1_PTM_01.i_xFaultNC</Name>
@@ -52564,7 +52577,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642400776</BitOffs>
+            <BitOffs>642402376</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_DP1_PTM_01.i_xWarn</Name>
@@ -52576,7 +52589,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642400784</BitOffs>
+            <BitOffs>642402384</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_DP1_PTM_01.i_xRemote</Name>
@@ -52588,7 +52601,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642400792</BitOffs>
+            <BitOffs>642402392</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_DP2_PTM_01.i_xAtSpd</Name>
@@ -52601,7 +52614,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642488640</BitOffs>
+            <BitOffs>642490240</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_DP2_PTM_01.i_xFaultNC</Name>
@@ -52614,7 +52627,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642488648</BitOffs>
+            <BitOffs>642490248</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_DP3_PTM_01.i_xAtSpd</Name>
@@ -52627,7 +52640,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642576512</BitOffs>
+            <BitOffs>642578112</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_DP3_PTM_01.i_xFaultNC</Name>
@@ -52640,7 +52653,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642576520</BitOffs>
+            <BitOffs>642578120</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_MC_PTM_01.i_xAtSpd</Name>
@@ -52653,7 +52666,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642664384</BitOffs>
+            <BitOffs>642665984</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_MC_PTM_01.i_xFaultNC</Name>
@@ -52666,7 +52679,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642664392</BitOffs>
+            <BitOffs>642665992</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_MC_PTM_02.i_xAtSpd</Name>
@@ -52679,7 +52692,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642752256</BitOffs>
+            <BitOffs>642753856</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_MC_PTM_02.i_xFaultNC</Name>
@@ -52692,7 +52705,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642752264</BitOffs>
+            <BitOffs>642753864</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_01.i_xAtSpd</Name>
@@ -52705,7 +52718,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642840128</BitOffs>
+            <BitOffs>642841728</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_01.i_xFaultNC</Name>
@@ -52718,7 +52731,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642840136</BitOffs>
+            <BitOffs>642841736</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.i_xAtSpd</Name>
@@ -52731,7 +52744,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642928000</BitOffs>
+            <BitOffs>642929600</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.i_xFaultNC</Name>
@@ -52744,7 +52757,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>642928008</BitOffs>
+            <BitOffs>642929608</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_CAT1_PTM_01.i_xAtSpd</Name>
@@ -52757,7 +52770,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>643015872</BitOffs>
+            <BitOffs>643017472</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_CAT1_PTM_01.i_xFaultNC</Name>
@@ -52770,7 +52783,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>643015880</BitOffs>
+            <BitOffs>643017480</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_CAT2_PTM_01.i_xAtSpd</Name>
@@ -52783,7 +52796,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>643103744</BitOffs>
+            <BitOffs>643105344</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_CAT2_PTM_01.i_xFaultNC</Name>
@@ -52796,7 +52809,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>643103752</BitOffs>
+            <BitOffs>643105352</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xOpnLS</Name>
@@ -52809,7 +52822,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>646101504</BitOffs>
+            <BitOffs>646103104</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.i_xClsLS</Name>
@@ -52821,7 +52834,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>646101512</BitOffs>
+            <BitOffs>646103112</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.i_xOpnLS</Name>
@@ -52834,7 +52847,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>646191168</BitOffs>
+            <BitOffs>646192768</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.i_xClsLS</Name>
@@ -52846,7 +52859,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>646191176</BitOffs>
+            <BitOffs>646192776</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xOpnLS</Name>
@@ -52859,7 +52872,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>646375488</BitOffs>
+            <BitOffs>646377088</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.i_xClsLS</Name>
@@ -52871,7 +52884,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>646375496</BitOffs>
+            <BitOffs>646377096</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.i_xOpnLS</Name>
@@ -52884,7 +52897,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>646559872</BitOffs>
+            <BitOffs>646561472</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.i_xClsLS</Name>
@@ -52896,7 +52909,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>646559880</BitOffs>
+            <BitOffs>646561480</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.i_xOpnLS</Name>
@@ -52909,7 +52922,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>646744256</BitOffs>
+            <BitOffs>646745856</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.i_xClsLS</Name>
@@ -52921,7 +52934,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>646744264</BitOffs>
+            <BitOffs>646745864</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xOpnLS</Name>
@@ -52934,7 +52947,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>646928640</BitOffs>
+            <BitOffs>646930240</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xClsLS</Name>
@@ -52946,7 +52959,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>646928648</BitOffs>
+            <BitOffs>646930248</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_10.i_xOpnLS</Name>
@@ -52959,7 +52972,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>647018304</BitOffs>
+            <BitOffs>647019904</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_10.i_xClsLS</Name>
@@ -52971,7 +52984,7 @@ interlocking logic outside this function block.
                 <Value>Input</Value>
               </Property>
             </Properties>
-            <BitOffs>647018312</BitOffs>
+            <BitOffs>647019912</BitOffs>
           </Symbol>
         </DataArea>
         <DataArea>
@@ -53020,7 +53033,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640567120</BitOffs>
+            <BitOffs>640567696</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_PLC_Interface.bDREAM_HV_SAFETY_ENABLE</Name>
@@ -53039,7 +53052,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640567192</BitOffs>
+            <BitOffs>640567768</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_PLC_Interface.bDREAM_TURBOS_ALL_AtSpd</Name>
@@ -53065,7 +53078,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640567200</BitOffs>
+            <BitOffs>640567776</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_PLC_Interface.bDREAM_MAIN_xAT_VAC</Name>
@@ -53084,7 +53097,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640567208</BitOffs>
+            <BitOffs>640567784</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK</Name>
@@ -53103,7 +53116,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640567216</BitOffs>
+            <BitOffs>640567792</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_PLC_Interface.bCLOSE_TMO_MR5K4_VWC</Name>
@@ -53122,7 +53135,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640567224</BitOffs>
+            <BitOffs>640567800</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_PLC_Interface.fDREAM_MAIN_rPRESS</Name>
@@ -53141,7 +53154,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640567232</BitOffs>
+            <BitOffs>640567808</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_PLC_Interface.bCLOSE_TMO_TM2K4_VWC</Name>
@@ -53160,7 +53173,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640567264</BitOffs>
+            <BitOffs>640567840</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_PLC_Interface.bHVSafteyLoopEnable</Name>
@@ -53190,7 +53203,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640567272</BitOffs>
+            <BitOffs>640567848</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_PLC_Interface.bCoilPS_ILK</Name>
@@ -53220,7 +53233,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640567280</BitOffs>
+            <BitOffs>640567856</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_NC_GCC_01.q_xHV_DIS</Name>
@@ -53233,7 +53246,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>640931488</BitOffs>
+            <BitOffs>640932064</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_DP1_GHC_01.q_xHV_DIS</Name>
@@ -53246,7 +53259,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>641024608</BitOffs>
+            <BitOffs>641025184</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_DP2_GHC_01.q_xHV_DIS</Name>
@@ -53259,7 +53272,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>641209248</BitOffs>
+            <BitOffs>641209824</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_DP3_GHC_01.q_xHV_DIS</Name>
@@ -53272,7 +53285,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>641302368</BitOffs>
+            <BitOffs>641302944</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.q_xHV_DIS_CH1</Name>
@@ -53285,7 +53298,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>641397152</BitOffs>
+            <BitOffs>641397728</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_MC_GHC.q_xHV_DIS_CH2</Name>
@@ -53298,7 +53311,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>641397160</BitOffs>
+            <BitOffs>641397736</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_CAT1_GHC_01.q_xHV_DIS</Name>
@@ -53311,7 +53324,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>641583072</BitOffs>
+            <BitOffs>641584672</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_CAT2_GHC_01.q_xHV_DIS</Name>
@@ -53324,7 +53337,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>641676192</BitOffs>
+            <BitOffs>641677792</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_NC_PTM_01.q_RunDO</Name>
@@ -53337,7 +53350,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>642224672</BitOffs>
+            <BitOffs>642226272</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_NC_PTM_01.q_PumpingStation</Name>
@@ -53350,7 +53363,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>642224680</BitOffs>
+            <BitOffs>642226280</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_NC_PTM_01.q_xRemote</Name>
@@ -53362,7 +53375,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>642224688</BitOffs>
+            <BitOffs>642226288</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_NC_PTM_01.q_xReset</Name>
@@ -53374,7 +53387,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>642224696</BitOffs>
+            <BitOffs>642226296</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_NC_PTM_02.q_RunDO</Name>
@@ -53387,7 +53400,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>642312736</BitOffs>
+            <BitOffs>642314336</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_NC_PTM_02.q_PumpingStation</Name>
@@ -53400,7 +53413,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>642312744</BitOffs>
+            <BitOffs>642314344</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_NC_PTM_02.q_xRemote</Name>
@@ -53412,7 +53425,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>642312752</BitOffs>
+            <BitOffs>642314352</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_NC_PTM_02.q_xReset</Name>
@@ -53424,7 +53437,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>642312760</BitOffs>
+            <BitOffs>642314360</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_DP1_PTM_01.q_RunDO</Name>
@@ -53437,7 +53450,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>642400800</BitOffs>
+            <BitOffs>642402400</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_DP1_PTM_01.q_PumpingStation</Name>
@@ -53450,7 +53463,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>642400808</BitOffs>
+            <BitOffs>642402408</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_DP1_PTM_01.q_xRemote</Name>
@@ -53462,7 +53475,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>642400816</BitOffs>
+            <BitOffs>642402416</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_DP1_PTM_01.q_xReset</Name>
@@ -53474,7 +53487,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>642400824</BitOffs>
+            <BitOffs>642402424</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_DP2_PTM_01.q_RunDO</Name>
@@ -53487,7 +53500,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>642488656</BitOffs>
+            <BitOffs>642490256</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_DP3_PTM_01.q_RunDO</Name>
@@ -53500,7 +53513,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>642576528</BitOffs>
+            <BitOffs>642578128</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_MC_PTM_01.q_RunDO</Name>
@@ -53513,7 +53526,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>642664400</BitOffs>
+            <BitOffs>642666000</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_MC_PTM_02.q_RunDO</Name>
@@ -53526,7 +53539,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>642752272</BitOffs>
+            <BitOffs>642753872</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_01.q_RunDO</Name>
@@ -53539,7 +53552,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>642840144</BitOffs>
+            <BitOffs>642841744</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.q_RunDO</Name>
@@ -53552,7 +53565,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>642928016</BitOffs>
+            <BitOffs>642929616</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_CAT1_PTM_01.q_RunDO</Name>
@@ -53565,7 +53578,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>643015888</BitOffs>
+            <BitOffs>643017488</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_CAT2_PTM_01.q_RunDO</Name>
@@ -53578,7 +53591,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>643103760</BitOffs>
+            <BitOffs>643105360</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01.q_xOPN_DO</Name>
@@ -53590,7 +53603,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>646101520</BitOffs>
+            <BitOffs>646103120</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02.q_xCLS_DO</Name>
@@ -53602,7 +53615,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>646191184</BitOffs>
+            <BitOffs>646192784</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01.q_xOPN_DO</Name>
@@ -53614,7 +53627,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>646375504</BitOffs>
+            <BitOffs>646377104</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.q_xOPN_DO</Name>
@@ -53626,7 +53639,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>646559888</BitOffs>
+            <BitOffs>646561488</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.q_xOPN_DO</Name>
@@ -53638,7 +53651,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>646744272</BitOffs>
+            <BitOffs>646745872</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.q_xOPN_DO</Name>
@@ -53650,7 +53663,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>646928656</BitOffs>
+            <BitOffs>646930256</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_10.q_xOPN_DO</Name>
@@ -53662,7 +53675,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>647018320</BitOffs>
+            <BitOffs>647019920</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH1_VFV_01.q_iRawPosition</Name>
@@ -53675,7 +53688,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>647018976</BitOffs>
+            <BitOffs>647020576</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH1_VFV_02.q_iRawPosition</Name>
@@ -53688,7 +53701,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>647019616</BitOffs>
+            <BitOffs>647021216</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_01.q_iRawPosition</Name>
@@ -53701,7 +53714,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>647020256</BitOffs>
+            <BitOffs>647021856</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_02.q_iRawPosition</Name>
@@ -53714,7 +53727,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>647020896</BitOffs>
+            <BitOffs>647022496</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_03.q_iRawPosition</Name>
@@ -53727,7 +53740,7 @@ interlocking logic outside this function block.
                 <Value>Output</Value>
               </Property>
             </Properties>
-            <BitOffs>647021536</BitOffs>
+            <BitOffs>647023136</BitOffs>
           </Symbol>
         </DataArea>
         <DataArea>
@@ -62934,6 +62947,56 @@ interlocking logic outside this function block.
             <BitOffs>640566976</BitOffs>
           </Symbol>
           <Symbol>
+            <Name>GVL_FWM.fbCoilCurrentMonitoring</Name>
+            <Comment>Coil PS Current Monitoring</Comment>
+            <BitSize>512</BitSize>
+            <BaseType Namespace="LCLS_General">FB_AnalogInput</BaseType>
+            <Default>
+              <SubItem>
+                <Name>.iTermBits</Name>
+                <Value>15</Value>
+              </SubItem>
+              <SubItem>
+                <Name>.fTermMax</Name>
+                <Value>310</Value>
+              </SubItem>
+              <SubItem>
+                <Name>.fTermMin</Name>
+                <Value>0</Value>
+              </SubItem>
+            </Default>
+            <Properties>
+              <Property>
+                <Name>TcLinkTo</Name>
+                <Value>.iRaw	:=	TIIB[K4S8_DRL_04_E16_EL3174-0002]^AI Standard Channel 4^Value</Value>
+              </Property>
+              <Property>
+                <Name>TcVarGlobal</Name>
+              </Property>
+            </Properties>
+            <BitOffs>640567040</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>GVL_FWM.fCoilCurrentRBV</Name>
+            <BitSize>64</BitSize>
+            <BaseType>LREAL</BaseType>
+            <Properties>
+              <Property>
+                <Name>pytmc</Name>
+                <Value>
+        pv: DREAM:COIL:CURRENT:VAL
+        io: i
+        field: EGU "A"
+        field: PREC "2"
+    </Value>
+              </Property>
+              <Property>
+                <Name>TcVarGlobal</Name>
+              </Property>
+            </Properties>
+            <BitOffs>640567552</BitOffs>
+          </Symbol>
+          <Symbol>
             <Name>GVL_Variables.bSystemOverrideMode</Name>
             <Comment> Global system override for the DREAM Vacuum System</Comment>
             <BitSize>8</BitSize>
@@ -62953,7 +63016,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640567288</BitOffs>
+            <BitOffs>640567864</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.stTD400_CTRL_DREAM_CAT1_PTM_01</Name>
@@ -62964,7 +63027,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640622560</BitOffs>
+            <BitOffs>640623136</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.stTD400_CTRL_DREAM_CAT2_PTM_01</Name>
@@ -62975,7 +63038,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640622576</BitOffs>
+            <BitOffs>640623152</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_01</Name>
@@ -62998,7 +63061,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640745088</BitOffs>
+            <BitOffs>640745664</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_02</Name>
@@ -63021,7 +63084,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640745344</BitOffs>
+            <BitOffs>640745920</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_03</Name>
@@ -63044,7 +63107,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640745600</BitOffs>
+            <BitOffs>640746176</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_04</Name>
@@ -63067,7 +63130,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640745856</BitOffs>
+            <BitOffs>640746432</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_05</Name>
@@ -63090,7 +63153,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640746112</BitOffs>
+            <BitOffs>640746688</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_06</Name>
@@ -63113,7 +63176,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640746368</BitOffs>
+            <BitOffs>640746944</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_07</Name>
@@ -63136,7 +63199,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640746624</BitOffs>
+            <BitOffs>640747200</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_TC.TC_08</Name>
@@ -63159,7 +63222,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640746880</BitOffs>
+            <BitOffs>640747456</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_NC_GPI_01</Name>
@@ -63179,7 +63242,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640747136</BitOffs>
+            <BitOffs>640747712</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_NC_GCC_01</Name>
@@ -63202,7 +63265,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640838656</BitOffs>
+            <BitOffs>640839232</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_DP1_GHC_01</Name>
@@ -63225,7 +63288,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>640931776</BitOffs>
+            <BitOffs>640932352</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_DP1_GPI_01</Name>
@@ -63245,7 +63308,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>641024896</BitOffs>
+            <BitOffs>641025472</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_DP2_GHC_01</Name>
@@ -63268,7 +63331,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>641116416</BitOffs>
+            <BitOffs>641116992</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_DP3_GHC_01</Name>
@@ -63291,7 +63354,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>641209536</BitOffs>
+            <BitOffs>641210112</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_MC_GHC</Name>
@@ -63319,11 +63382,11 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>641302656</BitOffs>
+            <BitOffs>641303232</BitOffs>
           </Symbol>
           <Symbol>
-            <Name>GVL_VAC_GAUGES.stDREAM_MC_GHC</Name>
-            <Comment>main chamber hot cathode gauge structure - updated based on which channel selected</Comment>
+            <Name>GVL_VAC_GAUGES.stDREAM_MC_GAUGE</Name>
+            <Comment>main chamber global gauge structure - updated based on which channel selected or use pirani if both hot cathode gauges are off</Comment>
             <BitSize>1056</BitSize>
             <BaseType Namespace="LCLS_Vacuum">ST_VG</BaseType>
             <Properties>
@@ -63331,29 +63394,19 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>641397632</BitOffs>
+            <BitOffs>641398208</BitOffs>
           </Symbol>
           <Symbol>
-            <Name>GVL_VAC_PUMPS.stTD400_CTRL_DREAM_ROUGH2_PTM_01</Name>
-            <BitSize>16</BitSize>
-            <BaseType Namespace="LCLS_Vacuum_Serial">ST_TD400Control</BaseType>
+            <Name>GVL_VAC_GAUGES.stDREAM_CAT1_GAUGE</Name>
+            <Comment>CAT1 global gauge structure - re-assigning this structure to CAT1:GHC:01 or MC:GPI:01 if CAT1:GHC:01 is off</Comment>
+            <BitSize>1056</BitSize>
+            <BaseType Namespace="LCLS_Vacuum">ST_VG</BaseType>
             <Properties>
               <Property>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>641398688</BitOffs>
-          </Symbol>
-          <Symbol>
-            <Name>GVL_VAC_PUMPS.stTD400_CTRL_DREAM_ROUGH2_PTM_02</Name>
-            <BitSize>16</BitSize>
-            <BaseType Namespace="LCLS_Vacuum_Serial">ST_TD400Control</BaseType>
-            <Properties>
-              <Property>
-                <Name>TcVarGlobal</Name>
-              </Property>
-            </Properties>
-            <BitOffs>641398704</BitOffs>
+            <BitOffs>641399264</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_MC_GPI_01</Name>
@@ -63373,7 +63426,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>641398720</BitOffs>
+            <BitOffs>641400320</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_CAT1_GHC_01</Name>
@@ -63396,7 +63449,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>641490240</BitOffs>
+            <BitOffs>641491840</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_CAT2_GHC_01</Name>
@@ -63419,7 +63472,7 @@ interlocking logic outside this function block.
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>641583360</BitOffs>
+            <BitOffs>641584960</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_ROUGH1_GPI_01</Name>
@@ -63440,7 +63493,7 @@ Micro piranis 925</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>641676480</BitOffs>
+            <BitOffs>641678080</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_ROUGH1_GPI_02</Name>
@@ -63459,7 +63512,7 @@ Micro piranis 925</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>641768512</BitOffs>
+            <BitOffs>641770112</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_ROUGH2_GPI_01</Name>
@@ -63478,7 +63531,7 @@ Micro piranis 925</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>641860544</BitOffs>
+            <BitOffs>641862144</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_ROUGH2_GPI_02</Name>
@@ -63497,7 +63550,7 @@ Micro piranis 925</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>641952576</BitOffs>
+            <BitOffs>641954176</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_ROUGH2_GPI_03</Name>
@@ -63516,7 +63569,7 @@ Micro piranis 925</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>642044608</BitOffs>
+            <BitOffs>642046208</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_NC_PTM_01</Name>
@@ -63542,7 +63595,7 @@ Micro piranis 925</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>642136640</BitOffs>
+            <BitOffs>642138240</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_NC_PTM_02</Name>
@@ -63567,7 +63620,7 @@ Micro piranis 925</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>642224704</BitOffs>
+            <BitOffs>642226304</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_DP1_PTM_01</Name>
@@ -63593,7 +63646,7 @@ Micro piranis 925</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>642312768</BitOffs>
+            <BitOffs>642314368</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_DP2_PTM_01</Name>
@@ -63616,7 +63669,7 @@ Micro piranis 925</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>642400832</BitOffs>
+            <BitOffs>642402432</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_DP3_PTM_01</Name>
@@ -63639,7 +63692,7 @@ Micro piranis 925</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>642488704</BitOffs>
+            <BitOffs>642490304</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_MC_PTM_01</Name>
@@ -63662,7 +63715,7 @@ Micro piranis 925</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>642576576</BitOffs>
+            <BitOffs>642578176</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_MC_PTM_02</Name>
@@ -63684,7 +63737,7 @@ Micro piranis 925</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>642664448</BitOffs>
+            <BitOffs>642666048</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_01</Name>
@@ -63707,7 +63760,7 @@ Micro piranis 925</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>642752320</BitOffs>
+            <BitOffs>642753920</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02</Name>
@@ -63729,7 +63782,7 @@ Micro piranis 925</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>642840192</BitOffs>
+            <BitOffs>642841792</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_CAT1_PTM_01</Name>
@@ -63752,7 +63805,7 @@ Micro piranis 925</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>642928064</BitOffs>
+            <BitOffs>642929664</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_CAT2_PTM_01</Name>
@@ -63775,7 +63828,7 @@ Micro piranis 925</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>643015936</BitOffs>
+            <BitOffs>643017536</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.stPfeiffer_CTRL_DREAM_NC_PTM_01</Name>
@@ -63792,7 +63845,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>643103808</BitOffs>
+            <BitOffs>643105408</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.stPfeiffer_RBK_DREAM_NC_PTM_01</Name>
@@ -63807,7 +63860,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>643107008</BitOffs>
+            <BitOffs>643108608</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.fbPfeifferCom_DREAM_NC_PTM_01</Name>
@@ -63818,7 +63871,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>643130048</BitOffs>
+            <BitOffs>643131648</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.stPfeiffer_CTRL_DREAM_NC_PTM_02</Name>
@@ -63833,7 +63886,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>643986752</BitOffs>
+            <BitOffs>643988352</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.stPfeiffer_RBK_DREAM_NC_PTM_02</Name>
@@ -63848,7 +63901,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>643989952</BitOffs>
+            <BitOffs>643991552</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.fbPfeifferCom_DREAM_NC_PTM_02</Name>
@@ -63859,7 +63912,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>644012992</BitOffs>
+            <BitOffs>644014592</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.stPfeiffer_CTRL_DREAM_DP1_PTM_01</Name>
@@ -63874,7 +63927,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>644869696</BitOffs>
+            <BitOffs>644871296</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.stPfeiffer_RBK_DREAM_DP1_PTM_01</Name>
@@ -63889,7 +63942,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>644872896</BitOffs>
+            <BitOffs>644874496</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.fbPfeifferCom_DREAM_DP1_PTM_01</Name>
@@ -63900,7 +63953,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>644895936</BitOffs>
+            <BitOffs>644897536</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.stTD20_RBK_DREAM_DP2_PTM_01</Name>
@@ -63912,7 +63965,73 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>645752640</BitOffs>
+            <BitOffs>645754240</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>GVL_VAC_PUMPS.stTD400_CTRL_DREAM_ROUGH2_PTM_01</Name>
+            <BitSize>16</BitSize>
+            <BaseType Namespace="LCLS_Vacuum_Serial">ST_TD400Control</BaseType>
+            <Properties>
+              <Property>
+                <Name>TcVarGlobal</Name>
+              </Property>
+            </Properties>
+            <BitOffs>645754416</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>GVL_VAC_PUMPS.fbTD20Com_DREAM_DP2_PTM_01</Name>
+            <BitSize>20160</BitSize>
+            <BaseType Namespace="LCLS_Vacuum_Serial">FB_OERLIKON_TD20_COM</BaseType>
+            <Properties>
+              <Property>
+                <Name>TcVarGlobal</Name>
+              </Property>
+            </Properties>
+            <BitOffs>645754432</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>GVL_VAC_PUMPS.stTD20_RBK_DREAM_DP3_PTM_01</Name>
+            <BitSize>176</BitSize>
+            <BaseType Namespace="LCLS_Vacuum_Serial">ST_TD20Status</BaseType>
+            <Properties>
+              <Property>
+                <Name>TcVarGlobal</Name>
+              </Property>
+            </Properties>
+            <BitOffs>645774592</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>GVL_VAC_PUMPS.stTD400_CTRL_DREAM_ROUGH2_PTM_02</Name>
+            <BitSize>16</BitSize>
+            <BaseType Namespace="LCLS_Vacuum_Serial">ST_TD400Control</BaseType>
+            <Properties>
+              <Property>
+                <Name>TcVarGlobal</Name>
+              </Property>
+            </Properties>
+            <BitOffs>645774768</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>GVL_VAC_PUMPS.fbTD20Com_DREAM_DP3_PTM_01</Name>
+            <BitSize>20160</BitSize>
+            <BaseType Namespace="LCLS_Vacuum_Serial">FB_OERLIKON_TD20_COM</BaseType>
+            <Properties>
+              <Property>
+                <Name>TcVarGlobal</Name>
+              </Property>
+            </Properties>
+            <BitOffs>645774784</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>GVL_VAC_PUMPS.stTD20_RBK_DREAM_MC_PTM_01</Name>
+            <BitSize>176</BitSize>
+            <BaseType Namespace="LCLS_Vacuum_Serial">ST_TD20Status</BaseType>
+            <Properties>
+              <Property>
+                <Name>TcVarGlobal</Name>
+              </Property>
+            </Properties>
+            <BitOffs>645794944</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Variables.bOnBeamline</Name>
@@ -63933,10 +64052,10 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>645752816</BitOffs>
+            <BitOffs>645795120</BitOffs>
           </Symbol>
           <Symbol>
-            <Name>GVL_VAC_PUMPS.fbTD20Com_DREAM_DP2_PTM_01</Name>
+            <Name>GVL_VAC_PUMPS.fbTD20Com_DREAM_MC_PTM_01</Name>
             <BitSize>20160</BitSize>
             <BaseType Namespace="LCLS_Vacuum_Serial">FB_OERLIKON_TD20_COM</BaseType>
             <Properties>
@@ -63944,10 +64063,10 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>645752832</BitOffs>
+            <BitOffs>645795136</BitOffs>
           </Symbol>
           <Symbol>
-            <Name>GVL_VAC_PUMPS.stTD20_RBK_DREAM_DP3_PTM_01</Name>
+            <Name>GVL_VAC_PUMPS.stTD20_RBK_DREAM_MC_PTM_02</Name>
             <BitSize>176</BitSize>
             <BaseType Namespace="LCLS_Vacuum_Serial">ST_TD20Status</BaseType>
             <Properties>
@@ -63955,7 +64074,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>645772992</BitOffs>
+            <BitOffs>645815296</BitOffs>
           </Symbol>
           <Symbol>
             <Name>Constants.bLittleEndian</Name>
@@ -63970,7 +64089,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>645773168</BitOffs>
+            <BitOffs>645815472</BitOffs>
           </Symbol>
           <Symbol>
             <Name>Constants.bSimulationMode</Name>
@@ -63985,81 +64104,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>645773176</BitOffs>
-          </Symbol>
-          <Symbol>
-            <Name>GVL_VAC_PUMPS.fbTD20Com_DREAM_DP3_PTM_01</Name>
-            <BitSize>20160</BitSize>
-            <BaseType Namespace="LCLS_Vacuum_Serial">FB_OERLIKON_TD20_COM</BaseType>
-            <Properties>
-              <Property>
-                <Name>TcVarGlobal</Name>
-              </Property>
-            </Properties>
-            <BitOffs>645773184</BitOffs>
-          </Symbol>
-          <Symbol>
-            <Name>GVL_VAC_PUMPS.stTD20_RBK_DREAM_MC_PTM_01</Name>
-            <BitSize>176</BitSize>
-            <BaseType Namespace="LCLS_Vacuum_Serial">ST_TD20Status</BaseType>
-            <Properties>
-              <Property>
-                <Name>TcVarGlobal</Name>
-              </Property>
-            </Properties>
-            <BitOffs>645793344</BitOffs>
-          </Symbol>
-          <Symbol>
-            <Name>Constants.nRegisterSize</Name>
-            <Comment> Does the target support multiple cores?</Comment>
-            <BitSize>16</BitSize>
-            <BaseType>WORD</BaseType>
-            <Default>
-              <Value>64</Value>
-            </Default>
-            <Properties>
-              <Property>
-                <Name>TcVarGlobal</Name>
-              </Property>
-            </Properties>
-            <BitOffs>645793520</BitOffs>
-          </Symbol>
-          <Symbol>
-            <Name>GVL_VAC_PUMPS.fbTD20Com_DREAM_MC_PTM_01</Name>
-            <BitSize>20160</BitSize>
-            <BaseType Namespace="LCLS_Vacuum_Serial">FB_OERLIKON_TD20_COM</BaseType>
-            <Properties>
-              <Property>
-                <Name>TcVarGlobal</Name>
-              </Property>
-            </Properties>
-            <BitOffs>645793536</BitOffs>
-          </Symbol>
-          <Symbol>
-            <Name>GVL_VAC_PUMPS.stTD20_RBK_DREAM_MC_PTM_02</Name>
-            <BitSize>176</BitSize>
-            <BaseType Namespace="LCLS_Vacuum_Serial">ST_TD20Status</BaseType>
-            <Properties>
-              <Property>
-                <Name>TcVarGlobal</Name>
-              </Property>
-            </Properties>
-            <BitOffs>645813696</BitOffs>
-          </Symbol>
-          <Symbol>
-            <Name>Constants.nPackMode</Name>
-            <Comment> Does the target support multiple cores?</Comment>
-            <BitSize>16</BitSize>
-            <BaseType>UINT</BaseType>
-            <Default>
-              <Value>8</Value>
-            </Default>
-            <Properties>
-              <Property>
-                <Name>TcVarGlobal</Name>
-              </Property>
-            </Properties>
-            <BitOffs>645813872</BitOffs>
+            <BitOffs>645815480</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.fbTD20Com_DREAM_MC_PTM_02</Name>
@@ -64070,7 +64115,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>645813888</BitOffs>
+            <BitOffs>645815488</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.stTD400_RBK_DREAM_CAT1_PTM_01</Name>
@@ -64082,7 +64127,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>645834048</BitOffs>
+            <BitOffs>645835648</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.fbTD400Com_DREAM_CAT1_PTM_01</Name>
@@ -64093,7 +64138,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>645834240</BitOffs>
+            <BitOffs>645835840</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.fbTD400SerialIO_DREAM_CAT1_PTM_01</Name>
@@ -64104,7 +64149,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>645854592</BitOffs>
+            <BitOffs>645856192</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.stTD400_RBK_DREAM_CAT2_PTM_01</Name>
@@ -64115,7 +64160,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>645854848</BitOffs>
+            <BitOffs>645856448</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.fbTD400Com_DREAM_CAT2_PTM_01</Name>
@@ -64126,7 +64171,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>645855040</BitOffs>
+            <BitOffs>645856640</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.fbTD400SerialIO_DREAM_CAT2_PTM_01</Name>
@@ -64137,7 +64182,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>645875392</BitOffs>
+            <BitOffs>645876992</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.stTD400_RBK_DREAM_ROUGH2_PTM_01</Name>
@@ -64148,7 +64193,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>645875648</BitOffs>
+            <BitOffs>645877248</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.fbTD400Com_DREAM_ROUGH2_PTM_01</Name>
@@ -64159,7 +64204,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>645875840</BitOffs>
+            <BitOffs>645877440</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.fbTD400SerialIO_DREAM_ROUGH2_PTM_01</Name>
@@ -64170,7 +64215,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>645896192</BitOffs>
+            <BitOffs>645897792</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.stTD400_RBK_DREAM_ROUGH2_PTM_02</Name>
@@ -64181,7 +64226,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>645896448</BitOffs>
+            <BitOffs>645898048</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.fbTD400Com_DREAM_ROUGH2_PTM_02</Name>
@@ -64192,7 +64237,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>645896640</BitOffs>
+            <BitOffs>645898240</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.fbTD400SerialIO_DREAM_ROUGH2_PTM_02</Name>
@@ -64203,7 +64248,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>645916992</BitOffs>
+            <BitOffs>645918592</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_DP1_VRC_01</Name>
@@ -64226,7 +64271,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>645917248</BitOffs>
+            <BitOffs>645918848</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_DP1_VRC_02</Name>
@@ -64248,7 +64293,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>646101632</BitOffs>
+            <BitOffs>646103232</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_CAT1_VRC_01</Name>
@@ -64271,7 +64316,7 @@ Pfeiffer TC400 serial</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>646191232</BitOffs>
+            <BitOffs>646192832</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01</Name>
@@ -64295,7 +64340,7 @@ Pneumatic valves</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>646375616</BitOffs>
+            <BitOffs>646377216</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01</Name>
@@ -64317,7 +64362,7 @@ Pneumatic valves</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>646560000</BitOffs>
+            <BitOffs>646561600</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02</Name>
@@ -64339,7 +64384,7 @@ Pneumatic valves</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>646744384</BitOffs>
+            <BitOffs>646745984</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_10</Name>
@@ -64362,7 +64407,7 @@ Pneumatic valves</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>646928768</BitOffs>
+            <BitOffs>646930368</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH1_VFV_01</Name>
@@ -64383,7 +64428,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647018368</BitOffs>
+            <BitOffs>647019968</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH1_VFV_02</Name>
@@ -64402,7 +64447,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647019008</BitOffs>
+            <BitOffs>647020608</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_01</Name>
@@ -64421,7 +64466,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647019648</BitOffs>
+            <BitOffs>647021248</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_02</Name>
@@ -64440,7 +64485,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647020288</BitOffs>
+            <BitOffs>647021888</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_03</Name>
@@ -64459,15 +64504,15 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647020928</BitOffs>
+            <BitOffs>647022528</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_Variables.fHighVoltageMinPressure</Name>
-            <Comment>Hard coded High voltage Minimum Enable Pressure</Comment>
+            <Comment>this was changed to be able to have HV on while MC pirani serves as interlock device</Comment>
             <BitSize>32</BitSize>
             <BaseType>REAL</BaseType>
             <Default>
-              <Value>1E-05</Value>
+              <Value>0.0005</Value>
             </Default>
             <Properties>
               <Property>
@@ -64481,7 +64526,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647021568</BitOffs>
+            <BitOffs>647023168</BitOffs>
           </Symbol>
           <Symbol>
             <Name>Constants.RuntimeVersion</Name>
@@ -64511,7 +64556,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647021600</BitOffs>
+            <BitOffs>647023200</BitOffs>
           </Symbol>
           <Symbol>
             <Name>Constants.CompilerVersion</Name>
@@ -64541,7 +64586,37 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647021664</BitOffs>
+            <BitOffs>647023264</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>Constants.nRegisterSize</Name>
+            <Comment> Does the target support multiple cores?</Comment>
+            <BitSize>16</BitSize>
+            <BaseType>WORD</BaseType>
+            <Default>
+              <Value>64</Value>
+            </Default>
+            <Properties>
+              <Property>
+                <Name>TcVarGlobal</Name>
+              </Property>
+            </Properties>
+            <BitOffs>647023328</BitOffs>
+          </Symbol>
+          <Symbol>
+            <Name>Constants.nPackMode</Name>
+            <Comment> Does the target support multiple cores?</Comment>
+            <BitSize>16</BitSize>
+            <BaseType>UINT</BaseType>
+            <Default>
+              <Value>8</Value>
+            </Default>
+            <Properties>
+              <Property>
+                <Name>TcVarGlobal</Name>
+              </Property>
+            </Properties>
+            <BitOffs>647023344</BitOffs>
           </Symbol>
           <Symbol>
             <Name>Constants.bFPUSupport</Name>
@@ -64556,7 +64631,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647021728</BitOffs>
+            <BitOffs>647023360</BitOffs>
           </Symbol>
           <Symbol>
             <Name>Constants.bMulticoreSupport</Name>
@@ -64570,7 +64645,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647021736</BitOffs>
+            <BitOffs>647023368</BitOffs>
           </Symbol>
           <Symbol>
             <Name>Constants.RuntimeVersionNumeric</Name>
@@ -64585,7 +64660,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647021760</BitOffs>
+            <BitOffs>647023392</BitOffs>
           </Symbol>
           <Symbol>
             <Name>Constants.CompilerVersionNumeric</Name>
@@ -64600,7 +64675,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647021792</BitOffs>
+            <BitOffs>647023424</BitOffs>
           </Symbol>
           <Symbol>
             <Name>TwinCAT_LicenseInfoVarList._LicenseInfo</Name>
@@ -64669,7 +64744,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647021824</BitOffs>
+            <BitOffs>647023456</BitOffs>
           </Symbol>
           <Symbol>
             <Name>TwinCAT_SystemInfoVarList._TaskInfo</Name>
@@ -64687,7 +64762,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647024896</BitOffs>
+            <BitOffs>647026560</BitOffs>
           </Symbol>
           <Symbol>
             <Name>TwinCAT_SystemInfoVarList._TaskPouOid_PlcTask</Name>
@@ -64701,7 +64776,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647027008</BitOffs>
+            <BitOffs>647028640</BitOffs>
           </Symbol>
           <Symbol>
             <Name>TwinCAT_SystemInfoVarList._TaskOid_PlcTask</Name>
@@ -64715,7 +64790,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647027040</BitOffs>
+            <BitOffs>647028672</BitOffs>
           </Symbol>
           <Symbol>
             <Name>TwinCAT_SystemInfoVarList.__PlcTask</Name>
@@ -64736,7 +64811,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647027968</BitOffs>
+            <BitOffs>647029632</BitOffs>
           </Symbol>
           <Symbol>
             <Name>TC_EVENT_CLASSES.TcSystemEventClass</Name>
@@ -64808,7 +64883,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647045888</BitOffs>
+            <BitOffs>647047552</BitOffs>
           </Symbol>
           <Symbol>
             <Name>TC_EVENT_CLASSES.TcGeneralAdsEventClass</Name>
@@ -64880,7 +64955,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647046016</BitOffs>
+            <BitOffs>647047680</BitOffs>
           </Symbol>
           <Symbol>
             <Name>TC_EVENT_CLASSES.TcRouterEventClass</Name>
@@ -64952,7 +65027,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647046144</BitOffs>
+            <BitOffs>647047808</BitOffs>
           </Symbol>
           <Symbol>
             <Name>TC_EVENT_CLASSES.TcRTimeEventClass</Name>
@@ -65024,7 +65099,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647046272</BitOffs>
+            <BitOffs>647047936</BitOffs>
           </Symbol>
           <Symbol>
             <Name>TC_EVENT_CLASSES.Win32EventClass</Name>
@@ -65096,7 +65171,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647046400</BitOffs>
+            <BitOffs>647048064</BitOffs>
           </Symbol>
           <Symbol>
             <Name>TC_EVENT_CLASSES.LCLSGeneralEventClass</Name>
@@ -65168,7 +65243,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647046528</BitOffs>
+            <BitOffs>647048192</BitOffs>
           </Symbol>
           <Symbol>
             <Name>TC_EVENTS.LCLSGeneralEventClass</Name>
@@ -65194,7 +65269,7 @@ FLow Control valves MKS248</Comment>
                 <Name>TcVarGlobal</Name>
               </Property>
             </Properties>
-            <BitOffs>647079680</BitOffs>
+            <BitOffs>647081344</BitOffs>
           </Symbol>
         </DataArea>
         <DataArea>
@@ -65281,11 +65356,11 @@ FLow Control valves MKS248</Comment>
         </Property>
         <Property>
           <Name>ChangeDate</Name>
-          <Value>2025-06-03T08:01:42</Value>
+          <Value>2025-07-22T12:35:30</Value>
         </Property>
         <Property>
           <Name>GeneratedCodeSize</Name>
-          <Value>757760</Value>
+          <Value>761856</Value>
         </Property>
         <Property>
           <Name>GlobalDataSize</Name>
