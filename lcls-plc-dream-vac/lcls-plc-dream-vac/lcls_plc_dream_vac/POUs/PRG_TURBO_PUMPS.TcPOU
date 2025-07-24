@@ -71,6 +71,17 @@ bAllTurboPumpRunning := DREAM_NC_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNIN
 tAllTurboPumpTOF(IN := bAllTurboPumpRunning, PT := tAllTurboPumpDelayTime);
 bDREAM_TURBOS_ALL_AtSpd := tAllTurboPumpTOF.Q;
 
+bMCPumpsRunning := DREAM_DP1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                   DREAM_DP2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                   DREAM_DP3_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                   DREAM_MC_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                   DREAM_MC_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                   DREAM_ROUGH2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                   DREAM_ROUGH2_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING;
+
+bCATPumpsRunning := DREAM_CAT1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+                    DREAM_CAT2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING;
+
 (*********SERIAL COMMUNICATION**********)
 
 (*Pfeiffer pumps at Gas Injection*)

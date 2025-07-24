@@ -53,7 +53,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{3E5E5B45-A4F8-812A-8387-7C6DCB685E15}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{79BA0234-CE34-136E-4128-A90E86B9F120}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -174,14 +174,6 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_PLC_Interface.bTMO_TM2K4_VWC_CLOSED_LS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_PLC_Interface.bTMO_MR5K4_VWC_OPEN_LS</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
 					<Name>GVL_FWM.fbCoilFlowMeter.iRaw</Name>
 					<Comment><![CDATA[ Connect this input to the terminal]]></Comment>
 					<Type>DINT</Type>
@@ -195,6 +187,14 @@
 					<Name>GVL_PLC_Interface.sHUTCH_PLC_NAME</Name>
 					<Comment><![CDATA[Inputs from TMO Beamline]]></Comment>
 					<Type>STRING(8)</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bTMO_TM2K4_VWC_CLOSED_LS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bTMO_MR5K4_VWC_OPEN_LS</Name>
+					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_PLC_Interface.bTMO_TM2K4_VWC_OPEN_LS</Name>
@@ -558,17 +558,17 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_01.i_xFaultNC</Name>
-					<Comment><![CDATA[ Error Active when no Error is present]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
 					<Name>GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.i_xAtSpd</Name>
 					<Comment><![CDATA[ Normaml operation when true]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.i_xFaultNC</Name>
+					<Comment><![CDATA[ Error Active when no Error is present]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_01.i_xFaultNC</Name>
 					<Comment><![CDATA[ Error Active when no Error is present]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
@@ -688,10 +688,6 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL_PLC_Interface.fDREAM_MAIN_rPRESS</Name>
-					<Type>REAL</Type>
-				</Var>
-				<Var>
 					<Name>GVL_PLC_Interface.bCLOSE_TMO_TM2K4_VWC</Name>
 					<Type>BOOL</Type>
 				</Var>
@@ -699,6 +695,10 @@
 					<Name>GVL_PLC_Interface.bHVSafteyLoopEnable</Name>
 					<Comment><![CDATA[When Enables the High voltage Saftey loop is closed and HV can start.]]></Comment>
 					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.fDREAM_MAIN_rPRESS</Name>
+					<Type>REAL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_PLC_Interface.bCoilPS_ILK</Name>
