@@ -7,16 +7,25 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[(*High Voltage Saftey Loop*)
-GVL_PLC_Interface.bHVSafteyLoopEnable := (GVL_VAC_GAUGES.stDREAM_MC_GAUGE.rPRESS <= fHighVoltageMinPressure AND GVL_VAC_GAUGES.stDREAM_MC_GAUGE.xPRESS_OK) AND
-                                         (DREAM_DP1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
-                                          DREAM_DP2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
-                                          DREAM_DP3_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
-                                          DREAM_MC_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
-                                          DREAM_MC_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
-                                          DREAM_CAT1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
-                                          DREAM_CAT2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
-                                          DREAM_ROUGH2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
-                                          DREAM_ROUGH2_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING);]]></ST>
+IF DREAM_MC_GHC.IG_CH1.xPRESS_OK OR DREAM_MC_GHC.IG_CH2.xPRESS_OK THEN
+    fHighVoltageMinPressure := 1e-05;
+ELSIF DREAM_MC_GPI_01.PG.xPRESS_OK AND
+      DREAM_DP1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+      DREAM_DP2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+      DREAM_DP3_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+      DREAM_MC_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+      DREAM_MC_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+      DREAM_CAT1_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+      DREAM_CAT2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+      DREAM_ROUGH2_PTM_01.iq_stPTM.eState = E_PumpState.pumpRUNNING AND
+      DREAM_ROUGH2_PTM_02.iq_stPTM.eState = E_PumpState.pumpRUNNING
+THEN
+    fHighVoltageMinPressure := 5e-04;
+ELSE
+    fHighVoltageMinPressure := 1e-05;
+END_IF
+
+GVL_PLC_Interface.bHVSafteyLoopEnable := GVL_VAC_GAUGES.stDREAM_MC_GAUGE.rPRESS <= fHighVoltageMinPressure AND GVL_VAC_GAUGES.stDREAM_MC_GAUGE.xPRESS_OK;]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
