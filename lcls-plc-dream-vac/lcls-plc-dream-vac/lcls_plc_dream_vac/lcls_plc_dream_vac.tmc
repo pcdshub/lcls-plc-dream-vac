@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{79BA0234-CE34-136E-4128-A90E86B9F120}" GeneratedBy="TwinCAT XAE Plc">
+<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{65F415FF-4E80-EA9E-C834-0ADED7894DC5}" GeneratedBy="TwinCAT XAE Plc">
   <DataTypes>
     <DataType>
       <Name Namespace="Tc2_SerialCom">ComBuffer</Name>
@@ -50080,7 +50080,7 @@ interlocking logic outside this function block.
           <AreaNo AreaType="InputDst" CreateSymbols="true">0</AreaNo>
           <Name>Serial_COM Inputs</Name>
           <ContextId>0</ContextId>
-          <ByteSize>81723392</ByteSize>
+          <ByteSize>81854464</ByteSize>
           <Symbol>
             <Name>GVL_Serial_Com.stComIn_DREAM_NC_PTM_01</Name>
             <Comment>SERIAL IO</Comment>
@@ -50549,7 +50549,7 @@ interlocking logic outside this function block.
           <AreaNo AreaType="OutputSrc" CreateSymbols="true">1</AreaNo>
           <Name>Serial_COM Outputs</Name>
           <ContextId>0</ContextId>
-          <ByteSize>81723392</ByteSize>
+          <ByteSize>81854464</ByteSize>
           <Symbol>
             <Name>GVL_Serial_Com.stComOut_DREAM_NC_PTM_01</Name>
             <BitSize>192</BitSize>
@@ -51017,7 +51017,7 @@ interlocking logic outside this function block.
           <AreaNo AreaType="Internal" CreateSymbols="true">3</AreaNo>
           <Name>Serial_COM Internal</Name>
           <ContextId>0</ContextId>
-          <ByteSize>81723392</ByteSize>
+          <ByteSize>81854464</ByteSize>
           <Symbol>
             <Name>GVL_Serial_Com.SerialRXBuffer_DREAM_NC_PTM_01</Name>
             <Comment>COMM FUNCTION</Comment>
@@ -51451,7 +51451,7 @@ interlocking logic outside this function block.
           <AreaNo AreaType="InputDst" CreateSymbols="true">16</AreaNo>
           <Name>PlcTask Inputs</Name>
           <ContextId>1</ContextId>
-          <ByteSize>81723392</ByteSize>
+          <ByteSize>81854464</ByteSize>
           <Symbol>
             <Name>GVL_PLC_Interface.bEcatBridge_TxPDO_state</Name>
             <Comment>ETHERCAT BRRIDGE COM STATUS
@@ -52721,6 +52721,19 @@ interlocking logic outside this function block.
             <BitOffs>642841856</BitOffs>
           </Symbol>
           <Symbol>
+            <Name>GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_01.i_xFaultNC</Name>
+            <Comment> Error Active when no Error is present</Comment>
+            <BitSize>8</BitSize>
+            <BaseType>BOOL</BaseType>
+            <Properties>
+              <Property>
+                <Name>TcAddressType</Name>
+                <Value>Input</Value>
+              </Property>
+            </Properties>
+            <BitOffs>642841864</BitOffs>
+          </Symbol>
+          <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.i_xAtSpd</Name>
             <Comment> Normaml operation when true</Comment>
             <BitSize>8</BitSize>
@@ -52745,19 +52758,6 @@ interlocking logic outside this function block.
               </Property>
             </Properties>
             <BitOffs>642929736</BitOffs>
-          </Symbol>
-          <Symbol>
-            <Name>GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_01.i_xFaultNC</Name>
-            <Comment> Error Active when no Error is present</Comment>
-            <BitSize>8</BitSize>
-            <BaseType>BOOL</BaseType>
-            <Properties>
-              <Property>
-                <Name>TcAddressType</Name>
-                <Value>Input</Value>
-              </Property>
-            </Properties>
-            <BitOffs>642841864</BitOffs>
           </Symbol>
           <Symbol>
             <Name>GVL_VAC_PUMPS.DREAM_CAT1_PTM_01.i_xAtSpd</Name>
@@ -52991,7 +52991,7 @@ interlocking logic outside this function block.
           <AreaNo AreaType="OutputSrc" CreateSymbols="true">17</AreaNo>
           <Name>PlcTask Outputs</Name>
           <ContextId>1</ContextId>
-          <ByteSize>81723392</ByteSize>
+          <ByteSize>81854464</ByteSize>
           <Symbol>
             <Name>PRG_VALVES.dummy_FFFO.q_xFastFaultOut</Name>
             <BitSize>8</BitSize>
@@ -53747,7 +53747,7 @@ interlocking logic outside this function block.
           <AreaNo AreaType="Internal" CreateSymbols="true">19</AreaNo>
           <Name>PlcTask Internal</Name>
           <ContextId>1</ContextId>
-          <ByteSize>81723392</ByteSize>
+          <ByteSize>81854464</ByteSize>
           <Symbol>
             <Name>DefaultGlobals.stSys</Name>
             <Comment>Included for you</Comment>
@@ -63416,18 +63416,6 @@ interlocking logic outside this function block.
             <BitOffs>641398336</BitOffs>
           </Symbol>
           <Symbol>
-            <Name>GVL_VAC_GAUGES.stDREAM_CAT1_GAUGE</Name>
-            <Comment>CAT1 global gauge structure - re-assigning this structure to CAT1:GHC:01 or MC:GPI:01 if CAT1:GHC:01 is off</Comment>
-            <BitSize>1056</BitSize>
-            <BaseType Namespace="LCLS_Vacuum">ST_VG</BaseType>
-            <Properties>
-              <Property>
-                <Name>TcVarGlobal</Name>
-              </Property>
-            </Properties>
-            <BitOffs>641399392</BitOffs>
-          </Symbol>
-          <Symbol>
             <Name>GVL_VAC_GAUGES.DREAM_MC_GPI_01</Name>
             <Comment>MC GPI</Comment>
             <BitSize>91520</BitSize>
@@ -64548,28 +64536,6 @@ FLow Control valves MKS248</Comment>
             <BitOffs>647023320</BitOffs>
           </Symbol>
           <Symbol>
-            <Name>GVL_Variables.fHighVoltageMinPressure</Name>
-            <Comment>Hard coded High voltage Minimum Enable Pressure</Comment>
-            <BitSize>32</BitSize>
-            <BaseType>REAL</BaseType>
-            <Default>
-              <Value>1E-05</Value>
-            </Default>
-            <Properties>
-              <Property>
-                <Name>pytmc</Name>
-                <Value>
-        pv: PLC:DREAM:HV_MAX_PRESS
-        io: i
-    </Value>
-              </Property>
-              <Property>
-                <Name>TcVarGlobal</Name>
-              </Property>
-            </Properties>
-            <BitOffs>647023328</BitOffs>
-          </Symbol>
-          <Symbol>
             <Name>Constants.RuntimeVersion</Name>
             <Comment> Does the target support multiple cores?</Comment>
             <BitSize>64</BitSize>
@@ -65312,12 +65278,34 @@ FLow Control valves MKS248</Comment>
             </Properties>
             <BitOffs>647081472</BitOffs>
           </Symbol>
+          <Symbol>
+            <Name>GVL_Variables.fHighVoltageMaxPressure</Name>
+            <Comment>Hard coded High voltage Minimum Enable Pressure</Comment>
+            <BitSize>32</BitSize>
+            <BaseType>REAL</BaseType>
+            <Default>
+              <Value>1E-05</Value>
+            </Default>
+            <Properties>
+              <Property>
+                <Name>pytmc</Name>
+                <Value>
+        pv: PLC:DREAM:HV_MAX_PRESS_SP
+        io: i
+    </Value>
+              </Property>
+              <Property>
+                <Name>TcVarGlobal</Name>
+              </Property>
+            </Properties>
+            <BitOffs>647120032</BitOffs>
+          </Symbol>
         </DataArea>
         <DataArea>
           <AreaNo AreaType="RetainSrc" CreateSymbols="true">20</AreaNo>
           <Name>PlcTask Retains</Name>
           <ContextId>1</ContextId>
-          <ByteSize>81723392</ByteSize>
+          <ByteSize>81854464</ByteSize>
           <Symbol>
             <Name>PMPS_GVL.SuccessfulPreemption</Name>
             <Comment> Any time BPTM applies a new BP request which is confirmed</Comment>
@@ -65397,7 +65385,7 @@ FLow Control valves MKS248</Comment>
         </Property>
         <Property>
           <Name>ChangeDate</Name>
-          <Value>2025-07-24T15:22:23</Value>
+          <Value>2025-07-24T15:49:43</Value>
         </Property>
         <Property>
           <Name>GeneratedCodeSize</Name>

@@ -53,7 +53,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{79BA0234-CE34-136E-4128-A90E86B9F120}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{65F415FF-4E80-EA9E-C834-0ADED7894DC5}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -558,17 +558,17 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
+					<Name>GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_01.i_xFaultNC</Name>
+					<Comment><![CDATA[ Error Active when no Error is present]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
 					<Name>GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.i_xAtSpd</Name>
 					<Comment><![CDATA[ Normaml operation when true]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_02.i_xFaultNC</Name>
-					<Comment><![CDATA[ Error Active when no Error is present]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL_VAC_PUMPS.DREAM_ROUGH2_PTM_01.i_xFaultNC</Name>
 					<Comment><![CDATA[ Error Active when no Error is present]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
