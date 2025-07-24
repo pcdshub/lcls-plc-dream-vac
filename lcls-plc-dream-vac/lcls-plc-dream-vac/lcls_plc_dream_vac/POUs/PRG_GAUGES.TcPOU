@@ -3,8 +3,6 @@
   <POU Name="PRG_GAUGES" Id="{7665eae9-0131-4800-a0b0-e14e5c60e001}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_GAUGES
 VAR
-    bMCGaugeSwitchToPiani : BOOL;
-    rtSwitchToPirani : R_TRIG;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -56,7 +54,7 @@ END_IF
 
 IF NOT GVL_VAC_GAUGES.stDREAM_MC_GAUGE.xPRESS_OK THEN
     GVL_PLC_Interface.bDREAM_MAIN_xAT_VAC := DREAM_MC_GPI_01.PG.xAT_VAC;
-    GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK := DREAM_MC_GPI_01.PG.xPRESS_OK AND bMCPumpsRunning AND bCATPumpsRunning;
+    GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK := DREAM_MC_GPI_01.PG.xPRESS_OK AND bMCPumpsRunning;
     GVL_PLC_Interface.fDREAM_MAIN_rPRESS := DREAM_MC_GPI_01.PG.rPRESS;
 END_IF
 

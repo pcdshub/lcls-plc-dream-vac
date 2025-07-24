@@ -10,7 +10,7 @@ END_VAR
 IF GVL_VAC_GAUGES.stDREAM_MC_GAUGE.xPRESS_OK THEN
     fHighVoltageMaxPressure := 1e-05;
     GVL_PLC_Interface.bHVSafteyLoopEnable := GVL_VAC_GAUGES.stDREAM_MC_GAUGE.rPRESS <= fHighVoltageMaxPressure;
-ELSIF DREAM_MC_GPI_01.PG.xPRESS_OK AND bMCPumpsRunning AND bCATPumpsRunning THEN
+ELSIF DREAM_MC_GPI_01.PG.xPRESS_OK AND bMCPumpsRunning THEN
     fHighVoltageMaxPressure := 5e-04;
     GVL_PLC_Interface.bHVSafteyLoopEnable := DREAM_MC_GPI_01.PG.rPRESS <= fHighVoltageMaxPressure;
 ELSE
