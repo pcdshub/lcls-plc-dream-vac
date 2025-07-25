@@ -15,11 +15,12 @@ VAR_GLOBAL
     '}
     bOnBeamline	: BOOL := FALSE;
 
+    //HV Interlock Pressure setpoint default is 1e-5 Torr, when switched to MC pirani gauge this value will change to 5e-04 Torr.
     {attribute 'pytmc' := '
-        pv: PLC:DREAM:HV_MIN_PRESS
+        pv: PLC:DREAM:HV_MAX_PRESS_SP
         io: i
     '}
-    fHighVoltageMinPressure : REAL := 1e-05; (*Hard coded High voltage Minimum Enable Pressure*)
+    fHighVoltageMaxPressure : REAL := 1e-05; (*Hard coded High voltage Minimum Enable Pressure*)
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

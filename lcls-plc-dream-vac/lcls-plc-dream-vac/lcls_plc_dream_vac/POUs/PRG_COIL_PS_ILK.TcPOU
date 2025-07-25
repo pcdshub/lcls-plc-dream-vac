@@ -13,7 +13,11 @@ fCoilCoolantFlowMeterRBV := fbCoilFlowMeter.fReal;
 bCoilPS_ILK := fbCoilFlowMeter.fReal > 3.0; //If flow meter reading is above XX is ok to turn ON output of the Coil PS. Units are lpm
 
 //fbDreamCoilFlowMeter();
-//bCoilPS_ILK := fbDreamCoilFlowMeter.fbFlowMeter.fReal > 3; //If flow meter reading is above XX is ok to turn ON output of the Coil PS. Units are lpm]]></ST>
+//bCoilPS_ILK := fbDreamCoilFlowMeter.fbFlowMeter.fReal > 3; //If flow meter reading is above XX is ok to turn ON output of the Coil PS. Units are lpm
+
+(*DREAM Coil PS Current Monitoring*)
+fbCoilCurrentMonitoring();
+fCoilCurrentRBV := fbCoilCurrentMonitoring.fReal;]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

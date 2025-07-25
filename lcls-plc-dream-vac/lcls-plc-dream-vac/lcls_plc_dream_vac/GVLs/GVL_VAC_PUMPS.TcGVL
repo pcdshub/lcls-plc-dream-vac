@@ -98,6 +98,10 @@ VAR_GLOBAL
     {attribute 'pytmc' :=' pv: DREAM:CAT2:PTM:01'}
     DREAM_CAT2_PTM_01 : FB_PTM_TurboDrive;
 
+    //Turbo Pumps Running evaluation bit
+    bMCPumpsRunning : BOOL;
+    bCATPumpsRunning : BOOL;
+
 
     (*Serial Interface*)
     (*Pfeiffer TC400 serial*)
