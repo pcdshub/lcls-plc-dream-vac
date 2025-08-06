@@ -53,7 +53,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{15783D3A-EE5B-47E4-64FB-01D790D00861}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{F3A3C323-B67E-7993-5242-885F2FEF6966}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -685,8 +685,7 @@ ETHERCAT BRRIDGE COM STATUS
 					<Name>GVL_PLC_Interface.xDREAM_GNZ_Y_OUT</Name>
 					<Comment><![CDATA[Inputs from DREAM Motion
 {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Inputs^HUTCH_PLC_NAME'}
-sMOT_PLC_NAME AT %I* : STRING(8);
-OUT refers to the valve being out, which means the stage is inserted]]></Comment>
+sMOT_PLC_NAME AT %I* : STRING(8);]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -935,7 +934,7 @@ OUT refers to the valve being out, which means the stage is inserted]]></Comment
 					<Type>INT</Type>
 				</Var>
 				<Var>
-					<Name>GVL_PLC_Interface.bDREAM_VRC_DP1_CLOSED_LS</Name>
+					<Name>GVL_PLC_Interface.bDREAM_VRC_DP1_OPENED_LS</Name>
 					<Comment><![CDATA[Outputs to DREAM Motion]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
