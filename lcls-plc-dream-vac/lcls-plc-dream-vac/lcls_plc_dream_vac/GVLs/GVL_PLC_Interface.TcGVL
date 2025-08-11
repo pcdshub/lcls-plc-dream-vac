@@ -77,6 +77,35 @@ VAR_GLOBAL
     '}
     bCoilPS_ILK AT %Q* : BOOL := FALSE;
 
+    //Ethercat interface with DREAM motion PLC
+
+     (*ETHERCAT BRRIDGE COM STATUS*)
+    //0: Other side is in OP state, >0: Error
+    {attribute 'TcLinkTo' := 'TIIB[R20_DRL_03_E15_EL1122]^SYNC Inputs^TxPDO state'}
+    bMotEcatBridge_TxPDO_state AT %I* :BOOL;
+
+    //0: External device connectd, 1: External device not connected
+    {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^SYNC Inputs^External device not connected'}
+    bMotEcatBridge_External_device_not_connected AT %I* : BOOL;
+
+    //0 = Data valid, 1 = Data invalid
+    {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E15_EL1122]^WcState^WcStateIn'}
+    bMotEcatBridge_WcState AT %I* : BOOL;
+
+    (*Inputs from DREAM Motion*)
+    //{attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Inputs^HUTCH_PLC_NAME'}
+    //sMOT_PLC_NAME AT %I* : STRING(8);
+
+    {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E15_EL1122]^IO Outputs^xDREAM_GNZ_Y_OUT'}
+    xDREAM_GNZ_Y_OUT AT %I* : BOOL;
+
+    {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E15_EL1122]IO Outputs^xDREAM_GNZ_Y_Ext_OUT'}
+    xDREAM_GNZ_Y_Ext_OUT AT %I* : BOOL;
+
+    (*Outputs to DREAM Motion*)
+    {attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E15_EL1122]^IO Inputs^bDREAM_VRC_DP1_OPENED_LS'}
+    bDREAM_VRC_DP1_OPENED_LS AT %Q* : BOOL;
+
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

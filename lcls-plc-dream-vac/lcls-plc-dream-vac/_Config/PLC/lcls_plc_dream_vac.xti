@@ -53,7 +53,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{8B5CA86E-1547-4766-AA3F-34B97851849D}" Name="lcls_plc_dream_vac" PrjFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.plcproj" TmcFilePath="..\..\lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{2A500236-6EB0-645D-6819-80DBCBF9E651}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="lcls_plc_dream_vac\lcls_plc_dream_vac.tmc" TmcHash="{F3A3C323-B67E-7993-5242-885F2FEF6966}">
 			<Name>lcls_plc_dream_vac Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -647,12 +647,49 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_20.i_xOpnLS</Name>
+					<Comment><![CDATA[IO]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_20.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
 					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_10.i_xOpnLS</Name>
 					<Comment><![CDATA[IO]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_10.i_xClsLS</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bMotEcatBridge_TxPDO_state</Name>
+					<Comment><![CDATA[Ethercat interface with DREAM motion PLC
+ETHERCAT BRRIDGE COM STATUS
+0: Other side is in OP state, >0: Error]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bMotEcatBridge_External_device_not_connected</Name>
+					<Comment><![CDATA[0: External device connectd, 1: External device not connected]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bMotEcatBridge_WcState</Name>
+					<Comment><![CDATA[0 = Data valid, 1 = Data invalid]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.xDREAM_GNZ_Y_OUT</Name>
+					<Comment><![CDATA[Inputs from DREAM Motion
+{attribute 'TcLinkTo' :=  'TIIB[R20_DRL_03_E14_EL6695]^IO Inputs^HUTCH_PLC_NAME'}
+sMOT_PLC_NAME AT %I* : STRING(8);]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.xDREAM_GNZ_Y_Ext_OUT</Name>
 					<Type>BOOL</Type>
 				</Var>
 			</Vars>
@@ -864,6 +901,10 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
+					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_20.q_xOPN_DO</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
 					<Name>GVL_VAC_VALVES.DREAM_ROUGH1_VRC_10.q_xOPN_DO</Name>
 					<Type>BOOL</Type>
 				</Var>
@@ -891,6 +932,11 @@
 					<Name>GVL_VAC_VALVES.DREAM_ROUGH2_VFV_03.q_iRawPosition</Name>
 					<Comment><![CDATA[IO]]></Comment>
 					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>GVL_PLC_Interface.bDREAM_VRC_DP1_OPENED_LS</Name>
+					<Comment><![CDATA[Outputs to DREAM Motion]]></Comment>
+					<Type>BOOL</Type>
 				</Var>
 			</Vars>
 			<Vars VarGrpType="8" ContextId="1" AreaNo="20">
@@ -1089,6 +1135,7 @@
 				<Link VarA="PlcTask Inputs^GVL_PLC_Interface.bEcatBridge_External_device_not_connected" VarB="SYNC Inputs^External device not connected" AutoLink="true" Size="1"/>
 				<Link VarA="PlcTask Inputs^GVL_PLC_Interface.bEcatBridge_TxPDO_state" VarB="SYNC Inputs^TxPDO state" AutoLink="true" Size="1"/>
 				<Link VarA="PlcTask Inputs^GVL_PLC_Interface.bEcatBridge_WcState" VarB="WcState^WcStateIn" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_PLC_Interface.bMotEcatBridge_External_device_not_connected" VarB="SYNC Inputs^External device not connected" AutoLink="true" Size="1"/>
 				<Link VarA="PlcTask Inputs^GVL_PLC_Interface.bTMO_MR5K4_VWC_CLOSED_LS" VarB="IO Inputs^TMO_MR5K4_VWC_CLOSED_LS" AutoLink="true"/>
 				<Link VarA="PlcTask Inputs^GVL_PLC_Interface.bTMO_MR5K4_VWC_OPEN_LS" VarB="IO Inputs^TMO_MR5K4_VWC_OPEN_LS" AutoLink="true"/>
 				<Link VarA="PlcTask Inputs^GVL_PLC_Interface.bTMO_TM2K4_VWC_CLOSED_LS" VarB="IO Inputs^TMO_TM2K4_VWC_CLOSED_LS" AutoLink="true"/>
@@ -1349,11 +1396,14 @@
 				<Link VarA="PlcTask Inputs^GVL_VAC_GAUGES.DREAM_NC_GPI_01.i_iPRESS_R" VarB="AI Standard Channel 1^Value" AutoLink="true"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_04_EK0_EK1100^K4S8_DRL_04_E10_EL1004">
+				<Link VarA="PlcTask Inputs^GVL_VAC_VALVES.DREAM_ROUGH1_VRC_20.i_xClsLS" VarB="Channel 4^Input" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL_VAC_VALVES.DREAM_ROUGH1_VRC_20.i_xOpnLS" VarB="Channel 3^Input" AutoLink="true" Size="1"/>
 				<Link VarA="PlcTask Inputs^GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xClsLS" VarB="Channel 2^Input" AutoLink="true" Size="1"/>
 				<Link VarA="PlcTask Inputs^GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.i_xOpnLS" VarB="Channel 1^Input" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^R20_DRL_03_CX0_EK1200^R20_DRL_03_E15_EL1122^K4S8_DRL_04_EK0_EK1100^K4S8_DRL_04_E11_EL2004">
 				<Link VarA="PlcTask Outputs^GVL_VAC_VALVES.DREAM_ROUGH1_VRC_01.q_xOPN_DO" VarB="Channel 1^Output" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_VAC_VALVES.DREAM_ROUGH1_VRC_20.q_xOPN_DO" VarB="Channel 4^Output" AutoLink="true" Size="1"/>
 				<Link VarA="PlcTask Outputs^GVL_VAC_VALVES.DREAM_ROUGH2_VRC_01.q_xOPN_DO" VarB="Channel 2^Output" AutoLink="true" Size="1"/>
 				<Link VarA="PlcTask Outputs^GVL_VAC_VALVES.DREAM_ROUGH2_VRC_02.q_xOPN_DO" VarB="Channel 3^Output" AutoLink="true" Size="1"/>
 			</OwnerB>

@@ -129,6 +129,9 @@ DREAM_ROUGH2_VRC_02(i_stUSG := DREAM_ROUGH2_GPI_01.PG,
                     fbArbiter := dummy_fbArbiter1,
                     i_sDevName := 'DREAM-ROUGH2-VRC-02');
 
+//Test valve
+DREAM_ROUGH1_VRC_20(i_xExtILK_OK := True, i_xOverrideMode := bSystemOverrideMode);
+
 //Manifold roughing valve
 DREAM_ROUGH1_VRC_10(i_xExtILK_OK := DREAM_ROUGH1_VRC_01.iq_stValve.i_xClsLS, i_xOverrideMode := bSystemOverrideMode);
 
