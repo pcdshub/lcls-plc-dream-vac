@@ -3,6 +3,7 @@
   <POU Name="PRG_GAUGES" Id="{7665eae9-0131-4800-a0b0-e14e5c60e001}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_GAUGES
 VAR
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -36,27 +37,36 @@ DREAM_MC_GHC.M_SetBits(30518);
 //Changing back to interlock MC HC gauge with MC pirani gauge, becasue when coil is ON it can turn OFF DP3 gauge which then affect interlocks for the beamline valves and catcher valve
 DREAM_MC_GHC(PG:= DREAM_MC_GPI_01.PG); //This fb reads statuses and control two gauges DREAM:MC:GHC:01 and DREAM:MC:GHC:02
 
-//Update global stDREAM_MC_GHC structure based on CH selected by controller and data to TMO Beamline Vacuum PLC
+//Update stDREAM_MC_GHC_GAUGE structure based on CH selected by controller and data to TMO Beamline Vacuum PLC
 IF DREAM_MC_GHC.M_IsCh1Selected() THEN
-    GVL_VAC_GAUGES.stDREAM_MC_GAUGE := DREAM_MC_GHC.IG_CH1;
+    stDREAM_MC_GHC_GAUGE := DREAM_MC_GHC.IG_CH1;
 
     GVL_PLC_Interface.bDREAM_MAIN_xAT_VAC := DREAM_MC_GHC.IG_CH1.xAT_VAC;
     GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK := DREAM_MC_GHC.IG_CH1.xPRESS_OK;
     GVL_PLC_Interface.fDREAM_MAIN_rPRESS := DREAM_MC_GHC.IG_CH1.rPRESS;
 
 ELSIF DREAM_MC_GHC.M_IsCh2Selected() THEN
-    GVL_VAC_GAUGES.stDREAM_MC_GAUGE := DREAM_MC_GHC.IG_CH2;
+    stDREAM_MC_GHC_GAUGE := DREAM_MC_GHC.IG_CH2;
 
     GVL_PLC_Interface.bDREAM_MAIN_xAT_VAC := DREAM_MC_GHC.IG_CH2.xAT_VAC;
     GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK := DREAM_MC_GHC.IG_CH2.xPRESS_OK;
     GVL_PLC_Interface.fDREAM_MAIN_rPRESS := DREAM_MC_GHC.IG_CH2.rPRESS;
 END_IF
 
-IF NOT GVL_VAC_GAUGES.stDREAM_MC_GAUGE.xPRESS_OK THEN
+//Switch to Pirani gauge, when High vacuum gauge is not available, check pumps running when using Pirani
+IF NOT stDREAM_MC_GHC_GAUGE.xPRESS_OK THEN
+	stDREAM_MC_GAUGE := DREAM_MC_GPI_01.PG;
     GVL_PLC_Interface.bDREAM_MAIN_xAT_VAC := DREAM_MC_GPI_01.PG.xAT_VAC;
     GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK := DREAM_MC_GPI_01.PG.xPRESS_OK AND bMCPumpsRunning;
     GVL_PLC_Interface.fDREAM_MAIN_rPRESS := DREAM_MC_GPI_01.PG.rPRESS;
+ElSE
+	stDREAM_MC_GAUGE := stDREAM_MC_GHC_GAUGE;
+    GVL_PLC_Interface.bDREAM_MAIN_xAT_VAC := stDREAM_MC_GHC_GAUGE.xAT_VAC;
+    GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK := stDREAM_MC_GHC_GAUGE.xPRESS_OK;
+    GVL_PLC_Interface.fDREAM_MAIN_rPRESS := stDREAM_MC_GHC_GAUGE.rPRESS;
 END_IF
+
+
 
 (**Catcher Gauges**)
 //Hot Cathode Guages
@@ -79,5 +89,19 @@ DREAM_ROUGH2_GPI_03.M_SetBits(32767);
 DREAM_ROUGH2_GPI_03();
 ]]></ST>
     </Implementation>
+    <LineIds Name="PRG_GAUGES">
+      <LineId Id="3" Count="44" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="48" Count="1" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="50" Count="2" />
+      <LineId Id="85" Count="0" />
+      <LineId Id="87" Count="3" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="83" Count="0" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="54" Count="19" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>
