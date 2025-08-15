@@ -16,8 +16,20 @@ VAR_GLOBAL
                                  .q_xCLS_DO	:=	TIIB[K4S8_DRL_03_E11_EL2004]^Channel 1^Output
     '}
     {attribute 'pytmc' :=' pv: DREAM:DP1:VRC:02'}
-    DREAM_DP1_VRC_02: FB_VRC_NO;
+	DREAM_DP1_VRC_02: FB_VRC_NO;
+	
+	(*Test dual-acting valve, no interlock implemented, contact Tong*)
+    {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_04_E1_EL1004]^Channel 3^Input;
+                                 .i_xClsLS	:=	TIIB[K4S8_DRL_04_E1_EL1004]^Channel 4^Input;
+                                 .q_xOPN_DO	:=	TIIB[K4S8_DRL_04_E2_EL2004]^Channel 3^Output;
+                                 .q_xCLS_DO	:=	TIIB[K4S8_DRL_04_E2_EL2004]^Channel 4^Output
 
+
+
+    '}
+    {attribute 'pytmc' :=' pv: DREAM:DP1:VRC:02'}	
+	DREAM_DP1_VRC_20: FB_VRC_DA;
+	
     (*CATCHER 1 ISOLATION VALVE*)
     {attribute 'TcLinkTo' := 	'.i_xOpnLS	:=	TIIB[K4S8_DRL_04_E1_EL1004]^Channel 1^Input;
                                  .i_xClsLS	:=	TIIB[K4S8_DRL_04_E1_EL1004]^Channel 2^Input;
@@ -53,7 +65,9 @@ VAR_GLOBAL
                                  .i_xClsLS	:=	TIIB[K4S8_DRL_04_E10_EL1004]^Channel 4^Input;
                                  .q_xOPN_DO	:=	TIIB[K4S8_DRL_04_E11_EL2004]^Channel 4^Output
     '}
-    {attribute 'pytmc' :=' pv: DREAM:ROUGH1:VRC:20'}
+
+	//valve added tempfor testing only 
+   {attribute 'pytmc' :=' pv: DREAM:ROUGH1:VRC:20'}
     DREAM_ROUGH1_VRC_20: FB_VRC;
 
     //Manifold roughing valve

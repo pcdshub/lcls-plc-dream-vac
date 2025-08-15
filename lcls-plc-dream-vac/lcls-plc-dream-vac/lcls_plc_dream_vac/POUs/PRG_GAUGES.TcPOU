@@ -55,11 +55,13 @@ END_IF
 
 //Switch to Pirani gauge, when High vacuum gauge is not available, check pumps running when using Pirani
 IF NOT stDREAM_MC_GHC_GAUGE.xPRESS_OK THEN
+//This interlock pseudo MC gauge is also assigned in the PRG_Valves, it is redanduncy and make sure change the PRG_Valves as well if change here
 	stDREAM_MC_GAUGE := DREAM_MC_GPI_01.PG;
     GVL_PLC_Interface.bDREAM_MAIN_xAT_VAC := DREAM_MC_GPI_01.PG.xAT_VAC;
     GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK := DREAM_MC_GPI_01.PG.xPRESS_OK AND bMCPumpsRunning;
     GVL_PLC_Interface.fDREAM_MAIN_rPRESS := DREAM_MC_GPI_01.PG.rPRESS;
 ElSE
+//This interlock pseudo MC gauge is also assigned in the PRG_Valves, it is redanduncy and make sure change the PRG_Valves as well if change here	
 	stDREAM_MC_GAUGE := stDREAM_MC_GHC_GAUGE;
     GVL_PLC_Interface.bDREAM_MAIN_xAT_VAC := stDREAM_MC_GHC_GAUGE.xAT_VAC;
     GVL_PLC_Interface.bDREAM_MAIN_xPRESS_OK := stDREAM_MC_GHC_GAUGE.xPRESS_OK;
@@ -93,10 +95,13 @@ DREAM_ROUGH2_GPI_03();
       <LineId Id="3" Count="44" />
       <LineId Id="78" Count="0" />
       <LineId Id="48" Count="1" />
+      <LineId Id="95" Count="0" />
       <LineId Id="77" Count="0" />
       <LineId Id="50" Count="2" />
       <LineId Id="85" Count="0" />
-      <LineId Id="87" Count="3" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="96" Count="0" />
+      <LineId Id="88" Count="2" />
       <LineId Id="53" Count="0" />
       <LineId Id="83" Count="0" />
       <LineId Id="82" Count="0" />
