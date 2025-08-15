@@ -6,8 +6,8 @@
 			<Licenses CacheOrCheckLicensesOnStartup="false">
 				<Target BkhfOrder="01606344">
 					<ManualSelect>{3EBB9639-5FF3-42B6-8847-35C70DC013C8}</ManualSelect>
-					<TargetSelect TargetId="2">{66689887-CCBD-452C-AC9A-039D997C6E66}</TargetSelect>
 					<TargetSelect TargetId="2">{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</TargetSelect>
+					<TargetSelect TargetId="2">{66689887-CCBD-452C-AC9A-039D997C6E66}</TargetSelect>
 					<TargetSelect TargetId="2">{3EBB9639-5FF3-42B6-8847-35C70DC013C8}</TargetSelect>
 					<TargetSelect TargetId="2">{103F30C9-DF25-439E-837B-9DF80CB9356C}</TargetSelect>
 					<LicenseDevice DongleHardwareId="2" DongleDevice="#x03020003" DongleLevel="50" DongleSystemId="{1929F348-21C9-9781-02FC-34F9606CB30A}" DongleSerialNumber="0100059328"/>
