@@ -27,7 +27,7 @@ VAR_GLOBAL
 
 
     '}
-    {attribute 'pytmc' :=' pv: DREAM:DP1:VRC:02'}
+    {attribute 'pytmc' :=' pv: DREAM:DP1:VRC:20'}
     DREAM_DP1_VRC_20: FB_VRC_DA;
 
     (*CATCHER 1 ISOLATION VALVE*)
