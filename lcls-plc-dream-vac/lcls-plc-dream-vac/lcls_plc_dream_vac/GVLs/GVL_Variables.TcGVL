@@ -18,9 +18,21 @@ VAR_GLOBAL
     //HV Interlock Pressure setpoint default is 1e-5 Torr, when switched to MC pirani gauge this value will change to 5e-04 Torr.
     {attribute 'pytmc' := '
         pv: PLC:DREAM:HV_MAX_PRESS_SP
-        io: i
+        io: io
     '}
-    fHighVoltageMaxPressure : REAL := 1e-05; (*Hard coded High voltage Minimum Enable Pressure*)
+    fHighVoltageMaxPressure : REAL := 1e-05; (*inital High voltage Minimum Enable Pressure*)
+
+     {attribute 'pytmc' := '
+    pv: HV:GPI:SP;
+    io:io;
+    field: HOPR 1000
+    field: LOPR 0
+    field: PREC 2
+    field: EGU "TORR"
+    autosave_pass1: VAL DESC
+    '}
+    rHV_GPI_SP: REAL := 0.0005; (*inital high voltage setpoint *)
+
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
