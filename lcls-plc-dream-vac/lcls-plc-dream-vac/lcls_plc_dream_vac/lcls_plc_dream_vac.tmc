@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{BACFE44B-A3A9-EADA-EA50-323AD19D4957}" GeneratedBy="TwinCAT XAE Plc">
+<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2009/05/TcModuleClass" Hash="{0B5851A9-61D3-8A9F-839F-564344DEDBD4}" GeneratedBy="TwinCAT XAE Plc">
   <DataTypes>
     <DataType>
       <Name Namespace="Tc2_SerialCom">ComBuffer</Name>
@@ -63087,29 +63087,6 @@ sMOT_PLC_NAME AT %I* : STRING(8);</Comment>
             <BitOffs>640563968</BitOffs>
           </Symbol>
           <Symbol>
-            <Name>PRG_HV_ILK.rHV_GPI_SP</Name>
-            <BitSize>32</BitSize>
-            <BaseType>REAL</BaseType>
-            <Default>
-              <Value>0.0005</Value>
-            </Default>
-            <Properties>
-              <Property>
-                <Name>pytmc</Name>
-                <Value>
-    pv: HV:GPI:SP;
-    io:io;
-    field: HOPR 1000
-    field: LOPR 0
-    field: PREC 2
-    field: EGU "TORR"
-    autosave_pass1: VAL DESC
-    </Value>
-              </Property>
-            </Properties>
-            <BitOffs>640564000</BitOffs>
-          </Symbol>
-          <Symbol>
             <Name>PRG_TURBO_PUMPS.tMainTurboPumpTOF</Name>
             <BitSize>256</BitSize>
             <BaseType Namespace="Tc2_Standard">TOF</BaseType>
@@ -65169,7 +65146,7 @@ FLow Control valves MKS248</Comment>
           </Symbol>
           <Symbol>
             <Name>GVL_Variables.fHighVoltageMaxPressure</Name>
-            <Comment>Hard coded High voltage Minimum Enable Pressure</Comment>
+            <Comment>inital High voltage Minimum Enable Pressure</Comment>
             <BitSize>32</BitSize>
             <BaseType>REAL</BaseType>
             <Default>
@@ -65180,7 +65157,7 @@ FLow Control valves MKS248</Comment>
                 <Name>pytmc</Name>
                 <Value>
         pv: PLC:DREAM:HV_MAX_PRESS_SP
-        io: i
+        io: io
     </Value>
               </Property>
               <Property>
@@ -65902,6 +65879,33 @@ FLow Control valves MKS248</Comment>
             </Properties>
             <BitOffs>647262400</BitOffs>
           </Symbol>
+          <Symbol>
+            <Name>GVL_Variables.rHV_GPI_SP</Name>
+            <Comment>inital high voltage setpoint </Comment>
+            <BitSize>32</BitSize>
+            <BaseType>REAL</BaseType>
+            <Default>
+              <Value>0.0005</Value>
+            </Default>
+            <Properties>
+              <Property>
+                <Name>pytmc</Name>
+                <Value>
+    pv: HV:GPI:SP;
+    io:io;
+    field: HOPR 1000
+    field: LOPR 0
+    field: PREC 2
+    field: EGU "TORR"
+    autosave_pass1: VAL DESC
+    </Value>
+              </Property>
+              <Property>
+                <Name>TcVarGlobal</Name>
+              </Property>
+            </Properties>
+            <BitOffs>647300960</BitOffs>
+          </Symbol>
         </DataArea>
         <DataArea>
           <AreaNo AreaType="RetainSrc" CreateSymbols="true">20</AreaNo>
@@ -65987,11 +65991,11 @@ FLow Control valves MKS248</Comment>
         </Property>
         <Property>
           <Name>ChangeDate</Name>
-          <Value>2025-08-15T15:33:26</Value>
+          <Value>2025-09-02T14:16:29</Value>
         </Property>
         <Property>
           <Name>GeneratedCodeSize</Name>
-          <Value>761856</Value>
+          <Value>712704</Value>
         </Property>
         <Property>
           <Name>GlobalDataSize</Name>

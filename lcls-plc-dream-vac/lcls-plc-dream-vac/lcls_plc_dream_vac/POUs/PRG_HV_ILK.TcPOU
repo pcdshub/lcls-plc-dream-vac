@@ -3,22 +3,13 @@
   <POU Name="PRG_HV_ILK" Id="{d0f59b88-3cfc-41d8-b70c-ef6b66a977a9}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_HV_ILK
 VAR
-  {attribute 'pytmc' := '
-    pv: HV:GPI:SP;
-    io:io;
-    field: HOPR 1000
-    field: LOPR 0
-    field: PREC 2
-    field: EGU "TORR"
-    autosave_pass1: VAL DESC
-    '}
-    rHV_GPI_SP: REAL := 0.0005;
+
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[(*High Voltage Saftey Loop*)
 IF GVL_VAC_GAUGES.stDREAM_MC_GHC_GAUGE.xPRESS_OK THEN
-    fHighVoltageMaxPressure := 1e-05;
+  //  fHighVoltageMaxPressure := 1e-05;
     GVL_PLC_Interface.bHVSafteyLoopEnable := GVL_VAC_GAUGES.stDREAM_MC_GHC_GAUGE.rPRESS <= fHighVoltageMaxPressure;
 ELSIF DREAM_MC_GPI_01.PG.xPRESS_OK AND bMCPumpsRunning THEN
  //   fHighVoltageMaxPressure := 5e-04;
